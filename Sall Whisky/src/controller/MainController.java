@@ -42,7 +42,7 @@ public abstract class MainController {
         return null;
     }
 
-    public static List<Position> getAvailablePositions() {
+    public static List<Position> getAvailablePositions(Shelf shelf) {
 
         return null;
     }
