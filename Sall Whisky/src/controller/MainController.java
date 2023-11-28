@@ -7,6 +7,7 @@ import java.util.List;
 
 public abstract class MainController {
 
+    List<Observer> observers = new ArrayList<>();
     private static Storage storage;
 
     public static void setStorage(Storage storage) {
@@ -42,12 +43,20 @@ public abstract class MainController {
         return null;
     }
 
-    public static List<Position> getAvailablePositions(Shelf shelf) {
-
-        return null;
+    public static List<Position> getAvailablePositions(Shelf shelf, Cask cask) {
+        List<Position> positions = new ArrayList<>(shelf.getAvailablePositions());
+        for (Position position : positions) {
+            double currentCapacity = 0;
+            for (Cask cask1 : position.getCasks()) {
+                currentCapacity += cask1.getSizeInLiters();
+            }
+            if (currentCapacity + cask.getSizeInLiters() > position.getLiterCapacity()) {
+                positions.remove(position);
+            }
+        }
+        return positions;
     }
 
-    List<Observer> observers = new ArrayList<>();
 
     /**
      * Create and return a Cask
