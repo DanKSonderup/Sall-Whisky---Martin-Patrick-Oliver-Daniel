@@ -43,6 +43,13 @@ public abstract class MainController {
         return null;
     }
 
+    /**
+     * Finds positions at a specific shelf which is not full
+     * @param shelf
+     * @param cask
+     * @return positions at which the cask can be added to
+     */
+
     public static List<Position> getAvailablePositions(Shelf shelf, Cask cask) {
         List<Position> positions = new ArrayList<>(shelf.getAvailablePositions());
         for (Position position : positions) {
