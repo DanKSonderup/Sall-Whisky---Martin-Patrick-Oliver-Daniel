@@ -7,6 +7,11 @@ import java.util.List;
 
 public abstract class MainController {
 
+    private static Storage storage;
+
+    public static void setStorage(Storage storage) {
+        MainController.storage = storage;
+    }
 
     /**
      * Finds warehouses that has atleast 1 rack which is not full
