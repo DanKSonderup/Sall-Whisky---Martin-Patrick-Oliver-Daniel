@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shelf implements Observer {
-    private int shelfId = 0;
+    private static int nextShelfId = 0;
+    private int shelfId;
     private boolean isFilled;
     private List<Position> positions = new ArrayList<>();
 
     public Shelf(List<Position> positions) {
         this.positions = positions;
-        shelfId++;
+        this.shelfId = nextShelfId++;
 
         if (positions.isEmpty())
             isFilled = true;

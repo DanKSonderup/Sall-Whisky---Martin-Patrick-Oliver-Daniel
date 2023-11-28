@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rack implements Observer {
-    private int rackId = 0;
+    private static int nextRackId = 0;
+    private int rackId;
     private boolean isFilled;
     private List<Shelf> shelves = new ArrayList<>();
 
     public Rack(List<Shelf> shelves) {
         this.shelves = shelves;
-        rackId++; // increments the rackId for every rack created.
+        this.rackId = nextRackId++; // increments the rackId for every rack created.
                   // DETTE BETYDER SÅ AT VI IKKE STARTER FRA 0 IGEN NÅR VI LAVER RACKS PÅ ET NYT LAGER
                   // TÆNKER OM DET KAN FIKSES VED AT DET ER WAREHOUSE DER OPRETTER RACKS
                   // samme gør sig gældene for shelves og positions
