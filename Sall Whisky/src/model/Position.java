@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Position implements Observer {
     private int positionId = 0;
-    private boolean isFilled = false; // Er vel altid false til at begynde med?
+    private boolean isFilled = false;
     private double literCapacity;
-    private List<Object> casks = new ArrayList<>(); // SKAL ÆNDRES TIL CASK
+    private List<Cask> casks = new ArrayList<>();
 
-    public Position(double literCapacity, List<Object> casks) {
+    public Position(double literCapacity, List<Cask> casks) {
         this.literCapacity = literCapacity;
         this.casks = casks;
         positionId++;
@@ -21,10 +21,10 @@ public class Position implements Observer {
     @Override
     public void update() {
         double amountFilled = 0;
-        for (Object cask : casks) {
-            /*
-            amountfilled += cask.getSizeInLiters()
-             */
+        for (Cask cask : casks) {
+
+            amountFilled += cask.getSizeInLiters();
+
         }
         if (amountFilled == literCapacity)
             isFilled = true;
