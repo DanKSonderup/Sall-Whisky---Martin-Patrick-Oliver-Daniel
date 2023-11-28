@@ -29,4 +29,20 @@ public class Position implements Observer {
         if (amountFilled == literCapacity)
             isFilled = true;
     }
+
+    public int getPositionId() {
+        return positionId;
+    }
+
+    public boolean isFilled() {
+        return isFilled;
+    }
+
+    public double getLiterCapacity() {
+        return literCapacity;
+    }
+
+    public List<Cask> getCasks() {
+        return casks;
+    }
 }
