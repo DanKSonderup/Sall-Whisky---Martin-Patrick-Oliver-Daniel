@@ -15,22 +15,33 @@ public abstract class MainController {
     }
 
     /**
-     * Finds warehouses that has atleast 1 rack which is not full
-     * @return Warehouses where isFilled = false
+     * Finds warehouses that has atleast 1 rack where there is space for the Cask we're trying to add
+     * @param cask we're checking for space for
+     * @return Warehouses where
      */
-    public static List<Warehouse> getAvailableWarehouses() {
-
-        return null;
+    public static List<Warehouse> getAvailableWarehouses(Cask cask) {
+        List<Warehouse> warehouses = new ArrayList<>(storage.getWarehouses());
+        for (Warehouse warehouse: warehouses) {
+            if (getAvailableRacks(warehouse, cask).size() == 0) {
+                warehouses.remove(warehouse);
+            }
+        }
+        return warehouses;
     }
 
     /**
-     * Finds racks in a specific warehouse which are not full
+     * Finds racks in a specific warehouse which have space for the cask we're trying to add
      * @param warehouse from which we want non-full racks
-     * @return Racks that are not full (isFilled = false)
+     * @return Racks that are not full
      */
-    public static List<Rack> getAvailableRacks(Warehouse warehouse) {
-
-        return null;
+    public static List<Rack> getAvailableRacks(Warehouse warehouse, Cask cask) {
+        List<Rack> racks = new ArrayList<>(warehouse.getAvailableRacks());
+        for (Rack rack: racks) {
+            if (getAvailableShelves(rack, cask).size() == 0) {
+                racks.remove(rack);
+            }
+        }
+        return racks;
     }
 
     /**
@@ -38,9 +49,14 @@ public abstract class MainController {
      * @param rack from which we want to find non-full shelves
      * @return Shelves that are not full (isFilled = false)
      */
-    public static List<Shelf> getAvailableShelves(Rack rack) {
-
-        return null;
+    public static List<Shelf> getAvailableShelves(Rack rack, Cask cask) {
+        List<Shelf> shelves = new ArrayList<>(rack.getAvailableShelves());
+        for (Shelf shelf: shelves) {
+            if (getAvailablePositions(shelf, cask).size() == 0) {
+                shelves.remove(shelf);
+            }
+        }
+        return shelves;
     }
 
     public static List<Position> getAvailablePositions(Shelf shelf, Cask cask) {
