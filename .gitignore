@@ -26,3 +26,4 @@ replay_pid*
 *.xml
 *.iml
 *.DS_store
+out/
