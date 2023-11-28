@@ -38,4 +38,17 @@ public class Shelf implements Observer {
         if (getAvailablePositions().isEmpty())
             isFilled = true;
     }
+
+    /** Getters */
+    public int getShelfId() {
+        return shelfId;
+    }
+
+    public boolean isFilled() {
+        return isFilled;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
 }

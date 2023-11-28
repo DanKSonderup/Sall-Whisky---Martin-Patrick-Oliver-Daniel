@@ -40,4 +40,21 @@ public class Warehouse implements Observer {
         if (getAvailableRacks().isEmpty())
             isFilled = true;
     }
+
+    /** Getters */
+    public int getWarehouseId() {
+        return warehouseId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public boolean isFilled() {
+        return isFilled;
+    }
+
+    public List<Rack> getRacks() {
+        return racks;
+    }
 }

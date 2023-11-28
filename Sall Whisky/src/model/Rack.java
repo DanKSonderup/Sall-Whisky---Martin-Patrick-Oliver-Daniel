@@ -41,4 +41,17 @@ public class Rack implements Observer {
         if (getAvailableShelves().isEmpty())
             isFilled = true;
     }
+
+    /** Getters */
+    public int getRackId() {
+        return rackId;
+    }
+
+    public boolean isFilled() {
+        return isFilled;
+    }
+
+    public List<Shelf> getShelves() {
+        return shelves;
+    }
 }
