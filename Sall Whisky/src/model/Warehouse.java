@@ -1,23 +1,18 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Warehouse implements Observer {
-    private static int nextWarehouseId = 0;
+public class Warehouse implements Observer, Serializable {
     private int warehouseId;
     private String address;
-    private boolean isFilled;
+    private boolean isFilled = true;
     private List<Rack> racks = new ArrayList<>();
 
-    public Warehouse(String address, List<Rack> racks) {
+    public Warehouse(int warehouseId, String address) {
         this.address = address;
-        this.racks = racks;
-        this.warehouseId = nextWarehouseId++; // increments the warehouseId for every warehouse created, for unique id-generation
-
-        if (racks.isEmpty())
-            isFilled = true;
-        else isFilled = false;
+        this.warehouseId = warehouseId;
     }
 
     /**
@@ -39,6 +34,7 @@ public class Warehouse implements Observer {
     public void update() {
         if (getAvailableRacks().isEmpty())
             isFilled = true;
+        else isFilled = false;
     }
 
     /** Getters */
@@ -56,5 +52,14 @@ public class Warehouse implements Observer {
 
     public List<Rack> getRacks() {
         return racks;
+    }
+
+
+    /** Add & remove rack */
+    public void addRack(Rack rack) {
+        racks.add(rack);
+    }
+    public void removeRack(Rack rack) {
+        racks.remove(rack);
     }
 }

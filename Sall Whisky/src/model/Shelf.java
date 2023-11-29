@@ -1,21 +1,17 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shelf implements Observer {
-    private static int nextShelfId = 0;
+public class Shelf implements Observer, Serializable {
     private int shelfId;
-    private boolean isFilled;
+    private boolean isFilled = true;
     private List<Position> positions = new ArrayList<>();
 
-    public Shelf(List<Position> positions) {
-        this.positions = positions;
-        this.shelfId = nextShelfId++;
+    public Shelf(int shelfId) {
+        this.shelfId = shelfId;
 
-        if (positions.isEmpty())
-            isFilled = true;
-        else isFilled = false;
     }
 
     /**
@@ -37,6 +33,7 @@ public class Shelf implements Observer {
     public void update() {
         if (getAvailablePositions().isEmpty())
             isFilled = true;
+        else isFilled = false;
     }
 
     /** Getters */
@@ -50,5 +47,13 @@ public class Shelf implements Observer {
 
     public List<Position> getPositions() {
         return positions;
+    }
+
+    /** Add & remove position */
+    public void addPosition(Position position) {
+        positions.add(position);
+    }
+    public void removePosition(Position position) {
+        positions.remove(position);
     }
 }

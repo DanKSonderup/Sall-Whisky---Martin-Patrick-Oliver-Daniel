@@ -3,6 +3,7 @@ package storage;
 import controller.Storage;
 import model.Cask;
 import model.CaskSupplier;
+import model.StorageCounter;
 import model.Warehouse;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class ListStorage implements Storage {
     private final List<Cask> casks = new ArrayList<>();
     private final List<CaskSupplier> caskSuppliers = new ArrayList<>();
     private final List<Warehouse> warehouses = new ArrayList<>();
+    private StorageCounter storageCounter = new StorageCounter();
 
     //----------------------------------------------------------------------
     /** CaskSupplier */
@@ -46,5 +48,11 @@ public class ListStorage implements Storage {
     }
     public void deleteWarehouse(Warehouse warehouse) {
         warehouses.remove(warehouse);
+    }
+    //----------------------------------------------------------------------
+
+    /** StorageCounter */
+    public StorageCounter getStorageCounter() {
+        return storageCounter;
     }
 }
