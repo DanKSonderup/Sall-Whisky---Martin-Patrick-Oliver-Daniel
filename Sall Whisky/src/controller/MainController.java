@@ -22,7 +22,7 @@ public abstract class MainController {
     public static List<Warehouse> getAvailableWarehouses(Cask cask) {
         List<Warehouse> warehouses = new ArrayList<>(storage.getWarehouses());
         for (Warehouse warehouse: warehouses) {
-            if (getAvailableRacks(warehouse, cask).size() == 0) {
+            if (getAvailableRacks(warehouse, cask).isEmpty()) {
                 warehouses.remove(warehouse);
             }
         }
@@ -37,7 +37,7 @@ public abstract class MainController {
     public static List<Rack> getAvailableRacks(Warehouse warehouse, Cask cask) {
         List<Rack> racks = new ArrayList<>(warehouse.getAvailableRacks());
         for (Rack rack: racks) {
-            if (getAvailableShelves(rack, cask).size() == 0) {
+            if (getAvailableShelves(rack, cask).isEmpty()) {
                 racks.remove(rack);
             }
         }
@@ -52,7 +52,7 @@ public abstract class MainController {
     public static List<Shelf> getAvailableShelves(Rack rack, Cask cask) {
         List<Shelf> shelves = new ArrayList<>(rack.getAvailableShelves());
         for (Shelf shelf: shelves) {
-            if (getAvailablePositions(shelf, cask).size() == 0) {
+            if (getAvailablePositions(shelf, cask).isEmpty()) {
                 shelves.remove(shelf);
             }
         }
@@ -60,9 +60,8 @@ public abstract class MainController {
     }
 
     /**
-     * Finds positions at a specific shelf which is not full
-     * @param shelf
-     * @param cask
+     * Finds positions at a specific shelf that aren't full
+     * @param shelf from which we want to find non-full positions
      * @return positions at which the cask can be added to
      */
 
@@ -84,11 +83,14 @@ public abstract class MainController {
     /**
      * Create and return a Cask
      * Pre: countryOfOrigin is not null
-     * Pre: sizeInLiters > 0
+     * Pre: sizeInLiters > 0 / Throw an illegalArgumentException if sizeInLiters <= 0
      * Pre: CaskSupplier og Position is not null
      */
     public static Cask createCask(String countryOfOrigin, double sizeInLiters, String previousContent,
                                   Position position, CaskSupplier supplier) {
+        if (sizeInLiters <= 0) {
+            throw new IllegalArgumentException();
+        }
         Cask cask;
         if (previousContent.isBlank()) {
             cask = new Cask(countryOfOrigin, sizeInLiters, position, supplier);
@@ -98,10 +100,9 @@ public abstract class MainController {
         return cask;
     }
 
-
-    public void notifyObservers() {
+    public void notifyObserver() {
         for (Observer observer : observers) {
-            observer.update();
+            observer.notify();
         }
     }
 }
