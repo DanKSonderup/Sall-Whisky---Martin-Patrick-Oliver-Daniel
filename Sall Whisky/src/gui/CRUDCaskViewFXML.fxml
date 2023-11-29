@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="ap_Pane1" prefHeight="673.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDCaskViewController">
+    <children>
+        <TableView fx:id="tbwTable" layoutX="33.0" layoutY="95.0" prefHeight="477.0" prefWidth="689.0">
+            <columns>
+                <TableColumn prefWidth="75.0" text="ID" />
+                <TableColumn prefWidth="115.0" text="OprindelsesLand" />
+                <TableColumn prefWidth="84.0" text="Størrelse (L)" />
+                <TableColumn prefWidth="113.0" text="Tidligere indhold" />
+                <TableColumn prefWidth="75.0" text="Lager" />
+                <TableColumn prefWidth="75.0" text="Reol" />
+                <TableColumn prefWidth="75.0" text="Hylde" />
+                <TableColumn prefWidth="75.0" text="Plads" />
+            </columns>
+        </TableView>
+        <Button fx:id="btnEdit" layoutX="770.0" layoutY="163.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="112.0" text="Rediger Fad(e)" />
+        <Button fx:id="btnDelete" layoutX="770.0" layoutY="229.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="112.0" text="Slet Fad(e)" />
+        <Button fx:id="btnCreate" layoutX="770.0" layoutY="95.0" mnemonicParsing="false" onAction="#btnCreateOnAction" prefHeight="45.0" prefWidth="112.0" text="Opret Fad(e)" />
+        <Label layoutX="33.0" layoutY="59.0" text="Fade">
+        </Label>
+        <Button fx:id="btnViewDistillate" layoutX="315.0" layoutY="588.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="125.0" text="Se destillat for Fad" />
+    </children>
+</AnchorPane>
