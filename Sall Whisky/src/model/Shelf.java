@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shelf implements Observer, Serializable {
+public class Shelf implements Observer, Serializable, StorageObject {
     private int shelfId;
     private boolean isFilled = true;
     private List<Position> positions = new ArrayList<>();
@@ -55,5 +55,10 @@ public class Shelf implements Observer, Serializable {
     }
     public void removePosition(Position position) {
         positions.remove(position);
+    }
+
+    @Override
+    public String toString() {
+        return "" + shelfId;
     }
 }

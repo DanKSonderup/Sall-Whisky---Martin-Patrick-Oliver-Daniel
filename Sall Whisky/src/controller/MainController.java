@@ -20,6 +20,7 @@ public abstract class MainController {
      * @return Warehouses where
      */
     public static List<Warehouse> getAvailableWarehouses(Cask cask) {
+
         List<Warehouse> warehouses = new ArrayList<>(storage.getWarehouses());
         for (Warehouse warehouse: warehouses) {
             if (getAvailableRacks(warehouse, cask).isEmpty()) {

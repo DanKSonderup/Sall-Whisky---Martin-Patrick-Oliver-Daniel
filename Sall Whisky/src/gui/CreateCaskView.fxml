@@ -3,12 +3,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="831.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateCaskViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateCaskViewController">
    <children>
       <Button fx:id="btnFindWarehousePosition" layoutX="179.0" layoutY="415.0" mnemonicParsing="false" onAction="#btnFindWarehousePosition" text="Find Lagerplads" />
       <TextField fx:id="SizeInLiterstxf" layoutX="141.0" layoutY="33.0" />
@@ -20,15 +18,15 @@
       <ListView fx:id="Supplierlvw" layoutX="62.0" layoutY="198.0" prefHeight="200.0" prefWidth="216.0" />
       <Label fx:id="Supplierlbl" layoutX="127.0" layoutY="171.0" text="Leverandører" />
       <Button fx:id="btnPickSupplier" layoutX="62.0" layoutY="415.0" mnemonicParsing="false" onAction="#btnPickSupplier" text="Vælg leverandør" />
-      <TableView fx:id="Maintable" layoutX="326.0" layoutY="33.0" prefHeight="365.0" prefWidth="432.0">
-        <columns>
-          <TableColumn fx:id="WarehouseColumn" prefWidth="124.0" text="Lager" />
-          <TableColumn fx:id="RackColumn" prefWidth="104.0" text="Reol" />
-            <TableColumn fx:id="ShelfColumn" prefWidth="93.0" text="Hylde" />
-            <TableColumn fx:id="PositionColumn" prefWidth="114.0" text="Plads" />
-        </columns>
-      </TableView>
-      <Button fx:id="btnPickWarehousePosition" layoutX="491.0" layoutY="415.0" mnemonicParsing="false" onAction="#btnPickWarehousePosition" text="Vælg lagerplads" />
+      <Button fx:id="btnPickWarehousePosition" layoutX="504.0" layoutY="415.0" mnemonicParsing="false" onAction="#btnPickWarehousePosition" text="Vælg Lager" />
       <Button fx:id="btnCreateCask" layoutX="382.0" layoutY="453.0" mnemonicParsing="false" onAction="#btnCreateCask" text="Opret fad" />
+      <ListView fx:id="lvwWarehouse" layoutX="389.0" layoutY="58.0" prefHeight="314.0" prefWidth="90.0" />
+      <ListView fx:id="lvwRack" layoutX="479.0" layoutY="58.0" prefHeight="314.0" prefWidth="90.0" />
+      <ListView fx:id="lvwShelf" layoutX="569.0" layoutY="58.0" prefHeight="314.0" prefWidth="90.0" />
+      <ListView fx:id="lvwPosition" layoutX="659.0" layoutY="58.0" prefHeight="314.0" prefWidth="90.0" />
+      <Label layoutX="419.0" layoutY="25.0" text="Lager" />
+      <Label layoutX="512.0" layoutY="25.0" text="Reol" />
+      <Label layoutX="599.0" layoutY="25.0" text="Hylde" />
+      <Label layoutX="690.0" layoutY="25.0" text="Plads" />
    </children>
 </AnchorPane>

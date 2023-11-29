@@ -19,7 +19,7 @@ public class App {
 
          */
 
-        Application.launch(CreateDistillery.class);
+        Application.launch(Gui.class);
 
 
 

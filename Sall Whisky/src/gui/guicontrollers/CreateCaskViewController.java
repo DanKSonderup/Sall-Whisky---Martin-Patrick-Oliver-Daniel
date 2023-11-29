@@ -1,41 +1,36 @@
 package gui.guicontrollers;
 
 import controller.MainController;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import model.*;
 
-import java.lang.reflect.AnnotatedArrayType;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CreateCaskViewController {
-
+public class CreateCaskViewController implements Initializable {
 //        private Supplier supplier;
 
-        @FXML
-        private Label SizeInLiterslbl;
-
-        @FXML
-        private TextField SizeInLiterstxf;
-
+        private ArrayList<Warehouse> warehouses = new ArrayList<>();
+        private Warehouse currentlySelectedWarehouse;
+        private Rack currentlySelectedRack;
+        private Shelf currentlySelectedShelf;
         @FXML
         private Label CountryOfOriginlbl;
 
         @FXML
         private TextField CountryOfOrigintxf;
-
-        @FXML
-        private TableView<?> Maintable;
-
-        @FXML
-        private TableColumn<?, ?> PositionColumn;
 
         @FXML
         private Label PreviousContentlbl;
@@ -44,19 +39,16 @@ public class CreateCaskViewController {
         private TextField PreviousContenttxf;
 
         @FXML
-        private TableColumn<?, ?> RackColumn;
+        private Label SizeInLiterslbl;
 
         @FXML
-        private TableColumn<?, ?> ShelfColumn;
+        private TextField SizeInLiterstxf;
 
         @FXML
         private Label Supplierlbl;
 
         @FXML
         private ListView<?> Supplierlvw;
-
-        @FXML
-        private TableColumn<?, ?> WarehouseColumn;
 
         @FXML
         private Button btnCreateCask;
@@ -71,12 +63,31 @@ public class CreateCaskViewController {
         private Button btnPickWarehousePosition;
 
         @FXML
+        private ListView<Position> lvwPosition;
+
+        @FXML
+        private ListView<Rack> lvwRack;
+
+        @FXML
+        private ListView<Shelf> lvwShelf;
+
+        @FXML
+        private ListView<Warehouse> lvwWarehouse;
+
+        @FXML
         void btnCreateCask(ActionEvent event) {
 
         }
 
+
+
         @FXML
         void btnFindWarehousePosition(ActionEvent event) {
+            double sizeInLiters = Double.parseDouble(SizeInLiterstxf.getText());
+            Cask cask = new Cask(CountryOfOrigintxf.getText(), sizeInLiters, PreviousContenttxf.getText());
+            lvwWarehouse.getItems().setAll(warehouses);
+
+            /*
             List<Position> list = new ArrayList<>();
             double sizeInLiters = Double.parseDouble(SizeInLiterstxf.getText());
             Cask cask = new Cask(CountryOfOrigintxf.getText(), sizeInLiters, PreviousContenttxf.getText());
@@ -91,6 +102,8 @@ public class CreateCaskViewController {
                     }
                 }
             }
+
+             */
         }
 
         @FXML
@@ -103,4 +116,70 @@ public class CreateCaskViewController {
 
         }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ChangeListener<Warehouse> warehouseChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        lvwWarehouse.getSelectionModel().selectedItemProperty().addListener(warehouseChangeListener);
+
+        ChangeListener<Rack> rackChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        lvwRack.getSelectionModel().selectedItemProperty().addListener(rackChangeListener);
+
+        ChangeListener<Shelf> shelfChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        lvwShelf.getSelectionModel().selectedItemProperty().addListener(shelfChangeListener);
+
+        ChangeListener<Position> positionChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        lvwPosition.getSelectionModel().selectedItemProperty().addListener(positionChangeListener);
+
+        Warehouse lager1 = new Warehouse(1, "Test1");
+        Warehouse lager2 = new Warehouse(2, "Test2");
+        warehouses.add(lager1);
+        warehouses.add(lager2);
+        Rack rack1 = new Rack(1);
+        Rack rack2 = new Rack(2);
+        Rack rack3 = new Rack(3);
+        lager1.addRack(rack1);
+        lager2.addRack(rack2);
+        lager2.addRack(rack3);
+
+        Shelf shelf1 = new Shelf(1);
+        Shelf shelf2 = new Shelf(2);
+
+        rack1.addShelf(shelf1);
+        rack2.addShelf(shelf2);
+
+        Position pos1 = new Position(1, 30);
+        Position pos2 = new Position(2, 50);
+        Position pos3 = new Position(3, 40);
+
+        shelf1.addPosition(pos1);
+        shelf1.addPosition(pos2);
+        shelf2.addPosition(pos3);
+
+
     }
+
+    public void selectedStorageItemChanged() {
+         Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();
+         Rack selectedRack = lvwRack.getSelectionModel().getSelectedItem();
+         Shelf selectedShelf = lvwShelf.getSelectionModel().getSelectedItem();
+
+         if (selectedWarehouse != currentlySelectedWarehouse) {
+             lvwShelf.getItems().clear();
+             lvwPosition.getItems().clear();
+         }
+         if (selectedRack != currentlySelectedRack) {
+             lvwPosition.getItems().clear();
+         }
+
+         if (selectedWarehouse != null) {
+             currentlySelectedWarehouse = selectedWarehouse;
+             lvwRack.getItems().setAll(selectedWarehouse.getRacks());
+         }
+         if (selectedRack != null) {
+            lvwShelf.getItems().setAll(selectedRack.getShelves());
+         }
+         if (selectedShelf != null) {
+             lvwPosition.getItems().setAll(selectedShelf.getPositions());
+         }
+    }
+}

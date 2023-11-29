@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Warehouse implements Observer, Serializable {
+public class Warehouse implements Observer, Serializable, StorageObject {
     private int warehouseId;
     private String address;
     private boolean isFilled = true;
@@ -61,5 +61,10 @@ public class Warehouse implements Observer, Serializable {
     }
     public void removeRack(Rack rack) {
         racks.remove(rack);
+    }
+
+    @Override
+    public String toString() {
+        return "" + warehouseId;
     }
 }

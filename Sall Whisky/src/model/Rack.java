@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rack implements Observer, Serializable {
+public class Rack implements Observer, Serializable, StorageObject {
     private int rackId;
     private boolean isFilled = true;
     private List<Shelf> shelves = new ArrayList<>();
@@ -55,5 +55,10 @@ public class Rack implements Observer, Serializable {
     }
     public void removeShelf(Shelf shelf) {
         shelves.remove(shelf);
+    }
+
+    @Override
+    public String toString() {
+        return "" + rackId;
     }
 }

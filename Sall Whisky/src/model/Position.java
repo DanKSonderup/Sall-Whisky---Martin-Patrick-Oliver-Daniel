@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Position implements Observer, Serializable {
+public class Position implements Observer, Serializable, StorageObject {
     private int positionId;
     private boolean isFilled = false;
     private double literCapacity;
@@ -52,5 +52,10 @@ public class Position implements Observer, Serializable {
     }
     public void removeCask(Cask cask) {
         casks.remove(cask);
+    }
+
+    @Override
+    public String toString() {
+        return "" + positionId;
     }
 }
