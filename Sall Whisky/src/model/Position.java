@@ -9,9 +9,8 @@ public class Position implements Observer {
     private double literCapacity;
     private List<Cask> casks = new ArrayList<>();
 
-    public Position(double literCapacity, List<Cask> casks) {
+    public Position(double literCapacity) {
         this.literCapacity = literCapacity;
-        this.casks = casks;
         positionId++;
     }
 
