@@ -1,9 +1,6 @@
 package controller;
 
-import model.Cask;
-import model.CaskSupplier;
-import model.StorageCounter;
-import model.Warehouse;
+import model.*;
 
 import java.util.List;
 
@@ -25,6 +22,12 @@ public interface Storage {
     List<Warehouse> getWarehouses();
     void storeWarehouse(Warehouse warehouse);
     void deleteWarehouse(Warehouse warehouse);
+
+    //-------------------------------------------------
+    /** Employee */
+    List<Employee> getEmployees();
+    void storeEmployee(Employee employee);
+    void deleteEmployee(Employee employee);
 
     //-------------------------------------------------
     /** StorageCounter */

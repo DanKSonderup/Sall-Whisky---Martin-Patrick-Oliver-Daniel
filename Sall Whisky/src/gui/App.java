@@ -1,9 +1,6 @@
 package gui;
 
-import controller.MainController;
-import controller.Storage;
 import javafx.application.Application;
-import storage.ListStorage;
 
 public class App {
     public static void main(String[] args) {
@@ -22,7 +19,9 @@ public class App {
 
          */
 
-        Application.launch(Gui.class);
+        Application.launch(CreateDistillery.class);
+
+
 
         // ListStorage.saveStorage(storage);
     }
