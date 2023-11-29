@@ -8,6 +8,14 @@ public class Cask {
     private Position position;
     private CaskSupplier supplier;
 
+    /** Constructor for temp-casks */
+
+    public Cask(String countryOfOrigin, double sizeInLiters, String previousContent) {
+        this.countryOfOrigin = countryOfOrigin;
+        this.sizeInLiters = sizeInLiters;
+        this.previousContent = previousContent;
+    }
+
     /** Constructor with previousContent */
     public Cask(String countryOfOrigin, double sizeInLiters, String previousContent, Position position, CaskSupplier supplier) {
         this.countryOfOrigin = countryOfOrigin;

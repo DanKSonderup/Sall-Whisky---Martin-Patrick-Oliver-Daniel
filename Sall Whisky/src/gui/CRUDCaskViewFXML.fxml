@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="ap_Pane1" prefHeight="673.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDCaskViewController">
+<AnchorPane fx:id="ap_Pane1" prefHeight="673.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDCaskViewController">
     <children>
         <TableView fx:id="tbwTable" layoutX="33.0" layoutY="95.0" prefHeight="477.0" prefWidth="689.0">
             <columns>
@@ -26,5 +26,6 @@
         <Label layoutX="33.0" layoutY="59.0" text="Fade">
         </Label>
         <Button fx:id="btnViewDistillate" layoutX="315.0" layoutY="588.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="125.0" text="Se destillat for Fad" />
+      <Button fx:id="btnCreateFillOnCask" layoutX="770.0" layoutY="289.0" mnemonicParsing="false" onAction="#btnCreateFillOnCask" prefHeight="45.0" prefWidth="112.0" text="Opret Påfyldning" />
     </children>
 </AnchorPane>
