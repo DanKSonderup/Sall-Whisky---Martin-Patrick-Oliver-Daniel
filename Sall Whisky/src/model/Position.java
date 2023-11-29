@@ -25,6 +25,7 @@ public class Position implements Observer {
 
         if (amountFilled == literCapacity)
             isFilled = true;
+        else isFilled = false;
     }
 
     /** Getters */
