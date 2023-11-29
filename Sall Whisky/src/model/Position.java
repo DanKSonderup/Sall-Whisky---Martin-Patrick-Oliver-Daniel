@@ -21,9 +21,7 @@ public class Position implements Observer {
     public void update() {
         double amountFilled = 0;
         for (Cask cask : casks) {
-
             amountFilled += cask.getSizeInLiters();
-
         }
         if (amountFilled == literCapacity)
             isFilled = true;
