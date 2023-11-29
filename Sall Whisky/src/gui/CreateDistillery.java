@@ -29,8 +29,8 @@ public class CreateDistillery extends Application {
     // Data felter til Gridpane indsættes her
 
     ListStorage listStorage;
-    private Label lblAvailableMaltBatches = new Label("Available maltbatches");
-    private Label lblShowSelectedMaltBatches = new Label("Selected maltbatches");
+    private Label lblAvailableMaltBatches = new Label("Tilgængelige maltbatches");
+    private Label lblShowSelectedMaltBatches = new Label("Valgte maltbatches");
     private final ListView<MaltBatch> lvwMaltBatch = new ListView<>();
     private final ListView<MaltBatch> lvwShowSelectedMaltBatches = new ListView<>();
     private final TextField txfNewMakeNr = new TextField();
