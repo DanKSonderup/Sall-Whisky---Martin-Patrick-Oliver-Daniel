@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class MainController {
 
-    List<Observer> observers = new ArrayList<>();
+    private static List<Observer> observers = new ArrayList<>();
     private static Storage storage;
 
     public static void setStorage(Storage storage) {
@@ -100,7 +100,69 @@ public abstract class MainController {
         return cask;
     }
 
-    public void notifyObserver() {
+
+    /**
+     * Create and return a Warehouse.
+     * Increment warehouse counter.
+     * Pre: address is not null
+     */
+    public static Warehouse createWarehouse(String address) {
+        int id = storage.getStorageCounter().getWarehouseCount();
+        Warehouse warehouse = new Warehouse(id, address);
+        storage.storeWarehouse(warehouse);
+        storage.getStorageCounter().incrementWarehouseCount();
+
+        return warehouse;
+    }
+
+    /**
+     * Create and return a rack
+     * Add the connection to the warehouse
+     * Increment rack counter
+     * Pre: A warehouse is created for the rack
+     */
+    public static Rack createRack(Warehouse warehouse) {
+        int id = storage.getStorageCounter().getRackCount();
+        Rack rack = new Rack(id);
+        warehouse.addRack(rack);
+        storage.getStorageCounter().incrementRackCount();
+
+        return rack;
+    }
+
+    /**
+     * Create and return a shelf
+     * Add the connection to the rack
+     * Increment shelf counter
+     * Pre: A rack is created for the shelf
+     */
+    public static Shelf createShelf(Rack rack) {
+        int id = storage.getStorageCounter().getShelfCount();
+        Shelf shelf = new Shelf(id);
+        rack.addShelf(shelf);
+        storage.getStorageCounter().incrementShelfCount();
+
+        return shelf;
+    }
+
+    /**
+     * Create and return a position
+     * Add the connection to the shelf
+     * Increment position counter
+     * Notify observers
+     * Pre: A shelf is created for the shelf
+     */
+    public static Position createPosition(Shelf shelf, double literCapacity) {
+        int id = storage.getStorageCounter().getPositionCount();
+        Position position = new Position(id, literCapacity);
+        shelf.addPosition(position);
+        storage.getStorageCounter().incrementPositionCount();
+        notifyObserver();
+
+        return position;
+    }
+
+    public static void notifyObserver() {
         for (Observer observer : observers) {
             observer.notify();
         }

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Position implements Observer {
-    private int positionId = 0;
+    private int positionId;
     private boolean isFilled = false;
     private double literCapacity;
     private List<Cask> casks = new ArrayList<>();
 
-    public Position(double literCapacity) {
+    public Position(int positionId, double literCapacity) {
+        this.positionId = positionId;
         this.literCapacity = literCapacity;
-        positionId++;
     }
 
     /**
@@ -20,15 +20,14 @@ public class Position implements Observer {
     @Override
     public void update() {
         double amountFilled = 0;
-        for (Cask cask : casks) {
-
+        for (Cask cask : casks)
             amountFilled += cask.getSizeInLiters();
 
-        }
         if (amountFilled == literCapacity)
             isFilled = true;
     }
 
+    /** Getters */
     public int getPositionId() {
         return positionId;
     }
@@ -43,5 +42,13 @@ public class Position implements Observer {
 
     public List<Cask> getCasks() {
         return casks;
+    }
+
+    /** Add & remove shelf */
+    public void addCask(Cask cask) {
+        casks.add(cask);
+    }
+    public void removeCask(Cask cask) {
+        casks.remove(cask);
     }
 }

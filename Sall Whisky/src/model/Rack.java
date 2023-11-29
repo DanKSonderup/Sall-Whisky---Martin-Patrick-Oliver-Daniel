@@ -4,21 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rack implements Observer {
-    private static int nextRackId = 0;
     private int rackId;
-    private boolean isFilled;
+    private boolean isFilled = true;
     private List<Shelf> shelves = new ArrayList<>();
 
-    public Rack(List<Shelf> shelves) {
-        this.shelves = shelves;
-        this.rackId = nextRackId++; // increments the rackId for every rack created.
-                  // DETTE BETYDER SÅ AT VI IKKE STARTER FRA 0 IGEN NÅR VI LAVER RACKS PÅ ET NYT LAGER
-                  // TÆNKER OM DET KAN FIKSES VED AT DET ER WAREHOUSE DER OPRETTER RACKS
-                  // samme gør sig gældene for shelves og positions
-
-        if (shelves.isEmpty())
-            isFilled = true;
-        else isFilled = false;
+    public Rack(int rackId) {
+        this.rackId = rackId;
     }
 
     /**
@@ -40,6 +31,7 @@ public class Rack implements Observer {
     public void update() {
         if (getAvailableShelves().isEmpty())
             isFilled = true;
+        else isFilled = false;
     }
 
     /** Getters */
@@ -53,5 +45,14 @@ public class Rack implements Observer {
 
     public List<Shelf> getShelves() {
         return shelves;
+    }
+
+
+    /** Add & remove shelf */
+    public void addShelf(Shelf shelf) {
+        shelves.add(shelf);
+    }
+    public void removeShelf(Shelf shelf) {
+        shelves.remove(shelf);
     }
 }
