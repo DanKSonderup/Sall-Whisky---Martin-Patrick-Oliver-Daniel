@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shelf implements Observer {
+public class Shelf implements Observer, Serializable {
     private int shelfId;
     private boolean isFilled = true;
     private List<Position> positions = new ArrayList<>();

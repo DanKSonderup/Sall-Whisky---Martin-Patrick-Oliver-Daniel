@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Position implements Observer {
+public class Position implements Observer, Serializable {
     private int positionId;
     private boolean isFilled = false;
     private double literCapacity;

@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Warehouse implements Observer {
+public class Warehouse implements Observer, Serializable {
     private int warehouseId;
     private String address;
     private boolean isFilled = true;
