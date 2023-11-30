@@ -169,13 +169,23 @@ public abstract class MainController {
      * Create and return FillOnCask object
      * Connection is added to cask
      * Connection is added to DistillateFill
-     * Pre: A cask is not null
-     * Pre: DistillateFills is not null
-     * Pre: timeOfFill is not null;
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
+     * Pre: distillateFill is > sizeInLiters (Cask)
      */
     public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
-        FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask, distillateFills);
+        FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask);
+        cask.addFillOnCask(fillOnCask);
+        double sum = 0;
+        for (DistillateFill distillateFill : distillateFills) {
+            sum += distillateFill.getAmountOfDistillate();
+            fillOnCask.addDistillateFill(distillateFill);
+    }
+        if (sum > cask.getSizeInLiters()) {
+            throw new IllegalArgumentException("Fadets størrelse er mindre end din påfyldning");
+        }
+        if (timeOfFill.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Dato er efter nuværende dato");
+        }
         return fillOnCask;
     }
 

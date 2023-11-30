@@ -9,10 +9,9 @@ public class FillOnCask {
     private Cask cask;
     private List<DistillateFill> distillateFills = new ArrayList<>();
 
-    public FillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
+    public FillOnCask(LocalDate timeOfFill, Cask cask) {
         this.timeOfFill = timeOfFill;
         this.cask = cask;
-        this.distillateFills = distillateFills;
     }
 
     public LocalDate getTimeOfFill() {
