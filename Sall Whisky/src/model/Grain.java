@@ -1,16 +1,18 @@
 package model;
 
-public class Grain {
+import java.io.Serializable;
+
+public class Grain implements Serializable {
     private String grainType;
     private GrainSupplier grainSupplier;
     private String cultivationDescription;
-    private String fieldName;
+    private Field field;
 
-    public Grain(String grainType, GrainSupplier grainSupplier, String cultivationDescription, String fieldName) {
+    public Grain(String grainType, GrainSupplier grainSupplier, String cultivationDescription, Field field) {
         this.grainType = grainType;
         this.grainSupplier = grainSupplier;
         this.cultivationDescription = cultivationDescription;
-        this.fieldName = fieldName;
+        this.field = field;
     }
 
     public String getGrainType() {

@@ -216,29 +216,39 @@ public abstract class MainController {
         return distillate;
     }
 
-        /**
-         * Create, store and return a maltbatch
-         * Add the connection to the grain
-         * Pre: A grain is created for the maltbatch
-         */
-        public static Maltbatch createMaltbatch (String description, Grain grain) {
-            Maltbatch maltbatch = new Maltbatch(description, grain);
-            storage.storeMaltBatch(maltbatch);
-            return maltbatch;
-        }
+    /**
+     * Create, store and return a maltbatch
+     * Add the connection to the grain
+     * Pre: A grain is created for the maltbatch
+     */
+    public static Maltbatch createMaltbatch (String description, Grain grain) {
+        Maltbatch maltbatch = new Maltbatch(description, grain);
+        storage.storeMaltBatch(maltbatch);
+        return maltbatch;
+    }
 
-        /**
-         * Create and return a grain
-         * Add the connection to the grain supplier
-         * Pre: A grain supplier is created
-         */
-        public static Grain createGrain (String grainType, GrainSupplier grainSupplier, String cultivationDescription, String fieldName){
-            Grain grain = new Grain(grainType, grainSupplier, cultivationDescription, fieldName);
-            storage.storeGrain(grain);
-            return grain;
-        }
+    /**
+     * Create, store and return a grain
+     * Add the connection to the grain supplier
+     * Pre: A grain supplier and a field is created
+     */
+    public static Grain createGrain (String grainType, GrainSupplier grainSupplier, String cultivationDescription, Field field) {
+        Grain grain = new Grain(grainType, grainSupplier, cultivationDescription, field);
+        storage.storeGrain(grain);
+        return grain;
+    }
 
-        public static void notifyObserver () {
+    /**
+     * Create, store and return a field
+     * Pre:
+     */
+    public static Field createField (String name, String description) {
+        Field field = new Field(name, description);
+        storage.storeField(field);
+        return field;
+    }
+
+    public static void notifyObserver () {
             for (Observer observer : observers) {
                 observer.notify();
             }
