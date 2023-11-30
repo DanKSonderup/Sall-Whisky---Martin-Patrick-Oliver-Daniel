@@ -164,6 +164,24 @@ public abstract class MainController {
         return position;
     }
 
+    /**
+     * Create, store and return a maltbatch
+     * Add the connection to the grain
+     * Pre: A grain is created for the maltbatch
+     */
+    public static MaltBatch createMaltbatch(Grain grain) {
+        return null;
+    }
+
+    /**
+     * Create and return a grain
+     * Add the connection to the grain supplier
+     * Pre: A grain supplier is created
+     */
+    public static Grain createGrain(GrainSupplier supplier) {
+        return null;
+    }
+
     public static void notifyObserver() {
         for (Observer observer : observers) {
             observer.notify();
