@@ -1,31 +1,54 @@
 package model;
 
-public class GrainSupplier {
-    private String name;
-    private String address;
-    private String country;
-    private String vatID;
+public class GrainSupplier extends Supplier{
 
-    public GrainSupplier(String name, String address, String country, String vatID) {
-        this.name = name;
-        this.address = address;
-        this.country = country;
-        this.vatID = vatID;
+
+    public GrainSupplier(String name, String address, String country, String vatId) {
+        super(name, address, country, vatId);
     }
 
+    @Override
     public String getName() {
-        return name;
+        return super.getName();
     }
 
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
+
+    @Override
     public String getAddress() {
-        return address;
+        return super.getAddress();
     }
 
+    @Override
+    public void setAddress(String address) {
+        super.setAddress(address);
+    }
+
+    @Override
     public String getCountry() {
-        return country;
+        return super.getCountry();
     }
 
-    public String getVatID() {
-        return vatID;
+    @Override
+    public void setCountry(String country) {
+        super.setCountry(country);
+    }
+
+    @Override
+    public String getVatId() {
+        return super.getVatId();
+    }
+
+    @Override
+    public void setVatId(String vatId) {
+        super.setVatId(vatId);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }
