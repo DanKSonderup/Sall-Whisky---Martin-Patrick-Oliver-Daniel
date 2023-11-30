@@ -236,6 +236,13 @@ public abstract class MainController {
     }
 
     /**
+     * Return all fields
+     */
+    public static List<Grain> getGrains() {
+        return storage.getGrains();
+    }
+
+    /**
      * Create, store and return a field
      * Pre:
      */
@@ -243,6 +250,13 @@ public abstract class MainController {
         Field field = new Field(name, description);
         storage.storeField(field);
         return field;
+    }
+
+    /**
+     * Return all fields
+     */
+    public static List<Field> getFields() {
+        return storage.getFields();
     }
 
     public static void notifyObserver () {

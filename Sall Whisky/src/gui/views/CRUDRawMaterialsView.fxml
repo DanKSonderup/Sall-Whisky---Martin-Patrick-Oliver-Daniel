@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDRawMaterialsViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDRawMaterialsViewController">
    <children>
       <Label alignment="CENTER" layoutX="434.0" layoutY="78.0" prefHeight="52.0" prefWidth="108.0" text="Korn">
          <font>
@@ -30,12 +30,12 @@
       </Label>
       <TextField fx:id="txfGrainType" layoutX="363.0" layoutY="389.0" prefHeight="25.0" prefWidth="250.0" promptText="Kornsort" />
       <TextArea fx:id="txaCultivationDescription" layoutX="363.0" layoutY="422.0" prefHeight="150.0" prefWidth="250.0" promptText="Dyrkelsesbeskrivelse..." />
-      <Button fx:id="btnCreateGrainSupplier" layoutX="496.0" layoutY="583.0" mnemonicParsing="false" text="Opret leverandør">
+      <Button fx:id="btnCreateGrainSupplier" layoutX="496.0" layoutY="583.0" mnemonicParsing="false" onAction="#btnCreateSupplierOnAction" text="Opret leverandør">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
       </Button>
-      <ComboBox fx:id="cbbPickGrainSupplier" layoutX="363.0" layoutY="582.0" prefHeight="25.0" prefWidth="125.0" promptText="Vælg leverandør" />
+      <ComboBox fx:id="cbbPickGrainSupplier" layoutX="363.0" layoutY="582.0" onAction="#cbbPickGrainSupplierOnSelection" prefHeight="25.0" prefWidth="125.0" promptText="Vælg leverandør" />
       <Label alignment="CENTER" layoutX="100.0" layoutY="78.0" prefHeight="52.0" prefWidth="108.0" text="Mark">
          <font>
             <Font name="Century Gothic Bold" size="24.0" />
@@ -54,17 +54,17 @@
       </Label>
       <TextField fx:id="txfFieldName" layoutX="29.0" layoutY="389.0" prefWidth="250.0" promptText="Navn" />
       <TextArea fx:id="txaFieldDescription" layoutX="29.0" layoutY="422.0" prefHeight="150.0" prefWidth="250.0" promptText="Beskrivelse..." />
-      <Button fx:id="btnCreateField" layoutX="29.0" layoutY="620.0" mnemonicParsing="false" text="Opret mark">
+      <Button fx:id="btnCreateField" layoutX="29.0" layoutY="620.0" mnemonicParsing="false" onAction="#btnCreateFieldOnAction" text="Opret mark">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnCreateMaltbatch" layoutX="721.0" layoutY="620.0" mnemonicParsing="false" text="Opret maltbatch">
+      <Button fx:id="btnCreateMaltbatch" layoutX="721.0" layoutY="620.0" mnemonicParsing="false" onAction="#btnCreateMaltbatchOnAction" text="Opret maltbatch">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnCreateGrain" layoutX="363.0" layoutY="620.0" mnemonicParsing="false" text="Opret korn">
+      <Button fx:id="btnCreateGrain" layoutX="363.0" layoutY="620.0" mnemonicParsing="false" onAction="#btnCreateGrainOnAction" text="Opret korn">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
@@ -80,5 +80,20 @@
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="btnDeleteField" layoutX="125.0" layoutY="620.0" mnemonicParsing="false" onAction="#btnDeleteFieldOnAction" text="Slet mark">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDeleteGrain" layoutX="454.0" layoutY="620.0" mnemonicParsing="false" onAction="#btnDeleteGrainOnAction" text="Slet korn">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnRemoveMaltbatch" layoutX="846.0" layoutY="620.0" mnemonicParsing="false" onAction="#btnRemoveMaltbatchOnAction" text="Slet maltbatch">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
