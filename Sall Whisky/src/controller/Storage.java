@@ -44,8 +44,13 @@ public interface Storage {
     void deleteMaltBatch(Maltbatch maltBatch);
 
     /** Grain */
-    List<Grain> getGrain();
+    List<Grain> getGrains();
     void storeGrain(Grain grain);
     void deleteGrain(Grain grain);
+
+    /** Field */
+    List<Field> getFields();
+    void storeField(Field field);
+    void deleteField(Field field);
 
 }

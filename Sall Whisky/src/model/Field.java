@@ -1,0 +1,21 @@
+package model;
+
+import java.io.Serializable;
+
+public class Field implements Serializable {
+    private String name;
+    private String description;
+
+    public Field(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+}
