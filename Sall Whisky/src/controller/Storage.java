@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface Storage {
@@ -33,4 +34,8 @@ public interface Storage {
     /** StorageCounter */
     StorageCounter getStorageCounter();
 
+    /** Maltbatch */
+    List<MaltBatch> getMaltBatches();
+    void storeMaltBatch(MaltBatch maltBatch);
+    void deleteMaltBatch(MaltBatch maltBatch);
 }
