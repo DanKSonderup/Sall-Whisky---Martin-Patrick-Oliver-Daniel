@@ -6,6 +6,8 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
+import javax.swing.*;
+
 public class CRUDCaskViewController {
     @FXML
     private AnchorPane ap_Pane1;
@@ -28,6 +30,12 @@ public class CRUDCaskViewController {
 
     @FXML
     void btnCreateOnAction(ActionEvent event) {
+        System.out.println("Idk");
+        ap_Pane1.setDisable(true);
+    }
+
+    @FXML
+    void btnCreateFillOnCask(ActionEvent event) {
         System.out.println("Idk");
         ap_Pane1.setDisable(true);
     }
