@@ -3,6 +3,7 @@ package controller;
 import model.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,6 +184,20 @@ public abstract class MainController {
         Employee employee = new Employee(id, name);
         return employee;
 
+    }
+
+    /**
+     * Creates a Distillate and saves it to storage
+     * @param newMakenr
+     * @param distillationTime
+     * @param alcoholPercentage
+     * @param amountInLiters
+     * @param employee
+     * @param maltBatches
+     * @return the created Distillate
+     */
+    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
+        
     }
 
         /**
