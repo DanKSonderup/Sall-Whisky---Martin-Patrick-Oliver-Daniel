@@ -14,6 +14,7 @@ public class ListStorage implements Storage {
     private final List<Employee> employees = new ArrayList<>();
     private final List<Distillate> distillates = new ArrayList<>();
     private final List<Grain> grains = new ArrayList<>();
+    private final List<Field> fields = new ArrayList<>();
     private StorageCounter storageCounter = new StorageCounter();
 
     //----------------------------------------------------------------------
@@ -99,7 +100,7 @@ public class ListStorage implements Storage {
 
     /** Grain */
     @Override
-    public List<Grain> getGrain() {
+    public List<Grain> getGrains() {
         return new ArrayList<>(grains);
     }
     @Override
@@ -109,5 +110,19 @@ public class ListStorage implements Storage {
     @Override
     public void deleteGrain(Grain grain) {
         grains.remove(grain);
+    }
+
+    /** Field */
+    @Override
+    public List<Field> getFields() {
+        return new ArrayList<>(fields);
+    }
+    @Override
+    public void storeField(Field field) {
+        fields.add(field);
+    }
+    @Override
+    public void deleteField(Field field) {
+        fields.remove(field);
     }
 }
