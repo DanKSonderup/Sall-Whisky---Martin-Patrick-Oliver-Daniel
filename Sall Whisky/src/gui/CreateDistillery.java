@@ -35,13 +35,12 @@ public class CreateDistillery extends Application {
     private final ListView<MaltBatch> lvwShowSelectedMaltBatches = new ListView<>();
     private final TextField txfNewMakeNr = new TextField();
     private final TextField txfMaltBatch = new TextField();
-    private final TextField txfGrain = new TextField();
     private final TextField txfEmployee = new TextField();
     private final TextField txfDistillationTime = new TextField();
     private final TextField txfAmountOfLiquid = new TextField();
     private final TextField txfSmokingMaterial = new TextField();
     private final TextField txfAlkohol = new TextField();
-    private Button btnAccept = new Button("Godkend");
+    private Button btnAccept = new Button("Opret destillat");
     private Button btnCancel = new Button("Anuller");
     private Accordion acMaltBatches = new Accordion();
 
@@ -73,10 +72,6 @@ public class CreateDistillery extends Application {
         /*Label lblselectedMaltBatches = new Label("Valgte maltbatch(es)");
         pane.add(lblselectedMaltBatches, 3, 1);
         pane.add(lvwShowSelectedMaltBatches, 3, 2);*/
-
-        Label lblGrain = new Label("Kornsort");
-        pane.add(lblGrain,0,2);
-        pane.add(txfGrain,1,2);
 
         Label lblEmployee = new Label("Medarbejder");
         pane.add(lblEmployee,0,3);
