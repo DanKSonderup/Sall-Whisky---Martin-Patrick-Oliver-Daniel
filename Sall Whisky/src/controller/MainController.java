@@ -170,9 +170,6 @@ public abstract class MainController {
      * Create and return FillOnCask object
      * Connection is added to cask
      * Connection is added to DistillateFill
-     * Pre: A cask is not null
-     * Pre: DistillateFills is not null
-     * Pre: timeOfFill is not null;
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
      */
     public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
@@ -202,6 +199,20 @@ public abstract class MainController {
      */
     public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
 
+    }
+
+    /**
+     * Creates a Distillate and saves it to storage
+     * @param newMakenr
+     * @param distillationTime
+     * @param alcoholPercentage
+     * @param amountInLiters
+     * @param employee
+     * @param maltBatches
+     * @return the created Distillate
+     */
+    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
+        
     }
 
         /**
