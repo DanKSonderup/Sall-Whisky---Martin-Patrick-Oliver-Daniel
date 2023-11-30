@@ -169,7 +169,7 @@ public abstract class MainController {
      * Add the connection to the grain
      * Pre: A grain is created for the maltbatch
      */
-    public static MaltBatch createMaltbatch(Grain grain) {
+    public static MaltBatch createMaltbatch(String description, Grain grain) {
         return null;
     }
 
@@ -178,7 +178,8 @@ public abstract class MainController {
      * Add the connection to the grain supplier
      * Pre: A grain supplier is created
      */
-    public static Grain createGrain(GrainSupplier supplier) {
+    public static Grain createGrain(String grainType, GrainSupplier grainSupplier,
+                                    String cultivationDescription, String fieldName) {
         return null;
     }
 

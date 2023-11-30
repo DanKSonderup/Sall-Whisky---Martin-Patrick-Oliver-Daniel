@@ -3,10 +3,14 @@ package model;
 public class Grain {
     private String grainType;
     private GrainSupplier grainSupplier;
+    private String cultivationDescription;
+    private String fieldName;
 
-    public Grain(String grainType, GrainSupplier grainSupplier) {
+    public Grain(String grainType, GrainSupplier grainSupplier, String cultivationDescription, String fieldName) {
         this.grainType = grainType;
         this.grainSupplier = grainSupplier;
+        this.cultivationDescription = cultivationDescription;
+        this.fieldName = fieldName;
     }
 
     public String getGrainType() {
