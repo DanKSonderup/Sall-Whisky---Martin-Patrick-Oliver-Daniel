@@ -203,29 +203,17 @@ public abstract class MainController {
     /**
      * Creates a Distillate and saves it to storage
      * @param newMakenr
-     * @param distillationTime
-     * @param alcoholPercentage
-     * @param amountInLiters
+     * Pre: distillationTime is not after LocalDateTime.now()
+     * Pre: alcoholPercentage > 0
+     * Pre: amountInLiters > 0
      * @param employee
      * @param maltBatches
      * @return the created Distillate
      */
     public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
-        return null;
-    }
-
-    /**
-     * Creates a Distillate and saves it to storage
-     * @param newMakenr
-     * @param distillationTime
-     * @param alcoholPercentage
-     * @param amountInLiters
-     * @param employee
-     * @param maltBatches
-     * @return the created Distillate
-     */
-    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
-        return null;
+        Distillate distillate = new Distillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches);
+        storage.storeDistillate(distillate);
+        return distillate;
     }
 
         /**
@@ -236,16 +224,16 @@ public abstract class MainController {
         public static MaltBatch createMaltbatch (String description, Grain grain){
             MaltBatch maltBatch = new MaltBatch(description, grain);
             storage.storeMaltBatch(maltBatch);
-            return new MaltBatch(description, grain);
+            return maltBatch;
         }
 
         /**
          * Create and return a grain
+         * Add the connection to the grain supplier
          * Pre: A grain supplier is created
          */
-        public static Grain createGrain (String grainType, GrainSupplier grainSupplier,
-                                         String cultivationDescription, String fieldName) {
-            return new Grain(grainType, grainSupplier, cultivationDescription, fieldName);
+        public static Grain createGrain (String grainType, GrainSupplier grainSupplier, String cultivationDescription, String fieldName){
+            return null;
         }
 
         public static void notifyObserver () {

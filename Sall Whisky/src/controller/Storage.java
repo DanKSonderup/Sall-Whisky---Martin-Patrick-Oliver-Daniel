@@ -30,6 +30,11 @@ public interface Storage {
     void storeEmployee(Employee employee);
     void deleteEmployee(Employee employee);
 
+    /** Employee */
+    List<Distillate> getDistillate();
+    void storeDistillate(Distillate distillate);
+    void deleteDistillate(Distillate distillate);
+
     //-------------------------------------------------
     /** StorageCounter */
     StorageCounter getStorageCounter();
