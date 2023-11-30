@@ -164,22 +164,44 @@ public class CreateCaskViewController implements Initializable {
          Shelf selectedShelf = lvwShelf.getSelectionModel().getSelectedItem();
 
          if (selectedWarehouse != currentlySelectedWarehouse) {
-             lvwShelf.getItems().clear();
-             lvwPosition.getItems().clear();
+             lvwRack.getItems().removeAll();
+             lvwShelf.getItems().removeAll();
+             lvwPosition.getItems().removeAll();
+             currentlySelectedWarehouse = selectedWarehouse;
+             lvwRack.getItems().setAll(currentlySelectedWarehouse.getRacks());
+             return;
          }
          if (selectedRack != currentlySelectedRack) {
-             lvwPosition.getItems().clear();
+             lvwShelf.getItems().removeAll();
+             lvwPosition.getItems().removeAll();
+             if (selectedRack != null) {
+                 currentlySelectedRack = selectedRack;
+                 lvwShelf.getItems().setAll(currentlySelectedRack.getShelves());
+                 return;
+             }
+         }
+         if (selectedShelf != currentlySelectedShelf) {
+             lvwPosition.getItems().removeAll();
+             if (selectedShelf != null) {
+                 currentlySelectedShelf = selectedShelf;
+                 lvwPosition.getItems().setAll(currentlySelectedShelf.getPositions());
+             }
          }
 
+         /*
          if (selectedWarehouse != null) {
              currentlySelectedWarehouse = selectedWarehouse;
-             lvwRack.getItems().setAll(selectedWarehouse.getRacks());
+             lvwRack.getItems().setAll(currentlySelectedWarehouse.getRacks());
          }
          if (selectedRack != null) {
-            lvwShelf.getItems().setAll(selectedRack.getShelves());
+             currentlySelectedRack = selectedRack;
+             lvwShelf.getItems().setAll(currentlySelectedRack.getShelves());
          }
          if (selectedShelf != null) {
-             lvwPosition.getItems().setAll(selectedShelf.getPositions());
+             currentlySelectedShelf = selectedShelf;
+             lvwPosition.getItems().setAll(currentlySelectedShelf.getPositions());
          }
+
+          */
     }
 }
