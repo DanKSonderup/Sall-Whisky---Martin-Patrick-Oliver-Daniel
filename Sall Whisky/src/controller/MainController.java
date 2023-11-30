@@ -241,11 +241,11 @@ public abstract class MainController {
 
         /**
          * Create and return a grain
-         * Add the connection to the grain supplier
          * Pre: A grain supplier is created
          */
-        public static Grain createGrain (String grainType, GrainSupplier grainSupplier, String cultivationDescription, String fieldName){
-            return null;
+        public static Grain createGrain (String grainType, GrainSupplier grainSupplier,
+                                         String cultivationDescription, String fieldName) {
+            return new Grain(grainType, grainSupplier, cultivationDescription, fieldName);
         }
 
         public static void notifyObserver () {
