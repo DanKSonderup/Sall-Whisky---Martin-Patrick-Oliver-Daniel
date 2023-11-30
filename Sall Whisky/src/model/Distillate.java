@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Distillate {
-    private int newMakeNr;
+    private String newMakeNr;
     private LocalDateTime distillationTime;
     private double alcoholPercentage;
     private double amountInLiters;
     private Employee employee;
     List<MaltBatch> maltBatches = new ArrayList<>();
 
-    public Distillate(int newMakeNr, LocalDateTime distillationTime, double alcoholPercentage,
+    public Distillate(String newMakeNr, LocalDateTime distillationTime, double alcoholPercentage,
                       double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
         this.newMakeNr = newMakeNr;
         this.distillationTime = distillationTime;
@@ -22,11 +22,11 @@ public class Distillate {
         this.maltBatches = maltBatches;
     }
 
-    public int getNewMakeNr() {
+    public String getNewMakeNr() {
         return newMakeNr;
     }
 
-    public void setNewMakeNr(int newMakeNr) {
+    public void setNewMakeNr(String newMakeNr) {
         this.newMakeNr = newMakeNr;
     }
 

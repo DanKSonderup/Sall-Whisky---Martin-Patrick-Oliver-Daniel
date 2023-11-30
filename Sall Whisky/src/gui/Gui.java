@@ -15,7 +15,7 @@ public class Gui extends Application {
     public void start(Stage stage) throws Exception {
         System.out.println("Gui launched");
 
-        URL fxmlFileName = this.getClass().getResource("CRUDCaskViewFXML.fxml");
+        URL fxmlFileName = this.getClass().getResource("CreateCaskView.fxml");
         if (fxmlFileName == null) throw new NoSuchElementException("FXML file not found");
 
         Parent root = FXMLLoader.load(fxmlFileName);

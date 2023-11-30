@@ -3,6 +3,7 @@ package controller;
 import model.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,24 +170,62 @@ public abstract class MainController {
      * Create and return FillOnCask object
      * Connection is added to cask
      * Connection is added to DistillateFill
-     * Pre: A cask is not null
-     * Pre: DistillateFills is not null
-     * Pre: timeOfFill is not null;
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
+     * Pre: distillateFill is > sizeInLiters (Cask)
      */
     public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
-        FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask, distillateFills);
+        FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask);
+        cask.addFillOnCask(fillOnCask);
+        double sum = 0;
+        for (DistillateFill distillateFill : distillateFills) {
+            sum += distillateFill.getAmountOfDistillate();
+            fillOnCask.addDistillateFill(distillateFill);
+    }
+        if (sum > cask.getSizeInLiters()) {
+            throw new IllegalArgumentException("Fadets størrelse er mindre end din påfyldning");
+        }
+        if (timeOfFill.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Dato er efter nuværende dato");
+        }
         return fillOnCask;
     }
 
     /**
      * Create and return an employee
-     * Pre: Name and id is not null;
      */
     public static Employee createEmployee(int id, String name) {
         Employee employee = new Employee(id, name);
+        storage.storeEmployee(employee);
         return employee;
+    }
 
+
+    /**
+     * Creates a Distillate and saves it to storage
+     * @param newMakenr
+     * @param distillationTime
+     * @param alcoholPercentage
+     * @param amountInLiters
+     * @param employee
+     * @param maltBatches
+     * @return the created Distillate
+     */
+    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
+
+    }
+
+    /**
+     * Creates a Distillate and saves it to storage
+     * @param newMakenr
+     * @param distillationTime
+     * @param alcoholPercentage
+     * @param amountInLiters
+     * @param employee
+     * @param maltBatches
+     * @return the created Distillate
+     */
+    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
+        
     }
 
         /**
@@ -195,7 +234,9 @@ public abstract class MainController {
          * Pre: A grain is created for the maltbatch
          */
         public static MaltBatch createMaltbatch (String description, Grain grain){
-            return null;
+            MaltBatch maltBatch = new MaltBatch(description, grain);
+            storage.storeMaltBatch(maltBatch);
+            return new MaltBatch(description, grain);
         }
 
         /**
