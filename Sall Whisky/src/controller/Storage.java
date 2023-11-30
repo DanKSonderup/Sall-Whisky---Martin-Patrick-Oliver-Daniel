@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface Storage {
+    //-------------------------------------------------
+    /** StorageCounter */
+    StorageCounter getStorageCounter();
 
+    //-------------------------------------------------
     /** CaskSuppliers */
     List<CaskSupplier> getCaskSuppliers();
     void storeCaskSupplier(CaskSupplier caskSupplier);
@@ -31,11 +35,14 @@ public interface Storage {
     void deleteEmployee(Employee employee);
 
     //-------------------------------------------------
-    /** StorageCounter */
-    StorageCounter getStorageCounter();
-
     /** Maltbatch */
     List<MaltBatch> getMaltBatches();
     void storeMaltBatch(MaltBatch maltBatch);
     void deleteMaltBatch(MaltBatch maltBatch);
+
+    //-------------------------------------------------
+    /** Grain */
+    List<Grain> getGrain();
+    void storeGrain(Grain grain);
+    void deleteGrain(Grain grain);
 }

@@ -240,12 +240,14 @@ public abstract class MainController {
         }
 
         /**
-         * Create and return a grain
+         * Create, store and return a grain
          * Pre: A grain supplier is created
          */
-        public static Grain createGrain (String grainType, GrainSupplier grainSupplier,
+        public static Grain createGrain(String grainType, GrainSupplier grainSupplier,
                                          String cultivationDescription, String fieldName) {
-            return new Grain(grainType, grainSupplier, cultivationDescription, fieldName);
+            Grain grain =  new Grain(grainType, grainSupplier, cultivationDescription, fieldName);
+            storage.storeGrain(grain);
+            return grain;
         }
 
         public static void notifyObserver () {
