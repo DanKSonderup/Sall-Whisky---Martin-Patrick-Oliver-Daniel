@@ -2,11 +2,11 @@ package model;
 
 public class Employee {
     private int Id;
-    private String navn;
+    private String name;
 
-    public Employee(int id, String navn) {
+    public Employee(int id, String name) {
         Id = id;
-        this.navn = navn;
+        this.name = name;
     }
 
     public int getId() {
@@ -17,16 +17,16 @@ public class Employee {
         Id = id;
     }
 
-    public String getNavn() {
-        return navn;
+    public String getName() {
+        return name;
     }
 
-    public void setNavn(String navn) {
-        this.navn = navn;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return navn + " (" + Id + ")";
+        return name + " (" + Id + ")";
     }
 }

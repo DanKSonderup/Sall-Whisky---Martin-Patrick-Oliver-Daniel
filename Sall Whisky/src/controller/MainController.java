@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -166,31 +167,50 @@ public abstract class MainController {
     }
 
     /**
-     * PRE: AlcoholPercentage and amountInLiters must be > 0, DistillationTime must not be after current time
-     * Creates a Distillate and saves it to storage
-     * @param newMakenr
-     * @param distillationTime
-     * @param alcoholPercentage
-     * @param amountInLiters
-     * @param employee
-     * @param maltBatches
-     * @return The distillate that was created
+     * Create and return FillOnCask object
+     * Connection is added to cask
+     * Connection is added to DistillateFill
+     * Pre: A cask is not null
+     * Pre: DistillateFills is not null
+     * Pre: timeOfFill is not null;
+     * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
      */
-    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
-
+    public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
+        FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask, distillateFills);
+        return fillOnCask;
     }
 
     /**
-     * Creates a GrainSupplier Object and saves it to Storage
-     * @return the created GrainSupplier
+     * Create and return an employee
+     * Pre: Name and id is not null;
      */
-    public static GrainSupplier createGrainSupplier() {
+    public static Employee createEmployee(int id, String name) {
+        Employee employee = new Employee(id, name);
+        return employee;
 
     }
 
-    public static void notifyObserver() {
-        for (Observer observer : observers) {
-            observer.notify();
+        /**
+         * Create, store and return a maltbatch
+         * Add the connection to the grain
+         * Pre: A grain is created for the maltbatch
+         */
+        public static MaltBatch createMaltbatch (String description, Grain grain){
+            return null;
+        }
+
+        /**
+         * Create and return a grain
+         * Add the connection to the grain supplier
+         * Pre: A grain supplier is created
+         */
+        public static Grain createGrain (String grainType, GrainSupplier grainSupplier, String cultivationDescription, String fieldName){
+            return null;
+        }
+
+        public static void notifyObserver () {
+            for (Observer observer : observers) {
+                observer.notify();
+            }
         }
     }
-}
