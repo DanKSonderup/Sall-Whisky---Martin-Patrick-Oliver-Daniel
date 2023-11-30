@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateSupplierViewController">
+   <children>
+      <Label layoutX="61.0" layoutY="184.0" text="Navn" />
+      <Label layoutX="53.0" layoutY="223.0" prefWidth="47.0" text="Adresse" />
+      <Label layoutX="62.0" layoutY="262.0" text="Land" />
+      <Label layoutX="58.0" layoutY="305.0" text="VAT_id" />
+      <TextField fx:id="txfName" layoutX="128.0" layoutY="180.0" prefHeight="25.0" prefWidth="202.0" />
+      <TextField fx:id="txfAddress" layoutX="128.0" layoutY="219.0" prefHeight="25.0" prefWidth="202.0" />
+      <TextField fx:id="txfCountry" layoutX="128.0" layoutY="258.0" prefHeight="25.0" prefWidth="202.0" />
+      <TextField fx:id="txfVatId" layoutX="128.0" layoutY="301.0" prefHeight="25.0" prefWidth="202.0" />
+      <Label layoutX="47.0" layoutY="143.0" text="Leverandør" />
+      <Button fx:id="btnCreateSupplier" layoutX="229.0" layoutY="348.0" mnemonicParsing="false" text="Opret leverandør" />
+      <Button fx:id="btnCancel" layoutX="128.0" layoutY="348.0" mnemonicParsing="false" text="Annuller" />
+      <ListView fx:id="lvwGrainSupplier" layoutX="418.0" layoutY="151.0" prefHeight="228.0" prefWidth="200.0" />
+      <ListView fx:id="lvwCaskSupplier" layoutX="696.0" layoutY="151.0" prefHeight="228.0" prefWidth="200.0" />
+      <Label layoutX="477.0" layoutY="121.0" text="Kornleverandør" />
+      <Label layoutX="758.0" layoutY="121.0" text="Fadleverandør" />
+      <TextField fx:id="txfSupplier" layoutX="128.0" layoutY="139.0" prefHeight="25.0" prefWidth="202.0" />
+      <Button fx:id="btnDeleteCaskSupplier" layoutX="778.0" layoutY="388.0" mnemonicParsing="false" text="Slet fadleverandør" />
+      <Button fx:id="btnDeleteGrainSupplier" layoutX="499.0" layoutY="388.0" mnemonicParsing="false" text="Slet kornleverandør" />
+   </children>
+</AnchorPane>
