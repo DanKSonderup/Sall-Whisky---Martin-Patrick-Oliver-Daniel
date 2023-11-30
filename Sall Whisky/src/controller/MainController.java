@@ -186,11 +186,30 @@ public abstract class MainController {
     public static Employee createEmployee(int id, String name) {
         Employee employee = new Employee(id, name);
         return employee;
+
     }
 
-    public static void notifyObserver() {
-        for (Observer observer : observers) {
-            observer.notify();
+        /**
+         * Create, store and return a maltbatch
+         * Add the connection to the grain
+         * Pre: A grain is created for the maltbatch
+         */
+        public static MaltBatch createMaltbatch (String description, Grain grain){
+            return null;
+        }
+
+        /**
+         * Create and return a grain
+         * Add the connection to the grain supplier
+         * Pre: A grain supplier is created
+         */
+        public static Grain createGrain (String grainType, GrainSupplier grainSupplier, String cultivationDescription, String fieldName){
+            return null;
+        }
+
+        public static void notifyObserver () {
+            for (Observer observer : observers) {
+                observer.notify();
+            }
         }
     }
-}
