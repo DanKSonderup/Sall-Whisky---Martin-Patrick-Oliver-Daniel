@@ -1,42 +1,136 @@
 package gui.guicontrollers;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TableView;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class CRUDCaskViewController {
+
+    private Stage stage;
+    private Scene scene;
     @FXML
     private AnchorPane ap_Pane1;
 
     @FXML
-    private Button btnCreate;
+    private Button btnCRUDCask;
+
+    @FXML
+    private Button btnCRUDRawMaterial;
+
+    @FXML
+    private Button btnCRUDStorage;
+
+    @FXML
+    private Button btnCRUDSupplier;
+
+    @FXML
+    private Button btnCreateCask;
+
+    @FXML
+    private Button btnCreateFillOnCask;
 
     @FXML
     private Button btnDelete;
 
     @FXML
+    private Button btnDestillateAndFillOnCask;
+
+    @FXML
     private Button btnEdit;
+
+    @FXML
+    private Button btnStartside;
 
     @FXML
     private Button btnViewDistillate;
 
     @FXML
-    private TableView<?> tbwTable;
-
+    private ListView<?> lvwCountryOfOrigin;
 
     @FXML
-    void btnCreateOnAction(ActionEvent event) {
-        System.out.println("Idk");
-        ap_Pane1.setDisable(true);
-    }
+    private ListView<?> lvwID;
+
+    @FXML
+    private ListView<?> lvwPosition;
+
+    @FXML
+    private ListView<?> lvwPrevContent;
+
+    @FXML
+    private ListView<?> lvwRack;
+
+    @FXML
+    private ListView<?> lvwShelf;
+
+    @FXML
+    private ListView<?> lvwSize;
+
+    @FXML
+    private ListView<?> lvwWarehouse;
 
     @FXML
     void btnCreateFillOnCask(ActionEvent event) {
-        System.out.println("Idk");
-        ap_Pane1.setDisable(true);
+
     }
+
+    @FXML
+    void btnCreateCaskOnAction(ActionEvent event) throws IOException{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Sall Whisky/src/gui/views/CreateCaskView.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setTitle("Opret fad");
+            stage.setScene(new Scene(root1));
+            stage.show();
+    }
+
+    @FXML
+    void btnCrudCaskOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnCrudStorageOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnRawMaterialOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnStartSideOnAction(ActionEvent event) throws IOException {
+        URL url = new File("Sall Whisky/src/gui/views/MainView.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void btnSupplierOnAction(ActionEvent event) {
+
+    }
+
 }

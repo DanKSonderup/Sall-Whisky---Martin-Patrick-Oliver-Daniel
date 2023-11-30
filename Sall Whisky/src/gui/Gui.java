@@ -16,7 +16,7 @@ public class Gui extends Application {
     public void start(Stage stage) throws Exception {
         System.out.println("Gui launched");
 
-        URL fxmlFileName = new File("Sall Whisky/src/gui/views/MainView.fxml").toURI().toURL();
+        URL fxmlFileName = new File("Sall Whisky/src/gui/views/CreateCaskView.fxml").toURI().toURL();
         if (fxmlFileName == null) throw new NoSuchElementException("FXML file not found");
 
         Parent root = FXMLLoader.load(fxmlFileName);

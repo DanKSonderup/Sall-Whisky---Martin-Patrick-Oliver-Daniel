@@ -34,7 +34,10 @@ public class MainViewController {
     private Button btnDestillateAndFillOnCask;
 
     @FXML
-    public void crudCaskOnAction(ActionEvent event) throws IOException {
+    private Button btnStartside;
+
+    @FXML
+    void btnCrudCaskOnAction(ActionEvent event) throws IOException {
         URL url = new File("Sall Whisky/src/gui/views/CRUDCaskView.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
@@ -44,12 +47,37 @@ public class MainViewController {
     }
 
     @FXML
-    public void crudStorageOnAction(ActionEvent event) {
+    void btnCrudStorageOnAction(ActionEvent event) throws IOException{
+        URL url = new File("Sall Whisky/src/gui/views/CRUDStorageView.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
+        URL url = new File("Sall Whisky/src/gui/views/CreateDistilleryFillOnCask.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void btnRawMaterialOnAction(ActionEvent event) {
 
     }
 
     @FXML
-    void destillateAndFillOnCaskOnAction(ActionEvent event) {
+    void btnStartSideOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnSupplierOnAction(ActionEvent event) {
 
     }
 }

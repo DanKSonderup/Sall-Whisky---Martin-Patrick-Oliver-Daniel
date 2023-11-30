@@ -156,6 +156,7 @@ public class CreateCaskViewController implements Initializable {
         shelf2.addPosition(pos3);
 
 
+        lvwWarehouse.getItems().setAll(warehouses);
     }
 
     public void selectedStorageItemChanged() {
