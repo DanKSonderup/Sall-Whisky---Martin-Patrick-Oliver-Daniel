@@ -211,7 +211,7 @@ public abstract class MainController {
      * @return the created Distillate
      */
     public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
-
+        return null;
     }
 
     /**
@@ -225,7 +225,7 @@ public abstract class MainController {
      * @return the created Distillate
      */
     public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
-        
+        return null;
     }
 
         /**
