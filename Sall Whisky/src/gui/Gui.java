@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.NoSuchElementException;
 
@@ -15,7 +16,7 @@ public class Gui extends Application {
     public void start(Stage stage) throws Exception {
         System.out.println("Gui launched");
 
-        URL fxmlFileName = this.getClass().getResource("CreateCaskView.fxml");
+        URL fxmlFileName = new File("Sall Whisky/src/gui/views/MainView.fxml").toURI().toURL();
         if (fxmlFileName == null) throw new NoSuchElementException("FXML file not found");
 
         Parent root = FXMLLoader.load(fxmlFileName);

@@ -210,11 +210,8 @@ public abstract class MainController {
      * @param maltbatches
      * @return the created Distillate
      */
-    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime,
-                                              double alcoholPercentage, double amountInLiters, Employee employee,
-                                              List<Maltbatch> maltbatches) {
-        Distillate distillate = new Distillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters,
-                employee, maltbatches);
+    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<Maltbatch> maltbatches) {
+        Distillate distillate = new Distillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltbatches);
         storage.storeDistillate(distillate);
         return distillate;
     }
@@ -224,7 +221,7 @@ public abstract class MainController {
          * Add the connection to the grain
          * Pre: A grain is created for the maltbatch
          */
-        public static Maltbatch createMaltbatch (String description, Grain grain){
+        public static Maltbatch createMaltbatch (String description, Grain grain) {
             Maltbatch maltbatch = new Maltbatch(description, grain);
             storage.storeMaltBatch(maltbatch);
             return maltbatch;
@@ -235,8 +232,7 @@ public abstract class MainController {
          * Add the connection to the grain supplier
          * Pre: A grain supplier is created
          */
-        public static Grain createGrain (String grainType, GrainSupplier grainSupplier,
-                                         String cultivationDescription, String fieldName){
+        public static Grain createGrain (String grainType, GrainSupplier grainSupplier, String cultivationDescription, String fieldName){
             Grain grain = new Grain(grainType, grainSupplier, cultivationDescription, fieldName);
             storage.storeGrain(grain);
             return grain;
