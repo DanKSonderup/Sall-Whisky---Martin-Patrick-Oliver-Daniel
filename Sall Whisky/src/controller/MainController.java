@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,6 +163,29 @@ public abstract class MainController {
         notifyObserver();
 
         return position;
+    }
+
+    /**
+     * Create and return FillOnCask object
+     * Connection is added to cask
+     * Connection is added to DistillateFill
+     * Pre: A cask is not null
+     * Pre: DistillateFills is not null
+     * Pre: timeOfFill is not null;
+     * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
+     */
+    public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
+        FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask, distillateFills);
+        return fillOnCask;
+    }
+
+    /**
+     * Create and return an employee
+     * Pre: Name and id is not null;
+     */
+    public static Employee createEmployee(int id, String name) {
+        Employee employee = new Employee(id, name);
+        return employee;
     }
 
     public static void notifyObserver() {

@@ -7,11 +7,12 @@ import java.util.List;
 public class FillOnCask {
     private LocalDate timeOfFill;
     private Cask cask;
-    private final List<DistillateFill> distillateFills = new ArrayList<>();
+    private List<DistillateFill> distillateFills = new ArrayList<>();
 
-    public FillOnCask(LocalDate timeOfFill, Cask cask) {
+    public FillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
         this.timeOfFill = timeOfFill;
         this.cask = cask;
+        this.distillateFills = distillateFills;
     }
 
     public LocalDate getTimeOfFill() {
