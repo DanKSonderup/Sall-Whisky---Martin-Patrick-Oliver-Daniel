@@ -85,9 +85,7 @@ public abstract class MainController {
 
     /**
      * Create and return a Cask
-     * Pre: countryOfOrigin is not null
      * Pre: sizeInLiters > 0 / Throw an illegalArgumentException if sizeInLiters <= 0
-     * Pre: CaskSupplier og Position is not null
      */
     public static Cask createCask(String countryOfOrigin, double sizeInLiters, String previousContent,
                                   Position position, CaskSupplier supplier) {
@@ -108,7 +106,6 @@ public abstract class MainController {
     /**
      * Create and return a Warehouse.
      * Increment warehouse counter.
-     * Pre: address is not null
      */
     public static Warehouse createWarehouse(String address) {
         int id = storage.getStorageCounter().getWarehouseCount();
@@ -170,8 +167,8 @@ public abstract class MainController {
      * Create and return FillOnCask object
      * Connection is added to cask
      * Connection is added to DistillateFill
+     * If distillateFill is > sizeInLiters (Cask) throw an illegalArgumentException
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
-     * Pre: distillateFill is > sizeInLiters (Cask)
      */
     public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
         FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask);
@@ -191,7 +188,7 @@ public abstract class MainController {
     }
 
     /**
-     * Create and return an employee
+     * Create, store and return an employee
      */
     public static Employee createEmployee(int id, String name) {
         Employee employee = new Employee(id, name);
