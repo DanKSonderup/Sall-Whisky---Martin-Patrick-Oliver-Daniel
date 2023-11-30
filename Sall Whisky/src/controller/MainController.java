@@ -169,9 +169,6 @@ public abstract class MainController {
      * Create and return FillOnCask object
      * Connection is added to cask
      * Connection is added to DistillateFill
-     * Pre: A cask is not null
-     * Pre: DistillateFills is not null
-     * Pre: timeOfFill is not null;
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
      */
     public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
@@ -181,7 +178,6 @@ public abstract class MainController {
 
     /**
      * Create and return an employee
-     * Pre: Name and id is not null;
      */
     public static Employee createEmployee(int id, String name) {
         Employee employee = new Employee(id, name);
