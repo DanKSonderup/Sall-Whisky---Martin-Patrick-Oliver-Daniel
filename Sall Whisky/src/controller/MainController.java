@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,6 +163,29 @@ public abstract class MainController {
         notifyObserver();
 
         return position;
+    }
+
+    /**
+     * PRE: AlcoholPercentage and amountInLiters must be > 0, DistillationTime must not be after current time
+     * Creates a Distillate and saves it to storage
+     * @param newMakenr
+     * @param distillationTime
+     * @param alcoholPercentage
+     * @param amountInLiters
+     * @param employee
+     * @param maltBatches
+     * @return The distillate that was created
+     */
+    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
+
+    }
+
+    /**
+     * Creates a GrainSupplier Object and saves it to Storage
+     * @return the created GrainSupplier
+     */
+    public static GrainSupplier createGrainSupplier() {
+
     }
 
     public static void notifyObserver() {
