@@ -182,11 +182,25 @@ public abstract class MainController {
 
     /**
      * Create and return an employee
-     * Pre: Name and id is not null;
      */
     public static Employee createEmployee(int id, String name) {
         Employee employee = new Employee(id, name);
+        storage.storeEmployee(employee);
         return employee;
+    }
+
+
+    /**
+     * Creates a Distillate and saves it to storage
+     * @param newMakenr
+     * @param distillationTime
+     * @param alcoholPercentage
+     * @param amountInLiters
+     * @param employee
+     * @param maltBatches
+     * @return the created Distillate
+     */
+    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
 
     }
 
@@ -196,7 +210,9 @@ public abstract class MainController {
          * Pre: A grain is created for the maltbatch
          */
         public static MaltBatch createMaltbatch (String description, Grain grain){
-            return null;
+            MaltBatch maltBatch = new MaltBatch(description, grain);
+            storage.storeMaltBatch(maltBatch);
+            return new MaltBatch(description, grain);
         }
 
         /**
