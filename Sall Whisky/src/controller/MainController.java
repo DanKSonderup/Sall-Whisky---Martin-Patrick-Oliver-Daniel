@@ -233,7 +233,7 @@ public abstract class MainController {
          * Pre: A grain supplier is created
          */
         public static Grain createGrain (String grainType, GrainSupplier grainSupplier, String cultivationDescription, String fieldName){
-            return null;
+            
         }
 
         public static void notifyObserver () {
