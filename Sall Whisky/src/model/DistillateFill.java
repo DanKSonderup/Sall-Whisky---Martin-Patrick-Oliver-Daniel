@@ -9,4 +9,19 @@ public class DistillateFill {
         this.distillate = distillate;
     }
 
+    public double getAmountOfDistillate() {
+        return amountOfDistillate;
+    }
+
+    public void setAmountOfDistillate(double amountOfDistillate) {
+        this.amountOfDistillate = amountOfDistillate;
+    }
+
+    public Distillate getDistillate() {
+        return distillate;
+    }
+
+    public void setDistillate(Distillate distillate) {
+        this.distillate = distillate;
+    }
 }

@@ -1,14 +1,18 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cask {
-    private static int caskId = 1;
+    private int caskId;
     private String countryOfOrigin;
     private double sizeInLiters;
     private String previousContent;
     private Position position;
     private CaskSupplier supplier;
+    private final List<FillOnCask> fillOnCasks = new ArrayList<>();
 
-    /** Constructor for temp-casks */
+    /** Constructor for temp-casks - SLET SENERE*/
 
     public Cask(String countryOfOrigin, double sizeInLiters, String previousContent) {
         this.countryOfOrigin = countryOfOrigin;
@@ -23,7 +27,6 @@ public class Cask {
         this.previousContent = previousContent;
         this.position = position;
         this.supplier = supplier;
-        caskId++;
     }
 
     /** Constructor without previousContent */
@@ -32,17 +35,12 @@ public class Cask {
         this.sizeInLiters = sizeInLiters;
         this.position = position;
         this.supplier = supplier;
-        caskId++;
     }
 
     // ---------------------------------------------------------------------
     /** Getters and setters */
     public int getCaskId() {
         return caskId;
-    }
-
-    public void setCaskId(int caskId) {
-        this.caskId = caskId;
     }
 
     public String getCountryOfOrigin() {
@@ -83,6 +81,9 @@ public class Cask {
 
     public void setSupplier(CaskSupplier supplier) {
         this.supplier = supplier;
+    }
+    public void addFillOnCask(FillOnCask fillOnCask) {
+        fillOnCasks.add(fillOnCask);
     }
 
 }

@@ -13,5 +13,19 @@ public class GrainSupplier {
         this.vatID = vatID;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getVatID() {
+        return vatID;
+    }
 }

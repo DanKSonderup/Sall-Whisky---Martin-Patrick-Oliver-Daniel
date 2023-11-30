@@ -7,6 +7,7 @@ public class StorageCounter implements Serializable {
         private int rackCount = 0;
         private int shelfCount = 0;
         private int positionCount = 0;
+        private int caskCount = 0;
 
     public int getWarehouseCount() {
         return warehouseCount;
@@ -23,6 +24,9 @@ public class StorageCounter implements Serializable {
     public int getPositionCount() {
         return positionCount;
     }
+    public int getCaskCount() {
+        return caskCount;
+    }
 
     public void incrementWarehouseCount() {
         warehouseCount++;
@@ -38,5 +42,8 @@ public class StorageCounter implements Serializable {
 
     public void incrementPositionCount() {
         positionCount++;
+    }
+    public void incrementCaskCount() {
+        caskCount++;
     }
 }

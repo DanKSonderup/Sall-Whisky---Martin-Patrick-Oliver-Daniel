@@ -9,5 +9,19 @@ public class MaltBatch {
         this.grain = grain;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Grain getGrain() {
+        return grain;
+    }
+
+    public void setGrain(Grain grain) {
+        this.grain = grain;
+    }
 }
