@@ -21,7 +21,7 @@ public class Cask {
     }
 
     /** Constructor with previousContent */
-    public Cask(String countryOfOrigin, double sizeInLiters, String previousContent, Position position, CaskSupplier supplier) {
+    public Cask(int caskId, String countryOfOrigin, double sizeInLiters, String previousContent, Position position, CaskSupplier supplier) {
         this.countryOfOrigin = countryOfOrigin;
         this.sizeInLiters = sizeInLiters;
         this.previousContent = previousContent;
@@ -30,7 +30,7 @@ public class Cask {
     }
 
     /** Constructor without previousContent */
-    public Cask(String countryOfOrigin, double sizeInLiters, Position position, CaskSupplier supplier) {
+    public Cask(int caskId, String countryOfOrigin, double sizeInLiters, Position position, CaskSupplier supplier) {
         this.countryOfOrigin = countryOfOrigin;
         this.sizeInLiters = sizeInLiters;
         this.position = position;

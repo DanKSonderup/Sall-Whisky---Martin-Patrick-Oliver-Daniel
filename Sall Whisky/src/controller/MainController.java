@@ -89,14 +89,15 @@ public abstract class MainController {
      */
     public static Cask createCask(String countryOfOrigin, double sizeInLiters, String previousContent,
                                   Position position, CaskSupplier supplier) {
+        int id = storage.getStorageCounter().getCaskCount();
         if (sizeInLiters <= 0) {
             throw new IllegalArgumentException();
         }
         Cask cask;
         if (previousContent.isBlank()) {
-            cask = new Cask(countryOfOrigin, sizeInLiters, position, supplier);
+            cask = new Cask(id, countryOfOrigin, sizeInLiters, position, supplier);
         } else {
-            cask = new Cask(countryOfOrigin, sizeInLiters, previousContent, position, supplier);
+            cask = new Cask(id, countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         }
         return cask;
     }
