@@ -12,6 +12,7 @@ public class ListStorage implements Storage {
     private final List<Warehouse> warehouses = new ArrayList<>();
     private final List<MaltBatch> maltBatches = new ArrayList<>();
     private final List<Employee> employees = new ArrayList<>();
+    private final List<Distillate> distillates = new ArrayList<>();
     private StorageCounter storageCounter = new StorageCounter();
 
     //----------------------------------------------------------------------
@@ -80,5 +81,18 @@ public class ListStorage implements Storage {
     }
     public void deleteEmployee(Employee employee) {
         employees.remove(employee);
+    }
+
+
+    /** Distillate */
+    @Override
+    public List<Distillate> getDistillate() {
+        return new ArrayList<>(distillates);
+    }
+    public void storeDistillate(Distillate distillate) {
+        distillates.add(distillate);
+    }
+    public void deleteDistillate(Distillate distillate) {
+        distillates.remove(distillate);
     }
 }

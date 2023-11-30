@@ -189,15 +189,17 @@ public abstract class MainController {
     /**
      * Creates a Distillate and saves it to storage
      * @param newMakenr
-     * @param distillationTime
-     * @param alcoholPercentage
-     * @param amountInLiters
+     * Pre: distillationTime is not after LocalDateTime.now()
+     * Pre: alcoholPercentage > 0
+     * Pre: amountInLiters > 0
      * @param employee
      * @param maltBatches
      * @return the created Distillate
      */
     public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
-        
+        Distillate distillate = new Distillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches);
+        storage.storeDistillate(distillate);
+        return distillate;
     }
 
         /**
