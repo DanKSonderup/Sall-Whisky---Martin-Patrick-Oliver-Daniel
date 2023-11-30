@@ -10,16 +10,16 @@ public class Distillate {
     private double alcoholPercentage;
     private double amountInLiters;
     private Employee employee;
-    List<MaltBatch> maltBatches = new ArrayList<>();
+    List<Maltbatch> maltbatches = new ArrayList<>();
 
     public Distillate(String newMakeNr, LocalDateTime distillationTime, double alcoholPercentage,
-                      double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
+                      double amountInLiters, Employee employee, List<Maltbatch> maltbatches) {
         this.newMakeNr = newMakeNr;
         this.distillationTime = distillationTime;
         this.alcoholPercentage = alcoholPercentage;
         this.amountInLiters = amountInLiters;
         this.employee = employee;
-        this.maltBatches = maltBatches;
+        this.maltbatches = maltbatches;
     }
 
     public String getNewMakeNr() {
@@ -62,12 +62,12 @@ public class Distillate {
         this.employee = employee;
     }
 
-    public void addMaltbatch(MaltBatch maltBatch) {
-        maltBatches.add(maltBatch);
+    public void addMaltbatch(Maltbatch maltBatch) {
+        maltbatches.add(maltBatch);
     }
 
-    public void removeMaltbatch(MaltBatch maltBatch) {
-        maltBatches.remove(maltBatch);
+    public void removeMaltbatch(Maltbatch maltBatch) {
+        maltbatches.remove(maltBatch);
     }
 
 

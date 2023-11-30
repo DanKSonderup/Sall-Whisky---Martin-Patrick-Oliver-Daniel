@@ -176,17 +176,17 @@ public abstract class MainController {
     public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
         FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask);
         cask.addFillOnCask(fillOnCask);
+
         double sum = 0;
         for (DistillateFill distillateFill : distillateFills) {
             sum += distillateFill.getAmountOfDistillate();
             fillOnCask.addDistillateFill(distillateFill);
-    }
-        if (sum > cask.getSizeInLiters()) {
+        }
+        if (sum > cask.getSizeInLiters())
             throw new IllegalArgumentException("Fadets størrelse er mindre end din påfyldning");
-        }
-        if (timeOfFill.isAfter(LocalDate.now())) {
+        if (timeOfFill.isAfter(LocalDate.now()))
             throw new IllegalArgumentException("Dato er efter nuværende dato");
-        }
+
         return fillOnCask;
     }
 
@@ -207,11 +207,14 @@ public abstract class MainController {
      * Pre: alcoholPercentage > 0
      * Pre: amountInLiters > 0
      * @param employee
-     * @param maltBatches
+     * @param maltbatches
      * @return the created Distillate
      */
-    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<MaltBatch> maltBatches) {
-        Distillate distillate = new Distillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches);
+    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime,
+                                              double alcoholPercentage, double amountInLiters, Employee employee,
+                                              List<Maltbatch> maltbatches) {
+        Distillate distillate = new Distillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters,
+                employee, maltbatches);
         storage.storeDistillate(distillate);
         return distillate;
     }
@@ -221,10 +224,10 @@ public abstract class MainController {
          * Add the connection to the grain
          * Pre: A grain is created for the maltbatch
          */
-        public static MaltBatch createMaltbatch (String description, Grain grain){
-            MaltBatch maltBatch = new MaltBatch(description, grain);
-            storage.storeMaltBatch(maltBatch);
-            return maltBatch;
+        public static Maltbatch createMaltbatch (String description, Grain grain){
+            Maltbatch maltbatch = new Maltbatch(description, grain);
+            storage.storeMaltBatch(maltbatch);
+            return maltbatch;
         }
 
         /**
@@ -232,8 +235,11 @@ public abstract class MainController {
          * Add the connection to the grain supplier
          * Pre: A grain supplier is created
          */
-        public static Grain createGrain (String grainType, GrainSupplier grainSupplier, String cultivationDescription, String fieldName){
-            
+        public static Grain createGrain (String grainType, GrainSupplier grainSupplier,
+                                         String cultivationDescription, String fieldName){
+            Grain grain = new Grain(grainType, grainSupplier, cultivationDescription, fieldName);
+            storage.storeGrain(grain);
+            return grain;
         }
 
         public static void notifyObserver () {

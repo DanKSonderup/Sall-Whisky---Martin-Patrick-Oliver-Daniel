@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.MaltBatch;
+import model.Maltbatch;
 import storage.ListStorage;
 
 
@@ -31,8 +31,8 @@ public class CreateDistillery extends Application {
     ListStorage listStorage;
     private Label lblAvailableMaltBatches = new Label("Tilgængelige maltbatches");
     private Label lblShowSelectedMaltBatches = new Label("Valgte maltbatches");
-    private final ListView<MaltBatch> lvwMaltBatch = new ListView<>();
-    private final ListView<MaltBatch> lvwShowSelectedMaltBatches = new ListView<>();
+    private final ListView<Maltbatch> lvwMaltBatch = new ListView<>();
+    private final ListView<Maltbatch> lvwShowSelectedMaltBatches = new ListView<>();
     private final TextField txfNewMakeNr = new TextField();
     private final TextField txfMaltBatch = new TextField();
     private final TextField txfEmployee = new TextField();
@@ -107,7 +107,7 @@ public class CreateDistillery extends Application {
     }
 
     private TitledPane showMaltBatches(String title) {
-        ListView<MaltBatch> maltBatchListView = new ListView<>();
+        ListView<Maltbatch> maltBatchListView = new ListView<>();
         // maltBatchListView.getItems().setAll(listStorage.getMaltBatches);
 
         VBox vBox = new VBox(lblAvailableMaltBatches, maltBatchListView, lblShowSelectedMaltBatches, lvwShowSelectedMaltBatches);

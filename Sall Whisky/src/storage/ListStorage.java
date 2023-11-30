@@ -10,9 +10,10 @@ public class ListStorage implements Storage {
     private final List<Cask> casks = new ArrayList<>();
     private final List<CaskSupplier> caskSuppliers = new ArrayList<>();
     private final List<Warehouse> warehouses = new ArrayList<>();
-    private final List<MaltBatch> maltBatches = new ArrayList<>();
+    private final List<Maltbatch> maltbatches = new ArrayList<>();
     private final List<Employee> employees = new ArrayList<>();
     private final List<Distillate> distillates = new ArrayList<>();
+    private final List<Grain> grains = new ArrayList<>();
     private StorageCounter storageCounter = new StorageCounter();
 
     //----------------------------------------------------------------------
@@ -59,14 +60,14 @@ public class ListStorage implements Storage {
     }
     //----------------------------------------------------------------------
     /** Maltbatch */
-    public List<MaltBatch> getMaltBatches() {
-        return new ArrayList<>(maltBatches);
+    public List<Maltbatch> getMaltBatches() {
+        return new ArrayList<>(maltbatches);
     }
-    public void storeMaltBatch(MaltBatch maltBatch) {
-        maltBatches.add(maltBatch);
+    public void storeMaltBatch(Maltbatch maltBatch) {
+        maltbatches.add(maltBatch);
     }
-    public void deleteMaltBatch(MaltBatch maltBatch) {
-        maltBatches.remove(maltBatch);
+    public void deleteMaltBatch(Maltbatch maltBatch) {
+        maltbatches.remove(maltBatch);
     }
 
     //----------------------------------------------------------------------
@@ -94,5 +95,19 @@ public class ListStorage implements Storage {
     }
     public void deleteDistillate(Distillate distillate) {
         distillates.remove(distillate);
+    }
+
+    /** Grain */
+    @Override
+    public List<Grain> getGrain() {
+        return new ArrayList<>(grains);
+    }
+    @Override
+    public void storeGrain(Grain grain) {
+        grains.add(grain);
+    }
+    @Override
+    public void deleteGrain(Grain grain) {
+        grains.remove(grain);
     }
 }
