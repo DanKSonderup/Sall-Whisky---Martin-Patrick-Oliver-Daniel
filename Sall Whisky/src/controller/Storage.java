@@ -6,10 +6,6 @@ import java.util.List;
 
 public interface Storage {
 
-    /** CaskSuppliers */
-    List<CaskSupplier> getCaskSuppliers();
-    void storeCaskSupplier(CaskSupplier caskSupplier);
-    void deleteCaskSupplier(CaskSupplier caskSupplier);
 
     //-------------------------------------------------
     /** Casks */
@@ -52,5 +48,15 @@ public interface Storage {
     List<Field> getFields();
     void storeField(Field field);
     void deleteField(Field field);
+
+    /** GrainSupplier */
+    List<GrainSupplier> getGrainSuppliers();
+    void storeGrainSupplier(GrainSupplier grainSupplier);
+    void deleteGrainSupplier(GrainSupplier grainSupplier);
+
+    /** CaskSupplier */
+    List<CaskSupplier> getCaskSuppliers();
+    void storeCaskSupplier(CaskSupplier caskSupplier);
+    void deleteCaskSupplier(CaskSupplier caskSupplier);
 
 }

@@ -9,6 +9,7 @@ import java.util.List;
 public class ListStorage implements Storage {
     private final List<Cask> casks = new ArrayList<>();
     private final List<CaskSupplier> caskSuppliers = new ArrayList<>();
+    private final List<GrainSupplier> grainSuppliers = new ArrayList<>();
     private final List<Warehouse> warehouses = new ArrayList<>();
     private final List<Maltbatch> maltbatches = new ArrayList<>();
     private final List<Employee> employees = new ArrayList<>();
@@ -28,6 +29,21 @@ public class ListStorage implements Storage {
     public void deleteCaskSupplier(CaskSupplier caskSupplier) {
         caskSuppliers.remove(caskSupplier);
     }
+
+    //----------------------------------------------------------------------
+    /** GrainSupplier */
+    @Override
+    public List<GrainSupplier> getGrainSuppliers() {
+        return new ArrayList<>(grainSuppliers);
+    }
+    public void storeGrainSupplier(GrainSupplier grainSupplier) {
+        grainSuppliers.add(grainSupplier);
+    }
+    public void deleteGrainSupplier(GrainSupplier grainSupplier) {
+        grainSuppliers.remove(grainSupplier);
+    }
+
+
     //----------------------------------------------------------------------
 
     /** Casks */

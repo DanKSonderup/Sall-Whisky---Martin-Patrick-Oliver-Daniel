@@ -253,6 +253,27 @@ public abstract class MainController {
     }
 
     /**
+     * Create, store and return a GrainSupplier
+     *
+     */
+    public static GrainSupplier createGrainSupplier (String name, String address, String country, String vatId) {
+        GrainSupplier grainSupplier = new GrainSupplier(name, address, country, vatId);
+        storage.storeGrainSupplier(grainSupplier);
+        return grainSupplier;
+    }
+
+    /**
+     * Create, store and return a CaskSupplier
+     *
+     */
+    public static CaskSupplier createCaskSupplier (String name, String address, String country, String vatId) {
+        CaskSupplier caskSupplier = new CaskSupplier(name, address, country, vatId);
+        storage.storeCaskSupplier(caskSupplier);
+        return caskSupplier;
+    }
+
+
+    /**
      * Return all fields
      */
     public static List<Field> getFields() {
