@@ -200,7 +200,6 @@ public abstract class MainController {
     /**
      * Creates a Distillate and saves it to storage
      * @param newMakenr
-     * Pre: distillationTime is not after LocalDateTime.now()
      * Pre: alcoholPercentage > 0
      * Pre: amountInLiters > 0
      * @param employee
