@@ -17,7 +17,7 @@ public class Gui extends Application {
         System.out.println("Gui launched");
 
 //        URL fxmlFileName = new File("Sall Whisky/src/gui/views/MainView.fxml").toURI().toURL();
-        URL fxmlFileName = new File("Sall Whisky/src/gui/views/CRUDRawMaterialsView.fxml").toURI().toURL();
+        URL fxmlFileName = new File("Sall Whisky/src/gui/views/CreateSupplierView.fxml").toURI().toURL();
         if (fxmlFileName == null) throw new NoSuchElementException("FXML file not found");
 
         Parent root = FXMLLoader.load(fxmlFileName);
