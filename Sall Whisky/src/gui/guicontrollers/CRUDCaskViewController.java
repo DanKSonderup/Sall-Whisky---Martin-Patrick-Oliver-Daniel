@@ -88,11 +88,10 @@ public class CRUDCaskViewController {
 
     @FXML
     void btnCreateCaskOnAction(ActionEvent event) throws IOException{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Sall Whisky/src/gui/views/CreateCaskView.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
+            URL url = new File("Sall Whisky/src/gui/views/CreateCaskView.fxml").toURI().toURL();
+            Parent root1 = FXMLLoader.load(url);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UNDECORATED);
             stage.setTitle("Opret fad");
             stage.setScene(new Scene(root1));
             stage.show();

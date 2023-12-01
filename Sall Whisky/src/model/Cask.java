@@ -12,7 +12,7 @@ public class Cask {
     private CaskSupplier supplier;
     private final List<FillOnCask> fillOnCasks = new ArrayList<>();
 
-    /** Constructor for temp-casks - SLET SENERE*/
+    /** Constructor uden Position */
 
     public Cask(String countryOfOrigin, double sizeInLiters, String previousContent) {
         this.countryOfOrigin = countryOfOrigin;
