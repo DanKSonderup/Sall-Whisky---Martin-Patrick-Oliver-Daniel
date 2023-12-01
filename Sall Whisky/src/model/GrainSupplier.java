@@ -1,6 +1,6 @@
 package model;
 
-public class GrainSupplier extends Supplier{
+public class GrainSupplier extends Supplier {
 
 
     public GrainSupplier(String name, String address, String country, String vatId) {
