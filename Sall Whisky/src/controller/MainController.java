@@ -206,8 +206,11 @@ public abstract class MainController {
      * @param maltbatches
      * @return the created Distillate
      */
-    public static Distillate createDistillate(String newMakenr, double distillationTimeInHours, double alcoholPercentage, double amountInLiters, Employee employee, List<Maltbatch> maltbatches) {
-        Distillate distillate = new Distillate(newMakenr, distillationTimeInHours, alcoholPercentage, amountInLiters, employee, maltbatches);
+    public static Distillate createDistillate(String newMakenr, double distillationTimeInHours,
+                                              double alcoholPercentage, double amountInLiters, Employee employee,
+                                              List<Maltbatch> maltbatches) {
+        Distillate distillate = new Distillate(newMakenr, distillationTimeInHours, alcoholPercentage, amountInLiters,
+                employee, maltbatches);
         storage.storeDistillate(distillate);
         return distillate;
     }
@@ -217,8 +220,8 @@ public abstract class MainController {
      * Add the connection to the grain
      * Pre: A grain is created for the maltbatch
      */
-    public static Maltbatch createMaltbatch (String description, Grain grain) {
-        Maltbatch maltbatch = new Maltbatch(description, grain);
+    public static Maltbatch createMaltbatch (String name, String description, Grain grain) {
+        Maltbatch maltbatch = new Maltbatch(name, description, grain);
         storage.storeMaltBatch(maltbatch);
         return maltbatch;
     }

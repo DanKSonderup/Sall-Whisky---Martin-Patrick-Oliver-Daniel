@@ -122,6 +122,9 @@ public class CRUDRawMaterialsViewController implements Initializable {
     @FXML
     void btnDeleteFieldOnAction(ActionEvent event) {
         Field field = lvwFields.getSelectionModel().getSelectedItem();
+
+        boolean grainConnectionFound = false;
+        while (!grainConnectionFound)
         for (Grain grain : MainController.getGrains()) {
             if (grain.getField() == field) {
 
