@@ -78,7 +78,6 @@ public class CRUDRawMaterialsViewController implements Initializable {
      */
     @FXML
     void btnCreateFieldOnAction(ActionEvent event) {
-//        Field field = MainController.createField(txfFieldName.getText(), txaFieldDescription.getText());
 
         // ERROR HANDLING
         if (txfFieldName.getText().isEmpty()) {
@@ -89,6 +88,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
             return;
         }
 
+//        Field field = MainController.createField(txfFieldName.getText(), txaFieldDescription.getText());
         fieldList.add(new Field(txfFieldName.getText(), txaFieldDescription.getText()));
 
         txfFieldName.setText("");
@@ -117,9 +117,16 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Deletes a field.
      * If the field has a connection to any grain-objects, prompt the user with that info and abort deletion
      * Prompt the user with a confirmation dialog (delete or keep)
+     * Checks all grain to see if the field is connected to any, if so, abort deletion
      */
     @FXML
     void btnDeleteFieldOnAction(ActionEvent event) {
+        Field field = lvwFields.getSelectionModel().getSelectedItem();
+        for (Grain grain : MainController.getGrains()) {
+            if (grain.getField() == field) {
+
+            }
+        }
         // TODO
     }
 

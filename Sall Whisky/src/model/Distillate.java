@@ -1,21 +1,20 @@
 package model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Distillate {
     private String newMakeNr;
-    private LocalDateTime distillationTime;
+    private double distillationTimeInHours;
     private double alcoholPercentage;
     private double amountInLiters;
     private Employee employee;
     List<Maltbatch> maltbatches = new ArrayList<>();
 
-    public Distillate(String newMakeNr, LocalDateTime distillationTime, double alcoholPercentage,
+    public Distillate(String newMakeNr, double distillationTimeInHours, double alcoholPercentage,
                       double amountInLiters, Employee employee, List<Maltbatch> maltbatches) {
         this.newMakeNr = newMakeNr;
-        this.distillationTime = distillationTime;
+        this.distillationTimeInHours = distillationTimeInHours;
         this.alcoholPercentage = alcoholPercentage;
         this.amountInLiters = amountInLiters;
         this.employee = employee;
@@ -30,12 +29,12 @@ public class Distillate {
         this.newMakeNr = newMakeNr;
     }
 
-    public LocalDateTime getDistillationTime() {
-        return distillationTime;
+    public double getDistillationTimeInHours() {
+        return distillationTimeInHours;
     }
 
-    public void setDistillationTime(LocalDateTime distillationTime) {
-        this.distillationTime = distillationTime;
+    public void setDistillationTimeInHours(double distillationTimeInHours) {
+        this.distillationTimeInHours = distillationTimeInHours;
     }
 
     public double getAlcoholPercentage() {

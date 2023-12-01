@@ -207,8 +207,8 @@ public abstract class MainController {
      * @param maltbatches
      * @return the created Distillate
      */
-    public static Distillate createDistillate(String newMakenr, LocalDateTime distillationTime, double alcoholPercentage, double amountInLiters, Employee employee, List<Maltbatch> maltbatches) {
-        Distillate distillate = new Distillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltbatches);
+    public static Distillate createDistillate(String newMakenr, double distillationTimeInHours, double alcoholPercentage, double amountInLiters, Employee employee, List<Maltbatch> maltbatches) {
+        Distillate distillate = new Distillate(newMakenr, distillationTimeInHours, alcoholPercentage, amountInLiters, employee, maltbatches);
         storage.storeDistillate(distillate);
         return distillate;
     }

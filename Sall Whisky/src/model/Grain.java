@@ -30,4 +30,20 @@ public class Grain implements Serializable {
     public void setGrainSupplier(GrainSupplier grainSupplier) {
         this.grainSupplier = grainSupplier;
     }
+
+    public String getCultivationDescription() {
+        return cultivationDescription;
+    }
+
+    public void setCultivationDescription(String cultivationDescription) {
+        this.cultivationDescription = cultivationDescription;
+    }
+
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
+    }
 }
