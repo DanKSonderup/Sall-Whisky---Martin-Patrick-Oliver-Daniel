@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shelf implements Observer, Serializable, StorageObject {
+public class Shelf implements Observer, Serializable {
     private int shelfId;
     private boolean isFilled = true;
     private List<Position> positions = new ArrayList<>();

@@ -32,5 +32,14 @@ public abstract class SwitchSceneController {
         stage.show();
     }
 
+    public static void btnCRUDRawMaterials(Stage stage, Scene scene, ActionEvent event) throws IOException {
+        URL url = new File("Sall Whisky/src/gui/views/CRUDRawMaterialsView.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 }

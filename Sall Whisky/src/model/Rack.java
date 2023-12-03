@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rack implements Observer, Serializable, StorageObject {
+public class Rack implements Observer, Serializable {
     private int rackId;
     private boolean isFilled = true;
     private List<Shelf> shelves = new ArrayList<>();

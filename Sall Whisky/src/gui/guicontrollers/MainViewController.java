@@ -71,8 +71,8 @@ public class MainViewController {
     }
 
     @FXML
-    void btnRawMaterialOnAction(ActionEvent event) {
-
+    void btnRawMaterialOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCRUDRawMaterials(stage, scene, event);
     }
 
     @FXML
