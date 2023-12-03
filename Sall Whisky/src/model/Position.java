@@ -1,5 +1,8 @@
 package model;
 
+import controller.MainController;
+import controller.Observer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +21,17 @@ public class Position implements Observer, Serializable {
     /**
      * Checks if the position is full, if so, set isFilled to true.
      */
-    @Override
     public void update() {
         double amountFilled = 0;
         for (Cask cask : casks)
             amountFilled += cask.getSizeInLiters();
 
-        if (amountFilled == literCapacity)
+        if (amountFilled == literCapacity) {
             isFilled = true;
-        else isFilled = false;
+        } else {
+            isFilled = false;
+            MainController.notifyObserver();
+        }
     }
 
     /** Getters */

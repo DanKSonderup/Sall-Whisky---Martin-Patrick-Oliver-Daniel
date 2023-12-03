@@ -16,6 +16,10 @@ public abstract class MainController {
         MainController.storage = storage;
     }
 
+    public static Storage getStorage() {
+        return storage;
+    }
+
     /**
      * Finds warehouses that has atleast 1 rack where there is space for the Cask we're trying to add
      * @param cask we're checking for space for
@@ -112,7 +116,7 @@ public abstract class MainController {
         Warehouse warehouse = new Warehouse(id, address);
         storage.storeWarehouse(warehouse);
         storage.getStorageCounter().incrementWarehouseCount();
-
+        addObserver(warehouse);
         return warehouse;
     }
 
@@ -127,7 +131,7 @@ public abstract class MainController {
         Rack rack = new Rack(id);
         warehouse.addRack(rack);
         storage.getStorageCounter().incrementRackCount();
-
+        addObserver(rack);
         return rack;
     }
 
@@ -142,7 +146,7 @@ public abstract class MainController {
         Shelf shelf = new Shelf(id);
         rack.addShelf(shelf);
         storage.getStorageCounter().incrementShelfCount();
-
+        addObserver(shelf);
         return shelf;
     }
 
@@ -323,9 +327,12 @@ public abstract class MainController {
         return storage.getGrainSuppliers();
     }
 
-    public static void notifyObserver () {
+    public static void notifyObserver() {
             for (Observer observer : observers) {
-                observer.notify();
+                observer.update();
             }
         }
+    public static void addObserver(Observer observer) {
+        observers.add(observer);
+    }
     }

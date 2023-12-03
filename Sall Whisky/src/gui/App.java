@@ -1,13 +1,11 @@
 package gui;
 
+import com.sun.tools.javac.Main;
 import controller.MainController;
 import controller.Storage;
 import gui.guicontrollers.CreateSupplierViewController;
 import javafx.application.Application;
-import model.Field;
-import model.Grain;
-import model.GrainSupplier;
-import model.Maltbatch;
+import model.*;
 import storage.ListStorage;
 
 public class App {
@@ -40,5 +38,34 @@ public class App {
         Grain g2 = MainController.createGrain("Hvede", gs1, "Korn lavet i initStorage", f1);
 
         Maltbatch m1 = MainController.createMaltbatch("nvm4949", "jeg er hoar", g1);
+
+
+        Warehouse w1 = MainController.createWarehouse("Lager1");
+        Warehouse w2 = MainController.createWarehouse("Lager2");
+        Rack r1 = MainController.createRack(w1);
+        Rack r2 = MainController.createRack(w2);
+        Rack r3 = MainController.createRack(w2);
+
+        Shelf sh1 = MainController.createShelf(r1);
+        Shelf sh2 = MainController.createShelf(r2);
+        Shelf sh3 = MainController.createShelf(r3);
+
+        MainController.createPosition(sh1, 30);
+        MainController.createPosition(sh2, 50);
+        MainController.createPosition(sh1, 40);
+        MainController.createPosition(sh3, 100);
+
+        for (Warehouse warehouse: MainController.getStorage().getWarehouses()) {
+            System.out.println("Warehouse: " + warehouse);
+            for (Rack rack: warehouse.getAvailableRacks()) {
+                System.out.println("Rack: " + rack + " - Warehouse " + warehouse);
+                for (Shelf shelf: rack.getShelves()) {
+                    System.out.println("Shelf: " + shelf + "Rack: " + rack + " - Warehouse " + warehouse);
+                    for (Position position: shelf.getPositions()) {
+                        System.out.println("Position: " + position + "Shelf: " + shelf + "Rack: " + rack + " - Warehouse " + warehouse);
+                    }
+                }
+            }
+        }
     }
 }

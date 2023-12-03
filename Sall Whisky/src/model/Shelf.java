@@ -1,5 +1,7 @@
 package model;
 
+import controller.Observer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,7 @@ public class Shelf implements Observer, Serializable {
     public List<Position> getAvailablePositions() {
         List<Position> availablePositions = new ArrayList<>();
         for (Position position : positions) {
-            if (!isFilled)
+            if (!position.isFilled())
                 availablePositions.add(position);
         }
         return availablePositions;
@@ -31,9 +33,11 @@ public class Shelf implements Observer, Serializable {
      */
     @Override
     public void update() {
-        if (getAvailablePositions().isEmpty())
+        if (getAvailablePositions().isEmpty()) {
             isFilled = true;
-        else isFilled = false;
+        } else {
+            isFilled = false;
+        }
     }
 
     /** Getters */

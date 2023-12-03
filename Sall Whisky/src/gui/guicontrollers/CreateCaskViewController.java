@@ -26,6 +26,7 @@ public class CreateCaskViewController implements Initializable {
         private Warehouse currentlySelectedWarehouse;
         private Rack currentlySelectedRack;
         private Shelf currentlySelectedShelf;
+        private Cask cask;
         @FXML
         private Label CountryOfOriginlbl;
 
@@ -83,9 +84,15 @@ public class CreateCaskViewController implements Initializable {
 
         @FXML
         void btnFindWarehousePosition(ActionEvent event) {
-            double sizeInLiters = Double.parseDouble(SizeInLiterstxf.getText());
-            Cask cask = new Cask(CountryOfOrigintxf.getText(), sizeInLiters, PreviousContenttxf.getText());
-            lvwWarehouse.getItems().setAll(warehouses);
+            double sizeInLiters = 0;
+            try {
+                sizeInLiters = Double.parseDouble(SizeInLiterstxf.getText());
+            } catch (NumberFormatException e) {
+                SizeInLiterstxf.setStyle("-fx-border-color: red;");
+                return;
+            }
+            cask = new Cask(CountryOfOrigintxf.getText(), sizeInLiters, PreviousContenttxf.getText());
+            lvwWarehouse.getItems().setAll(MainController.getAvailableWarehouses(cask));
 
             /*
             List<Position> list = new ArrayList<>();
@@ -129,34 +136,6 @@ public class CreateCaskViewController implements Initializable {
 
         ChangeListener<Position> positionChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
         lvwPosition.getSelectionModel().selectedItemProperty().addListener(positionChangeListener);
-
-        Warehouse lager1 = new Warehouse(1, "Test1");
-        Warehouse lager2 = new Warehouse(2, "Test2");
-        warehouses.add(lager1);
-        warehouses.add(lager2);
-        Rack rack1 = new Rack(1);
-        Rack rack2 = new Rack(2);
-        Rack rack3 = new Rack(3);
-        lager1.addRack(rack1);
-        lager2.addRack(rack2);
-        lager2.addRack(rack3);
-
-        Shelf shelf1 = new Shelf(1);
-        Shelf shelf2 = new Shelf(2);
-
-        rack1.addShelf(shelf1);
-        rack2.addShelf(shelf2);
-
-        Position pos1 = new Position(1, 30);
-        Position pos2 = new Position(2, 50);
-        Position pos3 = new Position(3, 40);
-
-        shelf1.addPosition(pos1);
-        shelf1.addPosition(pos2);
-        shelf2.addPosition(pos3);
-
-
-        lvwWarehouse.getItems().setAll(warehouses);
     }
 
     public void selectedStorageItemChanged() {
@@ -169,7 +148,7 @@ public class CreateCaskViewController implements Initializable {
              lvwShelf.getItems().removeAll();
              lvwPosition.getItems().removeAll();
              currentlySelectedWarehouse = selectedWarehouse;
-             lvwRack.getItems().setAll(currentlySelectedWarehouse.getRacks());
+             lvwRack.getItems().setAll(MainController.getAvailableRacks(currentlySelectedWarehouse, cask));
              return;
          }
          if (selectedRack != currentlySelectedRack) {
@@ -177,7 +156,7 @@ public class CreateCaskViewController implements Initializable {
              lvwPosition.getItems().removeAll();
              if (selectedRack != null) {
                  currentlySelectedRack = selectedRack;
-                 lvwShelf.getItems().setAll(currentlySelectedRack.getShelves());
+                 lvwShelf.getItems().setAll(MainController.getAvailableShelves(currentlySelectedRack, cask));
                  return;
              }
          }
@@ -185,7 +164,7 @@ public class CreateCaskViewController implements Initializable {
              lvwPosition.getItems().removeAll();
              if (selectedShelf != null) {
                  currentlySelectedShelf = selectedShelf;
-                 lvwPosition.getItems().setAll(currentlySelectedShelf.getPositions());
+                 lvwPosition.getItems().setAll(MainController.getAvailablePositions(currentlySelectedShelf, cask));
              }
          }
 

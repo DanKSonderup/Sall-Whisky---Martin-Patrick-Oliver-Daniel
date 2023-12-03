@@ -1,5 +1,7 @@
 package model;
 
+import controller.Observer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ public class Warehouse implements Observer, Serializable {
     public List<Rack> getAvailableRacks() {
         List<Rack> availableRacks = new ArrayList<>();
         for (Rack rack : racks) {
-            if (!isFilled)
+            if (!rack.isFilled())
                 availableRacks.add(rack);
         }
         return availableRacks;
@@ -30,7 +32,7 @@ public class Warehouse implements Observer, Serializable {
     /**
      * Checks if all the racks in the warehouse are full, if so, set isFilled to true.
      */
-    @Override
+
     public void update() {
         if (getAvailableRacks().isEmpty())
             isFilled = true;

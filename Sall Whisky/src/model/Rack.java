@@ -1,5 +1,7 @@
 package model;
 
+import controller.Observer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ public class Rack implements Observer, Serializable {
     public List<Shelf> getAvailableShelves() {
         List<Shelf> availableShelves = new ArrayList<>();
         for (Shelf shelf : shelves) {
-            if (!isFilled)
+            if (!shelf.isFilled())
                 availableShelves.add(shelf);
         }
         return availableShelves;
@@ -28,11 +30,12 @@ public class Rack implements Observer, Serializable {
     /**
      * Checks if all the shelves on the rack are full, if so, set isFilled to true.
      */
-    @Override
     public void update() {
-        if (getAvailableShelves().isEmpty())
+        if (getAvailableShelves().isEmpty()) {
             isFilled = true;
-        else isFilled = false;
+        } else {
+            isFilled = false;
+        }
     }
 
     /** Getters */

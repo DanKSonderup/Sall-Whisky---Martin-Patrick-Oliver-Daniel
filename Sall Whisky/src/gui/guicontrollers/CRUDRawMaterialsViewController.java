@@ -7,9 +7,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import model.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,8 @@ import java.util.ResourceBundle;
 
 public class CRUDRawMaterialsViewController implements Initializable {
 
+    private Stage stage;
+    private Scene scene;
     @FXML
     private Button btnCRUDCask;
     @FXML
@@ -454,8 +459,8 @@ public class CRUDRawMaterialsViewController implements Initializable {
     }
 
     @FXML
-    void btnCrudCaskOnAction(ActionEvent event) {
-        // TODO
+    void btnCrudCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCrudCaskOnAction(stage, scene, event);
     }
 
     @FXML
