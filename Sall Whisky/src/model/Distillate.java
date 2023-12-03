@@ -61,6 +61,10 @@ public class Distillate {
         this.employee = employee;
     }
 
+    public List<Maltbatch> getMaltbatches() {
+        return maltbatches;
+    }
+
     public void addMaltbatch(Maltbatch maltBatch) {
         maltbatches.add(maltBatch);
     }

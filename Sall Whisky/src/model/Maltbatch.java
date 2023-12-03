@@ -35,4 +35,9 @@ public class Maltbatch {
     public void setGrain(Grain grain) {
         this.grain = grain;
     }
+
+    @Override
+    public String toString() {
+        return name + " | " + description;
+    }
 }

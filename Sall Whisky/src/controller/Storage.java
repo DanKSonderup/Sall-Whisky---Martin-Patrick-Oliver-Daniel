@@ -26,7 +26,7 @@ public interface Storage {
     void deleteEmployee(Employee employee);
 
     /** Employee */
-    List<Distillate> getDistillate();
+    List<Distillate> getDistillates();
     void storeDistillate(Distillate distillate);
     void deleteDistillate(Distillate distillate);
 

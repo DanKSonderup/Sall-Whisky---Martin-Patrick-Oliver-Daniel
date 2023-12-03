@@ -216,6 +216,13 @@ public abstract class MainController {
     }
 
     /**
+     * Return all distillates
+     */
+    public static List<Distillate> getDistillates() {
+        return storage.getDistillates();
+    }
+
+    /**
      * Create, store and return a maltbatch
      * Add the connection to the grain
      * Pre: A grain is created for the maltbatch
@@ -225,6 +232,20 @@ public abstract class MainController {
         storage.storeMaltBatch(maltbatch);
         return maltbatch;
     }
+    /**
+     * Return all maltbatches
+     */
+    public static List<Maltbatch> getMaltbatches() {
+        return storage.getMaltBatches();
+    }
+
+    /**
+     * Remove a maltbatch
+     */
+    public static void removeMaltbatch(Maltbatch maltbatch) {
+        storage.deleteMaltBatch(maltbatch);
+    }
+
 
     /**
      * Create, store and return a grain
@@ -245,8 +266,14 @@ public abstract class MainController {
     }
 
     /**
+     * Remove a grain
+     */
+    public static void removeGrain(Grain grain) {
+        storage.deleteGrain(grain);
+    }
+
+    /**
      * Create, store and return a field
-     * Pre:
      */
     public static Field createField (String name, String description) {
         Field field = new Field(name, description);
@@ -255,8 +282,21 @@ public abstract class MainController {
     }
 
     /**
+     * Return all fields
+     */
+    public static List<Field> getFields() {
+        return storage.getFields();
+    }
+
+    /**
+     * Remove a field
+     */
+    public static void removeField(Field field) {
+        storage.deleteField(field);
+    }
+
+    /**
      * Create, store and return a GrainSupplier
-     *
      */
     public static GrainSupplier createGrainSupplier (String name, String address, String country, String vatId) {
         GrainSupplier grainSupplier = new GrainSupplier(name, address, country, vatId);
@@ -264,9 +304,9 @@ public abstract class MainController {
         return grainSupplier;
     }
 
+
     /**
      * Create, store and return a CaskSupplier
-     *
      */
     public static CaskSupplier createCaskSupplier (String name, String address, String country, String vatId) {
         CaskSupplier caskSupplier = new CaskSupplier(name, address, country, vatId);
@@ -275,11 +315,12 @@ public abstract class MainController {
     }
 
 
+
     /**
-     * Return all fields
+     * Return all grainSupplier objects
      */
-    public static List<Field> getFields() {
-        return storage.getFields();
+    public static List<GrainSupplier> getGrainSuppliers() {
+        return storage.getGrainSuppliers();
     }
 
     public static void notifyObserver () {

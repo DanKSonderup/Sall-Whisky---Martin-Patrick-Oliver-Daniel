@@ -104,7 +104,7 @@ public class ListStorage implements Storage {
 
     /** Distillate */
     @Override
-    public List<Distillate> getDistillate() {
+    public List<Distillate> getDistillates() {
         return new ArrayList<>(distillates);
     }
     public void storeDistillate(Distillate distillate) {
