@@ -49,23 +49,18 @@ public class App {
         Shelf sh1 = MainController.createShelf(r1);
         Shelf sh2 = MainController.createShelf(r2);
         Shelf sh3 = MainController.createShelf(r3);
+        Shelf sh4 = MainController.createShelf(r1);
+        Shelf sh5 = MainController.createShelf(r1);
 
+        MainController.createPosition(sh1, 30);
+        MainController.createPosition(sh1, 30);
+        MainController.createPosition(sh1, 30);
         MainController.createPosition(sh1, 30);
         MainController.createPosition(sh2, 50);
         MainController.createPosition(sh1, 40);
         MainController.createPosition(sh3, 100);
+        MainController.createPosition(sh5, 30);
+        MainController.createPosition(sh5, 30);
 
-        for (Warehouse warehouse: MainController.getStorage().getWarehouses()) {
-            System.out.println("Warehouse: " + warehouse);
-            for (Rack rack: warehouse.getAvailableRacks()) {
-                System.out.println("Rack: " + rack + " - Warehouse " + warehouse);
-                for (Shelf shelf: rack.getShelves()) {
-                    System.out.println("Shelf: " + shelf + "Rack: " + rack + " - Warehouse " + warehouse);
-                    for (Position position: shelf.getPositions()) {
-                        System.out.println("Position: " + position + "Shelf: " + shelf + "Rack: " + rack + " - Warehouse " + warehouse);
-                    }
-                }
-            }
-        }
     }
 }

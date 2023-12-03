@@ -144,21 +144,20 @@ public class CreateCaskViewController implements Initializable {
          Shelf selectedShelf = lvwShelf.getSelectionModel().getSelectedItem();
 
          if (selectedWarehouse != currentlySelectedWarehouse) {
-             lvwRack.getItems().removeAll();
-             lvwShelf.getItems().removeAll();
-             lvwPosition.getItems().removeAll();
              currentlySelectedWarehouse = selectedWarehouse;
              lvwRack.getItems().setAll(MainController.getAvailableRacks(currentlySelectedWarehouse, cask));
+             lvwShelf.getItems().clear();
+             lvwPosition.getItems().clear();
              return;
          }
          if (selectedRack != currentlySelectedRack) {
-             lvwShelf.getItems().removeAll();
-             lvwPosition.getItems().removeAll();
+             currentlySelectedRack = selectedRack;
+             lvwShelf.getItems().clear();
+             lvwPosition.getItems().clear();
              if (selectedRack != null) {
-                 currentlySelectedRack = selectedRack;
                  lvwShelf.getItems().setAll(MainController.getAvailableShelves(currentlySelectedRack, cask));
-                 return;
              }
+             return;
          }
          if (selectedShelf != currentlySelectedShelf) {
              lvwPosition.getItems().removeAll();
@@ -168,20 +167,7 @@ public class CreateCaskViewController implements Initializable {
              }
          }
 
-         /*
-         if (selectedWarehouse != null) {
-             currentlySelectedWarehouse = selectedWarehouse;
-             lvwRack.getItems().setAll(currentlySelectedWarehouse.getRacks());
-         }
-         if (selectedRack != null) {
-             currentlySelectedRack = selectedRack;
-             lvwShelf.getItems().setAll(currentlySelectedRack.getShelves());
-         }
-         if (selectedShelf != null) {
-             currentlySelectedShelf = selectedShelf;
-             lvwPosition.getItems().setAll(currentlySelectedShelf.getPositions());
-         }
 
-          */
+
     }
 }
