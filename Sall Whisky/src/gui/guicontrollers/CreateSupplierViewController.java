@@ -28,9 +28,6 @@ import java.util.ResourceBundle;
 
 public class CreateSupplierViewController implements Initializable {
 
-    private ArrayList<CaskSupplier> caskSuppliers = new ArrayList<>();
-    private ArrayList<GrainSupplier> grainSuppliers = new ArrayList<>();
-
     private Supplier supplier;
 
     @FXML
@@ -75,18 +72,15 @@ public class CreateSupplierViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        CaskSupplier caskSupplier1 = new CaskSupplier("CaskTest1", "CaskVej1", "Caskland", "123");
-        CaskSupplier caskSupplier2 = new CaskSupplier("CaskTest2", "CaskVej2", "Caskland", "125");
-        caskSuppliers.add(caskSupplier1);
-        caskSuppliers.add(caskSupplier2);
+        MainController.createCaskSupplier("CaskTest1", "CaskVej1", "Caskland", "123");
+        MainController.createCaskSupplier("CaskTest2", "CaskVej2", "Caskland", "125");
 
-        GrainSupplier grainSupplier1 = new GrainSupplier("GrainTest1", "GrainVej1", "Grainland", "234");
-        GrainSupplier grainSupplier2 = new GrainSupplier("GrainTest2", "GrainVej2", "Grainland", "237");
-        grainSuppliers.add(grainSupplier1);
-        grainSuppliers.add(grainSupplier2);
+        MainController.createGrainSupplier("GrainTest1", "GrainVej1", "Grainland", "234");
+        MainController.createGrainSupplier("GrainTest2", "GrainVej2", "Grainland", "237");
 
-        lvwCaskSupplier.getItems().setAll(caskSuppliers);
-        lvwGrainSupplier.getItems().setAll(grainSuppliers);
+
+        lvwCaskSupplier.getItems().setAll(MainController.getCaskSuppliers());
+        lvwGrainSupplier.getItems().setAll(MainController.getGrainSuppliers());
 
         ChangeListener<GrainSupplier> grainSupplierChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
         lvwGrainSupplier.getSelectionModel().selectedItemProperty().addListener(grainSupplierChangeListener);
@@ -107,24 +101,23 @@ public class CreateSupplierViewController implements Initializable {
 
 
         if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
-            /** TODO
-             * Opret med MainController og ikke bare new grainSupplier
-             */
-            supplier = new GrainSupplier(name, address, country, vatId);
-            grainSuppliers.add((GrainSupplier) supplier);
+            supplier = MainController.createGrainSupplier(name, address, country, vatId);
+
         } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
-            /** TODO
-             * Opret med MainController og ikke bare new CaskSupplier
-             */
-            supplier = new CaskSupplier(name, address, country, vatId);
-            caskSuppliers.add((CaskSupplier) supplier);
+            supplier = MainController.createCaskSupplier(name, address, country, vatId);
         }
         updateLvwCaskSupplier();
         updateLvwGrainSupplier();
+
+        clearInput();
     }
 
     @FXML
     void btnCancelOnAction(ActionEvent event) {
+        clearInput();
+    }
+
+    private void clearInput() {
         cbbSupplier.getSelectionModel().clearSelection();
         txfName.clear();
         txfAddress.clear();
@@ -143,16 +136,20 @@ public class CreateSupplierViewController implements Initializable {
     }
 
 
-
-
+    /**
+     * Updates the grain supplier listview
+     */
     private void updateLvwGrainSupplier() {
         // TODO update from storage, not grainSuppliers
-        lvwGrainSupplier.getItems().setAll(grainSuppliers);
+        lvwGrainSupplier.getItems().setAll(MainController.getGrainSuppliers());
     }
 
+    /**
+     * Updates the cask supplier listview
+     */
     private void updateLvwCaskSupplier() {
         // TODO update from storage, not caskSuppliers
-        lvwCaskSupplier.getItems().setAll(caskSuppliers);
+        lvwCaskSupplier.getItems().setAll(MainController.getCaskSuppliers());
     }
 
 
