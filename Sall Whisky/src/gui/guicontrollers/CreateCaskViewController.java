@@ -22,106 +22,32 @@ import java.util.ResourceBundle;
 public class CreateCaskViewController implements Initializable {
 //        private Supplier supplier;
 
-        private ArrayList<Warehouse> warehouses = new ArrayList<>();
-        private Warehouse currentlySelectedWarehouse;
-        private Rack currentlySelectedRack;
-        private Shelf currentlySelectedShelf;
-        private Cask cask;
-        @FXML
-        private Label CountryOfOriginlbl;
 
-        @FXML
-        private TextField CountryOfOrigintxf;
-
-        @FXML
-        private Label PreviousContentlbl;
-
-        @FXML
-        private TextField PreviousContenttxf;
-
-        @FXML
-        private Label SizeInLiterslbl;
-
-        @FXML
-        private TextField SizeInLiterstxf;
-
-        @FXML
-        private Label Supplierlbl;
-
-        @FXML
-        private ListView<?> Supplierlvw;
-
-        @FXML
-        private Button btnCreateCask;
-
-        @FXML
-        private Button btnFindWarehousePosition;
-
-        @FXML
-        private Button btnPickSupplier;
-
-        @FXML
-        private Button btnPickWarehousePosition;
-
-        @FXML
-        private ListView<Position> lvwPosition;
-
-        @FXML
-        private ListView<Rack> lvwRack;
-
-        @FXML
-        private ListView<Shelf> lvwShelf;
-
-        @FXML
-        private ListView<Warehouse> lvwWarehouse;
-
-        @FXML
-        void btnCreateCask(ActionEvent event) {
-
-        }
-
-
-
-        @FXML
-        void btnFindWarehousePosition(ActionEvent event) {
-            double sizeInLiters = 0;
-            try {
-                sizeInLiters = Double.parseDouble(SizeInLiterstxf.getText());
-            } catch (NumberFormatException e) {
-                SizeInLiterstxf.setStyle("-fx-border-color: red;");
-                return;
-            }
-            cask = new Cask(CountryOfOrigintxf.getText(), sizeInLiters, PreviousContenttxf.getText());
-            lvwWarehouse.getItems().setAll(MainController.getAvailableWarehouses(cask));
-
-            /*
-            List<Position> list = new ArrayList<>();
-            double sizeInLiters = Double.parseDouble(SizeInLiterstxf.getText());
-            Cask cask = new Cask(CountryOfOrigintxf.getText(), sizeInLiters, PreviousContenttxf.getText());
-
-            MainController.getAvailableWarehouses(cask);
-            for (Warehouse warehouse : MainController.getAvailableWarehouses(cask)) {
-                for (Rack rack : MainController.getAvailableRacks(warehouse, cask)) {
-                    for (Shelf shelf : MainController.getAvailableShelves(rack, cask)) {
-                        for (Position position : MainController.getAvailablePositions(shelf, cask)) {
-                            list.add(position);
-                        }
-                    }
-                }
-            }
-
-             */
-        }
-
-        @FXML
-        void btnPickSupplier(ActionEvent event) {
-//            this.supplier = Supplierlvw.getSelectionModel().getSelectedItem();
-        }
-
-        @FXML
-        void btnPickWarehousePosition(ActionEvent event) {
-
-        }
+    @FXML
+    private Button btnCreateCask;
+    @FXML
+    private Button btnFindAvailableStorageSpace;
+    @FXML
+    private ListView<CaskSupplier> lvwCaskSupplier;
+    @FXML
+    private ListView<Position> lvwPosition;
+    @FXML
+    private ListView<Rack> lvwRack;
+    @FXML
+    private ListView<Shelf> lvwShelf;
+    @FXML
+    private ListView<Warehouse> lvwWarehouse;
+    @FXML
+    private TextField txfCountryOfOrigin;
+    @FXML
+    private TextField txfPreviousContent;
+    @FXML
+    private TextField txfSizeInLiters;
+    private ArrayList<Warehouse> warehouses = new ArrayList<>();
+    private Warehouse currentlySelectedWarehouse;
+    private Rack currentlySelectedRack;
+    private Shelf currentlySelectedShelf;
+    private Cask cask;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -136,7 +62,59 @@ public class CreateCaskViewController implements Initializable {
 
         ChangeListener<Position> positionChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
         lvwPosition.getSelectionModel().selectedItemProperty().addListener(positionChangeListener);
+
+        lvwCaskSupplier.getItems().setAll(MainController.getCaskSuppliers());
+
+        lvwCaskSupplier.getSelectionModel().selectedIndexProperty().addListener((o, ov, nv) -> {
+            lvwCaskSupplier.setStyle("-fx-border-color: transparent;");
+        });
+
     }
+
+    /**
+     *
+     * @param event
+     */
+        @FXML
+        void btnCreateCaskOnAction(ActionEvent event) {
+            boolean missingInfo = false;
+            try {
+                double sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
+            } catch (NumberFormatException exception) {
+                missingInfo = true;
+                txfSizeInLiters.setStyle("-fx-border-color: red;");
+                txfSizeInLiters.setOnMouseClicked(e -> {txfSizeInLiters.setStyle("-fx-border-color: transparent");});
+            }
+        }
+
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    void btnFindAvailableStorageSpaceOnAction(ActionEvent event) {
+        boolean missingInfo = false;
+        double sizeInLiters = 0;
+        try {
+            sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
+        } catch (NumberFormatException exception) {
+            missingInfo = true;
+            txfSizeInLiters.setStyle("-fx-border-color: red;");
+            txfSizeInLiters.setOnMouseClicked(e -> {txfSizeInLiters.setStyle("-fx-border-color: transparent");});
+        }
+        if (lvwCaskSupplier.getSelectionModel().isEmpty()) {
+            missingInfo = true;
+            lvwCaskSupplier.setStyle("-fx-border-color: red;");
+        }
+
+        if (!missingInfo) {
+            cask = new Cask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText());
+            lvwWarehouse.getItems().setAll(MainController.getAvailableWarehouses(cask));
+        }
+    }
+
+
 
     public void selectedStorageItemChanged() {
          Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();

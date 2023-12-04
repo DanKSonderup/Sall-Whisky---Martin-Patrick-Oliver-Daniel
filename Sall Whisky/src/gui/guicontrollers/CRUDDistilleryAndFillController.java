@@ -157,7 +157,9 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
         MainController.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches);
         updateControls();
-    }
+
+//        MainController.createDistillate()
+        }
 
     @FXML
     void btnFillOnCaskOnAction(ActionEvent event) {

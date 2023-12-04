@@ -20,6 +20,7 @@ public class App {
         MainController.setStorage(storage);
         initStorage();
 
+
         Application.launch(Gui.class);
 
 
@@ -35,7 +36,6 @@ public class App {
         MainController.createGrainSupplier("GrainTest1", "GrainVej1", "Grainland", "234");
         MainController.createGrainSupplier("GrainTest2", "GrainVej2", "Grainland", "237");
 
-        
         Field f1 = MainController.createField("f1", "mark lavet via initStorage");
         Field f2 = MainController.createField("f2", "mark lavet via initStorage");
 
