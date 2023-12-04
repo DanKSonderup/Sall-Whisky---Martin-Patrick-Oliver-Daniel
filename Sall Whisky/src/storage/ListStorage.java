@@ -16,6 +16,7 @@ public class ListStorage implements Storage {
     private final List<Distillate> distillates = new ArrayList<>();
     private final List<Grain> grains = new ArrayList<>();
     private final List<Field> fields = new ArrayList<>();
+    private final List<WhiskyBottle> whiskyBottles = new ArrayList<>();
     private StorageCounter storageCounter = new StorageCounter();
 
     //----------------------------------------------------------------------
@@ -77,13 +78,13 @@ public class ListStorage implements Storage {
     }
     //----------------------------------------------------------------------
     /** Maltbatch */
-    public List<Maltbatch> getMaltBatches() {
+    public List<Maltbatch> getMaltbatches() {
         return new ArrayList<>(maltbatches);
     }
-    public void storeMaltBatch(Maltbatch maltBatch) {
+    public void storeMaltbatch(Maltbatch maltBatch) {
         maltbatches.add(maltBatch);
     }
-    public void deleteMaltBatch(Maltbatch maltBatch) {
+    public void deleteMaltbatch(Maltbatch maltBatch) {
         maltbatches.remove(maltBatch);
     }
 
@@ -140,5 +141,19 @@ public class ListStorage implements Storage {
     @Override
     public void deleteField(Field field) {
         fields.remove(field);
+    }
+
+    /** WhiskyBottle */
+    @Override
+    public List<WhiskyBottle> getWhiskyBottles() {
+        return new ArrayList<>(whiskyBottles);
+    }
+    @Override
+    public void storeWhiskyBottle(WhiskyBottle whiskyBottle) {
+        whiskyBottles.add(whiskyBottle);
+    }
+    @Override
+    public void deleteWhiskyBottle(WhiskyBottle whiskyBottle) {
+        whiskyBottles.remove(whiskyBottle);
     }
 }

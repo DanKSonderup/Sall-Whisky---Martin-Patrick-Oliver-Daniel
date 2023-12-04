@@ -35,9 +35,9 @@ public interface Storage {
     StorageCounter getStorageCounter();
 
     /** Maltbatch */
-    List<Maltbatch> getMaltBatches();
-    void storeMaltBatch(Maltbatch maltBatch);
-    void deleteMaltBatch(Maltbatch maltBatch);
+    List<Maltbatch> getMaltbatches();
+    void storeMaltbatch(Maltbatch maltBatch);
+    void deleteMaltbatch(Maltbatch maltBatch);
 
     /** Grain */
     List<Grain> getGrains();
@@ -58,5 +58,10 @@ public interface Storage {
     List<CaskSupplier> getCaskSuppliers();
     void storeCaskSupplier(CaskSupplier caskSupplier);
     void deleteCaskSupplier(CaskSupplier caskSupplier);
+
+    /** WhiskyBottle */
+    List<WhiskyBottle> getWhiskyBottles();
+    void storeWhiskyBottle(WhiskyBottle whiskyBottle);
+    void deleteWhiskyBottle(WhiskyBottle whiskyBottle);
 
 }

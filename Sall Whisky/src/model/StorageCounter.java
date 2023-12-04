@@ -8,6 +8,7 @@ public class StorageCounter implements Serializable {
         private int shelfCount = 0;
         private int positionCount = 0;
         private int caskCount = 0;
+        private int whiskyBottleCount = 0;
 
     public int getWarehouseCount() {
         return warehouseCount;
@@ -24,8 +25,13 @@ public class StorageCounter implements Serializable {
     public int getPositionCount() {
         return positionCount;
     }
+
     public int getCaskCount() {
         return caskCount;
+    }
+
+    public int getWhiskyBottleCount() {
+        return whiskyBottleCount;
     }
 
     public void incrementWarehouseCount() {
@@ -43,7 +49,12 @@ public class StorageCounter implements Serializable {
     public void incrementPositionCount() {
         positionCount++;
     }
+
     public void incrementCaskCount() {
         caskCount++;
+    }
+
+    public void incrementWhiskyBottleCount() {
+        whiskyBottleCount++;
     }
 }
