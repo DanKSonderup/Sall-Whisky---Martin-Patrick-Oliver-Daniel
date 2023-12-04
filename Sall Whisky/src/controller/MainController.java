@@ -102,6 +102,7 @@ public abstract class MainController {
     public static Cask createCask(String countryOfOrigin, double sizeInLiters, String previousContent,
                                   Position position, CaskSupplier supplier) {
         int id = storage.getStorageCounter().getCaskCount();
+        storage.getStorageCounter().incrementCaskCount();
         if (sizeInLiters <= 0) {
             throw new IllegalArgumentException();
         }

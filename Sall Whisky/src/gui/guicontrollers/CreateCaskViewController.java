@@ -69,46 +69,60 @@ public class CreateCaskViewController implements Initializable {
             lvwCaskSupplier.setStyle("-fx-border-color: transparent;");
         });
 
+        lvwPosition.getSelectionModel().selectedIndexProperty().addListener((o, ov, nv) -> {
+            lvwPosition.setStyle("-fx-border-color: transparent;");
+        });
+
+
     }
 
     /**
-     *
+     * Creates a new cask
+     * If the user has not entered a size for the cask prompt the user to enter one
+     * If the user has not selected a position for the cask prompt the user to select one
+     * If the user has not selected a supplier for the cask prompt the user to select one
      * @param event
      */
         @FXML
         void btnCreateCaskOnAction(ActionEvent event) {
-            boolean missingInfo = false;
-            try {
-                double sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
-            } catch (NumberFormatException exception) {
+            boolean missingInfo = canParseToDouble(txfSizeInLiters);
+            if (lvwPosition.getSelectionModel().isEmpty()) {
                 missingInfo = true;
-                txfSizeInLiters.setStyle("-fx-border-color: red;");
-                txfSizeInLiters.setOnMouseClicked(e -> {txfSizeInLiters.setStyle("-fx-border-color: transparent");});
+                lvwPosition.setStyle("-fx-border-color: red;");
+            }
+            if (lvwCaskSupplier.getSelectionModel().isEmpty()) {
+                missingInfo = true;
+                lvwCaskSupplier.setStyle("-fx-border-color: red;");
+            }
+
+            if (!missingInfo) {
+                double sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
+                Position position = lvwPosition.getSelectionModel().getSelectedItem();
+                CaskSupplier supplier = lvwCaskSupplier.getSelectionModel().getSelectedItem();
+                MainController.createCask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText(),
+                        position, supplier);
+                txfSizeInLiters.clear();
+                txfPreviousContent.clear();
+                txfCountryOfOrigin.clear();
+                lvwWarehouse.getItems().clear();
+                lvwRack.getItems().clear();
+                lvwShelf.getItems().clear();
+                lvwPosition.getItems().clear();
+                lvwCaskSupplier.getSelectionModel().clearSelection();
             }
         }
 
 
     /**
-     *
-     * @param event
+     * Takes the size of the cask and finds all warehouses with space for the cask
+     * If the size entered is not a double, prompt the user to enter a double
      */
     @FXML
     void btnFindAvailableStorageSpaceOnAction(ActionEvent event) {
-        boolean missingInfo = false;
-        double sizeInLiters = 0;
-        try {
-            sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
-        } catch (NumberFormatException exception) {
-            missingInfo = true;
-            txfSizeInLiters.setStyle("-fx-border-color: red;");
-            txfSizeInLiters.setOnMouseClicked(e -> {txfSizeInLiters.setStyle("-fx-border-color: transparent");});
-        }
-        if (lvwCaskSupplier.getSelectionModel().isEmpty()) {
-            missingInfo = true;
-            lvwCaskSupplier.setStyle("-fx-border-color: red;");
-        }
+        boolean missingInfo = canParseToDouble(txfSizeInLiters);
 
         if (!missingInfo) {
+            double sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
             cask = new Cask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText());
             lvwWarehouse.getItems().setAll(MainController.getAvailableWarehouses(cask));
         }
@@ -117,10 +131,12 @@ public class CreateCaskViewController implements Initializable {
 
 
     public void selectedStorageItemChanged() {
+
          Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();
          Rack selectedRack = lvwRack.getSelectionModel().getSelectedItem();
          Shelf selectedShelf = lvwShelf.getSelectionModel().getSelectedItem();
 
+         if (selectedWarehouse == null) return;
          if (selectedWarehouse != currentlySelectedWarehouse) {
              currentlySelectedWarehouse = selectedWarehouse;
              lvwRack.getItems().setAll(MainController.getAvailableRacks(currentlySelectedWarehouse, cask));
@@ -144,8 +160,17 @@ public class CreateCaskViewController implements Initializable {
                  lvwPosition.getItems().setAll(MainController.getAvailablePositions(currentlySelectedShelf, cask));
              }
          }
+    }
 
-
-
+    private boolean canParseToDouble(TextField txf) {
+        boolean cannotParse = false;
+        try {
+            double returnValue = Double.parseDouble(txf.getText().trim());
+        } catch (NumberFormatException exception) {
+            cannotParse = true;
+            txf.setStyle("-fx-border-color: red;");
+            txf.setOnMouseClicked(e -> {txf.setStyle("-fx-border-color: transparent");});
+        }
+        return cannotParse;
     }
 }

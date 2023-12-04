@@ -115,8 +115,8 @@ public class CRUDRawMaterialsViewController implements Initializable {
         }
         else {
             MainController.createField(txfFieldName.getText(), txaFieldDescription.getText());
-            txfFieldName.setText("");
-            txaFieldDescription.setText("");
+            txfFieldName.clear();
+            txaFieldDescription.clear();
             updateLvwFields();
         }
     }

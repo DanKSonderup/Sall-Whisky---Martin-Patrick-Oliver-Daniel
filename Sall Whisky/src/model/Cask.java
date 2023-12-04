@@ -97,4 +97,9 @@ public class Cask {
     public void addWhiskyFill(WhiskyFill whiskyFill) {
         whiskyFills.add(whiskyFill);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%d %s %f %s %s", caskId, countryOfOrigin, sizeInLiters, previousContent, position);
+    }
 }
