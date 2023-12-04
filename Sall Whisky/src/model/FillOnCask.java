@@ -36,4 +36,13 @@ public class FillOnCask {
     public void addDistillateFill(DistillateFill distillateFill) {
         distillateFills.add(distillateFill);
     }
+
+    /**
+     * calculates and returns the alcohol percentage in the fillOnCask
+     * @return
+     */
+    public double calculateAlcoholPercentage() {
+        // TODO
+        return 0;
+    }
 }

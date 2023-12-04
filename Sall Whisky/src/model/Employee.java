@@ -1,20 +1,20 @@
 package model;
 
 public class Employee {
-    private int Id;
+    private int id;
     private String name;
 
     public Employee(int id, String name) {
-        Id = id;
+        this.id = id;
         this.name = name;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -27,6 +27,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return name + " (" + Id + ")";
+        return name + " (" + id + ")";
     }
 }
