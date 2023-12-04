@@ -85,12 +85,6 @@ public class CreateSupplierViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        MainController.createCaskSupplier("CaskTest1", "CaskVej1", "Caskland", "123");
-        MainController.createCaskSupplier("CaskTest2", "CaskVej2", "Caskland", "125");
-
-        MainController.createGrainSupplier("GrainTest1", "GrainVej1", "Grainland", "234");
-        MainController.createGrainSupplier("GrainTest2", "GrainVej2", "Grainland", "237");
-
 
         lvwCaskSupplier.getItems().setAll(MainController.getCaskSuppliers());
         lvwGrainSupplier.getItems().setAll(MainController.getGrainSuppliers());

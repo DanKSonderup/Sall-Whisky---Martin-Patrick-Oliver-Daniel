@@ -321,22 +321,22 @@ public abstract class MainController {
      * Create, store and return a Whisky
      * Pre: alcoholPercentage > 0 && alcoholPercentage < 100
      */
-    public static Whisky createWhisky(String name,  List<WhiskyFill> whiskyFills, int whiskyBottleCapacity) {
-            Whisky whisky = new Whisky(name, whiskyFills);
-            storage.storeWhisky(whisky);
-            double sum = 0;
-            for (WhiskyFill whiskyFill : whiskyFills) {
-                sum += whiskyFill.getAmountOfCaskInLiters();
-            }
+    public static Whisky createWhisky(String name, double alcoholPercentage, List<WhiskyFill> whiskyFills, int whiskyBottleCapacity) {
+        Whisky whisky = new Whisky(name, whiskyFills);
+        storage.storeWhisky(whisky);
+        double sum = 0;
+        for (WhiskyFill whiskyFill : whiskyFills) {
+            sum += whiskyFill.getAmountOfCaskInLiters();
+        }
 
-            int bottles = (int) (sum / 100) / whiskyBottleCapacity;
+        int bottles = (int) (sum / 100) / whiskyBottleCapacity;
 
-            for (int i = 0; i < bottles; i++) {
-                WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter().getWhiskyBottleCount(), whiskyBottleCapacity, whisky);
-                storage.storeWhiskyBottle(whiskyBottle);
-                storage.getStorageCounter().incrementWhiskyBottleCount();
-            }
-            return whisky;
+        for (int i = 0; i < bottles; i++) {
+            WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter().getWhiskyBottleCount(), whiskyBottleCapacity, whisky);
+            storage.storeWhiskyBottle(whiskyBottle);
+            storage.getStorageCounter().incrementWhiskyBottleCount();
+        }
+        return whisky;
     }
 
     /**

@@ -1,14 +1,12 @@
 package gui.guicontrollers;
 
 import controller.MainController;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Cask;
 import model.Distillate;
@@ -16,8 +14,11 @@ import model.Employee;
 import model.Maltbatch;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class CRUDDistilleryAndFillController {
+public class CRUDDistilleryAndFillController implements Initializable {
 
     private Stage stage;
     private Scene scene;
@@ -88,7 +89,7 @@ public class CRUDDistilleryAndFillController {
     private Label pickEmployeelbl;
 
     @FXML
-    private ComboBox<Maltbatch> pickMaltbatchComboBox;
+    private ListView<Maltbatch> lvwMaltBatches;
 
     @FXML
     private Label pickMaltbatchlbl;
@@ -136,10 +137,44 @@ public class CRUDDistilleryAndFillController {
         double alcoholPercentage;
         double amountInLiters;
         Employee employee = pickEmployeeComboBox.getSelectionModel().getSelectedItem();
-        Maltbatch maltbatch = pickMaltbatchComboBox.getSelectionModel().getSelectedItem();
+        ObservableList<Maltbatch> maltBatches = lvwMaltBatches.getSelectionModel().getSelectedItems();
 
-        
-        MainController.createDistillate()
+        distillationTime = txfParseDouble(distillationTimetxf);
+        alcoholPercentage = txfParseDouble(alcoholPercentagetxf);
+        amountInLiters = txfParseDouble(amountOfLiterstxf);
+
+        if (distillationTime < 0 || alcoholPercentage < 0 || amountInLiters < 0) {
+            return;
+        }
+
+        if (employee == null) {
+            pickEmployeeComboBox.setStyle("-fx-border-color: red;");
+            return;
+        }
+        if (maltBatches.size() == 0) {
+            lvwMaltBatches.setStyle("-fx-border-color: red;");
+        }
+
+        MainController.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches);
     }
 
+    private double txfParseDouble(TextField txf) {
+        double returnValue = -1.0;
+        try {
+            returnValue = Double.parseDouble(txf.getText().trim());
+        } catch (NumberFormatException e) {
+            txf.setStyle("-fx-border-color: red;");
+        }
+        return returnValue;
+    }
+
+    private void updateControls() {
+        distillatelvw.getItems().setAll(MainController.getDistillates());
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        distillatelvw.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        lvwMaltBatches.getItems().setAll(MainController.getMaltbatches());
+    }
 }

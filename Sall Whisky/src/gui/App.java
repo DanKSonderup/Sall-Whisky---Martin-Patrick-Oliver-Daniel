@@ -18,7 +18,7 @@ public class App {
             System.out.println("Empty ListStorage created");
         }
         MainController.setStorage(storage);
-        // initStorage();
+        initStorage();
 
         Application.launch(Gui.class);
 
@@ -29,6 +29,13 @@ public class App {
 
     // Bare til at teste, skal fjernes da vi jo bruger serialization
     public static void initStorage() {
+        MainController.createCaskSupplier("CaskTest1", "CaskVej1", "Caskland", "123");
+        MainController.createCaskSupplier("CaskTest2", "CaskVej2", "Caskland", "125");
+
+        MainController.createGrainSupplier("GrainTest1", "GrainVej1", "Grainland", "234");
+        MainController.createGrainSupplier("GrainTest2", "GrainVej2", "Grainland", "237");
+
+        
         Field f1 = MainController.createField("f1", "mark lavet via initStorage");
         Field f2 = MainController.createField("f2", "mark lavet via initStorage");
 
@@ -61,6 +68,5 @@ public class App {
         MainController.createPosition(sh3, 100);
         MainController.createPosition(sh5, 30);
         MainController.createPosition(sh5, 30);
-
     }
 }
