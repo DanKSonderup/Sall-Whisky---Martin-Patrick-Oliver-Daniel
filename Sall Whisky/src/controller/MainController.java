@@ -327,6 +327,10 @@ public abstract class MainController {
         return storage.getGrainSuppliers();
     }
 
+    public static List<CaskSupplier> getCaskSuppliers() {
+        return storage.getCaskSuppliers();
+    }
+
     public static void notifyObserver() {
             for (Observer observer : observers) {
                 observer.update();
