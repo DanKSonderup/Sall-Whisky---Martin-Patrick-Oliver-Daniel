@@ -48,6 +48,6 @@ public class FillOnCask {
                     (distillateFill.getDistillate().getAlcoholPercentage() / 100.0));
             totalFluids += distillateFill.getAmountOfDistillateInLiters();
         }
-        return alcoholPercentage / totalFluids;
+        return alcoholPercentage / totalFluids * 100;
     }
 }

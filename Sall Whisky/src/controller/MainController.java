@@ -321,15 +321,37 @@ public abstract class MainController {
      * Create, store and return a Whisky
      * Pre: alcoholPercentage > 0 && alcoholPercentage < 100
      */
-    public static Whisky createWhisky(String name, double alcoholPercentage, List<WhiskyFill> whiskyFills) {
-            Whisky whisky = new Whisky(name, alcoholPercentage, whiskyFills);
-            WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter(), 0, whisky);
-            whisky.addWhiskyBottle(whiskyBottle);
+    public static Whisky createWhisky(String name,  List<WhiskyFill> whiskyFills, int whiskyBottleCapacity) {
+            Whisky whisky = new Whisky(name, whiskyFills);
             storage.storeWhisky(whisky);
-        return whisky;
+            double sum = 0;
+            for (WhiskyFill whiskyFill : whiskyFills) {
+                sum += whiskyFill.getAmountOfCaskInLiters();
+            }
+
+            int bottles = (int) (sum / 100) / whiskyBottleCapacity;
+
+            for (int i = 0; i < bottles; i++) {
+                WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter().getWhiskyBottleCount(), whiskyBottleCapacity, whisky);
+                storage.storeWhiskyBottle(whiskyBottle);
+                storage.getStorageCounter().incrementWhiskyBottleCount();
+            }
+            return whisky;
     }
 
+    /**
+     * Create and return a WhiskyFill
+     * @param amountOfCask
+     * @param cask
+     * Add connection to cask
+     * @return
+     */
 
+    public static WhiskyFill createWhiskyFill(double amountOfCask, Cask cask, double alcoholPercentage) {
+        WhiskyFill whiskyFill = new WhiskyFill(amountOfCask, cask, LocalDate.now(), alcoholPercentage);
+        cask.addWhiskyFill(whiskyFill);
+        return whiskyFill;
+    }
 
     /**
      * Return all grainSupplier objects
