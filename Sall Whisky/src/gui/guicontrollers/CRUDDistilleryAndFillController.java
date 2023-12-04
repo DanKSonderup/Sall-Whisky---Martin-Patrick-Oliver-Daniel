@@ -225,7 +225,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        availableCaskslvw.getItems().setAll(MainController.get)
+        // availableCaskslvw.getItems().setAll(MainController.get)
         lvwMaltBatches.getItems().setAll(MainController.getMaltbatches());
         pickEmployeeComboBox.getItems().setAll(MainController.getEmployees());
     }
