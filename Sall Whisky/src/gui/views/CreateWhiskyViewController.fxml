@@ -9,13 +9,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateWhiskyViewController">
    <children>
-      <ListView fx:id="FillOnWhiskylvw" layoutX="75.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
+      <ListView fx:id="lvwDestillatesReadyForFIll" layoutX="75.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
       <Label fx:id="FillOnWhiskylbl" layoutX="138.0" layoutY="86.0" text="Færdigmodnet destillatter" />
       <ListView fx:id="WhiskyPropertieslvw" layoutX="667.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
       <Label fx:id="whiskyPropertieslbl" layoutX="748.0" layoutY="86.0" text="Whiskyen består af:" />
       <TextField fx:id="amountOfFillCltxf" layoutX="402.0" layoutY="431.0" prefHeight="25.0" prefWidth="194.0" promptText="L" />
       <Label fx:id="amountOfFillCllbl" layoutX="395.0" layoutY="407.0" text="Indtast ønsket mængde til påhældning:" />
-      <ListView fx:id="typeOfWhiskylvw" layoutX="368.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
+      <ListView fx:id="lvwWhiskyReadyForFill" layoutX="368.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
       <Label fx:id="typeOfWhiskylbl" layoutX="757.0" layoutY="416.0" text="Type af whisky:" />
       <Label fx:id="wateredWhiskylbl" layoutX="439.0" layoutY="485.0" text="Fortyndelse med vand:" />
       <TextField fx:id="wateredWhiskytxf" layoutX="402.0" layoutY="508.0" prefHeight="25.0" prefWidth="194.0" promptText="L" />

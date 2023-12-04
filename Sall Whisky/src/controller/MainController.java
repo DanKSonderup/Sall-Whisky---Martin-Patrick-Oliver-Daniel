@@ -20,6 +20,15 @@ public abstract class MainController {
     }
 
     /**
+     * Returns all Casks from Storage
+     */
+
+    public static List<Cask> getCasks() {
+        return storage.getCasks();
+    }
+
+
+    /**
      * Finds warehouses that has atleast 1 rack where there is space for the Cask we're trying to add
      * @param cask we're checking for space for
      * @return Warehouses where
@@ -231,6 +240,19 @@ public abstract class MainController {
      */
     public static List<Distillate> getDistillates() {
         return storage.getDistillates();
+    }
+
+    /**
+     * Return all distillates that still haven't been fully filled on a Cask
+     */
+    public static List<Distillate> getAvailableDistillates() {
+        List<Distillate> distillates = new ArrayList<>();
+        for (Distillate distillate: storage.getDistillates())  {
+            if (distillate.getAmountInLiters() > 0) {
+                distillates.add(distillate);
+            }
+        }
+        return distillates;
     }
 
     /**

@@ -1,6 +1,7 @@
 package gui.guicontrollers;
 
 import controller.MainController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,14 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.Cask;
-import model.Distillate;
-import model.Employee;
-import model.Maltbatch;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CRUDDistilleryAndFillController implements Initializable {
@@ -163,6 +163,39 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     @FXML
     void btnFillOnCaskOnAction(ActionEvent event) {
+        Distillate distillate = distillatelvw.getSelectionModel().getSelectedItem();
+        Cask cask = availableCaskslvw.getSelectionModel().getSelectedItem();
+        double amountInLiters = txfParseDouble(amountOfLiterstxf);
+
+        if (cask == null) {
+            availableCaskslvw.setStyle("-fx-border-color: red;");
+            return;
+        }
+        if (amountInLiters < 0) {
+            return;
+        }
+
+        if (distillate == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fejl");
+            alert.setHeaderText("Du skal vælge et distillat");
+            alert.setContentText("Du skal vælge et distillat for at påfylde");
+            alert.show();
+        }
+        ArrayList<DistillateFill> distillateFills = new ArrayList<>();
+        try {
+            distillateFills.add(new DistillateFill(amountInLiters, distillate));
+        } catch (IllegalArgumentException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fejl");
+            alert.setHeaderText("For stor påfyldning");
+            alert.setContentText("Du har prøvet på at påfylde flere liter end der er tilgængelige for dit destillat!");
+            alert.show();
+            return;
+        }
+        if (!canFillOnCask(amountInLiters, cask)) {
+            MainController.createFillOnCask(LocalDate.now(), cask, distillateFills);
+        }
 
     }
 
@@ -176,13 +209,23 @@ public class CRUDDistilleryAndFillController implements Initializable {
         return returnValue;
     }
 
+    private boolean canFillOnCask(double amountInLiters, Cask cask) {
+        double currentContent = 0;
+        for (FillOnCask fillOnCask: cask.getFillOnCasks()) {
+            for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
+                currentContent += distillateFill.getAmountOfDistillateInLiters();
+            }
+        }
+        return currentContent > cask.getSizeInLiters();
+    }
+
     private void updateControls() {
         distillatelvw.getItems().setAll(MainController.getDistillates());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        distillatelvw.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        availableCaskslvw.getItems().setAll(MainController.get)
         lvwMaltBatches.getItems().setAll(MainController.getMaltbatches());
         pickEmployeeComboBox.getItems().setAll(MainController.getEmployees());
     }

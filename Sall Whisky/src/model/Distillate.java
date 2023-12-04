@@ -79,6 +79,6 @@ public class Distillate {
         for (Maltbatch mb: maltbatches) {
             maltbatchesString += mb.getName();
         }
-        return newMakeNr + "[ " + maltbatchesString + " ]" + "(L: " + amountInLiters + ", Alc: " + alcoholPercentage + " Medarbejder: " + employee.getName() + " )";
+        return newMakeNr + ", [ " + maltbatchesString + " ] - " + "(L: " + amountInLiters + ", Alc: " + alcoholPercentage + " Medarbejder: " + employee.getName() + " )";
     }
 }

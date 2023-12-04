@@ -8,6 +8,10 @@ public class DistillateFill {
     public DistillateFill(double amountOfDistillateInLiters, Distillate distillate) {
         this.amountOfDistillateInLiters = amountOfDistillateInLiters;
         this.distillate = distillate;
+        if (distillate.getAmountInLiters() - amountOfDistillateInLiters < 0) {
+            throw new IllegalArgumentException();
+        }
+        distillate.setAmountInLiters(distillate.getAmountInLiters() - amountOfDistillateInLiters);
     }
 
     public FillOnCask getFillOnCask() {

@@ -30,7 +30,7 @@ public class App {
 
     // Bare til at teste, skal fjernes da vi jo bruger serialization
     public static void initStorage() {
-        MainController.createCaskSupplier("CaskTest1", "CaskVej1", "Caskland", "123");
+        CaskSupplier cs1 = MainController.createCaskSupplier("CaskTest1", "CaskVej1", "Caskland", "123");
         MainController.createCaskSupplier("CaskTest2", "CaskVej2", "Caskland", "125");
 
         MainController.createGrainSupplier("GrainTest1", "GrainVej1", "Grainland", "234");
@@ -67,10 +67,10 @@ public class App {
         MainController.createPosition(sh1, 40);
         MainController.createPosition(sh3, 100);
         MainController.createPosition(sh5, 30);
-        MainController.createPosition(sh5, 30);
+        Position p1 = MainController.createPosition(sh5, 30);
 
         MainController.createEmployee(1, "Hans");
 
-
+        MainController.createCask("Frankrig", 50, "Bourbon", p1, cs1);
     }
 }
