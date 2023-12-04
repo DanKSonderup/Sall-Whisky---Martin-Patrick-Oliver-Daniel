@@ -9,11 +9,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 public class CreateWhiskyViewController {
-    @FXML
-    private Label FillOnWhiskylbl;
 
     @FXML
-    private ListView<?> FillOnWhiskylvw;
+    private Label FillOnWhiskylbl;
 
     @FXML
     private ListView<?> WhiskyPropertieslvw;
@@ -43,6 +41,12 @@ public class CreateWhiskyViewController {
     private Button btnRegistrerAlcoholPercentage;
 
     @FXML
+    private ListView<?> lvwDestillatesReadyForFIll;
+
+    @FXML
+    private ListView<?> lvwWhiskyReadyForFill;
+
+    @FXML
     private TextField txfAlcoholPercentage;
 
     @FXML
@@ -50,9 +54,6 @@ public class CreateWhiskyViewController {
 
     @FXML
     private Label typeOfWhiskylbl;
-
-    @FXML
-    private ListView<?> typeOfWhiskylvw;
 
     @FXML
     private Label wateredWhiskylbl;
@@ -79,4 +80,3 @@ public class CreateWhiskyViewController {
     }
 
 }
-
