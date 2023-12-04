@@ -16,6 +16,7 @@ public class ListStorage implements Storage {
     private final List<Distillate> distillates = new ArrayList<>();
     private final List<Grain> grains = new ArrayList<>();
     private final List<Field> fields = new ArrayList<>();
+    private final List<Whisky> whiskies = new ArrayList<>();
     private StorageCounter storageCounter = new StorageCounter();
 
     //----------------------------------------------------------------------
@@ -29,6 +30,7 @@ public class ListStorage implements Storage {
     public void deleteCaskSupplier(CaskSupplier caskSupplier) {
         caskSuppliers.remove(caskSupplier);
     }
+
 
     //----------------------------------------------------------------------
     /** GrainSupplier */
@@ -140,5 +142,21 @@ public class ListStorage implements Storage {
     @Override
     public void deleteField(Field field) {
         fields.remove(field);
+    }
+
+    /** Whisky */
+    @Override
+    public List<Whisky> getWhiskies() {
+        return null;
+    }
+
+    @Override
+    public void storeWhisky(Whisky whisky) {
+
+    }
+
+    @Override
+    public void deleteWhisky(Whisky whisky) {
+
     }
 }

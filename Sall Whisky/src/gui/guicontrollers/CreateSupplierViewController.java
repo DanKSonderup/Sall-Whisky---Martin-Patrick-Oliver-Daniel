@@ -139,7 +139,6 @@ public class CreateSupplierViewController implements Initializable {
      * Updates the grain supplier listview
      */
     private void updateLvwGrainSupplier() {
-        // TODO update from storage, not grainSuppliers
         lvwGrainSupplier.getItems().setAll(MainController.getGrainSuppliers());
     }
 
@@ -147,7 +146,6 @@ public class CreateSupplierViewController implements Initializable {
      * Updates the cask supplier listview
      */
     private void updateLvwCaskSupplier() {
-        // TODO update from storage, not caskSuppliers
         lvwCaskSupplier.getItems().setAll(MainController.getCaskSuppliers());
     }
 

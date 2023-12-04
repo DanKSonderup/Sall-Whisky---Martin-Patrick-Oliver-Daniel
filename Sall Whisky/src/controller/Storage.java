@@ -59,4 +59,9 @@ public interface Storage {
     void storeCaskSupplier(CaskSupplier caskSupplier);
     void deleteCaskSupplier(CaskSupplier caskSupplier);
 
+    /** Whisky */
+    List<Whisky> getWhiskies();
+    void storeWhisky(Whisky whisky);
+    void deleteWhisky(Whisky whisky);
+
 }

@@ -18,7 +18,7 @@ public class App {
             System.out.println("Empty ListStorage created");
         }
         MainController.setStorage(storage);
-        initStorage();
+        // initStorage();
 
         Application.launch(Gui.class);
 
