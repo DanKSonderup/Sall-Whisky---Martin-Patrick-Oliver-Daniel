@@ -28,8 +28,6 @@ import java.util.ResourceBundle;
 
 public class CreateSupplierViewController implements Initializable {
 
-    private Supplier supplier;
-
     @FXML
     private Button btnCancel;
 
@@ -101,11 +99,11 @@ public class CreateSupplierViewController implements Initializable {
 
 
         if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
-            supplier = MainController.createGrainSupplier(name, address, country, vatId);
+            MainController.createGrainSupplier(name, address, country, vatId);
             // HELLO
 
         } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
-            supplier = MainController.createCaskSupplier(name, address, country, vatId);
+            MainController.createCaskSupplier(name, address, country, vatId);
         }
         updateLvwCaskSupplier();
         updateLvwGrainSupplier();
