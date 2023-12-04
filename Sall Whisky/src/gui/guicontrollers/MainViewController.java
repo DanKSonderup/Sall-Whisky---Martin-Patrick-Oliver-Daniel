@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -35,6 +36,8 @@ public class MainViewController {
 
     @FXML
     private Button btnStartside;
+    @FXML
+    private Button btnCreateWhisky;
 
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
@@ -57,6 +60,17 @@ public class MainViewController {
     }
 
     @FXML
+    void btnCreateWhiskyOnAction(ActionEvent event) throws IOException {
+        URL url = new File("Sall Whisky/src/gui/views/CreateWhiskyViewController.fxml").toURI().toURL();
+        Parent root1 = FXMLLoader.load(url);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Opret Whisky");
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
+
+    @FXML
     void btnStartSideOnAction(ActionEvent event) {
 
     }
@@ -65,4 +79,6 @@ public class MainViewController {
     void btnSupplierOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
+
+
 }

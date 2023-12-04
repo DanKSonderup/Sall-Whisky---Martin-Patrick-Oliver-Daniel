@@ -199,6 +199,14 @@ public abstract class MainController {
         return employee;
     }
 
+    /**
+     * Returns Employees from Storage
+     */
+
+    public static List<Employee> getEmployees() {
+        return new ArrayList<>(storage.getEmployees());
+    }
+
 
     /**
      * Creates a Distillate and saves it to storage

@@ -156,6 +156,12 @@ public class CRUDDistilleryAndFillController implements Initializable {
         }
 
         MainController.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches);
+        updateControls();
+    }
+
+    @FXML
+    void btnFillOnCaskOnAction(ActionEvent event) {
+
     }
 
     private double txfParseDouble(TextField txf) {
@@ -176,5 +182,6 @@ public class CRUDDistilleryAndFillController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         distillatelvw.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         lvwMaltBatches.getItems().setAll(MainController.getMaltbatches());
+        pickEmployeeComboBox.getItems().setAll(MainController.getEmployees());
     }
 }

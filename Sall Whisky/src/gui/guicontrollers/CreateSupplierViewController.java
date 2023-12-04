@@ -110,7 +110,6 @@ public class CreateSupplierViewController implements Initializable {
 
         if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
             MainController.createGrainSupplier(name, address, country, vatId);
-            // HELLO
 
         } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
             MainController.createCaskSupplier(name, address, country, vatId);

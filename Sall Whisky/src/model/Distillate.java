@@ -73,6 +73,12 @@ public class Distillate {
         maltbatches.remove(maltBatch);
     }
 
-
-
+    @Override
+    public String toString() {
+        String maltbatchesString = "";
+        for (Maltbatch mb: maltbatches) {
+            maltbatchesString += mb.getName();
+        }
+        return newMakeNr + "[ " + maltbatchesString + " ]" + "(L: " + amountInLiters + ", Alc: " + alcoholPercentage + " Medarbejder: " + employee.getName() + " )";
+    }
 }

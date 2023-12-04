@@ -9,33 +9,33 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDDistilleryAndFillController">
    <children>
-      <ListView fx:id="availableCaskslvw" layoutX="536.0" layoutY="108.0" prefHeight="484.0" prefWidth="350.0" />
+      <ListView fx:id="availableCaskslvw" layoutX="519.0" layoutY="108.0" prefHeight="484.0" prefWidth="350.0" />
       <ListView fx:id="distillatelvw" layoutX="148.0" layoutY="372.0" prefHeight="220.0" prefWidth="350.0" />
-      <Button fx:id="btnFillOnCask" layoutX="458.0" layoutY="661.0" mnemonicParsing="false" text="Påfyld destillat" />
-      <Label fx:id="availableCaskslbl" layoutX="680.0" layoutY="74.0" text="Ledige fade" />
+      <Button fx:id="btnFillOnCask" layoutX="459.0" layoutY="661.0" mnemonicParsing="false" onAction="#btnFillOnCaskOnAction" text="Påfyld destillat" />
+      <Label fx:id="availableCaskslbl" layoutX="663.0" layoutY="82.0" text="Ledige fade" />
       <Label fx:id="distillatelbl" layoutX="296.0" layoutY="350.0" text="Destillater" />
-      <TextField fx:id="typeLiterAmounttxf" layoutX="431.0" layoutY="629.0" />
-      <Label fx:id="typeLiterAmountlbl" layoutX="460.0" layoutY="606.0" text="Indtast antal liter" />
-      <TextField fx:id="newMakeNrtxf" layoutX="249.0" layoutY="62.0" />
-      <ComboBox fx:id="pickEmployeeComboBox" layoutX="248.0" layoutY="172.0" prefWidth="150.0" />
-      <TextField fx:id="distillationTimetxf" layoutX="249.0" layoutY="207.0" />
-      <TextField fx:id="amountOfLiterstxf" layoutX="249.0" layoutY="242.0" />
-      <TextField fx:id="rygematerialetxf" layoutX="249.0" layoutY="276.0" />
-      <TextField fx:id="alcoholPercentagetxf" layoutX="249.0" layoutY="311.0" />
-      <Label fx:id="newMakeNrlbl" layoutX="148.0" layoutY="66.0" text="New Make Nr" />
-      <Label fx:id="pickMaltbatchlbl" layoutX="143.0" layoutY="100.0" text="Vælg Maltbatch" />
-      <Label fx:id="pickEmployeelbl" layoutX="134.0" layoutY="176.0" text="Vælg medarbejder" />
-      <Label fx:id="distillationTimelbl" layoutX="144.0" layoutY="211.0" text="Destilleringstid" />
-      <Label fx:id="amountOfLiterlbl" layoutX="130.0" layoutY="246.0" text="Litermængde væske" />
-      <Label fx:id="rygematerialelbl" layoutX="146.0" layoutY="280.0" text="Rygemateriale" />
-      <Label fx:id="alcoholPercentagelbl" layoutX="143.0" layoutY="315.0" text="Alkoholprocent" />
-      <Button fx:id="btnCreateDistillate" layoutX="415.0" layoutY="159.0" mnemonicParsing="false" onAction="#btnCreateDistillateOnAction" prefHeight="96.0" prefWidth="90.0" text="Opret Destillat" textAlignment="CENTER" wrapText="true" />
+      <TextField fx:id="typeLiterAmounttxf" layoutX="432.0" layoutY="629.0" />
+      <Label fx:id="typeLiterAmountlbl" layoutX="461.0" layoutY="606.0" text="Indtast antal liter" />
+      <TextField fx:id="newMakeNrtxf" layoutX="249.0" layoutY="57.0" />
+      <ComboBox fx:id="pickEmployeeComboBox" layoutX="248.0" layoutY="173.0" prefWidth="150.0" />
+      <TextField fx:id="distillationTimetxf" layoutX="249.0" layoutY="209.0" />
+      <TextField fx:id="amountOfLiterstxf" layoutX="249.0" layoutY="244.0" />
+      <TextField fx:id="rygematerialetxf" layoutX="249.0" layoutY="278.0" />
+      <TextField fx:id="alcoholPercentagetxf" layoutX="249.0" layoutY="313.0" />
+      <Label fx:id="newMakeNrlbl" layoutX="148.0" layoutY="61.0" text="New Make Nr" />
+      <Label fx:id="pickMaltbatchlbl" layoutX="142.0" layoutY="118.0" text="Vælg Maltbatch" />
+      <Label fx:id="pickEmployeelbl" layoutX="134.0" layoutY="177.0" text="Vælg medarbejder" />
+      <Label fx:id="distillationTimelbl" layoutX="144.0" layoutY="213.0" text="Destilleringstid" />
+      <Label fx:id="amountOfLiterlbl" layoutX="130.0" layoutY="248.0" text="Litermængde væske" />
+      <Label fx:id="rygematerialelbl" layoutX="146.0" layoutY="282.0" text="Rygemateriale" />
+      <Label fx:id="alcoholPercentagelbl" layoutX="143.0" layoutY="317.0" text="Alkoholprocent" />
+      <Button fx:id="btnCreateDistillate" layoutX="412.0" layoutY="159.0" mnemonicParsing="false" onAction="#btnCreateDistillateOnAction" prefHeight="96.0" prefWidth="90.0" text="Opret Destillat" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="btnCRUDCask" layoutX="166.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer fade" />
       <Button fx:id="btnCRUDStorage" layoutX="332.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer lager" />
-      <Button fx:id="btnDestillateAndFillOnCask" disable="true" layoutX="498.0" layoutY="-3.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="166.0" text="Destillater og påfyldninger" />
+      <Button fx:id="btnDestillateAndFillOnCask" layoutX="498.0" layoutY="-3.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="166.0" text="Destillater og påfyldninger" />
       <Button fx:id="btnCRUDRawMaterial" layoutX="664.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer råvare" />
       <Button fx:id="btnCRUDSupplier" layoutX="830.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer leverandører" />
       <Button fx:id="btnStartside" layoutY="-3.0" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="166.0" text="Startside" />
-      <ListView fx:id="lvwMaltBatches" layoutX="249.0" layoutY="91.0" prefHeight="75.0" prefWidth="149.0" />
+      <ListView fx:id="lvwMaltBatches" layoutX="249.0" layoutY="90.0" prefHeight="78.0" prefWidth="149.0" />
    </children>
 </AnchorPane>
