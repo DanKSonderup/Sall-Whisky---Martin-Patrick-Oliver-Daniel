@@ -1,5 +1,6 @@
 package gui.guicontrollers;
 
+import controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -9,6 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Cask;
+import model.Distillate;
+import model.Employee;
+import model.Maltbatch;
 
 import java.io.IOException;
 
@@ -32,7 +37,7 @@ public class CRUDDistilleryAndFillController {
     private Label availableCaskslbl;
 
     @FXML
-    private ListView<?> availableCaskslvw;
+    private ListView<Cask> availableCaskslvw;
 
     @FXML
     private Button btnCRUDCask;
@@ -62,7 +67,7 @@ public class CRUDDistilleryAndFillController {
     private Label distillatelbl;
 
     @FXML
-    private ListView<?> distillatelvw;
+    private ListView<Distillate> distillatelvw;
 
     @FXML
     private Label distillationTimelbl;
@@ -77,13 +82,13 @@ public class CRUDDistilleryAndFillController {
     private TextField newMakeNrtxf;
 
     @FXML
-    private ComboBox<?> pickEmployeeComboBox;
+    private ComboBox<Employee> pickEmployeeComboBox;
 
     @FXML
     private Label pickEmployeelbl;
 
     @FXML
-    private ComboBox<?> pickMaltbatchComboBox;
+    private ComboBox<Maltbatch> pickMaltbatchComboBox;
 
     @FXML
     private Label pickMaltbatchlbl;
@@ -123,6 +128,18 @@ public class CRUDDistilleryAndFillController {
     @FXML
     void btnSupplierOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
+    }
+    @FXML
+    void btnCreateDistillateOnAction(ActionEvent event) {
+        String newMakenr = newMakeNrtxf.getText().trim();
+        double distillationTime;
+        double alcoholPercentage;
+        double amountInLiters;
+        Employee employee = pickEmployeeComboBox.getSelectionModel().getSelectedItem();
+        Maltbatch maltbatch = pickMaltbatchComboBox.getSelectionModel().getSelectedItem();
+
+        
+        MainController.createDistillate()
     }
 
 }
