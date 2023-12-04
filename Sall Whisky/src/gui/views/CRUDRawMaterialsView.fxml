@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDRawMaterialsViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDRawMaterialsViewController">
    <children>
       <Label alignment="CENTER" layoutX="444.0" layoutY="43.0" prefHeight="52.0" prefWidth="108.0" text="Korn">
          <font>
@@ -138,7 +138,7 @@
       <Button fx:id="btnCRUDCask" layoutX="168.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer fade" />
       <Button fx:id="btnCRUDStorage" layoutX="334.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer lager" />
       <Button fx:id="btnDestillateAndFillOnCask" layoutX="500.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Destillater og påfyldninger" />
-      <Button fx:id="btnCRUDRawMaterial" layoutX="666.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer råvarer" />
+      <Button fx:id="btnCRUDRawMaterial" disable="true" layoutX="666.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="166.0" text="Adminstrer råvarer" />
       <Button fx:id="btnCRUDSupplier" layoutX="832.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer leverandører" />
       <Button fx:id="btnStartside" layoutX="2.0" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="166.0" text="Startside" />
    </children>

@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateSupplierViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateSupplierViewController">
    <children>
       <Label layoutX="61.0" layoutY="184.0" text="Navn" />
       <Label layoutX="53.0" layoutY="223.0" prefWidth="47.0" text="Adresse" />
@@ -27,5 +27,11 @@
       <Button fx:id="btnDeleteCaskSupplier" layoutX="834.0" layoutY="388.0" mnemonicParsing="false" onAction="#btnDeleteCaskSupplierOnAction" text="Slet fadleverandør" />
       <Button fx:id="btnDeleteGrainSupplier" layoutX="499.0" layoutY="388.0" mnemonicParsing="false" onAction="#btnDeleteGrainSupplierOnAction" text="Slet kornleverandør" />
       <ComboBox fx:id="cbbSupplier" layoutX="128.0" layoutY="139.0" prefHeight="25.0" prefWidth="202.0" />
+      <Button fx:id="btnCRUDCask" layoutX="168.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer fade" />
+      <Button fx:id="btnCRUDStorage" layoutX="334.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer lager" />
+      <Button fx:id="btnDestillateAndFillOnCask" layoutX="500.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Destillater og påfyldninger" />
+      <Button fx:id="btnCRUDRawMaterial" layoutX="666.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer råvare" />
+      <Button fx:id="btnCRUDSupplier" disable="true" layoutX="832.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="166.0" text="Adminstrer leverandører" />
+      <Button fx:id="btnStartside" layoutX="2.0" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="166.0" text="Startside" />
    </children>
 </AnchorPane>

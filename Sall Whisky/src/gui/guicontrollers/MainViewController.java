@@ -38,41 +38,22 @@ public class MainViewController {
 
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnCrudCaskOnAction(stage, scene, event);
-        /*
-        URL url = new File("Sall Whisky/src/gui/views/CRUDCaskView.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-         */
+        SwitchSceneController.btnCrudCask(stage, scene, event);
     }
 
     @FXML
     void btnCrudStorageOnAction(ActionEvent event) throws IOException{
-        URL url = new File("Sall Whisky/src/gui/views/CRUDStorageView.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        SwitchSceneController.btnCrudStorage(stage, scene, event);
     }
 
     @FXML
     void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
-        URL url = new File("Sall Whisky/src/gui/views/CreateDistilleryFillOnCask.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
     }
 
     @FXML
     void btnRawMaterialOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnCRUDRawMaterials(stage, scene, event);
+        SwitchSceneController.btnRawMaterial(stage, scene, event);
     }
 
     @FXML
@@ -81,7 +62,7 @@ public class MainViewController {
     }
 
     @FXML
-    void btnSupplierOnAction(ActionEvent event) {
-
+    void btnSupplierOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
 }
