@@ -98,38 +98,28 @@ public class CRUDCaskViewController {
     }
 
     @FXML
-    void btnCrudCaskOnAction(ActionEvent event) {
-
+    void btnCrudStorageOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCrudStorage(stage, scene, event);
     }
 
     @FXML
-    void btnCrudStorageOnAction(ActionEvent event) {
-
+    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
     }
 
     @FXML
-    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnRawMaterialOnAction(ActionEvent event) {
-
+    void btnRawMaterialOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnRawMaterial(stage, scene, event);
     }
 
     @FXML
     void btnStartSideOnAction(ActionEvent event) throws IOException {
-        URL url = new File("Sall Whisky/src/gui/views/MainView.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        SwitchSceneController.btnStartView(stage, scene, event);
     }
 
     @FXML
-    void btnSupplierOnAction(ActionEvent event) {
-
+    void btnSupplierOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
 
 }

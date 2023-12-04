@@ -14,7 +14,7 @@
         </Label>
         <Button fx:id="btnViewDistillate" layoutX="315.0" layoutY="588.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="125.0" text="Se destillat for Fad" />
       <Button fx:id="btnCreateFillOnCask" layoutX="770.0" layoutY="289.0" mnemonicParsing="false" onAction="#btnCreateFillOnCask" prefHeight="45.0" prefWidth="112.0" text="Opret Påfyldning" />
-      <Button fx:id="btnCRUDCask" layoutX="169.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer fade" />
+      <Button fx:id="btnCRUDCask" disable="true" layoutX="169.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="166.0" text="Administrer fade" />
       <Button fx:id="btnCRUDStorage" layoutX="335.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer lager" />
       <Button fx:id="btnDestillateAndFillOnCask" layoutX="501.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Destillater og påfyldninger" />
       <Button fx:id="btnCRUDRawMaterial" layoutX="667.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer råvare" />

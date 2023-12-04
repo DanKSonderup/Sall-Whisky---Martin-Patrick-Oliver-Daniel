@@ -3,7 +3,6 @@ package controller;
 import model.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -180,7 +179,7 @@ public abstract class MainController {
 
         double sum = 0;
         for (DistillateFill distillateFill : distillateFills) {
-            sum += distillateFill.getAmountOfDistillate();
+            sum += distillateFill.getAmountOfDistillateInLiters();
             fillOnCask.addDistillateFill(distillateFill);
         }
         if (sum > cask.getSizeInLiters())
@@ -204,7 +203,7 @@ public abstract class MainController {
     /**
      * Creates a Distillate and saves it to storage
      * @param newMakenr
-     * Pre: alcoholPercentage > 0
+     * Pre: 100 > alcoholPercentage > 0
      * Pre: amountInLiters > 0
      * @param employee
      * @param maltbatches
@@ -233,21 +232,21 @@ public abstract class MainController {
      */
     public static Maltbatch createMaltbatch (String name, String description, Grain grain) {
         Maltbatch maltbatch = new Maltbatch(name, description, grain);
-        storage.storeMaltBatch(maltbatch);
+        storage.storeMaltbatch(maltbatch);
         return maltbatch;
     }
     /**
      * Return all maltbatches
      */
     public static List<Maltbatch> getMaltbatches() {
-        return storage.getMaltBatches();
+        return storage.getMaltbatches();
     }
 
     /**
      * Remove a maltbatch
      */
     public static void removeMaltbatch(Maltbatch maltbatch) {
-        storage.deleteMaltBatch(maltbatch);
+        storage.deleteMaltbatch(maltbatch);
     }
 
 
@@ -316,6 +315,18 @@ public abstract class MainController {
         CaskSupplier caskSupplier = new CaskSupplier(name, address, country, vatId);
         storage.storeCaskSupplier(caskSupplier);
         return caskSupplier;
+    }
+
+    /**
+     * Create, store and return a Whisky
+     * Pre: alcoholPercentage > 0 && alcoholPercentage < 100
+     */
+    public static Whisky createWhisky(String name, double alcoholPercentage, List<WhiskyFill> whiskyFills) {
+            Whisky whisky = new Whisky(name, alcoholPercentage, whiskyFills);
+            WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter(), 0, whisky);
+            whisky.addWhiskyBottle(whiskyBottle);
+            storage.storeWhisky(whisky);
+        return whisky;
     }
 
 

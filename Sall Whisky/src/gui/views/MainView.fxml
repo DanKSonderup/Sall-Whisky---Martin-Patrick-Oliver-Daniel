@@ -18,6 +18,6 @@
       <Button fx:id="btnDestillateAndFillOnCask" layoutX="500.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Destillater og påfyldninger" />
       <Button fx:id="btnCRUDRawMaterial" layoutX="666.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer råvare" />
       <Button fx:id="btnCRUDSupplier" layoutX="832.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer leverandører" />
-      <Button fx:id="btnStartside" layoutX="2.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="166.0" text="Startside" />
+      <Button fx:id="btnStartside" disable="true" layoutX="2.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="166.0" text="Startside" />
    </children>
 </AnchorPane>

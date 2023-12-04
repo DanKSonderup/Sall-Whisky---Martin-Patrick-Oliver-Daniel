@@ -39,10 +39,15 @@ public class FillOnCask {
 
     /**
      * calculates and returns the alcohol percentage in the fillOnCask
-     * @return
      */
     public double calculateAlcoholPercentage() {
-        // TODO
-        return 0;
+        double alcoholPercentage = 0;
+        double totalFluids = 0;
+        for (DistillateFill distillateFill : distillateFills) {
+            alcoholPercentage += (distillateFill.getAmountOfDistillateInLiters() *
+                    (distillateFill.getDistillate().getAlcoholPercentage() / 100.0));
+            totalFluids += distillateFill.getAmountOfDistillateInLiters();
+        }
+        return alcoholPercentage / totalFluids;
     }
 }

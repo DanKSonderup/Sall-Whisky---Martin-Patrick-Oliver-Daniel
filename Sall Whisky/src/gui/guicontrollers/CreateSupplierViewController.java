@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -21,6 +22,7 @@ import model.GrainSupplier;
 import model.Supplier;
 import model.Warehouse;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,24 @@ import java.util.ResourceBundle;
 
 public class CreateSupplierViewController implements Initializable {
 
+    private Stage stage;
+    private Scene scene;
+    @FXML
+    private Button btnCRUDCask;
+
+    @FXML
+    private Button btnCRUDRawMaterial;
+
+    @FXML
+    private Button btnCRUDStorage;
+
+    @FXML
+    private Button btnCRUDSupplier;
+    @FXML
+    private Button btnDestillateAndFillOnCask;
+
+    @FXML
+    private Button btnStartside;
     @FXML
     private Button btnCancel;
 
@@ -62,11 +82,6 @@ public class CreateSupplierViewController implements Initializable {
     private TextField txfVatId;
 
 
-    public CreateSupplierViewController() {
-
-    }
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,6 +94,7 @@ public class CreateSupplierViewController implements Initializable {
 
         lvwCaskSupplier.getItems().setAll(MainController.getCaskSuppliers());
         lvwGrainSupplier.getItems().setAll(MainController.getGrainSuppliers());
+
 
         ChangeListener<GrainSupplier> grainSupplierChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
         lvwGrainSupplier.getSelectionModel().selectedItemProperty().addListener(grainSupplierChangeListener);
@@ -139,7 +155,6 @@ public class CreateSupplierViewController implements Initializable {
      * Updates the grain supplier listview
      */
     private void updateLvwGrainSupplier() {
-        // TODO update from storage, not grainSuppliers
         lvwGrainSupplier.getItems().setAll(MainController.getGrainSuppliers());
     }
 
@@ -147,7 +162,6 @@ public class CreateSupplierViewController implements Initializable {
      * Updates the cask supplier listview
      */
     private void updateLvwCaskSupplier() {
-        // TODO update from storage, not caskSuppliers
         lvwCaskSupplier.getItems().setAll(MainController.getCaskSuppliers());
     }
 
@@ -155,5 +169,34 @@ public class CreateSupplierViewController implements Initializable {
     public void selectedStorageItemChanged() {
         GrainSupplier selectedGrainSupplier = lvwGrainSupplier.getSelectionModel().getSelectedItem();
         CaskSupplier selectedCaskSupplier = lvwCaskSupplier.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    void btnCrudCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCrudCask(stage, scene, event);
+    }
+
+    @FXML
+    void btnCrudStorageOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCrudStorage(stage, scene, event);
+    }
+
+    @FXML
+    void btnRawMaterialOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnRawMaterial(stage, scene, event);
+    }
+
+    @FXML
+    void btnStartSideOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnStartView(stage, scene, event);
+    }
+
+    @FXML
+    void btnSupplierOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
+    }
+    @FXML
+    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
     }
 }

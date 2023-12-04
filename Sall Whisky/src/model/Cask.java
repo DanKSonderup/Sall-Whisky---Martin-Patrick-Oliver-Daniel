@@ -11,6 +11,7 @@ public class Cask {
     private Position position;
     private CaskSupplier supplier;
     private final List<FillOnCask> fillOnCasks = new ArrayList<>();
+    private final List<WhiskyFill> whiskyFills = new ArrayList<>();
 
     /** Constructor uden Position */
 
@@ -86,4 +87,14 @@ public class Cask {
         fillOnCasks.add(fillOnCask);
     }
 
+    public List<FillOnCask> getFillOnCasks() {
+        return fillOnCasks;
+    }
+
+    public List<WhiskyFill> getWhiskyFills() {
+        return whiskyFills;
+    }
+    public void addWhiskyFill(WhiskyFill whiskyFill) {
+        whiskyFills.add(whiskyFill);
+    }
 }

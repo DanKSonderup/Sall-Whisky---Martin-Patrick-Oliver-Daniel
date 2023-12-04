@@ -454,33 +454,28 @@ public class CRUDRawMaterialsViewController implements Initializable {
 
 
     @FXML
-    void btnStartSideOnAction(ActionEvent event) {
-        // TODO
+    void btnStartSideOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnStartView(stage, scene, event);
     }
 
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnCrudCaskOnAction(stage, scene, event);
+        SwitchSceneController.btnCrudCask(stage, scene, event);
     }
 
     @FXML
-    void btnCrudStorageOnAction(ActionEvent event) {
-        // TODO
+    void btnCrudStorageOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCrudStorage(stage, scene, event);
     }
 
     @FXML
-    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) {
-        // TODO
+    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
     }
 
     @FXML
-    void btnRawMaterialOnAction(ActionEvent event) {
-        // TODO
-    }
-
-    @FXML
-    void btnSupplierOnAction(ActionEvent event) {
-        // TODO
+    void btnSupplierOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
 
 }
