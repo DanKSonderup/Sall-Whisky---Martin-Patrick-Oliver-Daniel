@@ -5,25 +5,17 @@ import java.util.List;
 
 public class Whisky {
     private String name;
-    private final double alcoholPercentage;
     private List<WhiskyFill> whiskyFills = new ArrayList<>();
-    private final List<WhiskyBottle> whiskyBottles = new ArrayList<>();
 
     /** Without whiskyFills */
-    public Whisky(String name, double alcoholPercentage) {
-        this.alcoholPercentage = alcoholPercentage;
+    public Whisky(String name) {
         this.name = name;
     }
 
     /** With whiskyFills*/
-    public Whisky(String name, double alcoholPercentage, List<WhiskyFill> whiskyFills) {
+    public Whisky(String name, List<WhiskyFill> whiskyFills) {
         this.name = name;
-        this.alcoholPercentage = alcoholPercentage;
         this.whiskyFills = whiskyFills;
-    }
-
-    public double getAlcoholPercentage() {
-        return alcoholPercentage;
     }
 
     public String getName() {
@@ -34,15 +26,19 @@ public class Whisky {
         return whiskyFills;
     }
 
-    public List<WhiskyBottle> getWhiskyBottles() {
-        return whiskyBottles;
-    }
-
     public void addWhiskyFill(WhiskyFill whiskyFill) {
         whiskyFills.add(whiskyFill);
     }
 
-    public void addWhiskyBottle(WhiskyBottle whiskyBottle) {
-        whiskyBottles.add(whiskyBottle);
+    public double calculateAlcoholPercentage() {
+        double alcoholPercentage = 0;
+        double totalFluids = 0;
+        for (WhiskyFill whiskyFill : whiskyFills) {
+            alcoholPercentage += (whiskyFill.getAmountOfCaskInLiters() *
+                    (whiskyFill.getAlcoholPercentage() / 100.0));
+
+            totalFluids += whiskyFill.getAmountOfCaskInLiters();
+        }
+        return alcoholPercentage / totalFluids * 100;
     }
 }

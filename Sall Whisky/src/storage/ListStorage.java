@@ -162,16 +162,16 @@ public class ListStorage implements Storage {
     /** Whisky */
     @Override
     public List<Whisky> getWhiskies() {
-        return null;
+        return new ArrayList<>(whiskies);
     }
 
     @Override
     public void storeWhisky(Whisky whisky) {
-
+        whiskies.add(whisky);
     }
 
     @Override
     public void deleteWhisky(Whisky whisky) {
-
+        whiskies.remove(whisky);
     }
 }
