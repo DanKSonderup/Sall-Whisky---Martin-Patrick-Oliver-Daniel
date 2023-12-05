@@ -166,10 +166,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         Distillate distillate = distillatelvw.getSelectionModel().getSelectedItem();
         String[] fields = availableCaskslvw.getSelectionModel().getSelectedItem().split("|");
 
-        try {
-
-        }
-        Cask cask = MainController.getAvailableCaskById();
+        Cask cask = MainController.getAvailableCaskById(0);
         double amountInLiters = txfParseDouble(typeLiterAmounttxf);
 
         if (cask == null) {

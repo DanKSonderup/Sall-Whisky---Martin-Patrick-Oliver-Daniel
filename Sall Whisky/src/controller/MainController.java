@@ -44,12 +44,15 @@ public abstract class MainController {
      * @return Warehouses where
      */
     public static List<Warehouse> getAvailableWarehouses(Cask cask) {
-
         List<Warehouse> warehouses = new ArrayList<>(storage.getWarehouses());
 
         for (int i = 0; i < warehouses.size(); i++) {
-            if (getAvailableRacks(warehouses.get(i), cask).isEmpty()) {
+            if (warehouses.get(i).isFilled()) {
                 warehouses.remove(warehouses.get(i));
+                i--;
+            } else if (getAvailableRacks(warehouses.get(i), cask).isEmpty()) {
+                warehouses.remove(warehouses.get(i));
+                i--;
             }
         }
         return warehouses;
@@ -63,8 +66,12 @@ public abstract class MainController {
     public static List<Rack> getAvailableRacks(Warehouse warehouse, Cask cask) {
         List<Rack> racks = new ArrayList<>(warehouse.getRacks());
         for (int i = 0; i < racks.size(); i++) {
-            if (getAvailableShelves(racks.get(i), cask).isEmpty()) {
+            if (racks.get(i).isFilled()) {
                 racks.remove(racks.get(i));
+                i--;
+            } else if (getAvailableShelves(racks.get(i), cask).isEmpty()) {
+                racks.remove(racks.get(i));
+                i--;
             }
         }
         return racks;
@@ -78,8 +85,12 @@ public abstract class MainController {
     public static List<Shelf> getAvailableShelves(Rack rack, Cask cask) {
         List<Shelf> shelves = new ArrayList<>(rack.getShelves());
         for (int i = 0; i < shelves.size(); i++) {
-            if (getAvailablePositions(shelves.get(i), cask).isEmpty()) {
+            if (shelves.get(i).isFilled()) {
                 shelves.remove(shelves.get(i));
+                i--;
+            } else if (getAvailablePositions(shelves.get(i), cask).isEmpty()) {
+                shelves.remove(shelves.get(i));
+                i--;
             }
         }
         return shelves;
@@ -93,13 +104,19 @@ public abstract class MainController {
 
     public static List<Position> getAvailablePositions(Shelf shelf, Cask cask) {
         List<Position> positions = new ArrayList<>(shelf.getPositions());
-        for (Position position : positions) {
-            double currentCapacity = 0;
-            for (Cask cask1 : position.getCasks()) {
-                currentCapacity += cask1.getSizeInLiters();
-            }
-            if (currentCapacity + cask.getSizeInLiters() > position.getLiterCapacity()) {
-                positions.remove(position);
+        for (int i = 0; i < positions.size(); i++) {
+            if (positions.get(i).isFilled()) {
+                positions.remove(positions.get(i));
+                i--;
+            } else {
+                double currentLiters = 0;
+                for (Cask cask1 : positions.get(i).getCasks()) {
+                    currentLiters += cask1.getSizeInLiters();
+                }
+                if (currentLiters + cask.getSizeInLiters() > positions.get(i).getLiterCapacity()) {
+                    positions.remove(positions.get(i));
+                    i--;
+                }
             }
         }
         return positions;
