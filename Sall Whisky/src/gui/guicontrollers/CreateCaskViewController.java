@@ -7,10 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.*;
 
@@ -28,6 +26,24 @@ public class CreateCaskViewController implements Initializable {
     @FXML
     private Button btnFindAvailableStorageSpace;
     @FXML
+    private TableColumn<Cask, String> columnCaskSupplier;
+    @FXML
+    private TableColumn<Cask, String> columnCountryOfOrigin;
+    @FXML
+    private TableColumn<Cask, Integer> columnID;
+    @FXML
+    private TableColumn<Cask, Integer> columnPosition;
+    @FXML
+    private TableColumn<Cask, String> columnPreviousContent;
+    @FXML
+    private TableColumn<Cask, Integer> columnRack;
+    @FXML
+    private TableColumn<Cask, Integer> columnShelf;
+    @FXML
+    private TableColumn<Cask, Double> columnSizeInLiters;
+    @FXML
+    private TableColumn<Cask, Integer> columnWarehouse;
+    @FXML
     private ListView<CaskSupplier> lvwCaskSupplier;
     @FXML
     private ListView<Position> lvwPosition;
@@ -38,12 +54,14 @@ public class CreateCaskViewController implements Initializable {
     @FXML
     private ListView<Warehouse> lvwWarehouse;
     @FXML
+    private TableView<Cask> tvwCreatedCasks;
+    @FXML
     private TextField txfCountryOfOrigin;
     @FXML
     private TextField txfPreviousContent;
     @FXML
     private TextField txfSizeInLiters;
-    private ArrayList<Warehouse> warehouses = new ArrayList<>();
+    private ArrayList<Cask> createdCasts = new ArrayList<>();
     private Warehouse currentlySelectedWarehouse;
     private Rack currentlySelectedRack;
     private Shelf currentlySelectedShelf;
@@ -74,6 +92,16 @@ public class CreateCaskViewController implements Initializable {
             lvwPosition.setStyle("-fx-border-color: transparent;");
         });
 
+        columnID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
+        columnSizeInLiters.setCellValueFactory(new PropertyValueFactory<Cask, Double>("sizeInLiters"));
+        columnPreviousContent.setCellValueFactory(new PropertyValueFactory<Cask, String>("previousContent"));
+        columnCountryOfOrigin.setCellValueFactory(new PropertyValueFactory<Cask, String>("countryOfOrigin"));
+        columnCaskSupplier.setCellValueFactory(new PropertyValueFactory<Cask, String>("supplierName"));
+        columnWarehouse.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("warehouseId"));
+        columnRack.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("rackId"));
+        columnShelf.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("shelfId"));
+        columnPosition.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("positionId"));
+
 
     }
 
@@ -100,8 +128,8 @@ public class CreateCaskViewController implements Initializable {
                 double sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
                 Position position = lvwPosition.getSelectionModel().getSelectedItem();
                 CaskSupplier supplier = lvwCaskSupplier.getSelectionModel().getSelectedItem();
-                MainController.createCask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText(),
-                        position, supplier);
+                createdCasts.add(MainController.createCask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText(),
+                        position, supplier));
                 txfSizeInLiters.clear();
                 txfPreviousContent.clear();
                 txfCountryOfOrigin.clear();
@@ -110,6 +138,7 @@ public class CreateCaskViewController implements Initializable {
                 lvwShelf.getItems().clear();
                 lvwPosition.getItems().clear();
                 lvwCaskSupplier.getSelectionModel().clearSelection();
+                updateTvwCreatedCasks();
             }
         }
 
@@ -185,5 +214,9 @@ public class CreateCaskViewController implements Initializable {
             txf.setOnMouseClicked(e -> {txf.setStyle("-fx-border-color: transparent");});
         }
         return cannotParse;
+    }
+
+    private void updateTvwCreatedCasks() {
+        tvwCreatedCasks.getItems().setAll(createdCasts);
     }
 }

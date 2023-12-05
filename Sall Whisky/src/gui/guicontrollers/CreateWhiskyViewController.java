@@ -94,7 +94,6 @@ public class CreateWhiskyViewController implements Initializable {
         String name = txfWhiskyName.getText().trim();
 
         // whisky = MainController.createWhisky(name, waterInLiters, whiskyFill.getAlcoholPercentage(), )
-
     }
 
     @FXML

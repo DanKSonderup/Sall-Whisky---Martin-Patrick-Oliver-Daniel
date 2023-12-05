@@ -127,6 +127,11 @@ public class CRUDWarehouseViewController implements Initializable {
     @FXML
     void btnCreateWarehouseOnAction(ActionEvent event) {
         boolean missingInfo = canParseToDouble(rackAmounttxf);
+        if (warehouseAddresstxf.getText().isEmpty()) {
+            missingInfo = true;
+            warehouseAddresstxf.setStyle("-fx-border-color: red;");
+            warehouseAddresstxf.setOnMouseClicked(e -> {warehouseAddresstxf.setStyle("-fx-border-color: transparent;");});
+        }
 
         if (!missingInfo) {
             warehouse = MainController.createWarehouse(warehouseAddresstxf.getText());

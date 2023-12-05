@@ -124,8 +124,9 @@ public abstract class MainController {
 
 
     /**
-     * Create and return a Cask
+     * Create, store and return a Cask
      * Pre: sizeInLiters > 0 / Throw an illegalArgumentException if sizeInLiters <= 0
+     * add the cask to the position
      */
     public static Cask createCask(String countryOfOrigin, double sizeInLiters, String previousContent,
                                   Position position, CaskSupplier supplier) {
@@ -142,6 +143,7 @@ public abstract class MainController {
         }
         System.out.println(cask.getCaskId());
         storage.storeCask(cask);
+        position.addCask(cask);
         return cask;
     }
 
