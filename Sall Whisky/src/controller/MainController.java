@@ -4,6 +4,7 @@ import model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class MainController {
@@ -27,6 +28,15 @@ public abstract class MainController {
         return storage.getCasks();
     }
 
+    public static Cask getAvailableCaskById(int id) {
+        for (Cask cask1: getAvailableCasks()) {
+            if (cask1.getCaskId() == id) {
+                return cask1;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * Finds warehouses that has atleast 1 rack where there is space for the Cask we're trying to add
@@ -36,9 +46,10 @@ public abstract class MainController {
     public static List<Warehouse> getAvailableWarehouses(Cask cask) {
 
         List<Warehouse> warehouses = new ArrayList<>(storage.getWarehouses());
-        for (Warehouse warehouse: warehouses) {
-            if (getAvailableRacks(warehouse, cask).isEmpty()) {
-                warehouses.remove(warehouse);
+
+        for (int i = 0; i < warehouses.size(); i++) {
+            if (getAvailableRacks(warehouses.get(i), cask).isEmpty()) {
+                warehouses.remove(warehouses.get(i));
             }
         }
         return warehouses;
@@ -50,10 +61,10 @@ public abstract class MainController {
      * @return Racks that are not full
      */
     public static List<Rack> getAvailableRacks(Warehouse warehouse, Cask cask) {
-        List<Rack> racks = new ArrayList<>(warehouse.getAvailableRacks());
-        for (Rack rack: racks) {
-            if (getAvailableShelves(rack, cask).isEmpty()) {
-                racks.remove(rack);
+        List<Rack> racks = new ArrayList<>(warehouse.getRacks());
+        for (int i = 0; i < racks.size(); i++) {
+            if (getAvailableShelves(racks.get(i), cask).isEmpty()) {
+                racks.remove(racks.get(i));
             }
         }
         return racks;
@@ -65,10 +76,10 @@ public abstract class MainController {
      * @return Shelves that are not full (isFilled = false)
      */
     public static List<Shelf> getAvailableShelves(Rack rack, Cask cask) {
-        List<Shelf> shelves = new ArrayList<>(rack.getAvailableShelves());
-        for (Shelf shelf: shelves) {
-            if (getAvailablePositions(shelf, cask).isEmpty()) {
-                shelves.remove(shelf);
+        List<Shelf> shelves = new ArrayList<>(rack.getShelves());
+        for (int i = 0; i < shelves.size(); i++) {
+            if (getAvailablePositions(shelves.get(i), cask).isEmpty()) {
+                shelves.remove(shelves.get(i));
             }
         }
         return shelves;
@@ -81,7 +92,7 @@ public abstract class MainController {
      */
 
     public static List<Position> getAvailablePositions(Shelf shelf, Cask cask) {
-        List<Position> positions = new ArrayList<>(shelf.getAvailablePositions());
+        List<Position> positions = new ArrayList<>(shelf.getPositions());
         for (Position position : positions) {
             double currentCapacity = 0;
             for (Cask cask1 : position.getCasks()) {

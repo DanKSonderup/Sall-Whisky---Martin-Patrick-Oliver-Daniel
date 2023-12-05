@@ -38,7 +38,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
     private Label availableCaskslbl;
 
     @FXML
-    private ListView<Cask> availableCaskslvw;
+    private ListView<String> availableCaskslvw;
 
     @FXML
     private Button btnCRUDCask;
@@ -164,7 +164,12 @@ public class CRUDDistilleryAndFillController implements Initializable {
     @FXML
     void btnFillOnCaskOnAction(ActionEvent event) {
         Distillate distillate = distillatelvw.getSelectionModel().getSelectedItem();
-        Cask cask = availableCaskslvw.getSelectionModel().getSelectedItem();
+        String[] fields = availableCaskslvw.getSelectionModel().getSelectedItem().split("|");
+
+        try {
+
+        }
+        Cask cask = MainController.getAvailableCaskById();
         double amountInLiters = txfParseDouble(typeLiterAmounttxf);
 
         if (cask == null) {
@@ -231,8 +236,18 @@ public class CRUDDistilleryAndFillController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         distillatelvw.getItems().setAll(MainController.getAvailableDistillates());
-        availableCaskslvw.getItems().setAll(MainController.getAvailableCasks());
+        availableCaskslvw.getItems().setAll(getAvailableCasksAsStrings());
         lvwMaltBatches.getItems().setAll(MainController.getMaltbatches());
         pickEmployeeComboBox.getItems().setAll(MainController.getEmployees());
+    }
+
+    private ArrayList<String> getAvailableCasksAsStrings() {
+        ArrayList<String> caskStrings = new ArrayList<>();
+        for (Cask cask: MainController.getAvailableCasks()) {
+            String s = cask.getCaskId() + " | str(" + cask.getSizeInLiters() + ") " +
+                    "| liter tilgængelige(" + cask.getLitersAvailable() + ")";
+            caskStrings.add(s);
+        }
+        return caskStrings;
     }
 }
