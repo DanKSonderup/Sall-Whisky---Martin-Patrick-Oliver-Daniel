@@ -5,17 +5,20 @@ package gui.guicontrollers;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.fxml.Initializable;
+        import javafx.scene.Scene;
         import javafx.scene.control.Button;
         import javafx.scene.control.Label;
         import javafx.scene.control.ListView;
         import javafx.scene.control.TextField;
         import javafx.scene.layout.AnchorPane;
+        import javafx.stage.Stage;
         import model.*;
+
+        import java.io.IOException;
         import java.net.URL;
         import java.util.ResourceBundle;
 
 public class CRUDWarehouseViewController implements Initializable {
-
     @FXML
     private AnchorPane ap_Pane1;
 
@@ -69,33 +72,40 @@ public class CRUDWarehouseViewController implements Initializable {
 
     @FXML
     private Label warehouselbl;
+    private Stage stage;
+    private Scene scene;
     private Rack rack;
     private Shelf shelf;
     private Position position;
-
-    @FXML
-    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnRawMaterialOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnStartSideOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnSupplierOnAction(ActionEvent event) {
-    }
-
     private Warehouse currentlySelectedWarehouse;
     private Rack currentlySelectedRack;
     private Shelf currentlySelectedShelf;
     private Warehouse warehouse;
+
+    @FXML
+    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
+    }
+
+    @FXML
+    void btnRawMaterialOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnRawMaterial(stage, scene, event);
+    }
+
+    @FXML
+    void btnStartSideOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnStartView(stage, scene, event);
+    }
+
+    @FXML
+    void btnSupplierOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
+    }
+
+    @FXML
+    void btnCrudCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCrudCask(stage, scene, event);
+    }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ChangeListener<Warehouse> warehouseChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();

@@ -409,7 +409,8 @@ public abstract class MainController {
     }
 
     public static double averageAmountInLitersRemoved(FillOnCask fillOnCask, int amountTaken) {
-        fillOnCask.getDistillateFills()
+        // fillOnCask.getDistillateFills()
+        return 09.0;
     }
 
     public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {
