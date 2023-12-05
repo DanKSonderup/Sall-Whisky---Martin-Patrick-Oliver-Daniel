@@ -47,6 +47,7 @@ public class CreateCaskViewController implements Initializable {
     private Warehouse currentlySelectedWarehouse;
     private Rack currentlySelectedRack;
     private Shelf currentlySelectedShelf;
+    private double currentSizeInLiters;
     private Cask cask;
 
     @Override
@@ -123,8 +124,10 @@ public class CreateCaskViewController implements Initializable {
 
         if (!missingInfo) {
             double sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
+            if ()
             cask = new Cask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText());
             lvwWarehouse.getItems().setAll(MainController.getAvailableWarehouses(cask));
+            currentSizeInLiters = sizeInLiters;
         }
     }
 
@@ -160,6 +163,13 @@ public class CreateCaskViewController implements Initializable {
                  lvwPosition.getItems().setAll(MainController.getAvailablePositions(currentlySelectedShelf, cask));
              }
          }
+    }
+
+    private void clearWareHouseListViews() {
+        lvwPosition.getItems().clear();
+        lvwShelf.getItems().clear();
+        lvwRack.getItems().clear();
+        lvwPosition.getItems().clear();
     }
 
     private boolean canParseToDouble(TextField txf) {
