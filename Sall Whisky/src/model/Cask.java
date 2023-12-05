@@ -106,6 +106,10 @@ public class Cask {
         return fillOnCasks;
     }
 
+    public void removeFillOnCask(FillOnCask fillOnCask) {
+        fillOnCasks.remove(fillOnCask);
+    }
+
 
     @Override
     public String toString() {

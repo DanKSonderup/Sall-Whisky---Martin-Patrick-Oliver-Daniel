@@ -421,8 +421,12 @@ public abstract class MainController {
 
     public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, FillOnCask fillOnCask, double alcoholPercentage) {
         WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, fillOnCask, LocalDate.now(), alcoholPercentage);
+        fillOnCask.getCask().addPreviousFillOnCask(fillOnCask);
+        fillOnCask.getCask().removeFillOnCask(fillOnCask);
         return whiskyFill;
     }
+
+
 
     /**
      * Return all grainSupplier objects
