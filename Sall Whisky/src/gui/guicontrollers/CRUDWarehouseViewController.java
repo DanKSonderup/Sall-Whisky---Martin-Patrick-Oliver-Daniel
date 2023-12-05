@@ -119,7 +119,6 @@ public class CRUDWarehouseViewController implements Initializable {
         boolean missingInfo = canParseToDouble(rackAmounttxf);
 
         if (!missingInfo) {
-            System.out.println("hello");
             warehouse = MainController.createWarehouse(warehouseAddresstxf.getText());
             for (int i = 0; i < Integer.parseInt(rackAmounttxf.getText()); i++) {
                 rack = MainController.createRack(warehouse);
