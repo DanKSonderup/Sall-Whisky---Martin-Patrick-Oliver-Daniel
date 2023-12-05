@@ -165,7 +165,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
     void btnFillOnCaskOnAction(ActionEvent event) {
         Distillate distillate = distillatelvw.getSelectionModel().getSelectedItem();
         Cask cask = availableCaskslvw.getSelectionModel().getSelectedItem();
-        double amountInLiters = txfParseDouble(amountOfLiterstxf);
+        double amountInLiters = txfParseDouble(typeLiterAmounttxf);
 
         if (cask == null) {
             availableCaskslvw.setStyle("-fx-border-color: red;");
@@ -195,6 +195,11 @@ public class CRUDDistilleryAndFillController implements Initializable {
         }
         if (!canFillOnCask(amountInLiters, cask)) {
             MainController.createFillOnCask(LocalDate.now(), cask, distillateFills);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Påfyldning oprettet");
+            alert.setHeaderText("En påfyldning på Cask ID: " + cask.getCaskId() + " er oprettet");
+            alert.setContentText("En påfyldning på " + amountInLiters + " liter er oprettet");
+            alert.show();
         }
 
     }
@@ -220,12 +225,13 @@ public class CRUDDistilleryAndFillController implements Initializable {
     }
 
     private void updateControls() {
-        distillatelvw.getItems().setAll(MainController.getDistillates());
+        distillatelvw.getItems().setAll(MainController.getAvailableDistillates());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // availableCaskslvw.getItems().setAll(MainController.get)
+        distillatelvw.getItems().setAll(MainController.getAvailableDistillates());
+        availableCaskslvw.getItems().setAll(MainController.getAvailableCasks());
         lvwMaltBatches.getItems().setAll(MainController.getMaltbatches());
         pickEmployeeComboBox.getItems().setAll(MainController.getEmployees());
     }

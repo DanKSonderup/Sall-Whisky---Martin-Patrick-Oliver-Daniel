@@ -116,6 +116,16 @@ public abstract class MainController {
         return cask;
     }
 
+    public static ArrayList<Cask> getAvailableCasks() {
+        ArrayList<Cask> availableCasks = new ArrayList<>();
+        for (Cask cask: MainController.getCasks()) {
+            if (cask.getLitersAvailable() > 0) {
+                availableCasks.add(cask);
+            }
+        }
+        return availableCasks;
+    }
+
 
     /**
      * Create and return a Warehouse.
@@ -186,7 +196,6 @@ public abstract class MainController {
      */
     public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
         FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask);
-        cask.addFillOnCask(fillOnCask);
 
         double sum = 0;
         for (DistillateFill distillateFill : distillateFills) {
@@ -195,8 +204,11 @@ public abstract class MainController {
         }
         if (sum > cask.getSizeInLiters())
             throw new IllegalArgumentException("Fadets størrelse er mindre end din påfyldning");
-        if (timeOfFill.isAfter(LocalDate.now()))
+        if (timeOfFill.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Dato er efter nuværende dato");
+        }
+
+        cask.addFillOnCask(fillOnCask);
 
         return fillOnCask;
     }

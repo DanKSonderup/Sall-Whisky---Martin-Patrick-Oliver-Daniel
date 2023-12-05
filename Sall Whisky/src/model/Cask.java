@@ -71,6 +71,13 @@ public class Cask {
     public Position getPosition() {
         return position;
     }
+    public double getLitersAvailable() {
+        double sum = 0.0;
+        for (FillOnCask fillOnCask: fillOnCasks) {
+            sum += fillOnCask.getTotalLitersForFills();
+        }
+        return sizeInLiters - sum;
+    }
 
     public void setPosition(Position position) {
         this.position = position;
@@ -100,6 +107,6 @@ public class Cask {
 
     @Override
     public String toString() {
-        return String.format("%d %s %f %s %s", caskId, countryOfOrigin, sizeInLiters, previousContent, position);
+        return String.format("%d %s %.2f %s %s", caskId, countryOfOrigin, sizeInLiters, previousContent, position);
     }
 }
