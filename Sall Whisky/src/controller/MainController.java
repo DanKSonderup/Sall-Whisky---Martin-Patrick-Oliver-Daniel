@@ -352,8 +352,8 @@ public abstract class MainController {
      * Create, store and return a Whisky
      * Pre: alcoholPercentage > 0 && alcoholPercentage < 100
      */
-    public static Whisky createWhisky(String name, double alcoholPercentage, List<WhiskyFill> whiskyFills, int whiskyBottleCapacity) {
-        Whisky whisky = new Whisky(name, whiskyFills);
+    public static Whisky createWhisky(String name, double waterInLiters, double alcoholPercentage, List<WhiskyFill> whiskyFills, int whiskyBottleCapacity) {
+        Whisky whisky = new Whisky(name,waterInLiters, whiskyFills);
         storage.storeWhisky(whisky);
         double sum = 0;
         for (WhiskyFill whiskyFill : whiskyFills) {
