@@ -402,11 +402,20 @@ public abstract class MainController {
      * Create, store and return a Whisky
      * Pre: alcoholPercentage > 0 && alcoholPercentage < 100
      */
-    public static Whisky createWhisky(String name, double waterInLiters, double alcoholPercentage, List<WhiskyFill> whiskyFills, int whiskyBottleCapacity) {
+    public static Whisky createWhisky(String name, double waterInLiters, double alcoholPercentage, List<WhiskyFill> whiskyFills) {
         Whisky whisky = new Whisky(name,waterInLiters, whiskyFills);
         storage.storeWhisky(whisky);
+        return whisky;
+    }
+
+    public static double averageAmountInLitersRemoved(FillOnCask fillOnCask, int amountTaken) {
+        fillOnCask.getDistillateFills()
+    }
+
+    public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {
+
         double sum = 0;
-        for (WhiskyFill whiskyFill : whiskyFills) {
+        for (WhiskyFill whiskyFill : whisky.getWhiskyFills()) {
             sum += whiskyFill.getAmountofDistilateFillInLiters();
         }
 
@@ -417,13 +426,12 @@ public abstract class MainController {
             storage.storeWhiskyBottle(whiskyBottle);
             storage.getStorageCounter().incrementWhiskyBottleCount();
         }
-        return whisky;
+        return (int) sum;
     }
 
     /**
      * Create and return a WhiskyFill
      * Pre: amountOfDistilateFillInLiters > 0
-     * @param cask
      * Add connection to cask
      * @return
      */

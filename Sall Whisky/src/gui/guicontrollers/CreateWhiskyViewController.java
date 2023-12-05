@@ -2,6 +2,7 @@ package gui.guicontrollers;
 
 import controller.MainController;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,7 +40,7 @@ public class CreateWhiskyViewController implements Initializable {
     private TextField amountOfFillCltxf;
 
     @FXML
-    private ComboBox<?> bottleSizecbb;
+    private ComboBox<Integer> bottleSizecbb;
 
     @FXML
     private Label bottleSizelbl;
@@ -51,13 +52,16 @@ public class CreateWhiskyViewController implements Initializable {
     private Button btnRegistrerAlcoholPercentage;
 
     @FXML
-    private ListView<Distillate> lvwDestillatesReadyForFill;
+    private ListView<FillOnCask> lvwFillOnCaskReadyForFill;
 
     @FXML
-    private ListView<Whisky> lvwWhiskyReadyForFill;
+    private ListView<WhiskyFill> lvwWhiskyFillReadyForFill;
 
     @FXML
     private TextField txfAlcoholPercentage;
+
+    @FXML
+    private TextField txfWhiskyName;
 
     @FXML
     private TextField txfTypeOfWhisky;
@@ -73,7 +77,13 @@ public class CreateWhiskyViewController implements Initializable {
 
     @FXML
     private Label whiskyPropertieslbl;
-    private final List<Distillate> lvwDistilatesReadyForFillTemp = new ArrayList<>();
+    private final List<FillOnCask> lvwFillOnCaskReadyForFillTemp = new ArrayList<>();
+    private final List<WhiskyFill> lvwWhiskyFillReadyForFillTemp = new ArrayList<>();
+
+    private WhiskyFill whiskyFill;
+    private Whisky whisky;
+
+
     @FXML
     void amountOfBottlesCalculation(ActionEvent event) {
 
@@ -81,47 +91,59 @@ public class CreateWhiskyViewController implements Initializable {
 
     @FXML
     void btnCreateWhisky(ActionEvent event) {
+        double amountOfWhiskyFill = Double.parseDouble(amountOfFillCltxf.getText().trim());
+        double waterInLiters = Double.parseDouble(wateredWhiskytxf.getText().trim());
+        String name = txfWhiskyName.getText().trim();
+
+        whisky = MainController.createWhisky(name, waterInLiters, whiskyFill.getAlcoholPercentage(), )
 
     }
 
     @FXML
     void btnRegisterAlcoholPercentageOnAction(ActionEvent event) {
         double value = Double.parseDouble(txfAlcoholPercentage.getText().trim());
-        Distillate distillate = lvwDestillatesReadyForFill.getSelectionModel().getSelectedItem();
-        distillate.setAlcoholPercentage(value);
+        FillOnCask fillOnCask = lvwFillOnCaskReadyForFill.getSelectionModel().getSelectedItem();
 
-        for (Whisky whisky : MainController.getStorage().getWhiskies()) {
-
-        }
-
+        double amountToFill = Double.parseDouble(amountOfFillCltxf.getText().trim());
+        whiskyFill = MainController.createWhiskyFill(amountToFill, fillOnCask, value);
+        lvwWhiskyFillReadyForFillTemp.add(whiskyFill);
+        updatelvwWhiskyFillReadyForFill();
     }
 
     public void selectedStorageItemChanged() {
-        Distillate selectedDistilate = lvwDestillatesReadyForFill.getSelectionModel().getSelectedItem();
+        FillOnCask selectedFillOnCask = lvwFillOnCaskReadyForFill.getSelectionModel().getSelectedItem();
+        WhiskyFill selectedWhiskyFill = lvwWhiskyFillReadyForFill.getSelectionModel().getSelectedItem();
     }
 
-    private void updatelvwWhiskyReadyForFill() {
-
+    private void updatelvwWhiskyFillReadyForFill() {
+        lvwWhiskyFillReadyForFill.getItems().setAll(lvwWhiskyFillReadyForFillTemp);
     }
 
 
-    private void updatelvwDestillatesReadyForFill() {
+    private void updatelvwFillOnCaskReadyForFill() {
         for (Cask cask : MainController.getCasks()) {
             for (FillOnCask fillOnCask : cask.getFillOnCasks()) {
                 if (fillOnCask.getTimeOfFill().isBefore(LocalDate.now().minusYears(3))) {
-                    for (DistillateFill distillateFill : fillOnCask.getDistillateFills()) {
-                        lvwDistilatesReadyForFillTemp.add(distillateFill.getDistillate());
-                    }
+                    lvwFillOnCaskReadyForFillTemp.add(fillOnCask);
                 }
             }
         }
-        lvwDestillatesReadyForFill.getItems().setAll(lvwDistilatesReadyForFillTemp);
+        lvwFillOnCaskReadyForFill.getItems().setAll(lvwFillOnCaskReadyForFillTemp);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        updatelvwDestillatesReadyForFill();
-        ChangeListener<Distillate> distilateReadyForFillChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
-        // lvwDestillatesReadyForFill.getSelectionModel().selectedItemProperty().addListener(distilateReadyForFillChangeListener);
+        updatelvwWhiskyFillReadyForFill();
+        updatelvwFillOnCaskReadyForFill();
+        ChangeListener<FillOnCask> fillOnCaskChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        lvwFillOnCaskReadyForFill.getSelectionModel().selectedItemProperty().addListener(fillOnCaskChangeListener);
+
+        ChangeListener<WhiskyFill> whiskyFillChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        lvwWhiskyFillReadyForFill.getSelectionModel().selectedItemProperty().addListener(whiskyFillChangeListener);
+
+
+        Integer bottleSize[] = {3, 10, 50, 70};
+        bottleSizecbb.setItems(FXCollections.observableArrayList(bottleSize));
+
     }
 }

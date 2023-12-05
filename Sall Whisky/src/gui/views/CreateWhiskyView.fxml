@@ -7,27 +7,29 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateWhiskyViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateWhiskyViewController">
    <children>
       <ListView fx:id="lvwDestillatesReadyForFIll" layoutX="75.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
-      <Label fx:id="FillOnWhiskylbl" layoutX="138.0" layoutY="86.0" text="Færdigmodnet destillatter" />
+      <Label fx:id="FillOnWhiskylbl" layoutX="138.0" layoutY="86.0" text="Færdigmodnet fade" />
       <ListView fx:id="WhiskyPropertieslvw" layoutX="667.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
       <Label fx:id="whiskyPropertieslbl" layoutX="748.0" layoutY="86.0" text="Whiskyen består af:" />
-      <TextField fx:id="amountOfFillCltxf" layoutX="402.0" layoutY="431.0" prefHeight="25.0" prefWidth="194.0" promptText="L" />
-      <Label fx:id="amountOfFillCllbl" layoutX="395.0" layoutY="407.0" text="Indtast ønsket mængde til påhældning:" />
+      <TextField fx:id="amountOfFillCltxf" layoutX="404.0" layoutY="467.0" prefHeight="25.0" prefWidth="194.0" promptText="L" />
+      <Label fx:id="amountOfFillCllbl" layoutX="397.0" layoutY="443.0" text="Indtast ønsket mængde til påhældning:" />
       <ListView fx:id="lvwWhiskyReadyForFill" layoutX="368.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
-      <Label fx:id="typeOfWhiskylbl" layoutX="757.0" layoutY="416.0" text="Type af whisky:" />
-      <Label fx:id="wateredWhiskylbl" layoutX="439.0" layoutY="485.0" text="Fortyndelse med vand:" />
-      <TextField fx:id="wateredWhiskytxf" layoutX="402.0" layoutY="508.0" prefHeight="25.0" prefWidth="194.0" promptText="L" />
-      <TextField fx:id="amountOfBottlestxf" layoutX="700.0" layoutY="507.0" onAction="#amountOfBottlesCalculation" prefHeight="25.0" prefWidth="194.0" promptText="Udregnes" />
-      <Label fx:id="amountOfBottleslbl" layoutX="766.0" layoutY="484.0" text="Antal flasker" />
-      <Button fx:id="btnCreateWhisky" layoutX="449.0" layoutY="646.0" mnemonicParsing="false" onAction="#btnCreateWhisky" prefHeight="25.0" prefWidth="103.0" text="Opret whisky" />
-      <ComboBox fx:id="bottleSizecbb" layoutX="425.0" layoutY="580.0" prefWidth="150.0" />
-      <Label fx:id="bottleSizelbl" layoutX="458.0" layoutY="557.0" text="Størrelse flaske:" />
-      <TextField fx:id="txfTypeOfWhisky" layoutX="723.0" layoutY="444.0" />
+      <Label fx:id="typeOfWhiskylbl" layoutX="759.0" layoutY="452.0" text="Type af whisky:" />
+      <Label fx:id="wateredWhiskylbl" layoutX="441.0" layoutY="521.0" text="Fortyndelse med vand:" />
+      <TextField fx:id="wateredWhiskytxf" layoutX="404.0" layoutY="544.0" prefHeight="25.0" prefWidth="194.0" promptText="cl" />
+      <TextField fx:id="amountOfBottlestxf" layoutX="702.0" layoutY="543.0" onAction="#amountOfBottlesCalculation" prefHeight="25.0" prefWidth="194.0" promptText="Udregnes" />
+      <Label fx:id="amountOfBottleslbl" layoutX="768.0" layoutY="520.0" text="Antal flasker" />
+      <Button fx:id="btnCreateWhisky" layoutX="449.0" layoutY="602.0" mnemonicParsing="false" onAction="#btnCreateWhisky" prefHeight="25.0" prefWidth="103.0" text="Opret whisky" />
+      <ComboBox fx:id="bottleSizecbb" layoutX="726.0" layoutY="404.0" prefWidth="150.0" />
+      <Label fx:id="bottleSizelbl" layoutX="758.0" layoutY="383.0" text="Størrelse flaske:" />
+      <TextField fx:id="txfTypeOfWhisky" layoutX="725.0" layoutY="480.0" />
       <Label layoutX="438.0" layoutY="86.0" text="Påhældningsklar whisky" />
       <Button fx:id="btnRegistrerAlcoholPercentage" layoutX="128.0" layoutY="421.0" mnemonicParsing="false" onAction="#btnRegisterAlcoholPercentageOnAction" text="Registrer alkoholprocent" />
       <TextField fx:id="txfAlcoholPercentage" layoutX="127.0" layoutY="383.0" prefHeight="25.0" prefWidth="147.0" />
       <Label layoutX="33.0" layoutY="387.0" text="Alcoholprocent:" />
+      <TextField fx:id="txfWhiskyName" layoutX="426.0" layoutY="404.0" />
+      <Label layoutX="486.0" layoutY="383.0" text="Navn" />
    </children>
 </AnchorPane>
