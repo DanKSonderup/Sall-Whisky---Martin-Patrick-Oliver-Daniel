@@ -26,6 +26,14 @@ public class FillOnCask {
         return cask;
     }
 
+    public double getTotalLitersForFills() {
+        double sum = 0.0;
+        for (DistillateFill distillateFill: distillateFills) {
+            sum += distillateFill.getAmountOfDistillateInLiters();
+        }
+        return sum;
+    }
+
     public void setCask(Cask cask) {
         this.cask = cask;
     }
