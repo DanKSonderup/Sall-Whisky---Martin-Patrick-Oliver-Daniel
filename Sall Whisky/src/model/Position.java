@@ -12,10 +12,12 @@ public class Position implements Observer, Serializable {
     private boolean isFilled = false;
     private double literCapacity;
     private List<Cask> casks = new ArrayList<>();
+    private Shelf shelf;
 
-    public Position(int positionId, double literCapacity) {
+    public Position(int positionId, double literCapacity, Shelf shelf) {
         this.positionId = positionId;
         this.literCapacity = literCapacity;
+        this.shelf = shelf;
     }
 
     /**
@@ -34,6 +36,8 @@ public class Position implements Observer, Serializable {
         }
     }
 
+
+
     /** Getters */
     public int getPositionId() {
         return positionId;
@@ -41,6 +45,10 @@ public class Position implements Observer, Serializable {
 
     public boolean isFilled() {
         return isFilled;
+    }
+
+    public Shelf getShelf() {
+        return shelf;
     }
 
     public double getLiterCapacity() {
