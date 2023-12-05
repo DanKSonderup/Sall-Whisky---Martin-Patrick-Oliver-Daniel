@@ -127,6 +127,7 @@ public class CreateCaskViewController implements Initializable {
             if (sizeInLiters != currentSizeInLiters) {
                 clearWareHouseListViews();
             }
+
             cask = new Cask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText());
             if (MainController.getAvailableWarehouses(cask).isEmpty()) return;
             lvwWarehouse.getItems().setAll(MainController.getAvailableWarehouses(cask));

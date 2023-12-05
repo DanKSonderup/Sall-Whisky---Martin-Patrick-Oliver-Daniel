@@ -18,11 +18,11 @@
       <Button fx:id="btnCRUDRawMaterial" layoutX="667.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer råvare" />
       <Button fx:id="btnCRUDSupplier" layoutX="833.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer leverandører" />
       <Button fx:id="btnStartside" layoutX="3.0" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="166.0" text="Startside" />
-      <ListView fx:id="lvwCasks" layoutX="50.0" layoutY="118.0" prefHeight="550.0" prefWidth="630.0" />
+      <ListView fx:id="lvwCasks" layoutX="50.0" layoutY="118.0" prefHeight="550.0" prefWidth="630.0" style="-fx-font-family: consolas;" />
       <Label layoutX="70.0" layoutY="95.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="ID" />
       <Label layoutX="109.0" layoutY="95.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Oprindelsesland" />
       <Label layoutX="238.0" layoutY="95.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Str(L)" />
-      <Label layoutX="387.0" layoutY="95.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Tidligere indhold" />
+      <Label layoutX="378.0" layoutY="95.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Tidligere indhold" />
       <Label layoutX="504.0" layoutY="95.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Lager" />
       <Label layoutX="547.0" layoutY="95.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Reol" />
       <Label layoutX="584.0" layoutY="95.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Hylde" />
@@ -32,6 +32,6 @@
             <Font name="Century Gothic Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="289.0" layoutY="95.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Uudnyttet (L)" />
+      <Label layoutX="287.0" layoutY="95.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Uudnyttet (L)" />
     </children>
 </AnchorPane>
