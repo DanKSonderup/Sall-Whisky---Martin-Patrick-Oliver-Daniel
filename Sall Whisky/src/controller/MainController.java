@@ -112,6 +112,7 @@ public abstract class MainController {
         } else {
             cask = new Cask(id, countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         }
+        storage.storeCask(cask);
         return cask;
     }
 
