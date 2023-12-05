@@ -55,12 +55,6 @@ public class CreateSupplierViewController implements Initializable {
     private Button btnCreateSupplier;
 
     @FXML
-    private Button btnDeleteCaskSupplier;
-
-    @FXML
-    private Button btnDeleteGrainSupplier;
-
-    @FXML
     private ComboBox<String> cbbSupplier;
 
     @FXML
@@ -131,16 +125,6 @@ public class CreateSupplierViewController implements Initializable {
         txfAddress.clear();
         txfCountry.clear();
         txfVatId.clear();
-    }
-
-    @FXML
-    void btnDeleteGrainSupplierOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnDeleteCaskSupplierOnAction(ActionEvent event) {
-
     }
 
 

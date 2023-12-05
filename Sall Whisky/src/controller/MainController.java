@@ -4,6 +4,7 @@ import model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class MainController {
@@ -27,6 +28,15 @@ public abstract class MainController {
         return storage.getCasks();
     }
 
+    public static Cask getAvailableCaskById(int id) {
+        for (Cask cask1: getAvailableCasks()) {
+            if (cask1.getCaskId() == id) {
+                return cask1;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * Finds warehouses that has atleast 1 rack where there is space for the Cask we're trying to add
@@ -34,11 +44,15 @@ public abstract class MainController {
      * @return Warehouses where
      */
     public static List<Warehouse> getAvailableWarehouses(Cask cask) {
-
         List<Warehouse> warehouses = new ArrayList<>(storage.getWarehouses());
-        for (Warehouse warehouse: warehouses) {
-            if (getAvailableRacks(warehouse, cask).isEmpty()) {
-                warehouses.remove(warehouse);
+
+        for (int i = 0; i < warehouses.size(); i++) {
+            if (warehouses.get(i).isFilled()) {
+                warehouses.remove(warehouses.get(i));
+                i--;
+            } else if (getAvailableRacks(warehouses.get(i), cask).isEmpty()) {
+                warehouses.remove(warehouses.get(i));
+                i--;
             }
         }
         return warehouses;
@@ -50,10 +64,14 @@ public abstract class MainController {
      * @return Racks that are not full
      */
     public static List<Rack> getAvailableRacks(Warehouse warehouse, Cask cask) {
-        List<Rack> racks = new ArrayList<>(warehouse.getAvailableRacks());
-        for (Rack rack: racks) {
-            if (getAvailableShelves(rack, cask).isEmpty()) {
-                racks.remove(rack);
+        List<Rack> racks = new ArrayList<>(warehouse.getRacks());
+        for (int i = 0; i < racks.size(); i++) {
+            if (racks.get(i).isFilled()) {
+                racks.remove(racks.get(i));
+                i--;
+            } else if (getAvailableShelves(racks.get(i), cask).isEmpty()) {
+                racks.remove(racks.get(i));
+                i--;
             }
         }
         return racks;
@@ -65,10 +83,14 @@ public abstract class MainController {
      * @return Shelves that are not full (isFilled = false)
      */
     public static List<Shelf> getAvailableShelves(Rack rack, Cask cask) {
-        List<Shelf> shelves = new ArrayList<>(rack.getAvailableShelves());
-        for (Shelf shelf: shelves) {
-            if (getAvailablePositions(shelf, cask).isEmpty()) {
-                shelves.remove(shelf);
+        List<Shelf> shelves = new ArrayList<>(rack.getShelves());
+        for (int i = 0; i < shelves.size(); i++) {
+            if (shelves.get(i).isFilled()) {
+                shelves.remove(shelves.get(i));
+                i--;
+            } else if (getAvailablePositions(shelves.get(i), cask).isEmpty()) {
+                shelves.remove(shelves.get(i));
+                i--;
             }
         }
         return shelves;
@@ -81,14 +103,20 @@ public abstract class MainController {
      */
 
     public static List<Position> getAvailablePositions(Shelf shelf, Cask cask) {
-        List<Position> positions = new ArrayList<>(shelf.getAvailablePositions());
-        for (Position position : positions) {
-            double currentCapacity = 0;
-            for (Cask cask1 : position.getCasks()) {
-                currentCapacity += cask1.getSizeInLiters();
-            }
-            if (currentCapacity + cask.getSizeInLiters() > position.getLiterCapacity()) {
-                positions.remove(position);
+        List<Position> positions = new ArrayList<>(shelf.getPositions());
+        for (int i = 0; i < positions.size(); i++) {
+            if (positions.get(i).isFilled()) {
+                positions.remove(positions.get(i));
+                i--;
+            } else {
+                double currentLiters = 0;
+                for (Cask cask1 : positions.get(i).getCasks()) {
+                    currentLiters += cask1.getSizeInLiters();
+                }
+                if (currentLiters + cask.getSizeInLiters() > positions.get(i).getLiterCapacity()) {
+                    positions.remove(positions.get(i));
+                    i--;
+                }
             }
         }
         return positions;
@@ -102,6 +130,7 @@ public abstract class MainController {
     public static Cask createCask(String countryOfOrigin, double sizeInLiters, String previousContent,
                                   Position position, CaskSupplier supplier) {
         int id = storage.getStorageCounter().getCaskCount();
+        storage.getStorageCounter().incrementCaskCount();
         if (sizeInLiters <= 0) {
             throw new IllegalArgumentException();
         }
@@ -111,7 +140,27 @@ public abstract class MainController {
         } else {
             cask = new Cask(id, countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         }
+        System.out.println(cask.getCaskId());
+        storage.storeCask(cask);
         return cask;
+    }
+
+    /**
+     * Remove a cask
+     */
+    public static void removeCask(Cask cask) {
+        storage.deleteCask(cask);
+    }
+
+
+    public static ArrayList<Cask> getAvailableCasks() {
+        ArrayList<Cask> availableCasks = new ArrayList<>();
+        for (Cask cask: MainController.getCasks()) {
+            if (cask.getLitersAvailable() > 0) {
+                availableCasks.add(cask);
+            }
+        }
+        return availableCasks;
     }
 
 
@@ -136,7 +185,7 @@ public abstract class MainController {
      */
     public static Rack createRack(Warehouse warehouse) {
         int id = storage.getStorageCounter().getRackCount();
-        Rack rack = new Rack(id);
+        Rack rack = new Rack(id, warehouse);
         warehouse.addRack(rack);
         storage.getStorageCounter().incrementRackCount();
         addObserver(rack);
@@ -151,7 +200,7 @@ public abstract class MainController {
      */
     public static Shelf createShelf(Rack rack) {
         int id = storage.getStorageCounter().getShelfCount();
-        Shelf shelf = new Shelf(id);
+        Shelf shelf = new Shelf(id, rack);
         rack.addShelf(shelf);
         storage.getStorageCounter().incrementShelfCount();
         addObserver(shelf);
@@ -167,7 +216,7 @@ public abstract class MainController {
      */
     public static Position createPosition(Shelf shelf, double literCapacity) {
         int id = storage.getStorageCounter().getPositionCount();
-        Position position = new Position(id, literCapacity);
+        Position position = new Position(id, literCapacity, shelf);
         shelf.addPosition(position);
         storage.getStorageCounter().incrementPositionCount();
         notifyObserver();
@@ -184,7 +233,6 @@ public abstract class MainController {
      */
     public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
         FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask);
-        cask.addFillOnCask(fillOnCask);
 
         double sum = 0;
         for (DistillateFill distillateFill : distillateFills) {
@@ -193,8 +241,11 @@ public abstract class MainController {
         }
         if (sum > cask.getSizeInLiters())
             throw new IllegalArgumentException("Fadets størrelse er mindre end din påfyldning");
-        if (timeOfFill.isAfter(LocalDate.now()))
+        if (timeOfFill.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Dato er efter nuværende dato");
+        }
+
+        cask.addFillOnCask(fillOnCask);
 
         return fillOnCask;
     }
@@ -351,12 +402,12 @@ public abstract class MainController {
      * Create, store and return a Whisky
      * Pre: alcoholPercentage > 0 && alcoholPercentage < 100
      */
-    public static Whisky createWhisky(String name, double alcoholPercentage, List<WhiskyFill> whiskyFills, int whiskyBottleCapacity) {
-        Whisky whisky = new Whisky(name, whiskyFills);
+    public static Whisky createWhisky(String name, double waterInLiters, double alcoholPercentage, List<WhiskyFill> whiskyFills, int whiskyBottleCapacity) {
+        Whisky whisky = new Whisky(name,waterInLiters, whiskyFills);
         storage.storeWhisky(whisky);
         double sum = 0;
         for (WhiskyFill whiskyFill : whiskyFills) {
-            sum += whiskyFill.getAmountOfCaskInLiters();
+            sum += whiskyFill.getAmountofDistilateFillInLiters();
         }
 
         int bottles = (int) (sum / 100) / whiskyBottleCapacity;
@@ -371,17 +422,20 @@ public abstract class MainController {
 
     /**
      * Create and return a WhiskyFill
-     * @param amountOfCask
+     * Pre: amountOfDistilateFillInLiters > 0
      * @param cask
      * Add connection to cask
      * @return
      */
 
-    public static WhiskyFill createWhiskyFill(double amountOfCask, Cask cask, double alcoholPercentage) {
-        WhiskyFill whiskyFill = new WhiskyFill(amountOfCask, cask, LocalDate.now(), alcoholPercentage);
-        cask.addWhiskyFill(whiskyFill);
+    public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, FillOnCask fillOnCask, double alcoholPercentage) {
+        WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, fillOnCask, LocalDate.now(), alcoholPercentage);
+        fillOnCask.getCask().addPreviousFillOnCask(fillOnCask);
+        fillOnCask.getCask().removeFillOnCask(fillOnCask);
         return whiskyFill;
     }
+
+
 
     /**
      * Return all grainSupplier objects
@@ -392,6 +446,23 @@ public abstract class MainController {
 
     public static List<CaskSupplier> getCaskSuppliers() {
         return storage.getCaskSuppliers();
+    }
+
+    /**
+     * returns a string consisting of cask's ID, countryOfOrigin, sizeInLiters, previousContent.
+     * Also returns the cask's location (warehouseID, rackID, shelfID, positionID)
+     */
+    public static String caskViewString(Cask cask) {
+        String s = String.format("%d | %s | %s | %s | %d | %d | %d | %d",
+                cask.getCaskId(),
+                cask.getCountryOfOrigin(),
+                cask.getSizeInLiters(),
+                cask.getPreviousContent(),
+                cask.getPosition().getShelf().getRack().getWarehouse(),
+                cask.getPosition().getShelf().getRack(),
+                cask.getPosition().getShelf(),
+                cask.getPosition());
+        return s;
     }
 
     public static void notifyObserver() {

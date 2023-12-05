@@ -10,9 +10,11 @@ public class Shelf implements Observer, Serializable {
     private int shelfId;
     private boolean isFilled = true;
     private List<Position> positions = new ArrayList<>();
+    private Rack rack;
 
-    public Shelf(int shelfId) {
+    public Shelf(int shelfId, Rack rack) {
         this.shelfId = shelfId;
+        this.rack = rack;
 
     }
 
@@ -43,6 +45,10 @@ public class Shelf implements Observer, Serializable {
     /** Getters */
     public int getShelfId() {
         return shelfId;
+    }
+
+    public Rack getRack() {
+        return rack;
     }
 
     public boolean isFilled() {

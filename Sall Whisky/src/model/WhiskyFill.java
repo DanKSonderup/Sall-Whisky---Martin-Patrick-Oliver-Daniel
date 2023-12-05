@@ -1,27 +1,26 @@
 package model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class WhiskyFill {
-    private double amountOfCaskInLiters;
-    private Cask cask;
+    private double amountofDistilateFillInLiters;
+    private FillOnCask fillOnCask;
     private LocalDate timeOfFill;
     private double alcoholPercentage;
 
-    public WhiskyFill(double amountOfCaskInLiters, Cask cask, LocalDate timeOfFill, double alcoholPercentage) {
-        this.amountOfCaskInLiters = amountOfCaskInLiters;
-        this.cask = cask;
+    public WhiskyFill(double amountofDistilateFillInLiters, FillOnCask fillOnCask, LocalDate timeOfFill, double alcoholPercentage) {
+        this.amountofDistilateFillInLiters = amountofDistilateFillInLiters;
+        this.fillOnCask = fillOnCask;
         this.timeOfFill = timeOfFill;
         this.alcoholPercentage = alcoholPercentage;
     }
 
-    public double getAmountOfCaskInLiters() {
-        return amountOfCaskInLiters;
+    public double getAmountofDistilateFillInLiters() {
+        return amountofDistilateFillInLiters;
     }
 
-    public Cask getCask() {
-        return cask;
+    public FillOnCask getFillOnCask() {
+        return fillOnCask;
     }
 
     public double getAlcoholPercentage() {

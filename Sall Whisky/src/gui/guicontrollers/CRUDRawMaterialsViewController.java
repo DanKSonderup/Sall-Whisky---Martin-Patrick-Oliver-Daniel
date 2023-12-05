@@ -115,8 +115,8 @@ public class CRUDRawMaterialsViewController implements Initializable {
         }
         else {
             MainController.createField(txfFieldName.getText(), txaFieldDescription.getText());
-            txfFieldName.setText("");
-            txaFieldDescription.setText("");
+            txfFieldName.clear();
+            txaFieldDescription.clear();
             updateLvwFields();
         }
     }
@@ -353,8 +353,8 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Opens the view for supplier creation
      */
     @FXML
-    void btnCreateSupplierOnAction(ActionEvent event) {
-        // TODO SKAL DENNE KNAP VÆRE DER? KAN MAN IKKE BARE TRYKKE PÅ ADMINISTRER LEVERANDØR OG SÅ OPRETTE EN?
+    void btnCreateSupplierOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
 
 

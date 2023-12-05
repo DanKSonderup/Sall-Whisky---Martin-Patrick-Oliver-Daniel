@@ -33,7 +33,7 @@ public abstract class SwitchSceneController {
     }
 
     public static void btnCrudStorage(Stage stage, Scene scene, ActionEvent event) throws IOException{
-        URL url = new File("Sall Whisky/src/gui/views/CRUDStorageView.fxml").toURI().toURL();
+        URL url = new File("Sall Whisky/src/gui/views/CRUDWarehouseView.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
         scene = new Scene(root);

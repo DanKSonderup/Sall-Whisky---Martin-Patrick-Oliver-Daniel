@@ -11,7 +11,7 @@ public class Cask {
     private Position position;
     private CaskSupplier supplier;
     private final List<FillOnCask> fillOnCasks = new ArrayList<>();
-    private final List<WhiskyFill> whiskyFills = new ArrayList<>();
+    private final List<FillOnCask> previousFillOnCask = new ArrayList<>();
 
     /** Constructor uden Position */
 
@@ -23,6 +23,7 @@ public class Cask {
 
     /** Constructor with previousContent */
     public Cask(int caskId, String countryOfOrigin, double sizeInLiters, String previousContent, Position position, CaskSupplier supplier) {
+        this.caskId = caskId;
         this.countryOfOrigin = countryOfOrigin;
         this.sizeInLiters = sizeInLiters;
         this.previousContent = previousContent;
@@ -48,6 +49,14 @@ public class Cask {
         return countryOfOrigin;
     }
 
+    public List<FillOnCask> getPreviousFillOnCask() {
+        return previousFillOnCask;
+    }
+
+    public void addPreviousFillOnCask(FillOnCask fillOnCask) {
+        previousFillOnCask.add(fillOnCask);
+    }
+
     public void setCountryOfOrigin(String countryOfOrigin) {
         this.countryOfOrigin = countryOfOrigin;
     }
@@ -71,6 +80,13 @@ public class Cask {
     public Position getPosition() {
         return position;
     }
+    public double getLitersAvailable() {
+        double sum = 0.0;
+        for (FillOnCask fillOnCask: fillOnCasks) {
+            sum += fillOnCask.getTotalLitersForFills();
+        }
+        return sizeInLiters - sum;
+    }
 
     public void setPosition(Position position) {
         this.position = position;
@@ -91,10 +107,23 @@ public class Cask {
         return fillOnCasks;
     }
 
-    public List<WhiskyFill> getWhiskyFills() {
-        return whiskyFills;
+    public void removeFillOnCask(FillOnCask fillOnCask) {
+        fillOnCasks.remove(fillOnCask);
     }
-    public void addWhiskyFill(WhiskyFill whiskyFill) {
-        whiskyFills.add(whiskyFill);
+
+
+
+    @Override
+    public String toString() {
+        return String.format("   %-10d | %-30s | %-10.2f | %-10.2f | %-30s | %-8d | %-8d | %-8d | %-8d",
+                caskId,
+                countryOfOrigin,
+                sizeInLiters,
+                getLitersAvailable(),
+                previousContent,
+                position.getShelf().getRack().getWarehouse().getWarehouseId(),
+                position.getShelf().getRack().getRackId(),
+                position.getShelf().getShelfId(),
+                position.getPositionId());
     }
 }

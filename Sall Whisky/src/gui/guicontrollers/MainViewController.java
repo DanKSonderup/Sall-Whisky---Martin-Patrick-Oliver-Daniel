@@ -61,7 +61,7 @@ public class MainViewController {
 
     @FXML
     void btnCreateWhiskyOnAction(ActionEvent event) throws IOException {
-        URL url = new File("Sall Whisky/src/gui/views/CreateWhiskyViewController.fxml").toURI().toURL();
+        URL url = new File("Sall Whisky/src/gui/views/CreateWhiskyView.fxml").toURI().toURL();
         Parent root1 = FXMLLoader.load(url);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);

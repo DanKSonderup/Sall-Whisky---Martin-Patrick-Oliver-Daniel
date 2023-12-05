@@ -56,5 +56,8 @@ public class StorageCounter implements Serializable {
 
     public void incrementWhiskyBottleCount() {
         whiskyBottleCount++;
+
     }
+
+
 }

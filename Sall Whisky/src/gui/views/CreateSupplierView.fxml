@@ -24,8 +24,6 @@
       <ListView fx:id="lvwCaskSupplier" layoutX="741.0" layoutY="151.0" prefHeight="228.0" prefWidth="200.0" />
       <Label layoutX="477.0" layoutY="121.0" text="Kornleverandør" />
       <Label layoutX="758.0" layoutY="121.0" text="Fadleverandør" />
-      <Button fx:id="btnDeleteCaskSupplier" layoutX="834.0" layoutY="388.0" mnemonicParsing="false" onAction="#btnDeleteCaskSupplierOnAction" text="Slet fadleverandør" />
-      <Button fx:id="btnDeleteGrainSupplier" layoutX="499.0" layoutY="388.0" mnemonicParsing="false" onAction="#btnDeleteGrainSupplierOnAction" text="Slet kornleverandør" />
       <ComboBox fx:id="cbbSupplier" layoutX="128.0" layoutY="139.0" prefHeight="25.0" prefWidth="202.0" />
       <Button fx:id="btnCRUDCask" layoutX="168.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer fade" />
       <Button fx:id="btnCRUDStorage" layoutX="334.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer lager" />
