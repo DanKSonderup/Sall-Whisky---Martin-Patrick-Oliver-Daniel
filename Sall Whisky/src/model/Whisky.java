@@ -32,14 +32,19 @@ public class Whisky {
         whiskyFills.add(whiskyFill);
     }
 
+    /**
+     * Pre: totalFluids > waterInLiters, totalFluids > 0
+     * Pre: waterInLiters >= 0
+     * @return
+     */
     public double calculateAlcoholPercentage() {
         double alcoholPercentage = 0;
         double totalFluids = waterInLiters;
         for (WhiskyFill whiskyFill : whiskyFills) {
-            alcoholPercentage += (whiskyFill.getAmountOfCaskInLiters() *
+            alcoholPercentage += (whiskyFill.getAmountofDistilateFillInLiters() *
                     (whiskyFill.getAlcoholPercentage() / 100.0));
 
-            totalFluids += whiskyFill.getAmountOfCaskInLiters();
+            totalFluids += whiskyFill.getAmountofDistilateFillInLiters();
         }
         return alcoholPercentage / totalFluids * 100;
     }

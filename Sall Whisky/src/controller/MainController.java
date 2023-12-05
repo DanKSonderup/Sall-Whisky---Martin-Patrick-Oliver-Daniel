@@ -357,7 +357,7 @@ public abstract class MainController {
         storage.storeWhisky(whisky);
         double sum = 0;
         for (WhiskyFill whiskyFill : whiskyFills) {
-            sum += whiskyFill.getAmountOfCaskInLiters();
+            sum += whiskyFill.getAmountofDistilateFillInLiters();
         }
 
         int bottles = (int) (sum / 100) / whiskyBottleCapacity;
@@ -372,15 +372,14 @@ public abstract class MainController {
 
     /**
      * Create and return a WhiskyFill
-     * @param amountOfCask
+     * Pre: amountOfDistilateFillInLiters > 0
      * @param cask
      * Add connection to cask
      * @return
      */
 
-    public static WhiskyFill createWhiskyFill(double amountOfCask, Cask cask, double alcoholPercentage) {
-        WhiskyFill whiskyFill = new WhiskyFill(amountOfCask, cask, LocalDate.now(), alcoholPercentage);
-        cask.addWhiskyFill(whiskyFill);
+    public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, FillOnCask fillOnCask, double alcoholPercentage) {
+        WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, fillOnCask, LocalDate.now(), alcoholPercentage);
         return whiskyFill;
     }
 
