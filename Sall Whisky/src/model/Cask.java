@@ -115,7 +115,7 @@ public class Cask {
 
     @Override
     public String toString() {
-        return String.format("   %-10d | %-30s | %-10.2f | %-10.2f | %-30s | %-8d | %-8d | %-8d | %-8d",
+        return String.format("%-5d | %-17s | %-5.2f | %-10.2f | %-18s |%-4d |%-4d |%-4d |%-4d",
                 caskId,
                 countryOfOrigin,
                 sizeInLiters,
