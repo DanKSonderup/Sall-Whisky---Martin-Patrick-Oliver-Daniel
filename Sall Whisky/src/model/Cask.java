@@ -11,6 +11,7 @@ public class Cask {
     private Position position;
     private CaskSupplier supplier;
     private final List<FillOnCask> fillOnCasks = new ArrayList<>();
+    private final List<FillOnCask> previousFillOnCask = new ArrayList<>();
 
     /** Constructor uden Position */
 
@@ -45,6 +46,14 @@ public class Cask {
 
     public String getCountryOfOrigin() {
         return countryOfOrigin;
+    }
+
+    public List<FillOnCask> getPreviousFillOnCask() {
+        return previousFillOnCask;
+    }
+
+    public void addPreviousFillOnCask(FillOnCask fillOnCask) {
+        previousFillOnCask.add(fillOnCask);
     }
 
     public void setCountryOfOrigin(String countryOfOrigin) {
