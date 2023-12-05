@@ -126,11 +126,11 @@ public class CreateCaskViewController implements Initializable {
             double sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
             if ()
             cask = new Cask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText());
+            if (MainController.getAvailableWarehouses(cask).isEmpty()) return;
             lvwWarehouse.getItems().setAll(MainController.getAvailableWarehouses(cask));
             currentSizeInLiters = sizeInLiters;
         }
     }
-
 
 
     public void selectedStorageItemChanged() {

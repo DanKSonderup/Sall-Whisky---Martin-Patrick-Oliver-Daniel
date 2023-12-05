@@ -140,9 +140,18 @@ public abstract class MainController {
         } else {
             cask = new Cask(id, countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         }
+        System.out.println(cask.getCaskId());
         storage.storeCask(cask);
         return cask;
     }
+
+    /**
+     * Remove a cask
+     */
+    public static void removeCask(Cask cask) {
+        storage.deleteCask(cask);
+    }
+
 
     public static ArrayList<Cask> getAvailableCasks() {
         ArrayList<Cask> availableCasks = new ArrayList<>();
@@ -437,6 +446,23 @@ public abstract class MainController {
 
     public static List<CaskSupplier> getCaskSuppliers() {
         return storage.getCaskSuppliers();
+    }
+
+    /**
+     * returns a string consisting of cask's ID, countryOfOrigin, sizeInLiters, previousContent.
+     * Also returns the cask's location (warehouseID, rackID, shelfID, positionID)
+     */
+    public static String caskViewString(Cask cask) {
+        String s = String.format("%d | %s | %s | %s | %d | %d | %d | %d",
+                cask.getCaskId(),
+                cask.getCountryOfOrigin(),
+                cask.getSizeInLiters(),
+                cask.getPreviousContent(),
+                cask.getPosition().getShelf().getRack().getWarehouse(),
+                cask.getPosition().getShelf().getRack(),
+                cask.getPosition().getShelf(),
+                cask.getPosition());
+        return s;
     }
 
     public static void notifyObserver() {

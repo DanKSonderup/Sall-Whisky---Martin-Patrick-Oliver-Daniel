@@ -66,8 +66,7 @@ public class App {
         MainController.createPosition(sh2, 50);
         MainController.createPosition(sh1, 40);
         MainController.createPosition(sh3, 100);
-        MainController.createPosition(sh5, 30);
-        Position p1 = MainController.createPosition(sh5, 30);
+        Position p1 = MainController.createPosition(sh5, 50);
 
         MainController.createEmployee(1, "Hans");
 

@@ -8,7 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -19,6 +21,8 @@ import model.Cask;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CRUDCaskViewController implements Initializable {
@@ -38,8 +42,6 @@ public class CRUDCaskViewController implements Initializable {
     @FXML
     private Button btnDeleteCask;
     @FXML
-    private Button btnDestillateAndFillOnCask;
-    @FXML
     private Button btnEditCask;
     @FXML
     private Button btnStartside;
@@ -52,7 +54,14 @@ public class CRUDCaskViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lvwCasks.getItems().setAll(MainController.getCasks());
+        /*
+        List<String> stringList = new ArrayList<>();
+        for (Cask cask : MainController.getCasks()) {
+            stringList.add(MainController.caskViewString(cask));
+        }
+
+         */
+        updateLvwCasks();
     }
 
     @FXML
@@ -63,7 +72,8 @@ public class CRUDCaskViewController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Opret fad");
         stage.setScene(new Scene(root1));
-        stage.show();
+        stage.showAndWait();
+        updateLvwCasks();
     }
 
     /**
@@ -72,12 +82,14 @@ public class CRUDCaskViewController implements Initializable {
     @FXML
     void btnCreateFillOnCask(ActionEvent event) throws IOException {
         SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
+        updateLvwCasks();
     }
 
 
     /**
      * Deletes the selected Cask
-     * If the cask has any fillOnCasks connected
+     * If the cask has any fillOnCasks or previousFillOnCasks connected
+     * prompt the user with that info and abort deletion
      */
     @FXML
     void btnDeleteCaskOnAction(ActionEvent event) {
@@ -85,22 +97,40 @@ public class CRUDCaskViewController implements Initializable {
         if (lvwCasks.getSelectionModel().isEmpty()) {
             lvwCasks.setStyle("-fx-border-color: red;");
         }
-        //TODO
+        else if (!cask.getFillOnCasks().isEmpty() || !cask.getPreviousFillOnCask().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fejl");
+            alert.setHeaderText("Fad kan ikke slettes");
+            alert.setContentText("Dette fad kan ikke slettes, da der er eller har været opfyldninger" +
+                    "på faddet.");
+            alert.show();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Bekræft sletning");
+            alert.setHeaderText("Er du sikker på, at du vil slette dette fad");
+            alert.getButtonTypes().setAll(new ButtonType("Ja"), new ButtonType("Fortryd"));
+            ButtonType choice = alert.showAndWait().orElse(ButtonType.CANCEL);
+            if (choice.getText() == "Ja") {
+                MainController.removeCask(cask);
+            }
+            updateLvwCasks();
+
+        }
     }
 
 
 
     @FXML
     void btnEditCaskOnAction(ActionEvent event) {
-        //TODO
+        //TODO Til version to når der skal kunne omhældes
     }
 
-
-
-    @FXML
-    void btnViewDistillateForCaskOnAction(ActionEvent event) {
-        //TODO
-
+    /**
+     * Updates the listView with all the casks
+     */
+    private void updateLvwCasks() {
+        lvwCasks.getItems().setAll(MainController.getCasks());
     }
 
     @FXML

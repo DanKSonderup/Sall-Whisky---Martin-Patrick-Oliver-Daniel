@@ -23,6 +23,7 @@ public class Cask {
 
     /** Constructor with previousContent */
     public Cask(int caskId, String countryOfOrigin, double sizeInLiters, String previousContent, Position position, CaskSupplier supplier) {
+        this.caskId = caskId;
         this.countryOfOrigin = countryOfOrigin;
         this.sizeInLiters = sizeInLiters;
         this.previousContent = previousContent;
@@ -111,8 +112,18 @@ public class Cask {
     }
 
 
+
     @Override
     public String toString() {
-        return String.format("%d %s %.2f %s %s", caskId, countryOfOrigin, sizeInLiters, previousContent, position);
+        return String.format("   %-10d | %-30s | %-10.2f | %-10.2f | %-30s | %-8d | %-8d | %-8d | %-8d",
+                caskId,
+                countryOfOrigin,
+                sizeInLiters,
+                getLitersAvailable(),
+                previousContent,
+                position.getShelf().getRack().getWarehouse().getWarehouseId(),
+                position.getShelf().getRack().getRackId(),
+                position.getShelf().getShelfId(),
+                position.getPositionId());
     }
 }
