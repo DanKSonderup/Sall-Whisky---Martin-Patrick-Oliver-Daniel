@@ -46,8 +46,6 @@ public class CRUDCaskViewController implements Initializable {
     @FXML
     private Button btnStartside;
     @FXML
-    private Button btnViewDistillate;
-    @FXML
     private ListView<Cask> lvwCasks;
     private Stage stage;
     private Scene scene;
