@@ -137,7 +137,7 @@ public abstract class MainController {
      */
     public static Rack createRack(Warehouse warehouse) {
         int id = storage.getStorageCounter().getRackCount();
-        Rack rack = new Rack(id);
+        Rack rack = new Rack(id, warehouse);
         warehouse.addRack(rack);
         storage.getStorageCounter().incrementRackCount();
         addObserver(rack);
@@ -152,7 +152,7 @@ public abstract class MainController {
      */
     public static Shelf createShelf(Rack rack) {
         int id = storage.getStorageCounter().getShelfCount();
-        Shelf shelf = new Shelf(id);
+        Shelf shelf = new Shelf(id, rack);
         rack.addShelf(shelf);
         storage.getStorageCounter().incrementShelfCount();
         addObserver(shelf);
@@ -168,7 +168,7 @@ public abstract class MainController {
      */
     public static Position createPosition(Shelf shelf, double literCapacity) {
         int id = storage.getStorageCounter().getPositionCount();
-        Position position = new Position(id, literCapacity);
+        Position position = new Position(id, literCapacity, shelf);
         shelf.addPosition(position);
         storage.getStorageCounter().incrementPositionCount();
         notifyObserver();
