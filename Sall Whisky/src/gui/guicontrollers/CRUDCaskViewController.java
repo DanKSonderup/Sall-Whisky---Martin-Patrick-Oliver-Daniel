@@ -43,8 +43,6 @@ public class CRUDCaskViewController implements Initializable {
     private Button btnEditCask;
     @FXML
     private Button btnStartside;
-//    @FXML
-//    private ListView<Cask> lvwCasks;
     @FXML
     private TableColumn<Cask, String> columnCountryOfOrigin;
     @FXML
@@ -81,7 +79,6 @@ public class CRUDCaskViewController implements Initializable {
         columnShelf.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("shelfId"));
         columnPosition.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("positionId"));
 
-        updateLvwCasks();
         updateTvwCasks();
 
     }
@@ -95,7 +92,6 @@ public class CRUDCaskViewController implements Initializable {
         stage.setTitle("Opret fad");
         stage.setScene(new Scene(root1));
         stage.showAndWait();
-        updateLvwCasks();
         updateTvwCasks();
     }
 
@@ -105,7 +101,7 @@ public class CRUDCaskViewController implements Initializable {
     @FXML
     void btnCreateFillOnCask(ActionEvent event) throws IOException {
         SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
-        updateLvwCasks();
+        updateTvwCasks();
     }
 
 
@@ -137,7 +133,7 @@ public class CRUDCaskViewController implements Initializable {
             if (choice.getText() == "Ja") {
                 MainController.removeCask(cask);
             }
-            updateLvwCasks();
+            updateTvwCasks();
 
         }
     }
@@ -150,11 +146,8 @@ public class CRUDCaskViewController implements Initializable {
     }
 
     /**
-     * Updates the listView with all the casks
+     * Updates the tableview with all the casks
      */
-    private void updateLvwCasks() {
-        tvwCasks.getItems().setAll(MainController.getCasks());
-    }
     private void updateTvwCasks() {
         tvwCasks.getItems().setAll(MainController.getCasks());
     }
