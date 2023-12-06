@@ -3,21 +3,30 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.MainViewController">
    <children>
-      <ListView layoutX="32.0" layoutY="128.0" prefHeight="466.0" prefWidth="341.0" />
-      <Label layoutX="42.0" layoutY="97.0" text="Færdigmodnet destillater" />
+      <Label layoutX="142.0" layoutY="97.0" text="Fade der har modnet mere end 3 år" />
       <Button fx:id="btnCreateWhisky" layoutX="30.0" layoutY="601.0" mnemonicParsing="false" onAction="#btnCreateWhiskyOnAction" prefHeight="34.0" prefWidth="111.0" text="Opret Whisky" />
-      <ListView layoutX="517.0" layoutY="128.0" prefHeight="466.0" prefWidth="308.0" />
-      <Label layoutX="531.0" layoutY="97.0" text="Whisky oversigt" />
-      <Button layoutX="519.0" layoutY="601.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="157.0" text="Udtræk historik for whisky" />
+      <ListView fx:id="lvwWhisky" layoutX="575.0" layoutY="123.0" prefHeight="466.0" prefWidth="308.0" />
+      <Label layoutX="707.0" layoutY="97.0" text="Whisky oversigt" />
+      <Button layoutX="575.0" layoutY="601.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="157.0" text="Udtræk historik for whisky" />
       <Button fx:id="btnCRUDCask" layoutX="168.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer fade" />
       <Button fx:id="btnCRUDStorage" layoutX="334.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer lager" />
       <Button fx:id="btnDestillateAndFillOnCask" layoutX="500.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Destillater og påfyldninger" />
       <Button fx:id="btnCRUDRawMaterial" layoutX="666.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer råvare" />
       <Button fx:id="btnCRUDSupplier" layoutX="832.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer leverandører" />
       <Button fx:id="btnStartside" disable="true" layoutX="2.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="166.0" text="Startside" />
+      <TableView fx:id="tbvRipeCasks" layoutX="23.0" layoutY="123.0" prefHeight="466.0" prefWidth="427.0">
+         <columns>
+            <TableColumn fx:id="tbcCaskID" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="tbcAlcoholPercentage" prefWidth="75.0" text="Alc %" />
+            <TableColumn fx:id="tbcAge" prefWidth="172.0" text="Alder" />
+            <TableColumn fx:id="tbcTotalLitersOfFills" prefWidth="105.0" text="Liter af whisky" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

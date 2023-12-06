@@ -1,20 +1,30 @@
 package gui.guicontrollers;
 
+import controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Cask;
+import model.FillOnCask;
+import model.Whisky;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainViewController {
+public class MainViewController implements Initializable {
 
     private Stage stage;
     private Scene scene;
@@ -38,6 +48,24 @@ public class MainViewController {
     private Button btnStartside;
     @FXML
     private Button btnCreateWhisky;
+    @FXML
+    private TableColumn<Cask, FillOnCask> tbcAge;
+
+    @FXML
+    private TableColumn<Cask, Double> tbcAlcoholPercentage;
+
+    @FXML
+    private TableColumn<Cask, Integer> tbcCaskID;
+
+    @FXML
+    private TableColumn<Cask, Double> tbcTotalLitersOfFills;
+
+    @FXML
+    private TableView<Cask> tbvRipeCasks;
+
+
+    @FXML
+    private ListView<Whisky> lvwWhisky;
 
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
@@ -67,7 +95,8 @@ public class MainViewController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Opret Whisky");
         stage.setScene(new Scene(root1));
-        stage.show();
+        stage.showAndWait();
+        updateViews();
     }
 
     @FXML
@@ -80,5 +109,18 @@ public class MainViewController {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
+        tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, FillOnCask>("YoungestFillOnCask"));
+        tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
+        tbvRipeCasks.getItems().setAll(MainController.getRipeCasks());
+        lvwWhisky.getItems().setAll(MainController.getWhiskies());
+    }
 
+    private void updateViews() {
+        tbvRipeCasks.getItems().setAll(MainController.getRipeCasks());
+        lvwWhisky.getItems().setAll(MainController.getWhiskies());
+    }
 }

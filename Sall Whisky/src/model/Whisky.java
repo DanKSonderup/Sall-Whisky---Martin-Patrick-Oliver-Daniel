@@ -48,4 +48,17 @@ public class Whisky {
         }
         return alcoholPercentage / totalFluids * 100;
     }
+
+    @Override
+    public String toString() {
+        String newMakes = "";
+        for (WhiskyFill whiskyFill: whiskyFills) {
+            for (FillOnCask fillOnCask: whiskyFill.getFillOnCasks()) {
+                for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
+                    newMakes += distillateFill.getDistillate().getNewMakeNr() + ", ";
+                }
+            }
+        }
+        return name + " (" + whiskyFills.get(0).getTimeOfFill() + "), Newmake: " + newMakes;
+    }
 }
