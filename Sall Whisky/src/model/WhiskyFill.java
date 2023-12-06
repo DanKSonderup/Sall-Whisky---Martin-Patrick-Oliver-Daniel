@@ -46,9 +46,9 @@ public class WhiskyFill {
         String distillates = "";
         for (FillOnCask fillOnCask: fillOnCasks) {
             for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
-                distillates += distillateFill.getDistillate();
+                distillates += "NewMakeNr: " + distillateFill.getDistillate().getNewMakeNr() + ", ";
             }
         }
-        return "Liter: " + amountofDistilateFillInLiters + " | Alc% :" + alcoholPercentage;
+        return "Liter: " + amountofDistilateFillInLiters + " | Alc% :" + alcoholPercentage + "\n" + "Destillater: " + distillates;
     }
 }
