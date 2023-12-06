@@ -1,6 +1,6 @@
 package model;
 
-import controller.MainController;
+import controller.Controller;
 import controller.Observer;
 
 import java.io.Serializable;
@@ -32,7 +32,7 @@ public class Position implements Observer, Serializable {
             isFilled = true;
         } else {
             isFilled = false;
-            MainController.notifyObserver();
+            Controller.notifyObserver();
         }
     }
 

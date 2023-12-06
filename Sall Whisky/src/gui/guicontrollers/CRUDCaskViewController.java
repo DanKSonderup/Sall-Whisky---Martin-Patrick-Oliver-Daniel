@@ -1,6 +1,6 @@
 package gui.guicontrollers;
 
-import controller.MainController;
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -126,7 +126,7 @@ public class CRUDCaskViewController implements Initializable {
             alert.getButtonTypes().setAll(new ButtonType("Ja"), new ButtonType("Fortryd"));
             ButtonType choice = alert.showAndWait().orElse(ButtonType.CANCEL);
             if (choice.getText() == "Ja") {
-                MainController.removeCask(cask);
+                Controller.removeCask(cask);
             }
             updateTvwCasks();
 
@@ -144,7 +144,7 @@ public class CRUDCaskViewController implements Initializable {
      * Updates the tableview with all the casks
      */
     private void updateTvwCasks() {
-        tvwCasks.getItems().setAll(MainController.getCasks());
+        tvwCasks.getItems().setAll(Controller.getCasks());
     }
 
     @FXML

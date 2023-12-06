@@ -1,11 +1,10 @@
 package gui.guicontrollers;
 
-import controller.MainController;
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -115,12 +114,12 @@ public class MainViewController implements Initializable {
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
         tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, FillOnCask>("YoungestFillOnCask"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
-        tbvRipeCasks.getItems().setAll(MainController.getRipeCasks());
-        lvwWhisky.getItems().setAll(MainController.getWhiskies());
+        tbvRipeCasks.getItems().setAll(Controller.getRipeCasks());
+        lvwWhisky.getItems().setAll(Controller.getWhiskies());
     }
 
     private void updateViews() {
-        tbvRipeCasks.getItems().setAll(MainController.getRipeCasks());
-        lvwWhisky.getItems().setAll(MainController.getWhiskies());
+        tbvRipeCasks.getItems().setAll(Controller.getRipeCasks());
+        lvwWhisky.getItems().setAll(Controller.getWhiskies());
     }
 }

@@ -1,6 +1,6 @@
 package gui.guicontrollers;
 
-import controller.MainController;
+import controller.Controller;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -154,7 +154,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
             return;
         }
 
-        MainController.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches);
+        Controller.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches);
         clearErrorMarkings();
 
         updateControls();
@@ -205,7 +205,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         }
 
             try {
-                MainController.createFillOnCask(LocalDate.now(), cask, distillateFills);
+                Controller.createFillOnCask(LocalDate.now(), cask, distillateFills);
             } catch (IllegalArgumentException e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Fejl");
@@ -242,16 +242,16 @@ public class CRUDDistilleryAndFillController implements Initializable {
     }
 
     private void updateControls() {
-        distillatelvw.getItems().setAll(MainController.getAvailableDistillates());
-        availableCaskslvw.getItems().setAll(MainController.getAvailableCasks());
+        distillatelvw.getItems().setAll(Controller.getAvailableDistillates());
+        availableCaskslvw.getItems().setAll(Controller.getAvailableCasks());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        availableCaskslvw.getItems().setAll(MainController.getAvailableCasks());
-        lvwMaltBatches.getItems().setAll(MainController.getMaltbatches());
-        pickEmployeeComboBox.getItems().setAll(MainController.getEmployees());
-        distillatelvw.getItems().setAll(MainController.getAvailableDistillates());
+        availableCaskslvw.getItems().setAll(Controller.getAvailableCasks());
+        lvwMaltBatches.getItems().setAll(Controller.getMaltbatches());
+        pickEmployeeComboBox.getItems().setAll(Controller.getEmployees());
+        distillatelvw.getItems().setAll(Controller.getAvailableDistillates());
     }
 
     private boolean canFillOnCask(double amountInLiters, Cask cask) {

@@ -1,6 +1,6 @@
 package gui.guicontrollers;
 
-import controller.MainController;
+import controller.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -71,8 +71,8 @@ public class CreateSupplierViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        lvwCaskSupplier.getItems().setAll(MainController.getCaskSuppliers());
-        lvwGrainSupplier.getItems().setAll(MainController.getGrainSuppliers());
+        lvwCaskSupplier.getItems().setAll(Controller.getCaskSuppliers());
+        lvwGrainSupplier.getItems().setAll(Controller.getGrainSuppliers());
 
 
         ChangeListener<GrainSupplier> grainSupplierChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
@@ -94,10 +94,10 @@ public class CreateSupplierViewController implements Initializable {
 
 
         if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
-            MainController.createGrainSupplier(name, address, country, vatId);
+            Controller.createGrainSupplier(name, address, country, vatId);
 
         } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
-            MainController.createCaskSupplier(name, address, country, vatId);
+            Controller.createCaskSupplier(name, address, country, vatId);
         }
         updateLvwCaskSupplier();
         updateLvwGrainSupplier();
@@ -123,14 +123,14 @@ public class CreateSupplierViewController implements Initializable {
      * Updates the grain supplier listview
      */
     private void updateLvwGrainSupplier() {
-        lvwGrainSupplier.getItems().setAll(MainController.getGrainSuppliers());
+        lvwGrainSupplier.getItems().setAll(Controller.getGrainSuppliers());
     }
 
     /**
      * Updates the cask supplier listview
      */
     private void updateLvwCaskSupplier() {
-        lvwCaskSupplier.getItems().setAll(MainController.getCaskSuppliers());
+        lvwCaskSupplier.getItems().setAll(Controller.getCaskSuppliers());
     }
 
 

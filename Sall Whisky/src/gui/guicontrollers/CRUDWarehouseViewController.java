@@ -1,6 +1,6 @@
 package gui.guicontrollers;
 
-        import controller.MainController;
+        import controller.Controller;
         import javafx.beans.value.ChangeListener;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
@@ -98,7 +98,7 @@ public class CRUDWarehouseViewController implements Initializable {
         ChangeListener<Position> positionChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
         lvwPosition.getSelectionModel().selectedItemProperty().addListener(positionChangeListener);
 
-        lvwWarehouse.getItems().setAll(MainController.getStorage().getWarehouses());
+        lvwWarehouse.getItems().setAll(Controller.getStorage().getWarehouses());
 
         }
 
@@ -115,13 +115,13 @@ public class CRUDWarehouseViewController implements Initializable {
         }
 
         if (!missingInfo) {
-            warehouse = MainController.createWarehouse(warehouseAddresstxf.getText());
+            warehouse = Controller.createWarehouse(warehouseAddresstxf.getText());
             for (int i = 0; i < Integer.parseInt(rackAmounttxf.getText()); i++) {
-                rack = MainController.createRack(warehouse);
+                rack = Controller.createRack(warehouse);
                 for (int j = 0; j < Integer.parseInt(shelfAmounttxf.getText()); j++) {
-                    shelf = MainController.createShelf(rack);
+                    shelf = Controller.createShelf(rack);
                     for (int k = 0; k < Integer.parseInt(positionAmounttxf.getText()); k++) {
-                        position = MainController.createPosition(shelf, 500);
+                        position = Controller.createPosition(shelf, 500);
                     }
                 }
             }
@@ -187,7 +187,7 @@ public class CRUDWarehouseViewController implements Initializable {
     }
 
     private void updateWarehouses() {
-        lvwWarehouse.getItems().setAll(MainController.getStorage().getWarehouses());
+        lvwWarehouse.getItems().setAll(Controller.getStorage().getWarehouses());
     }
 
     @FXML

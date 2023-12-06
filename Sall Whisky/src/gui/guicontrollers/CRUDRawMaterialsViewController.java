@@ -1,6 +1,6 @@
 package gui.guicontrollers;
 
-import controller.MainController;
+import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,10 +75,10 @@ public class CRUDRawMaterialsViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lvwFields.getItems().setAll(MainController.getFields());
-        lvwGrains.getItems().setAll(MainController.getGrains());
-        lvwMaltbatches.getItems().setAll(MainController.getMaltbatches());
-        cbbPickGrainSupplier.setItems(FXCollections.observableArrayList(MainController.getGrainSuppliers()));
+        lvwFields.getItems().setAll(Controller.getFields());
+        lvwGrains.getItems().setAll(Controller.getGrains());
+        lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
+        cbbPickGrainSupplier.setItems(FXCollections.observableArrayList(Controller.getGrainSuppliers()));
 
         lvwFields.getSelectionModel().selectedIndexProperty().addListener((o, ov, nv) -> {
             lvwFields.setStyle("-fx-border-color: transparent;");
@@ -111,7 +111,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
             txfFieldName.setOnMouseClicked(e -> {txfFieldName.setStyle("");});
         }
         else {
-            MainController.createField(txfFieldName.getText(), txaFieldDescription.getText());
+            Controller.createField(txfFieldName.getText(), txaFieldDescription.getText());
             txfFieldName.clear();
             txaFieldDescription.clear();
             updateLvwFields();
@@ -169,7 +169,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         else {
             ButtonType choice = showDeleteConfirmationDialog(field);
             if (choice.getText() == "Ja") {
-                MainController.removeField(field);
+                Controller.removeField(field);
             }
         }
 
@@ -202,7 +202,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         if (!missingInfo) {
             GrainSupplier grainSupplier = cbbPickGrainSupplier.getValue();
             Field field = lvwFields.getSelectionModel().getSelectedItem();
-            MainController.createGrain(txfGrainType.getText(), grainSupplier,
+            Controller.createGrain(txfGrainType.getText(), grainSupplier,
                     txaCultivationDescription.getText(), field);
             txfGrainType.setText("");
             txaCultivationDescription.setText("");
@@ -259,7 +259,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         else {
             ButtonType choice = showDeleteConfirmationDialog(grain);
             if (choice.getText() == "Ja") {
-                MainController.removeGrain(grain);
+                Controller.removeGrain(grain);
             }
         }
         updateLvwGrains();
@@ -284,7 +284,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         }
         if (!missingInfo) {
             Grain grain = lvwGrains.getSelectionModel().getSelectedItem();
-            MainController.createMaltbatch(txfMaltbatchName.getText(), txaMaltbatchDescription.getText(), grain);
+            Controller.createMaltbatch(txfMaltbatchName.getText(), txaMaltbatchDescription.getText(), grain);
             txfMaltbatchName.setText("");
             txaMaltbatchDescription.setText("");
         }
@@ -339,7 +339,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         else {
             ButtonType choice = showDeleteConfirmationDialog(maltbatch);
             if (choice.getText() == "Ja") {
-                MainController.removeMaltbatch(maltbatch);
+                Controller.removeMaltbatch(maltbatch);
             }
         }
         updateLvwMaltbatches();
@@ -359,7 +359,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Updates the listView with all the fields from storage
      */
     private void updateLvwFields() {
-        lvwFields.getItems().setAll(MainController.getFields());
+        lvwFields.getItems().setAll(Controller.getFields());
     }
 
     /**
@@ -368,10 +368,10 @@ public class CRUDRawMaterialsViewController implements Initializable {
      */
     private void updateLvwGrains() {
         if (lvwFields.getSelectionModel().isEmpty())
-            lvwGrains.getItems().setAll(MainController.getGrains());
+            lvwGrains.getItems().setAll(Controller.getGrains());
         else {
             lvwGrains.getItems().clear();
-            for (Grain grain : MainController.getGrains()) {
+            for (Grain grain : Controller.getGrains()) {
                 if (grain.getField().equals(lvwFields.getSelectionModel().getSelectedItem())) {
                     lvwGrains.getItems().add(grain);
                 }
@@ -384,10 +384,10 @@ public class CRUDRawMaterialsViewController implements Initializable {
      */
     private void updateLvwMaltbatches() {
         if (lvwGrains.getSelectionModel().isEmpty())
-            lvwMaltbatches.getItems().setAll(MainController.getMaltbatches());
+            lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
         else {
             lvwMaltbatches.getItems().clear();
-            for (Maltbatch maltbatch : MainController.getMaltbatches()) {
+            for (Maltbatch maltbatch : Controller.getMaltbatches()) {
                 if (maltbatch.getGrain().equals(lvwGrains.getSelectionModel().getSelectedItem())) {
                     lvwMaltbatches.getItems().add(maltbatch);
                 }
@@ -413,7 +413,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
     private boolean isConnectedToGrain(Field field) {
         boolean ConnectionFound = false;
         int i = 0;
-        List<Grain> grains = MainController.getGrains();
+        List<Grain> grains = Controller.getGrains();
         while (!ConnectionFound && i < grains.size()) {
             if (grains.get(i).getField() == field) {
                 ConnectionFound = true;
@@ -426,7 +426,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
     private boolean isConnectedToMaltbatch(Grain grain) {
         boolean ConnectionFound = false;
         int i = 0;
-        List<Maltbatch> maltbatches = MainController.getMaltbatches();
+        List<Maltbatch> maltbatches = Controller.getMaltbatches();
         while (!ConnectionFound && i < maltbatches.size()) {
             if (maltbatches.get(i).getGrain() == grain) {
                 ConnectionFound = true;
@@ -439,7 +439,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
     private boolean isConnectedToDistillate(Maltbatch maltbatch) {
         boolean ConnectionFound = false;
         int i = 0;
-        List<Distillate> distillates = MainController.getDistillates();
+        List<Distillate> distillates = Controller.getDistillates();
         while (!ConnectionFound && i < distillates.size()) {
             if (distillates.get(i).getMaltbatches() == maltbatch) {
                 ConnectionFound = true;

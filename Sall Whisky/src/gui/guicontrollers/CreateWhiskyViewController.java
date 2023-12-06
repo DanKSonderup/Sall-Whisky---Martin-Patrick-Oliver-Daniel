@@ -1,6 +1,6 @@
 package gui.guicontrollers;
 
-import controller.MainController;
+import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -101,16 +101,16 @@ public class CreateWhiskyViewController implements Initializable {
         int amountOfBottles = Integer.parseInt(amountOfBottlestxf.getText().trim());
 
         String name = txfWhiskyName.getText().trim();
-        whisky = MainController.createWhisky(name, waterInLiters, whiskyFills);
+        whisky = Controller.createWhisky(name, waterInLiters, whiskyFills);
 
-        MainController.createWhiskyBottlesForWhisky(amountOfBottles, sizeOfBottle, whisky);
+        Controller.createWhiskyBottlesForWhisky(amountOfBottles, sizeOfBottle, whisky);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Whisky");
         alert.setHeaderText("Whisky oprettet");
         alert.setContentText("En ny whisky er oprettet med navn: " + whisky.getName() + "\n" + "Der er oprettet " + amountOfBottles + " flasker med den valgte whisky");
         alert.show();
-        System.out.println(MainController.getStorage().getWhiskies());
+        System.out.println(Controller.getStorage().getWhiskies());
     }
 
     @FXML
@@ -133,7 +133,7 @@ public class CreateWhiskyViewController implements Initializable {
             return;
         }
         try {
-            whiskyFill = MainController.createWhiskyFill(amountToFill, cask.getFillOnCasks(), value, cask);
+            whiskyFill = Controller.createWhiskyFill(amountToFill, cask.getFillOnCasks(), value, cask);
         } catch (InterruptedException e) {
             showErrorWindow("Påfyldningsfejl", e.getMessage());
             return;
@@ -170,7 +170,7 @@ public class CreateWhiskyViewController implements Initializable {
 
         String name = txfWhiskyName.getText().trim();
         whisky = new Whisky(name, waterInLiters, whiskyFills);
-        int amountOfBottles = MainController.amountOfBottles(whisky, sizeOfBottle);
+        int amountOfBottles = Controller.amountOfBottles(whisky, sizeOfBottle);
         amountOfBottlestxf.setText("" + amountOfBottles);
 
         btnCreateWhisky.setDisable(false);
@@ -212,7 +212,7 @@ public class CreateWhiskyViewController implements Initializable {
 
 
     private void updateRipeCasks() {
-        tbvRipeCasks.getItems().setAll(MainController.getRipeCasks());
+        tbvRipeCasks.getItems().setAll(Controller.getRipeCasks());
     }
 
     @Override

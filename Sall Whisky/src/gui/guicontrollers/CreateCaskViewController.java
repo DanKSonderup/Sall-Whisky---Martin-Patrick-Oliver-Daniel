@@ -1,6 +1,6 @@
 package gui.guicontrollers;
 
-import controller.MainController;
+import controller.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -78,7 +78,7 @@ public class CreateCaskViewController implements Initializable {
         ChangeListener<Position> positionChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
         lvwPosition.getSelectionModel().selectedItemProperty().addListener(positionChangeListener);
 
-        lvwCaskSupplier.getItems().setAll(MainController.getCaskSuppliers());
+        lvwCaskSupplier.getItems().setAll(Controller.getCaskSuppliers());
 
         lvwCaskSupplier.getSelectionModel().selectedIndexProperty().addListener((o, ov, nv) -> {
             lvwCaskSupplier.setStyle("-fx-border-color: transparent;");
@@ -124,7 +124,7 @@ public class CreateCaskViewController implements Initializable {
                 double sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
                 Position position = lvwPosition.getSelectionModel().getSelectedItem();
                 CaskSupplier supplier = lvwCaskSupplier.getSelectionModel().getSelectedItem();
-                createdCasts.add(MainController.createCask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText(),
+                createdCasts.add(Controller.createCask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText(),
                         position, supplier));
                 txfSizeInLiters.clear();
                 txfPreviousContent.clear();
@@ -154,8 +154,8 @@ public class CreateCaskViewController implements Initializable {
             }
 
             cask = new Cask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText());
-            if (MainController.getAvailableWarehouses(cask).isEmpty()) return;
-            lvwWarehouse.getItems().setAll(MainController.getAvailableWarehouses(cask));
+            if (Controller.getAvailableWarehouses(cask).isEmpty()) return;
+            lvwWarehouse.getItems().setAll(Controller.getAvailableWarehouses(cask));
             currentSizeInLiters = sizeInLiters;
         }
     }
@@ -170,7 +170,7 @@ public class CreateCaskViewController implements Initializable {
          if (selectedWarehouse == null) return;
          if (selectedWarehouse != currentlySelectedWarehouse) {
              currentlySelectedWarehouse = selectedWarehouse;
-             lvwRack.getItems().setAll(MainController.getAvailableRacks(currentlySelectedWarehouse, cask));
+             lvwRack.getItems().setAll(Controller.getAvailableRacks(currentlySelectedWarehouse, cask));
              lvwShelf.getItems().clear();
              lvwPosition.getItems().clear();
              return;
@@ -180,7 +180,7 @@ public class CreateCaskViewController implements Initializable {
              lvwShelf.getItems().clear();
              lvwPosition.getItems().clear();
              if (selectedRack != null) {
-                 lvwShelf.getItems().setAll(MainController.getAvailableShelves(currentlySelectedRack, cask));
+                 lvwShelf.getItems().setAll(Controller.getAvailableShelves(currentlySelectedRack, cask));
              }
              return;
          }
@@ -188,7 +188,7 @@ public class CreateCaskViewController implements Initializable {
              lvwPosition.getItems().removeAll();
              if (selectedShelf != null) {
                  currentlySelectedShelf = selectedShelf;
-                 lvwPosition.getItems().setAll(MainController.getAvailablePositions(currentlySelectedShelf, cask));
+                 lvwPosition.getItems().setAll(Controller.getAvailablePositions(currentlySelectedShelf, cask));
              }
          }
     }
