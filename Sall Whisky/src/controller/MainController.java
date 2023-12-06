@@ -233,7 +233,7 @@ public abstract class MainController {
      * If distillateFill is > sizeInLiters (Cask) throw an illegalArgumentException
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
      */
-    public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
+    public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) throws IllegalArgumentException {
         FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask);
 
         double sum = 0;
@@ -411,7 +411,6 @@ public abstract class MainController {
     }
 
     public static double averageAmountInLitersRemoved(FillOnCask fillOnCask, int amountTaken) {
-        //fillOnCask.getDistillateFills()
         // fillOnCask.getDistillateFills()
         return 09.0;
     }
