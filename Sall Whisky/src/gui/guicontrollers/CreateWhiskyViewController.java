@@ -1,11 +1,13 @@
 package gui.guicontrollers;
 
+import com.sun.tools.javac.Main;
 import controller.MainController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.*;
 
 import java.io.IOException;
@@ -48,7 +50,19 @@ public class CreateWhiskyViewController implements Initializable {
     private Button btnRegistrerAlcoholPercentage;
 
     @FXML
-    private ListView<FillOnCask> lvwFillOnCaskReadyForFill;
+    private TableColumn<Cask, FillOnCask> tbcAge;
+
+    @FXML
+    private TableColumn<Cask, Double> tbcAlcoholPercentage;
+
+    @FXML
+    private TableColumn<Cask, Integer> tbcCaskID;
+
+    @FXML
+    private TableColumn<Cask, Double> tbcTotalLitersOfFills;
+
+    @FXML
+    private TableView<Cask> tbvRipeCasks;
 
     @FXML
     private ListView<WhiskyFill> lvwWhiskyBatch;
@@ -98,7 +112,11 @@ public class CreateWhiskyViewController implements Initializable {
 
     @FXML
     void btnRegisterAlcoholPercentageOnAction(ActionEvent event) {
-        FillOnCask fillOnCask = lvwFillOnCaskReadyForFill.getSelectionModel().getSelectedItem();
+        Cask cask = tbvRipeCasks.getSelectionModel().getSelectedItem();
+        if (cask == null) {
+            showErrorWindow("Intet fad", "Du har ikke valgt et fad");
+            return;
+        }
         double value = 0.0;
         double amountToFill = 0.0;
 
@@ -108,16 +126,28 @@ public class CreateWhiskyViewController implements Initializable {
         if (value < 0 || amountToFill < 0) {
             return;
         }
-        whiskyFill = MainController.createWhiskyFill(amountToFill, fillOnCask, value);
+        try {
+            whiskyFill = MainController.createWhiskyFill(amountToFill, cask.getFillOnCasks(), value, cask);
+        } catch (InterruptedException e) {
+            showErrorWindow("Påfyldningsfejl", e.getMessage());
+            return;
+        }
 
 
         lvwWhiskyFillReadyForFillTemp.add(whiskyFill);
-        lvwFillOnCaskReadyForFill.getItems().clear();
+        updateRipeCasks();
         updatelvwWhiskyFillReadyForFill();
         updateContentOfWhisky(whiskyFill.toString());
     }
 
 
+    private void showErrorWindow(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Fejl");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.show();
+    }
     private double txfParseDouble(TextField txf) {
         double returnValue = -1.0;
         try {
@@ -138,25 +168,21 @@ public class CreateWhiskyViewController implements Initializable {
     }
 
 
-    private void updatelvwFillOnCaskReadyForFill() {
-        for (Cask cask : MainController.getCasks()) {
-            for (FillOnCask fillOnCask : cask.getFillOnCasks()) {
-                if (fillOnCask.getTimeOfFill().isBefore(LocalDate.now().minusYears(3))) {
-                    lvwFillOnCaskReadyForFillTemp.add(fillOnCask);
-                }
-            }
-        }
-        lvwFillOnCaskReadyForFill.getItems().setAll(lvwFillOnCaskReadyForFillTemp);
+    private void updateRipeCasks() {
+        tbvRipeCasks.getItems().setAll(MainController.getRipeCasks());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // updatelvwWhiskyFillReadyForFill();
-        updatelvwFillOnCaskReadyForFill();
-
-
         Integer bottleSize[] = {3, 10, 50, 70};
         bottleSizecbb.setItems(FXCollections.observableArrayList(bottleSize));
 
+        tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
+        tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, FillOnCask>("YoungestFillOnCask"));
+        tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
+
+        updateRipeCasks();
     }
 }

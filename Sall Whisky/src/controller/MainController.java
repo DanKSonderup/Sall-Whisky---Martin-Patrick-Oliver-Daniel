@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,6 +27,16 @@ public abstract class MainController {
 
     public static List<Cask> getCasks() {
         return storage.getCasks();
+    }
+
+    public static List<Cask> getRipeCasks() {
+        List<Cask> ripeCasks = new ArrayList<>();
+        for (Cask cask: storage.getCasks()) {
+            if (cask.getYoungestFillOnCask().getTimeOfFill().isBefore(LocalDate.now().minusYears(3)) && cask.getCurrentContentInLiters() > 0) {
+                ripeCasks.add(cask);
+            }
+        }
+        return ripeCasks;
     }
 
     public static Cask getAvailableCaskById(int id) {
@@ -439,10 +450,19 @@ public abstract class MainController {
      * @return
      */
 
-    public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, FillOnCask fillOnCask, double alcoholPercentage) {
-        WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, fillOnCask, LocalDate.now(), alcoholPercentage);
-        fillOnCask.getCask().addPreviousFillOnCask(fillOnCask);
-        fillOnCask.getCask().removeFillOnCask(fillOnCask);
+    public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, List<FillOnCask> fillOnCasks, double alcoholPercentage, Cask cask) throws InterruptedException {
+        WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, fillOnCasks, LocalDate.now(), alcoholPercentage, cask);
+
+        if (cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters < 0) {
+            throw new InterruptedException("Du prøver at påfylde flere liter end du har tilgængelig");
+        } else if ((cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters) == 0) {
+            for (FillOnCask fillOnCask: fillOnCasks) {
+                fillOnCask.getCask().addPreviousFillOnCask(fillOnCask);
+                fillOnCask.getCask().removeFillOnCask(fillOnCask);
+            }
+        }
+        cask.setCurrentContentInLiters(cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters);
+
         return whiskyFill;
     }
 

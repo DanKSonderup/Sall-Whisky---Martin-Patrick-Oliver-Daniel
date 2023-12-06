@@ -198,12 +198,12 @@ public class CRUDDistilleryAndFillController implements Initializable {
             return;
         }
         if (!canFillOnCask(amountInLiters, cask)) {
-            MainController.createFillOnCask(LocalDate.now(), cask, distillateFills);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Påfyldning oprettet");
-            alert.setHeaderText("En påfyldning på Cask ID: " + cask.getCaskId() + " er oprettet");
-            alert.setContentText("En påfyldning på " + amountInLiters + " liter er oprettet");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fejl");
+            alert.setHeaderText("Påfyldningsfejl");
+            alert.setContentText("Du prøver at påfylde flere liter end dit fad har tilgængeligt");
             alert.show();
+            return;
         }
 
             try {
@@ -216,12 +216,13 @@ public class CRUDDistilleryAndFillController implements Initializable {
                 alert.show();
                 return;
             }
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Påfyldning");
             alert.setHeaderText("Påfyldning oprettet");
             alert.setContentText("En påfyldning af " + amountInLiters + " liter er blevet påfyldt på fadID: " + cask.getCaskId());
             alert.show();
             clearErrorMarkings();
+            updateControls();
     }
 
     private double txfParseDouble(TextField txf) {
@@ -244,13 +245,15 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     private void updateControls() {
         distillatelvw.getItems().setAll(MainController.getAvailableDistillates());
+        availableCaskslvw.getItems().setAll(MainController.getAvailableCasks());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        availableCaskslvw.getItems().setAll(MainController.getCasks());
+        availableCaskslvw.getItems().setAll(MainController.getAvailableCasks());
         lvwMaltBatches.getItems().setAll(MainController.getMaltbatches());
         pickEmployeeComboBox.getItems().setAll(MainController.getEmployees());
+        distillatelvw.getItems().setAll(MainController.getAvailableDistillates());
     }
 
     private boolean canFillOnCask(double amountInLiters, Cask cask) {
@@ -260,16 +263,6 @@ public class CRUDDistilleryAndFillController implements Initializable {
                 currentContent += distillateFill.getAmountOfDistillateInLiters();
             }
         }
-        return currentContent > cask.getSizeInLiters();
-    }
-
-    private ArrayList<String> getAvailableCasksAsStrings() {
-        ArrayList<String> caskStrings = new ArrayList<>();
-        for (Cask cask: MainController.getAvailableCasks()) {
-            String s = cask.getCaskId() + " | str(" + cask.getSizeInLiters() + ") " +
-                    "| liter tilgængelige(" + cask.getLitersAvailable() + ")";
-            caskStrings.add(s);
-        }
-        return caskStrings;
+        return currentContent > amountInLiters;
     }
 }

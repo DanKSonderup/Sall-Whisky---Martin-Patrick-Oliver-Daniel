@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Cask {
     private CaskSupplier supplier;
     private final List<FillOnCask> fillOnCasks = new ArrayList<>();
     private final List<FillOnCask> previousFillOnCask = new ArrayList<>();
+    private double currentContentInLiters;
 
     /** Constructor uden Position */
 
@@ -19,6 +21,7 @@ public class Cask {
         this.countryOfOrigin = countryOfOrigin;
         this.sizeInLiters = sizeInLiters;
         this.previousContent = previousContent;
+        this.currentContentInLiters = 0.0;
     }
 
     /** Constructor with previousContent */
@@ -29,6 +32,7 @@ public class Cask {
         this.previousContent = previousContent;
         this.position = position;
         this.supplier = supplier;
+        this.currentContentInLiters = 0.0;
     }
 
     /** Constructor without previousContent */
@@ -73,6 +77,14 @@ public class Cask {
         return previousContent;
     }
 
+    public double getCurrentContentInLiters() {
+        return currentContentInLiters;
+    }
+
+    public void setCurrentContentInLiters(double currentContentInLiters) {
+        this.currentContentInLiters = currentContentInLiters;
+    }
+
     public void setPreviousContent(String previousContent) {
         this.previousContent = previousContent;
     }
@@ -86,6 +98,14 @@ public class Cask {
             sum += fillOnCask.getTotalLitersForFills();
         }
         return sizeInLiters - sum;
+    }
+
+    public double getTotalLitersOfFills() {
+        double totalLiters = 0;
+        for (FillOnCask fillOnCask: fillOnCasks) {
+            totalLiters += fillOnCask.getTotalLitersForFills();
+        }
+        return totalLiters;
     }
 
     public double getTotalAlcoholPercentage() {
@@ -112,6 +132,7 @@ public class Cask {
     }
     public void addFillOnCask(FillOnCask fillOnCask) {
         fillOnCasks.add(fillOnCask);
+        currentContentInLiters += fillOnCask.getTotalLitersForFills();
     }
 
     public List<FillOnCask> getFillOnCasks() {
@@ -138,6 +159,19 @@ public class Cask {
         return supplier.getName();
     }
 
+    public FillOnCask getYoungestFillOnCask() {
+        if (fillOnCasks.size() == 0) {
+            return null;
+        }
+        LocalDate youngestDate = fillOnCasks.get(0).getTimeOfFill();
+        for (FillOnCask fillOnCask: fillOnCasks) {
+            if (fillOnCask.getTimeOfFill().isAfter(youngestDate)) {
+                return fillOnCask;
+            }
+        }
+        return fillOnCasks.get(0);
+    }
+
     public void removeFillOnCask(FillOnCask fillOnCask) {
         fillOnCasks.remove(fillOnCask);
     }
@@ -146,16 +180,12 @@ public class Cask {
 
     @Override
     public String toString() {
-        return String.format("%-5d | %-17s | %-5.2f | %-10.2f | %-18s |%-4d |%-4d |%-4d |%-4d",
+        return String.format("%-5d | %-17s | Total (L) %-5.2f | Tilgængelig (L) %-10.2f | %-18s ",
                 caskId,
                 countryOfOrigin,
                 sizeInLiters,
                 getLitersAvailable(),
-                previousContent,
-                position.getShelf().getRack().getWarehouse().getWarehouseId(),
-                position.getShelf().getRack().getRackId(),
-                position.getShelf().getShelfId(),
-                position.getPositionId());
+                previousContent);
     }
 
 

@@ -4,34 +4,42 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateWhiskyViewController">
    <children>
-
-      <ListView fx:id="lvwFillOnCaskReadyForFill" layoutX="75.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
-      <Label fx:id="FillOnWhiskylbl" layoutX="138.0" layoutY="86.0" text="Færdigmodnet fade" />
-      <Label fx:id="whiskyPropertieslbl" layoutX="748.0" layoutY="86.0" text="Whiskyen består af:" />
+      <Label fx:id="FillOnWhiskylbl" layoutX="191.0" layoutY="86.0" text="Færdigmodnet fade" />
+      <Label fx:id="whiskyPropertieslbl" layoutX="776.0" layoutY="86.0" text="Whiskyen består af:" />
       <TextField fx:id="amountOfFillCltxf" layoutX="121.0" layoutY="401.0" prefHeight="25.0" prefWidth="147.0" promptText="L" />
       <Label fx:id="amountOfFillCllbl" layoutX="92.0" layoutY="377.0" text="Indtast ønsket mængde til påhældning:" />
-      <ListView fx:id="lvwWhiskyBatch" layoutX="368.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
-      <Label fx:id="typeOfWhiskylbl" layoutX="759.0" layoutY="452.0" text="Type af whisky:" />
-      <Label fx:id="wateredWhiskylbl" layoutX="441.0" layoutY="456.0" text="Fortyndelse med vand:" />
-      <TextField fx:id="wateredWhiskytxf" layoutX="404.0" layoutY="479.0" prefHeight="25.0" prefWidth="194.0" promptText="cl" />
-      <TextField fx:id="amountOfBottlestxf" layoutX="702.0" layoutY="543.0" onAction="#amountOfBottlesCalculation" prefHeight="25.0" prefWidth="194.0" promptText="Udregnes" />
-      <Label fx:id="amountOfBottleslbl" layoutX="768.0" layoutY="520.0" text="Antal flasker" />
-      <Button fx:id="btnCreateWhisky" layoutX="450.0" layoutY="531.0" mnemonicParsing="false" onAction="#btnCreateWhisky" prefHeight="25.0" prefWidth="103.0" text="Opret whisky" />
-      <ComboBox fx:id="bottleSizecbb" layoutX="726.0" layoutY="404.0" prefWidth="150.0" />
-      <Label fx:id="bottleSizelbl" layoutX="758.0" layoutY="383.0" text="Størrelse flaske:" />
-      <TextField fx:id="txfTypeOfWhisky" layoutX="725.0" layoutY="480.0" />
-      <Label layoutX="466.0" layoutY="86.0" text="Whiskybatch" />
+      <ListView fx:id="lvwWhiskyBatch" layoutX="730.0" layoutY="113.0" prefHeight="241.0" prefWidth="194.0" />
+      <Label fx:id="typeOfWhiskylbl" layoutX="787.0" layoutY="456.0" text="Type af whisky:" />
+      <Label fx:id="wateredWhiskylbl" layoutX="526.0" layoutY="457.0" text="Fortyndelse med vand:" />
+      <TextField fx:id="wateredWhiskytxf" layoutX="488.0" layoutY="483.0" prefHeight="25.0" prefWidth="194.0" promptText="cl" />
+      <TextField fx:id="amountOfBottlestxf" layoutX="730.0" layoutY="547.0" onAction="#amountOfBottlesCalculation" prefHeight="25.0" prefWidth="194.0" promptText="Udregnes" />
+      <Label fx:id="amountOfBottleslbl" layoutX="796.0" layoutY="524.0" text="Antal flasker" />
+      <Button fx:id="btnCreateWhisky" layoutX="533.0" layoutY="547.0" mnemonicParsing="false" onAction="#btnCreateWhisky" prefHeight="25.0" prefWidth="103.0" text="Opret whisky" />
+      <ComboBox fx:id="bottleSizecbb" layoutX="754.0" layoutY="408.0" prefWidth="150.0" />
+      <Label fx:id="bottleSizelbl" layoutX="786.0" layoutY="387.0" text="Størrelse flaske:" />
+      <TextField fx:id="txfTypeOfWhisky" layoutX="753.0" layoutY="484.0" />
+      <Label layoutX="551.0" layoutY="86.0" text="Whiskybatch" />
       <Button fx:id="btnRegistrerAlcoholPercentage" layoutX="123.0" layoutY="487.0" mnemonicParsing="false" onAction="#btnRegisterAlcoholPercentageOnAction" text="Tilføj til whiskybatch" />
       <TextField fx:id="txfAlcoholPercentage" layoutX="122.0" layoutY="449.0" prefHeight="25.0" prefWidth="147.0" />
       <Label layoutX="28.0" layoutY="453.0" text="Alcoholprocent:" />
-      <TextField fx:id="txfWhiskyName" layoutX="426.0" layoutY="404.0" />
-      <Label layoutX="486.0" layoutY="383.0" text="Navn" />
-      <TextArea fx:id="txaContentOfWhisky" layoutX="667.0" layoutY="113.0" prefHeight="241.0" prefWidth="264.0" />
+      <TextField fx:id="txfWhiskyName" layoutX="510.0" layoutY="408.0" />
+      <Label layoutX="571.0" layoutY="390.0" text="Navn" />
+      <TextArea fx:id="txaContentOfWhisky" layoutX="485.0" layoutY="113.0" prefHeight="241.0" prefWidth="200.0" />
+      <TableView fx:id="tbvRipeCasks" layoutX="13.0" layoutY="113.0" prefHeight="241.0" prefWidth="431.0">
+        <columns>
+          <TableColumn fx:id="tbcCaskID" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="tbcAlcoholPercentage" prefWidth="75.0" text="Alc %" />
+            <TableColumn fx:id="tbcAge" prefWidth="172.0" text="Alder" />
+            <TableColumn fx:id="tbcTotalLitersOfFills" prefWidth="105.0" text="Liter af whisky" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

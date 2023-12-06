@@ -75,13 +75,13 @@ public class App {
 
         Cask mainCask = MainController.createCask("Frankrig", 50, "Bourbon", p1, cs1);
 
-        Distillate testD = MainController.createDistillate("Idk", 20, 50, 30, em1, MainController.getMaltbatches());
+        Distillate testD = MainController.createDistillate("Idk", 20, 50, 50, em1, MainController.getMaltbatches());
 
         ArrayList<DistillateFill> distillateFills = new ArrayList<>();
         distillateFills.add(new DistillateFill(10, testD));
 
         ArrayList<DistillateFill> distillateFills2 = new ArrayList<>();
-        distillateFills2.add(new DistillateFill(20, testD));
+        distillateFills2.add(new DistillateFill(30, testD));
 
         MainController.createFillOnCask(LocalDate.of(2015, 10, 2), mainCask, distillateFills);
 
