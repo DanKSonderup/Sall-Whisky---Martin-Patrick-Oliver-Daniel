@@ -34,7 +34,7 @@ class WhiskyTestCalculateAlcoholpercentage {
 
         // Act
         double actualResult = whisky.calculateAlcoholPercentage();
-        System.out.println(actualResult);
+        
 
         // Assert
         assertEquals(52.5, actualResult);
@@ -50,7 +50,7 @@ class WhiskyTestCalculateAlcoholpercentage {
 
         // Act
         double actualResult = whisky.calculateAlcoholPercentage();
-        System.out.println(actualResult);
+
 
         // Assert
         assertEquals(42.33, actualResult, 0.01);
@@ -68,7 +68,7 @@ class WhiskyTestCalculateAlcoholpercentage {
 
         // Act
         double actualResult = whisky.calculateAlcoholPercentage();
-        System.out.println(actualResult);
+
 
         // Assert
         assertEquals(62.94, actualResult, 0.01);
@@ -87,7 +87,7 @@ class WhiskyTestCalculateAlcoholpercentage {
 
         // Act
         double actualResult = whisky.calculateAlcoholPercentage();
-        System.out.println(actualResult);
+
 
         // Assert
         assertEquals(48.27, actualResult, 0.01);
