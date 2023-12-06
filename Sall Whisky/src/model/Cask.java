@@ -83,7 +83,7 @@ public class Cask {
     public double getLitersAvailable() {
         double sum = 0.0;
         for (FillOnCask fillOnCask: fillOnCasks) {
-            sum += fillOnCask.getAmountOfDistillateInLiters();
+            sum += fillOnCask.getTotalLitersForFills();
         }
         return sizeInLiters - sum;
     }
@@ -92,9 +92,9 @@ public class Cask {
         double alcoholPercentage = 0;
         double totalFluids = 0;
         for (FillOnCask fillOnCask : fillOnCasks) {
-            alcoholPercentage += (fillOnCask.getAmountOfDistillateInLiters() *
+            alcoholPercentage += (fillOnCask.getTotalLitersForFills() *
                     (fillOnCask.calculateAlcoholPercentage() / 100.0));
-            totalFluids += fillOnCask.getAmountOfDistillateInLiters();
+            totalFluids += fillOnCask.getTotalLitersForFills();
         }
         return alcoholPercentage / totalFluids * 100;
     }
