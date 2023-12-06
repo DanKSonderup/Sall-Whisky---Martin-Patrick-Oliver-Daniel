@@ -95,7 +95,7 @@ public class CreateWhiskyViewController implements Initializable {
         double waterInLiters = Double.parseDouble(wateredWhiskytxf.getText().trim());
         String name = txfWhiskyName.getText().trim();
 
-        whisky = MainController.createWhisky(name, waterInLiters, whiskyFill.getAlcoholPercentage(), )
+        // whisky = MainController.createWhisky(name, waterInLiters, whiskyFill.getAlcoholPercentage(), )
 
     }
 
