@@ -71,14 +71,14 @@ public class FillOnCask {
         int days = Period.between(timeOfFill, LocalDate.now()).getDays();
         String timeOfAging = "";
         if (years > 0) {
-            timeOfAging += "År: " + years + " ";
+            timeOfAging += years + " År, ";
         }
         if (months > 0) {
-            timeOfAging += "Måneder: " + months + " ";
+            timeOfAging += months + " Måneder, ";
         }
         if (days > 0) {
-            timeOfAging += "Days: " + days + " ";
+            timeOfAging += days + " Dage";
         }
-        return "Liter: " +  getTotalLitersForFills() + " | alc %:" + calculateAlcoholPercentage() + " | " + timeOfAging;
+        return timeOfAging;
     }
 }
