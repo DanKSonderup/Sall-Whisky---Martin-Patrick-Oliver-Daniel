@@ -28,6 +28,9 @@ public class FillOnCask {
     }
 
 
+    /**
+     * returns the total sum of liters from distillate fills connected to this object
+     */
     public double getTotalLitersForFills() {
         double sum = 0.0;
         for (DistillateFill distillateFill: distillateFills) {
