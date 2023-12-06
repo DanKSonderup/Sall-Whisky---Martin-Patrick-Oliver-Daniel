@@ -7,7 +7,7 @@ import storage.ListStorage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainControllerTestCreateCask {
+class ControllerTestCreateCask {
 
     private Cask cask;
     private String countryOfOrigin;
@@ -22,7 +22,7 @@ class MainControllerTestCreateCask {
     @BeforeEach
     void setUp() {
         storage = new ListStorage();
-        MainController.setStorage(storage);
+        Controller.setStorage(storage);
         countryOfOrigin = "Frankrig";
         warehouse = new Warehouse(1, "Testfirma");
         rack = new Rack(1, warehouse);
@@ -36,7 +36,7 @@ class MainControllerTestCreateCask {
         sizeInLiters = 50;
         previousContent = "Whisky";
         // Act
-        cask = MainController.createCask(countryOfOrigin, sizeInLiters, previousContent, position, supplier);
+        cask = Controller.createCask(countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         // Assert
         assertTrue(cask.getPosition().equals(position));
         assertTrue(position.getCasks().contains(cask));
@@ -49,7 +49,7 @@ class MainControllerTestCreateCask {
         sizeInLiters = 50;
         previousContent = "";
         // Act
-        cask = MainController.createCask(countryOfOrigin, sizeInLiters, previousContent, position, supplier);
+        cask = Controller.createCask(countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         // Assert
         assertTrue(cask.getPosition().equals(position));
         assertTrue(position.getCasks().contains(cask));
@@ -66,7 +66,7 @@ class MainControllerTestCreateCask {
 
         // Assert
         assertThrows(IllegalArgumentException.class, () -> {
-            MainController.createCask(countryOfOrigin, sizeInLiters, previousContent, position, supplier);
+            Controller.createCask(countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         });
     }
 }

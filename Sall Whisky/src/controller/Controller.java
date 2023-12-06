@@ -6,13 +6,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MainController {
+public abstract class Controller {
 
     private static List<Observer> observers = new ArrayList<>();
     private static Storage storage;
 
     public static void setStorage(Storage storage) {
-        MainController.storage = storage;
+        Controller.storage = storage;
     }
 
     public static Storage getStorage() {
@@ -166,7 +166,7 @@ public abstract class MainController {
 
     public static ArrayList<Cask> getAvailableCasks() {
         ArrayList<Cask> availableCasks = new ArrayList<>();
-        for (Cask cask: MainController.getCasks()) {
+        for (Cask cask: Controller.getCasks()) {
             if (cask.getLitersAvailable() > 0) {
                 availableCasks.add(cask);
             }

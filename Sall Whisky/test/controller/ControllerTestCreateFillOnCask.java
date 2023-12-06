@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class MainControllerTestCreateFillOnCask {
+class ControllerTestCreateFillOnCask {
 
     private Cask cask;
     private Distillate distillate;
@@ -30,7 +30,7 @@ class MainControllerTestCreateFillOnCask {
         DistillateFill distillateFill = new DistillateFill(49, distillate);
         ArrayList<DistillateFill> distillateFills = new ArrayList<>();
         distillateFills.add(distillateFill);
-        FillOnCask fillOnCask = MainController.createFillOnCask(LocalDate.of(2023, 12, 3), cask, distillateFills);
+        FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 3), cask, distillateFills);
 
         // Act
         cask.addFillOnCask(fillOnCask);
@@ -51,7 +51,7 @@ class MainControllerTestCreateFillOnCask {
 
         // Asserts
         assertThrows(IllegalArgumentException.class, () -> {
-            MainController.createFillOnCask(LocalDate.of(2024, 12, 4), cask, distillateFills);
+            Controller.createFillOnCask(LocalDate.of(2024, 12, 4), cask, distillateFills);
         });
     }
 
@@ -61,7 +61,7 @@ class MainControllerTestCreateFillOnCask {
         DistillateFill distillateFill = new DistillateFill(50, distillate);
         ArrayList<DistillateFill> distillateFills = new ArrayList<>();
         distillateFills.add(distillateFill);
-        FillOnCask fillOnCask = MainController.createFillOnCask(LocalDate.of(2023, 12, 3), cask, distillateFills);
+        FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 3), cask, distillateFills);
 
         // Act
         cask.addFillOnCask(fillOnCask);
@@ -82,7 +82,7 @@ class MainControllerTestCreateFillOnCask {
 
         // Assert
         assertThrows(IllegalArgumentException.class, () -> {
-            MainController.createFillOnCask(LocalDate.of(2023, 12, 1), cask, distillateFills);
+            Controller.createFillOnCask(LocalDate.of(2023, 12, 1), cask, distillateFills);
         });
     }
 
