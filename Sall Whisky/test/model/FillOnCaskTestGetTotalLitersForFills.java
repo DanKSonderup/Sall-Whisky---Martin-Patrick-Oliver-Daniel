@@ -23,7 +23,7 @@ class FillOnCaskTestGetTotalLitersForFills {
         df2 = new DistillateFill(13.6, distillate2);
     }
     @Test
-    void TestCase1() {
+    void testCase1() {
         // Arrange
 
         // Act

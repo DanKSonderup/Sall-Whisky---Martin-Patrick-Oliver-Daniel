@@ -28,6 +28,10 @@ public class Whisky {
         return whiskyFills;
     }
 
+    public void setWaterInLiters(double waterInLiters) {
+        this.waterInLiters = waterInLiters;
+    }
+
     public void addWhiskyFill(WhiskyFill whiskyFill) {
         whiskyFills.add(whiskyFill);
     }
