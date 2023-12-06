@@ -7,7 +7,7 @@ import storage.ListStorage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainControllerTest {
+class MainControllerTestCreateCask {
 
     private Cask cask;
     private String countryOfOrigin;

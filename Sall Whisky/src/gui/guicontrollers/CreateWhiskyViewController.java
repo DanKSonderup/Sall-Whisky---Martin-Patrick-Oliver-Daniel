@@ -1,6 +1,5 @@
 package gui.guicontrollers;
 
-import com.sun.tools.javac.Main;
 import controller.MainController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;

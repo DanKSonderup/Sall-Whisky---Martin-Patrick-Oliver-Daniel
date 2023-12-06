@@ -1,7 +1,6 @@
 package gui.guicontrollers;
 
 import controller.MainController;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +14,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class CRUDDistilleryAndFillController implements Initializable {

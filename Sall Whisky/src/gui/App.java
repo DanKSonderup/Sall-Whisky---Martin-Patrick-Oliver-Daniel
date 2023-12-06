@@ -1,9 +1,7 @@
 package gui;
 
-import com.sun.tools.javac.Main;
 import controller.MainController;
 import controller.Storage;
-import gui.guicontrollers.CreateSupplierViewController;
 import javafx.application.Application;
 import model.*;
 import storage.ListStorage;
