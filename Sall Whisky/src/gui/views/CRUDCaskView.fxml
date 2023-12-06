@@ -14,12 +14,12 @@
         <Button fx:id="btnDeleteCask" layoutX="740.0" layoutY="356.0" mnemonicParsing="false" onAction="#btnDeleteCaskOnAction" prefHeight="50.0" prefWidth="200.0" style="-fx-text-fill: red;" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Slet Fad(e)" />
         <Button fx:id="btnCreateCask" layoutX="740.0" layoutY="206.0" mnemonicParsing="false" onAction="#btnCreateCaskOnAction" prefHeight="50.0" prefWidth="200.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Opret Fad(e)" />
       <Button fx:id="btnCreateFillOnCask" layoutX="740.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnCreateFillOnCask" prefHeight="50.0" prefWidth="200.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Opret Påfyldning" />
-      <Button fx:id="btnCRUDCask" disable="true" layoutX="169.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="166.0" text="Administrer fade" />
-      <Button fx:id="btnCRUDStorage" layoutX="335.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer lager" />
-      <Button fx:id="btnDestillateAndFillOnCask" layoutX="501.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Destillater og påfyldninger" />
-      <Button fx:id="btnCRUDRawMaterial" layoutX="667.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer råvare" />
-      <Button fx:id="btnCRUDSupplier" layoutX="833.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="166.0" text="Adminstrer leverandører" />
-      <Button fx:id="btnStartside" layoutX="3.0" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="166.0" text="Startside" />
+      <Button fx:id="btnCRUDCask" disable="true" layoutX="167.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="167.0" text="Administrer fade" />
+      <Button fx:id="btnCRUDStorage" layoutX="334.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer lager" />
+      <Button fx:id="btnDestillateAndFillOnCask" layoutX="501.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Destillater og påfyldninger" />
+      <Button fx:id="btnCRUDRawMaterial" layoutX="668.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="167.0" text="Adminstrer råvare" />
+      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Adminstrer leverandører" />
+      <Button fx:id="btnStartside" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="167.0" text="Startside" />
       <Label alignment="CENTER" layoutX="336.0" layoutY="58.0" text="Fade">
          <font>
             <Font name="Century Gothic Bold" size="24.0" />
