@@ -421,9 +421,24 @@ public abstract class MainController {
         return whisky;
     }
 
+    public static List<Whisky> getWhiskies() {
+        return new ArrayList<>(storage.getWhiskies());
+    }
+
     public static double averageAmountInLitersRemoved(FillOnCask fillOnCask, int amountTaken) {
         // fillOnCask.getDistillateFills()
         return 09.0;
+    }
+
+    public static void createWhiskyBottle(int centiliterCapacity, Whisky whisky) {
+        WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter().getWhiskyBottleCount(),centiliterCapacity, whisky);
+        storage.storeWhiskyBottle(whiskyBottle);
+        storage.getStorageCounter().incrementWhiskyBottleCount();
+    }
+    public static void createWhiskyBottlesForWhisky(int numberOfBottles, int centiliterCapacity, Whisky whisky) {
+        for (int i = 0; i < numberOfBottles; i++) {
+            createWhiskyBottle(centiliterCapacity, whisky);
+        }
     }
 
     public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {

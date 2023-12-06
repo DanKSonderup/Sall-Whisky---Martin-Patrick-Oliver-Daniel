@@ -104,6 +104,14 @@ public class CreateWhiskyViewController implements Initializable {
         String name = txfWhiskyName.getText().trim();
         whisky = MainController.createWhisky(name, waterInLiters, whiskyFills);
 
+        MainController.createWhiskyBottlesForWhisky(amountOfBottles, sizeOfBottle, whisky);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Whisky");
+        alert.setHeaderText("Whisky oprettet");
+        alert.setContentText("En ny whisky er oprettet med navn: " + whisky.getName() + "\n" + "Der er oprettet " + amountOfBottles + " flasker med den valgte whisky");
+        alert.show();
+        System.out.println(MainController.getStorage().getWhiskies());
     }
 
     @FXML
@@ -119,7 +127,10 @@ public class CreateWhiskyViewController implements Initializable {
         value = txfParseDouble(txfAlcoholPercentage);
         amountToFill = txfParseDouble(amountOfFillCltxf);
 
-        if (value < 0 || amountToFill < 0) {
+        if (value < 0 || amountToFill < 0 || value > 99) {
+            if (value > 99) {
+                txfAlcoholPercentage.setStyle("-fx-border-color: red;");
+            }
             return;
         }
         try {
@@ -142,6 +153,7 @@ public class CreateWhiskyViewController implements Initializable {
         } else {
             txfTypeOfWhisky.setText("Single malt");
         }
+        clearErrorMarkings();
     }
 
     @FXML
@@ -158,11 +170,12 @@ public class CreateWhiskyViewController implements Initializable {
         }
 
         String name = txfWhiskyName.getText().trim();
-        whisky = MainController.createWhisky(name, waterInLiters, whiskyFills);
+        whisky = new Whisky(name, waterInLiters, whiskyFills);
         int amountOfBottles = MainController.amountOfBottles(whisky, sizeOfBottle);
         amountOfBottlestxf.setText("" + amountOfBottles);
 
         btnCreateWhisky.setDisable(false);
+        clearErrorMarkings();
     }
 
 
@@ -172,6 +185,12 @@ public class CreateWhiskyViewController implements Initializable {
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.show();
+    }
+
+    private void clearErrorMarkings() {
+        wateredWhiskytxf.setStyle("-fx-border-color: transparent;");
+        amountOfFillCltxf.setStyle("-fx-border-color: transparent;");
+        txfAlcoholPercentage.setStyle("-fx-border-color: transparent;");
     }
     private double txfParseDouble(TextField txf) {
         double returnValue = -1.0;
