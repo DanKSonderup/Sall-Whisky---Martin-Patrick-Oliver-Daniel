@@ -35,20 +35,6 @@ public class WhiskyFill {
 
     @Override
     public String toString() {
-        int years = Period.between(timeOfFill, LocalDate.now()).getYears();
-        int months = Period.between(timeOfFill, LocalDate.now()).getMonths();
-        int days = Period.between(timeOfFill, LocalDate.now()).getDays();
-        String timeOfAging = "";
-        if (years > 0) {
-            timeOfAging += "År: " + years + " ";
-        }
-        if (months > 0) {
-            timeOfAging += "Måneder: " + months + " ";
-        }
-        if (days > 0) {
-            timeOfAging += "Days: " + days + " ";
-        }
-
-        return "Liter: " + amountofDistilateFillInLiters + " | alc %:" + getAlcoholPercentage() + " | " + timeOfAging;
+        return "Liter: " + amountofDistilateFillInLiters + " | Alc% :" + alcoholPercentage;
     }
 }

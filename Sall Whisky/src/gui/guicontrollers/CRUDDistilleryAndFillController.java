@@ -38,7 +38,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
     private Label availableCaskslbl;
 
     @FXML
-    private ListView<String> availableCaskslvw;
+    private ListView<Cask> availableCaskslvw;
 
     @FXML
     private Button btnCRUDCask;
@@ -153,9 +153,12 @@ public class CRUDDistilleryAndFillController implements Initializable {
         }
         if (maltBatches.size() == 0) {
             lvwMaltBatches.setStyle("-fx-border-color: red;");
+            return;
         }
 
         MainController.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches);
+        clearErrorMarkings();
+
         updateControls();
 
 //        MainController.createDistillate()
@@ -164,9 +167,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
     @FXML
     void btnFillOnCaskOnAction(ActionEvent event) {
         Distillate distillate = distillatelvw.getSelectionModel().getSelectedItem();
-        String[] fields = availableCaskslvw.getSelectionModel().getSelectedItem().split("|");
-
-        Cask cask = MainController.getAvailableCaskById(0);
+        Cask cask = availableCaskslvw.getSelectionModel().getSelectedItem();
         double amountInLiters = txfParseDouble(typeLiterAmounttxf);
 
         if (cask == null) {
@@ -183,6 +184,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
             alert.setHeaderText("Du skal vælge et distillat");
             alert.setContentText("Du skal vælge et distillat for at påfylde");
             alert.show();
+            return;
         }
         ArrayList<DistillateFill> distillateFills = new ArrayList<>();
         try {
@@ -204,6 +206,22 @@ public class CRUDDistilleryAndFillController implements Initializable {
             alert.show();
         }
 
+            try {
+                MainController.createFillOnCask(LocalDate.now(), cask, distillateFills);
+            } catch (IllegalArgumentException e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Fejl");
+                alert.setHeaderText("Fejl");
+                alert.setContentText(e.getMessage());
+                alert.show();
+                return;
+            }
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Påfyldning");
+            alert.setHeaderText("Påfyldning oprettet");
+            alert.setContentText("En påfyldning af " + amountInLiters + " liter er blevet påfyldt på fadID: " + cask.getCaskId());
+            alert.show();
+            clearErrorMarkings();
     }
 
     private double txfParseDouble(TextField txf) {
@@ -216,14 +234,12 @@ public class CRUDDistilleryAndFillController implements Initializable {
         return returnValue;
     }
 
-    private boolean canFillOnCask(double amountInLiters, Cask cask) {
-        double currentContent = 0;
-        for (FillOnCask fillOnCask: cask.getFillOnCasks()) {
-            for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
-                currentContent += distillateFill.getAmountOfDistillateInLiters();
-            }
-        }
-        return currentContent > cask.getSizeInLiters();
+    private void clearErrorMarkings() {
+        newMakeNrtxf.setStyle("-fx-border-color: transparent;");
+        pickEmployeeComboBox.setStyle("-fx-border-color: transparent;");
+        amountOfLiterstxf.setStyle("-fx-border-color: transparent;");
+        alcoholPercentagetxf.setStyle("-fx-border-color: transparent;");
+        typeLiterAmounttxf.setStyle("-fx-border-color: transparent;");
     }
 
     private void updateControls() {
@@ -232,10 +248,19 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        distillatelvw.getItems().setAll(MainController.getAvailableDistillates());
-        availableCaskslvw.getItems().setAll(getAvailableCasksAsStrings());
+        availableCaskslvw.getItems().setAll(MainController.getCasks());
         lvwMaltBatches.getItems().setAll(MainController.getMaltbatches());
         pickEmployeeComboBox.getItems().setAll(MainController.getEmployees());
+    }
+
+    private boolean canFillOnCask(double amountInLiters, Cask cask) {
+        double currentContent = 0;
+        for (FillOnCask fillOnCask: cask.getFillOnCasks()) {
+            for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
+                currentContent += distillateFill.getAmountOfDistillateInLiters();
+            }
+        }
+        return currentContent > cask.getSizeInLiters();
     }
 
     private ArrayList<String> getAvailableCasksAsStrings() {

@@ -4,7 +4,6 @@ import model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public abstract class MainController {
@@ -141,7 +140,6 @@ public abstract class MainController {
         } else {
             cask = new Cask(id, countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         }
-        System.out.println(cask.getCaskId());
         storage.storeCask(cask);
         position.addCask(cask);
         return cask;
@@ -233,7 +231,7 @@ public abstract class MainController {
      * If distillateFill is > sizeInLiters (Cask) throw an illegalArgumentException
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
      */
-    public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) {
+    public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) throws IllegalArgumentException {
         FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask);
 
         double sum = 0;
@@ -408,11 +406,6 @@ public abstract class MainController {
         Whisky whisky = new Whisky(name,waterInLiters, whiskyFills);
         storage.storeWhisky(whisky);
         return whisky;
-    }
-
-    public static double averageAmountInLitersRemoved(FillOnCask fillOnCask, int amountTaken) {
-        // fillOnCask.getDistillateFills()
-        return 09.0;
     }
 
     public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {

@@ -1,7 +1,6 @@
 package gui.guicontrollers;
 
 import controller.MainController;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class CreateWhiskyViewController implements Initializable {
     private ListView<FillOnCask> lvwFillOnCaskReadyForFill;
 
     @FXML
-    private ListView<WhiskyFill> lvwWhiskyFillReadyForFill;
+    private ListView<WhiskyFill> lvwWhiskyBatch;
 
     @FXML
     private TextField txfAlcoholPercentage;
@@ -98,22 +98,39 @@ public class CreateWhiskyViewController implements Initializable {
 
     @FXML
     void btnRegisterAlcoholPercentageOnAction(ActionEvent event) {
-        double value = Double.parseDouble(txfAlcoholPercentage.getText().trim());
         FillOnCask fillOnCask = lvwFillOnCaskReadyForFill.getSelectionModel().getSelectedItem();
-        double amountToFill = Double.parseDouble(amountOfFillCltxf.getText().trim());
+        double value = 0.0;
+        double amountToFill = 0.0;
+
+        value = txfParseDouble(txfAlcoholPercentage);
+        amountToFill = txfParseDouble(amountOfFillCltxf);
+
+        if (value < 0 || amountToFill < 0) {
+            return;
+        }
         whiskyFill = MainController.createWhiskyFill(amountToFill, fillOnCask, value);
+
+
         lvwWhiskyFillReadyForFillTemp.add(whiskyFill);
+        lvwFillOnCaskReadyForFill.getItems().clear();
         updatelvwWhiskyFillReadyForFill();
         updateContentOfWhisky(whiskyFill.toString());
     }
 
-    public void selectedStorageItemChanged() {
-        FillOnCask selectedFillOnCask = lvwFillOnCaskReadyForFill.getSelectionModel().getSelectedItem();
-        WhiskyFill selectedWhiskyFill = lvwWhiskyFillReadyForFill.getSelectionModel().getSelectedItem();
+
+    private double txfParseDouble(TextField txf) {
+        double returnValue = -1.0;
+        try {
+            returnValue = Double.parseDouble(txf.getText().trim());
+        } catch (NumberFormatException e) {
+            txf.setStyle("-fx-border-color: red;");
+        }
+        txf.setOnMouseClicked(e -> {txf.setStyle("-fx-border-color: transparent;");});
+        return returnValue;
     }
 
     private void updatelvwWhiskyFillReadyForFill() {
-        lvwWhiskyFillReadyForFill.getItems().setAll(lvwWhiskyFillReadyForFillTemp);
+        lvwWhiskyBatch.getItems().setAll(lvwWhiskyFillReadyForFillTemp);
     }
 
     private void updateContentOfWhisky(String content) {
@@ -129,21 +146,13 @@ public class CreateWhiskyViewController implements Initializable {
                 }
             }
         }
-        if (lvwWhiskyFillReadyForFill == null) {
-            return;
-        }
         lvwFillOnCaskReadyForFill.getItems().setAll(lvwFillOnCaskReadyForFillTemp);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        updatelvwWhiskyFillReadyForFill();
+        // updatelvwWhiskyFillReadyForFill();
         updatelvwFillOnCaskReadyForFill();
-        ChangeListener<FillOnCask> fillOnCaskChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
-        lvwFillOnCaskReadyForFill.getSelectionModel().selectedItemProperty().addListener(fillOnCaskChangeListener);
-
-        ChangeListener<WhiskyFill> whiskyFillChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
-        lvwWhiskyFillReadyForFill.getSelectionModel().selectedItemProperty().addListener(whiskyFillChangeListener);
 
 
         Integer bottleSize[] = {3, 10, 50, 70};
