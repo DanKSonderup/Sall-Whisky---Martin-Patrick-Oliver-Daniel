@@ -10,9 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.*;
 
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -75,6 +73,8 @@ public class CreateWhiskyViewController implements Initializable {
 
     @FXML
     private TextField txfTypeOfWhisky;
+    @FXML
+    private Button btnCalcNumberOfBottles;
 
     @FXML
     private Label typeOfWhiskylbl;
@@ -89,25 +89,21 @@ public class CreateWhiskyViewController implements Initializable {
     private Label whiskyPropertieslbl;
     @FXML
     private TextArea txaContentOfWhisky;
-    private final List<FillOnCask> lvwFillOnCaskReadyForFillTemp = new ArrayList<>();
-    private final List<WhiskyFill> lvwWhiskyFillReadyForFillTemp = new ArrayList<>();
+    private final List<WhiskyFill> whiskyFills = new ArrayList<>();
 
     private WhiskyFill whiskyFill;
     private Whisky whisky;
 
 
     @FXML
-    void amountOfBottlesCalculation(ActionEvent event) {
-
-    }
-
-    @FXML
     void btnCreateWhisky(ActionEvent event) {
-        double amountOfWhiskyFill = Double.parseDouble(amountOfFillCltxf.getText().trim());
+        int sizeOfBottle = bottleSizecbb.getSelectionModel().getSelectedItem();
         double waterInLiters = Double.parseDouble(wateredWhiskytxf.getText().trim());
-        String name = txfWhiskyName.getText().trim();
+        int amountOfBottles = Integer.parseInt(amountOfBottlestxf.getText().trim());
 
-        // whisky = MainController.createWhisky(name, waterInLiters, whiskyFill.getAlcoholPercentage(), )
+        String name = txfWhiskyName.getText().trim();
+        whisky = MainController.createWhisky(name, waterInLiters, whiskyFills);
+
     }
 
     @FXML
@@ -134,10 +130,39 @@ public class CreateWhiskyViewController implements Initializable {
         }
 
 
-        lvwWhiskyFillReadyForFillTemp.add(whiskyFill);
+        whiskyFills.add(whiskyFill);
+        tbvRipeCasks.getItems().removeAll();
         updateRipeCasks();
         updatelvwWhiskyFillReadyForFill();
         updateContentOfWhisky(whiskyFill.toString());
+        btnCreateWhisky.setDisable(true);
+
+        if (whiskyFills.size() > 1) {
+            txfTypeOfWhisky.setText("Blended");
+        } else {
+            txfTypeOfWhisky.setText("Single malt");
+        }
+    }
+
+    @FXML
+    void btnCalcNumberOfBottlesOnAction(ActionEvent event) {
+        int sizeOfBottle = bottleSizecbb.getSelectionModel().getSelectedItem();
+        double waterInLiters = Double.parseDouble(wateredWhiskytxf.getText().trim());
+
+        if (waterInLiters < 0) {
+            return;
+        }
+        if (sizeOfBottle == 0) {
+            bottleSizecbb.setStyle("-fx-border-color: red;");
+            return;
+        }
+
+        String name = txfWhiskyName.getText().trim();
+        whisky = MainController.createWhisky(name, waterInLiters, whiskyFills);
+        int amountOfBottles = MainController.amountOfBottles(whisky, sizeOfBottle);
+        amountOfBottlestxf.setText("" + amountOfBottles);
+
+        btnCreateWhisky.setDisable(false);
     }
 
 
@@ -160,7 +185,7 @@ public class CreateWhiskyViewController implements Initializable {
     }
 
     private void updatelvwWhiskyFillReadyForFill() {
-        lvwWhiskyBatch.getItems().setAll(lvwWhiskyFillReadyForFillTemp);
+        lvwWhiskyBatch.getItems().setAll(whiskyFills);
     }
 
     private void updateContentOfWhisky(String content) {
@@ -175,14 +200,13 @@ public class CreateWhiskyViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // updatelvwWhiskyFillReadyForFill();
-        Integer bottleSize[] = {3, 10, 50, 70};
+        Integer bottleSize[] = {50, 75, 100, 120};
         bottleSizecbb.setItems(FXCollections.observableArrayList(bottleSize));
 
         tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
         tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, FillOnCask>("YoungestFillOnCask"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
-
         updateRipeCasks();
     }
 }
