@@ -6,11 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.*;
 
 import java.net.URL;
@@ -77,6 +73,8 @@ public class CreateWhiskyViewController implements Initializable {
 
     @FXML
     private Label whiskyPropertieslbl;
+    @FXML
+    private TextArea txaContentOfWhisky;
     private final List<FillOnCask> lvwFillOnCaskReadyForFillTemp = new ArrayList<>();
     private final List<WhiskyFill> lvwWhiskyFillReadyForFillTemp = new ArrayList<>();
 
@@ -96,18 +94,17 @@ public class CreateWhiskyViewController implements Initializable {
         String name = txfWhiskyName.getText().trim();
 
         // whisky = MainController.createWhisky(name, waterInLiters, whiskyFill.getAlcoholPercentage(), )
-
     }
 
     @FXML
     void btnRegisterAlcoholPercentageOnAction(ActionEvent event) {
         double value = Double.parseDouble(txfAlcoholPercentage.getText().trim());
         FillOnCask fillOnCask = lvwFillOnCaskReadyForFill.getSelectionModel().getSelectedItem();
-
         double amountToFill = Double.parseDouble(amountOfFillCltxf.getText().trim());
         whiskyFill = MainController.createWhiskyFill(amountToFill, fillOnCask, value);
         lvwWhiskyFillReadyForFillTemp.add(whiskyFill);
         updatelvwWhiskyFillReadyForFill();
+        updateContentOfWhisky(whiskyFill.toString());
     }
 
     public void selectedStorageItemChanged() {
@@ -119,6 +116,10 @@ public class CreateWhiskyViewController implements Initializable {
         lvwWhiskyFillReadyForFill.getItems().setAll(lvwWhiskyFillReadyForFillTemp);
     }
 
+    private void updateContentOfWhisky(String content) {
+        txaContentOfWhisky.appendText(content + " \n");
+    }
+
 
     private void updatelvwFillOnCaskReadyForFill() {
         for (Cask cask : MainController.getCasks()) {
@@ -127,6 +128,9 @@ public class CreateWhiskyViewController implements Initializable {
                     lvwFillOnCaskReadyForFillTemp.add(fillOnCask);
                 }
             }
+        }
+        if (lvwWhiskyFillReadyForFill == null) {
+            return;
         }
         lvwFillOnCaskReadyForFill.getItems().setAll(lvwFillOnCaskReadyForFillTemp);
     }

@@ -5,17 +5,20 @@ package gui.guicontrollers;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.fxml.Initializable;
+        import javafx.scene.Scene;
         import javafx.scene.control.Button;
         import javafx.scene.control.Label;
         import javafx.scene.control.ListView;
         import javafx.scene.control.TextField;
         import javafx.scene.layout.AnchorPane;
+        import javafx.stage.Stage;
         import model.*;
+
+        import java.io.IOException;
         import java.net.URL;
         import java.util.ResourceBundle;
 
 public class CRUDWarehouseViewController implements Initializable {
-
     @FXML
     private AnchorPane ap_Pane1;
 
@@ -62,40 +65,25 @@ public class CRUDWarehouseViewController implements Initializable {
     private TextField rackAmounttxf;
 
     @FXML
-    private Label warehouseAddresslbl;
-
+    private TextField positionAmounttxf;
+    @FXML
+    private TextField shelfAmounttxf;
     @FXML
     private TextField warehouseAddresstxf;
-
+    @FXML
+    private Label warehouseAddresslbl;
     @FXML
     private Label warehouselbl;
+    private Stage stage;
+    private Scene scene;
     private Rack rack;
     private Shelf shelf;
     private Position position;
-
-    @FXML
-    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnRawMaterialOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnStartSideOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnSupplierOnAction(ActionEvent event) {
-    }
-
     private Warehouse currentlySelectedWarehouse;
     private Rack currentlySelectedRack;
     private Shelf currentlySelectedShelf;
     private Warehouse warehouse;
+
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ChangeListener<Warehouse> warehouseChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
@@ -116,15 +104,23 @@ public class CRUDWarehouseViewController implements Initializable {
 
     @FXML
     void btnCreateWarehouseOnAction(ActionEvent event) {
-        boolean missingInfo = canParseToDouble(rackAmounttxf);
+        boolean missingInfo = canParseToInteger(rackAmounttxf);
+        missingInfo = canParseToInteger(shelfAmounttxf);
+        missingInfo = canParseToInteger(positionAmounttxf);
+
+        if (warehouseAddresstxf.getText().isEmpty()) {
+            missingInfo = true;
+            warehouseAddresstxf.setStyle("-fx-border-color: red;");
+            warehouseAddresstxf.setOnMouseClicked(e -> {warehouseAddresstxf.setStyle("-fx-border-color: transparent;");});
+        }
 
         if (!missingInfo) {
             warehouse = MainController.createWarehouse(warehouseAddresstxf.getText());
             for (int i = 0; i < Integer.parseInt(rackAmounttxf.getText()); i++) {
                 rack = MainController.createRack(warehouse);
-                for (int j = 0; j < 5; j++) {
+                for (int j = 0; j < Integer.parseInt(shelfAmounttxf.getText()); j++) {
                     shelf = MainController.createShelf(rack);
-                    for (int k = 0; k < 5; k++) {
+                    for (int k = 0; k < Integer.parseInt(positionAmounttxf.getText()); k++) {
                         position = MainController.createPosition(shelf, 500);
                     }
                 }
@@ -132,6 +128,8 @@ public class CRUDWarehouseViewController implements Initializable {
         }
         updateWarehouses();
         rackAmounttxf.clear();
+        shelfAmounttxf.clear();
+        positionAmounttxf.clear();
         warehouseAddresstxf.clear();
 
     }
@@ -144,11 +142,6 @@ public class CRUDWarehouseViewController implements Initializable {
     @FXML
     void btnDeleteWarehouseOnAction(ActionEvent event) {
         // TODO
-    }
-
-    @FXML
-    void rackAmountOnAction(ActionEvent event) {
-
     }
 
     public void selectedStorageItemChanged() {
@@ -181,10 +174,10 @@ public class CRUDWarehouseViewController implements Initializable {
             }
         }
     }
-    private boolean canParseToDouble(TextField txf) {
+    private boolean canParseToInteger(TextField txf) {
         boolean cannotParse = false;
         try {
-            double returnValue = Double.parseDouble(txf.getText().trim());
+            double returnValue = Integer.parseInt(txf.getText().trim());
         } catch (NumberFormatException exception) {
             cannotParse = true;
             txf.setStyle("-fx-border-color: red;");
@@ -195,6 +188,31 @@ public class CRUDWarehouseViewController implements Initializable {
 
     private void updateWarehouses() {
         lvwWarehouse.getItems().setAll(MainController.getStorage().getWarehouses());
+    }
+
+    @FXML
+    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
+    }
+
+    @FXML
+    void btnRawMaterialOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnRawMaterial(stage, scene, event);
+    }
+
+    @FXML
+    void btnStartSideOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnStartView(stage, scene, event);
+    }
+
+    @FXML
+    void btnSupplierOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
+    }
+
+    @FXML
+    void btnCrudCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCrudCask(stage, scene, event);
     }
 }
 

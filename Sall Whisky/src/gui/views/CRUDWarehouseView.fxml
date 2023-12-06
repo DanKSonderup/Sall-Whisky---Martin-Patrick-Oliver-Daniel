@@ -6,12 +6,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="ap_Pane1" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDWarehouseViewController">
+<AnchorPane fx:id="ap_Pane1" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDWarehouseViewController">
    <children>
+      <Button fx:id="btnCRUDCask" layoutX="169.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer fade" />
       <Button fx:id="btnDeleteWarehouse" layoutX="777.0" layoutY="590.0" mnemonicParsing="false" onAction="#btnDeleteWarehouseOnAction" prefHeight="45.0" prefWidth="112.0" text="Slet Lager" />
       <Button fx:id="btnCreateWarehouse" layoutX="141.0" layoutY="590.0" mnemonicParsing="false" onAction="#btnCreateWarehouseOnAction" prefHeight="45.0" prefWidth="112.0" text="Opret nyt lager" />
       <Label layoutX="40.0" layoutY="62.0" text="Lageroversigt" />
-      <Button fx:id="btnCRUDCask" layoutX="169.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="166.0" text="Administrer fade" />
       <Button fx:id="btnCRUDWarehouse" disable="true" layoutX="335.0" mnemonicParsing="false" onAction="#btnCrudWarehouseOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer lager" />
       <Button fx:id="btnDestillateAndFillOnCask" layoutX="501.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="166.0" text="Destillater og påfyldninger" />
       <Button fx:id="btnCRUDRawMaterial" layoutX="667.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="166.0" text="Administrer råvarer" />
@@ -25,9 +25,13 @@
       <Label layoutX="369.0" layoutY="95.0" text="Reol" />
       <Label layoutX="590.0" layoutY="95.0" text="Hylde" />
       <Label layoutX="819.0" layoutY="95.0" text="Plads" />
-      <TextField fx:id="rackAmounttxf" layoutX="122.0" layoutY="537.0" onAction="#rackAmountOnAction" />
-      <Label fx:id="rackAmountlbl" layoutX="41.0" layoutY="541.0" text="Antal reoler:" />
+      <TextField fx:id="rackAmounttxf" layoutX="122.0" layoutY="537.0" />
+      <Label layoutX="41.0" layoutY="541.0" text="Antal reoler:" />
       <TextField fx:id="warehouseAddresstxf" layoutX="122.0" layoutY="497.0" />
-      <Label fx:id="warehouseAddresslbl" layoutX="51.0" layoutY="501.0" text="Adresse:" />
+      <Label layoutX="51.0" layoutY="501.0" text="Adresse:" />
+      <Label layoutX="305.0" layoutY="541.0" text="Pladser pr. hylde" />
+      <Label layoutX="317.0" layoutY="501.0" text="Hylder pr. reol" />
+      <TextField fx:id="shelfAmounttxf" layoutX="405.0" layoutY="497.0" />
+      <TextField fx:id="positionAmounttxf" layoutX="405.0" layoutY="537.0" />
    </children>
 </AnchorPane>

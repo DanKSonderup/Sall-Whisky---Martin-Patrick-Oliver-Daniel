@@ -107,6 +107,26 @@ public class Cask {
         return fillOnCasks;
     }
 
+    public int getPositionId() {
+        return position.getPositionId();
+    }
+
+    public int getShelfId() {
+        return position.getShelf().getShelfId();
+    }
+
+    public int getRackId() {
+        return position.getShelf().getRack().getRackId();
+    }
+
+    public int getWarehouseId() {
+        return position.getShelf().getRack().getWarehouse().getWarehouseId();
+    }
+
+    public String getSupplierName() {
+        return supplier.getName();
+    }
+
     public void removeFillOnCask(FillOnCask fillOnCask) {
         fillOnCasks.remove(fillOnCask);
     }
@@ -126,4 +146,8 @@ public class Cask {
                 position.getShelf().getShelfId(),
                 position.getPositionId());
     }
+
+
+
+
 }

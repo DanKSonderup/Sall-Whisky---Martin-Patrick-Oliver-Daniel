@@ -8,10 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -45,21 +43,47 @@ public class CRUDCaskViewController implements Initializable {
     private Button btnEditCask;
     @FXML
     private Button btnStartside;
+//    @FXML
+//    private ListView<Cask> lvwCasks;
     @FXML
-    private ListView<Cask> lvwCasks;
+    private TableColumn<Cask, String> columnCountryOfOrigin;
+    @FXML
+    private TableColumn<Cask, Integer> columnID;
+    @FXML
+    private TableColumn<Cask, Integer> columnPosition;
+    @FXML
+    private TableColumn<Cask, String> columnPreviousContent;
+    @FXML
+    private TableColumn<Cask, Integer> columnRack;
+    @FXML
+    private TableColumn<Cask, Integer> columnShelf;
+    @FXML
+    private TableColumn<Cask, Double> columnSizeInLiters;
+    @FXML
+    private TableColumn<Cask, Double> columnSpaceAvailableInLiters;
+    @FXML
+    private TableColumn<Cask, Integer> columnWarehouse;
+    @FXML
+    private TableView<Cask> tvwCasks;
+
     private Stage stage;
     private Scene scene;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*
-        List<String> stringList = new ArrayList<>();
-        for (Cask cask : MainController.getCasks()) {
-            stringList.add(MainController.caskViewString(cask));
-        }
+        columnID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
+        columnCountryOfOrigin.setCellValueFactory(new PropertyValueFactory<Cask, String>("countryOfOrigin"));
+        columnSizeInLiters.setCellValueFactory(new PropertyValueFactory<Cask, Double>("sizeInLiters"));
+        columnSpaceAvailableInLiters.setCellValueFactory(new PropertyValueFactory<Cask, Double>("LitersAvailable"));
+        columnPreviousContent.setCellValueFactory(new PropertyValueFactory<Cask, String>("previousContent"));
+        columnWarehouse.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("warehouseId"));
+        columnRack.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("rackId"));
+        columnShelf.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("shelfId"));
+        columnPosition.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("positionId"));
 
-         */
         updateLvwCasks();
+        updateTvwCasks();
+
     }
 
     @FXML
@@ -72,6 +96,7 @@ public class CRUDCaskViewController implements Initializable {
         stage.setScene(new Scene(root1));
         stage.showAndWait();
         updateLvwCasks();
+        updateTvwCasks();
     }
 
     /**
@@ -91,9 +116,9 @@ public class CRUDCaskViewController implements Initializable {
      */
     @FXML
     void btnDeleteCaskOnAction(ActionEvent event) {
-        Cask cask = lvwCasks.getSelectionModel().getSelectedItem();
-        if (lvwCasks.getSelectionModel().isEmpty()) {
-            lvwCasks.setStyle("-fx-border-color: red;");
+        Cask cask = tvwCasks.getSelectionModel().getSelectedItem();
+        if (tvwCasks.getSelectionModel().isEmpty()) {
+            tvwCasks.setStyle("-fx-border-color: red;");
         }
         else if (!cask.getFillOnCasks().isEmpty() || !cask.getPreviousFillOnCask().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -128,7 +153,10 @@ public class CRUDCaskViewController implements Initializable {
      * Updates the listView with all the casks
      */
     private void updateLvwCasks() {
-        lvwCasks.getItems().setAll(MainController.getCasks());
+        tvwCasks.getItems().setAll(MainController.getCasks());
+    }
+    private void updateTvwCasks() {
+        tvwCasks.getItems().setAll(MainController.getCasks());
     }
 
     @FXML
