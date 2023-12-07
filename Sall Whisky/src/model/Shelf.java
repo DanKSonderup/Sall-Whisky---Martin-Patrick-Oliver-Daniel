@@ -18,9 +18,7 @@ public class Shelf implements Observer, Serializable {
 
     }
 
-    /**
-     * Return a list of all the positions on the shelf that are not fully filled.
-     */
+    /** Return a list of all the positions on the shelf that are not fully filled. */
     public List<Position> getAvailablePositions() {
         List<Position> availablePositions = new ArrayList<>();
         for (Position position : positions) {
@@ -30,9 +28,7 @@ public class Shelf implements Observer, Serializable {
         return availablePositions;
     }
 
-    /**
-     * Checks if all the positions on the shelf are full, if so, set isFilled to true.
-     */
+    /** Checks if all the positions on the shelf are full, if so, set isFilled to true. */
     @Override
     public void update() {
         if (getAvailablePositions().isEmpty()) {

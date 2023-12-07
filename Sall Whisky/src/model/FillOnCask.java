@@ -17,12 +17,11 @@ public class FillOnCask {
         this.cask = cask;
     }
 
-
-
     public LocalDate getTimeOfFill() {
         return timeOfFill;
     }
 
+    // TODO setTimeOfFill aldrig brugt
     public void setTimeOfFill(LocalDate timeOfFill) {
         this.timeOfFill = timeOfFill;
     }
@@ -31,10 +30,7 @@ public class FillOnCask {
         return cask;
     }
 
-
-    /**
-     * returns the total sum of liters from distillate fills connected to this object
-     */
+    /** Returns the total sum of liters from distillatefills connected to this object */
     public double getTotalLitersForFills() {
         double sum = 0.0;
         for (DistillateFill distillateFill: distillateFills) {
@@ -43,11 +39,9 @@ public class FillOnCask {
         return sum;
     }
 
-
     public void setCask(Cask cask) {
         this.cask = cask;
     }
-
 
     public List<DistillateFill> getDistillateFills() {
         return distillateFills;
@@ -56,9 +50,7 @@ public class FillOnCask {
         distillateFills.add(distillateFill);
     }
 
-    /**
-     * calculates and returns the alcohol percentage in the fillOnCask
-     */
+    /** Calculates and returns the alcohol percentage in fillOnCask */
     public double calculateAlcoholPercentage() {
         double alcoholPercentage = 0;
         double totalFluids = 0;
@@ -81,10 +73,8 @@ public class FillOnCask {
         for (DistillateFill fill : distillateFills) {
             map.put(fill, (fill.getAmountOfDistillateInLiters() / totalLiters));
         }
-
         return map;
     }
-
 
     @Override
     public String toString() {

@@ -17,9 +17,7 @@ public class Warehouse implements Observer, Serializable {
         this.warehouseId = warehouseId;
     }
 
-    /**
-     * Return a list of all the racks in the warehouse that are not fully filled.
-     */
+    /** Return a list of all the racks in the warehouse that are not fully filled. */
     public List<Rack> getAvailableRacks() {
         List<Rack> availableRacks = new ArrayList<>();
         for (Rack rack : racks) {
@@ -29,10 +27,7 @@ public class Warehouse implements Observer, Serializable {
         return availableRacks;
     }
 
-    /**
-     * Checks if all the racks in the warehouse are full, if so, set isFilled to true.
-     */
-
+    /** Checks if all the racks in the warehouse are full, if so, set isFilled to true. */
     public void update() {
         if (getAvailableRacks().isEmpty())
             isFilled = true;
@@ -55,7 +50,6 @@ public class Warehouse implements Observer, Serializable {
     public List<Rack> getRacks() {
         return racks;
     }
-
 
     /** Add & remove rack */
     public void addRack(Rack rack) {

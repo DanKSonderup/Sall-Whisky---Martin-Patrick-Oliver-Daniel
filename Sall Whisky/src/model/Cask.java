@@ -15,8 +15,7 @@ public class Cask {
     private final List<FillOnCask> previousFillOnCask = new ArrayList<>();
     private double currentContentInLiters;
 
-    /** Constructor uden Position */
-
+    /** Constructor without Position */
     public Cask(String countryOfOrigin, double sizeInLiters, String previousContent) {
         this.countryOfOrigin = countryOfOrigin;
         this.sizeInLiters = sizeInLiters;
@@ -44,7 +43,7 @@ public class Cask {
     }
 
     // ---------------------------------------------------------------------
-    /** Getters and setters */
+
     public int getCaskId() {
         return caskId;
     }
@@ -60,7 +59,7 @@ public class Cask {
     public void addPreviousFillOnCask(FillOnCask fillOnCask) {
         previousFillOnCask.add(fillOnCask);
     }
-
+    // TODO setCountryOfOrigin aldrig brugt
     public void setCountryOfOrigin(String countryOfOrigin) {
         this.countryOfOrigin = countryOfOrigin;
     }
@@ -68,7 +67,7 @@ public class Cask {
     public double getSizeInLiters() {
         return sizeInLiters;
     }
-
+    // TODO setSizeInLiters aldrig brugt
     public void setSizeInLiters(double sizeInLiters) {
         this.sizeInLiters = sizeInLiters;
     }
@@ -84,7 +83,7 @@ public class Cask {
     public void setCurrentContentInLiters(double currentContentInLiters) {
         this.currentContentInLiters = currentContentInLiters;
     }
-
+    // TODO setPreviousContent aldrig brugt
     public void setPreviousContent(String previousContent) {
         this.previousContent = previousContent;
     }
@@ -92,6 +91,8 @@ public class Cask {
     public Position getPosition() {
         return position;
     }
+
+    // TODO metode specifikation
     public double getLitersAvailable() {
         double sum = 0.0;
         for (FillOnCask fillOnCask: fillOnCasks) {
@@ -100,6 +101,7 @@ public class Cask {
         return sizeInLiters - sum;
     }
 
+    // TODO getTotalLitersOfFills aldrig brugt
     public double getTotalLitersOfFills() {
         double totalLiters = 0;
         for (FillOnCask fillOnCask: fillOnCasks) {
@@ -108,6 +110,7 @@ public class Cask {
         return totalLiters;
     }
 
+    // TODO getTotalAlcoholPercentage aldrig brugt
     public double getTotalAlcoholPercentage() {
         double alcoholPercentage = 0;
         double totalFluids = 0;
@@ -119,6 +122,7 @@ public class Cask {
         return alcoholPercentage / totalFluids * 100;
     }
 
+    // TODO setPosition aldrig brugt
     public void setPosition(Position position) {
         this.position = position;
     }
@@ -130,6 +134,8 @@ public class Cask {
     public void setSupplier(CaskSupplier supplier) {
         this.supplier = supplier;
     }
+
+    // TODO metode specifikation
     public void addFillOnCask(FillOnCask fillOnCask) {
         fillOnCasks.add(fillOnCask);
         currentContentInLiters += fillOnCask.getTotalLitersForFills();
@@ -139,6 +145,7 @@ public class Cask {
         return fillOnCasks;
     }
 
+    // TODO 4 getters aldrig brugt
     public int getPositionId() {
         return position.getPositionId();
     }
@@ -159,6 +166,7 @@ public class Cask {
         return supplier.getName();
     }
 
+    // TODO metode specifikation
     public FillOnCask getYoungestFillOnCask() {
         if (fillOnCasks.size() == 0) {
             return null;
@@ -176,8 +184,6 @@ public class Cask {
         fillOnCasks.remove(fillOnCask);
     }
 
-
-
     @Override
     public String toString() {
         return String.format("%-5d | %-17s | Total (L) %-5.2f | Tilgængelig (L) %-10.2f | %-18s ",
@@ -187,8 +193,4 @@ public class Cask {
                 getLitersAvailable(),
                 previousContent);
     }
-
-
-
-
 }

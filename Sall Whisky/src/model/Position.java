@@ -36,8 +36,6 @@ public class Position implements Observer, Serializable {
         }
     }
 
-
-
     /** Getters */
     public int getPositionId() {
         return positionId;

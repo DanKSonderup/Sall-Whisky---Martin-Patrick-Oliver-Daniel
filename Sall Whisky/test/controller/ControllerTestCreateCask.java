@@ -19,6 +19,7 @@ class ControllerTestCreateCask {
     private Position position;
     private CaskSupplier supplier;
     private Storage storage;
+
     @BeforeEach
     void setUp() {
         storage = new ListStorage();
@@ -30,6 +31,8 @@ class ControllerTestCreateCask {
         position = new Position(15,50, shelf);
         supplier = new CaskSupplier("Cask123", "ABC123", "Frankrig", "2");
     }
+
+    // TODO test specifikation?
     @Test
     void testCase1() {
         // Arrange
@@ -43,6 +46,7 @@ class ControllerTestCreateCask {
         assertTrue(cask.getSupplier().equals(supplier));
     }
 
+    // TODO test specifikation?
     @Test
     void testCase2() {
         // Arrange
@@ -55,6 +59,8 @@ class ControllerTestCreateCask {
         assertTrue(position.getCasks().contains(cask));
         assertTrue(cask.getSupplier().equals(supplier));
     }
+
+    // TODO test specifikation?
     @Test
     void testCase3() {
         // Arrange

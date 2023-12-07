@@ -1,7 +1,6 @@
 package model;
 
 public class Maltbatch {
-
     private String name;
     private String description;
     private Grain grain;
@@ -20,6 +19,7 @@ public class Maltbatch {
         this.name = name;
     }
 
+    // TODO getDescription aldrig brugt
     public String getDescription() {
         return description;
     }
@@ -32,6 +32,7 @@ public class Maltbatch {
         return grain;
     }
 
+    // TODO setGrain aldrig brugt
     public void setGrain(Grain grain) {
         this.grain = grain;
     }

@@ -22,6 +22,8 @@ class FillOnCaskTestGetTotalLitersForFills {
         df1 = new DistillateFill(20, distillate1);
         df2 = new DistillateFill(13.6, distillate2);
     }
+
+    // TODO test specifikation?
     @Test
     void testCase1() {
         // Arrange
@@ -33,6 +35,7 @@ class FillOnCaskTestGetTotalLitersForFills {
         assertEquals(0.0, actualResult, 0.001);
     }
 
+    // TODO test specifikation?
     @Test
     void testCase2() {
         // Arrange
@@ -45,6 +48,7 @@ class FillOnCaskTestGetTotalLitersForFills {
 
     }
 
+    // TODO test specifikation?
     @Test
     void testCast3() {
         // Arrange

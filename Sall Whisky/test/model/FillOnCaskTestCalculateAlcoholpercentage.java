@@ -15,7 +15,6 @@ class FillOnCaskTestCalculateAlcoholpercentage {
     private DistillateFill df1;
     private DistillateFill df2;
 
-
     @BeforeEach
     void setup() {
         fillOnCask = new FillOnCask(LocalDate.now(), null);
@@ -27,7 +26,7 @@ class FillOnCaskTestCalculateAlcoholpercentage {
         df2 = new DistillateFill(60, distillate2);
     }
 
-
+    // TODO test specifikation?
     @Test
     void TestCase1() {
         // Arrange
@@ -40,6 +39,7 @@ class FillOnCaskTestCalculateAlcoholpercentage {
         assertEquals(67.4, actualResult, 0.001);
     }
 
+    // TODO test specifikation?
     @Test
     void TestCase2() {
         // Arrange

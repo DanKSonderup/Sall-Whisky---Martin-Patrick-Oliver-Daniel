@@ -24,6 +24,7 @@ class ControllerTestCreateFillOnCask {
         distillate = new Distillate("nmn23", 8, 40, 150, null, null, "");
     }
 
+    // TODO test specifikation?
     @Test
     void TestCase1() {
         // Arrange
@@ -42,6 +43,7 @@ class ControllerTestCreateFillOnCask {
         assertTrue(distillateFill.getFillOnCask().equals(fillOnCask));
     }
 
+    // TODO test specifikation?
     @Test
     void TestCase2() {
         // Arrange
@@ -55,6 +57,7 @@ class ControllerTestCreateFillOnCask {
         });
     }
 
+    // TODO test specifikation?
     @Test
     void TestCase3() {
         // Arrange
@@ -73,6 +76,7 @@ class ControllerTestCreateFillOnCask {
         assertTrue(distillateFill.getFillOnCask().equals(fillOnCask));
     }
 
+    // TODO test specifikation?
     @Test
     void TestCase4() {
         // Arrange
@@ -85,6 +89,4 @@ class ControllerTestCreateFillOnCask {
             Controller.createFillOnCask(LocalDate.of(2023, 12, 1), cask, distillateFills);
         });
     }
-
-
 }

@@ -13,6 +13,7 @@ public class Supplier {
         this.vatId = vatId;
     }
 
+    /** Getters & setters */
     public String getName() {
         return name;
     }

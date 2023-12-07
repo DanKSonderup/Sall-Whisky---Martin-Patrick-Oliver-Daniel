@@ -27,14 +27,17 @@ public class Distillate {
         return newMakeNr;
     }
 
+    // TODO setNewMakeNr aldrig brugt
     public void setNewMakeNr(String newMakeNr) {
         this.newMakeNr = newMakeNr;
     }
 
+    // TODO getDistillationTimeInHours aldrig brugt
     public double getDistillationTimeInHours() {
         return distillationTimeInHours;
     }
 
+    // TODO setDistillationTimeInHours aldrig brugt
     public void setDistillationTimeInHours(double distillationTimeInHours) {
         this.distillationTimeInHours = distillationTimeInHours;
     }
@@ -43,6 +46,7 @@ public class Distillate {
         return alcoholPercentage;
     }
 
+    // TODO setAlcoholPercentage aldrig brugt
     public void setAlcoholPercentage(double alcoholPercentage) {
         this.alcoholPercentage = alcoholPercentage;
     }
@@ -55,10 +59,12 @@ public class Distillate {
         this.amountInLiters = amountInLiters;
     }
 
+    // TODO getEmployee aldrig brugt
     public Employee getEmployee() {
         return employee;
     }
 
+    // TODO setEmployee aldrig brugt
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
@@ -67,10 +73,12 @@ public class Distillate {
         return maltbatches;
     }
 
+    // TODO addMaltbatch aldrig brugt
     public void addMaltbatch(Maltbatch maltBatch) {
         maltbatches.add(maltBatch);
     }
 
+    // TODO removeMaltbatch aldrig brugt
     public void removeMaltbatch(Maltbatch maltBatch) {
         maltbatches.remove(maltBatch);
     }
