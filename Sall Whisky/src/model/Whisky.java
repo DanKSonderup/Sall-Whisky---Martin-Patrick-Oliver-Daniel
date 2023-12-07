@@ -77,7 +77,7 @@ public class Whisky {
         Map<WhiskyFill, Double> map = new HashMap();
 
         for (WhiskyFill whiskyFill : whiskyFills) {
-            double share = whiskyFill.getAmountofDistilateFillInLiters() / totalFluidsInWhisky();
+            double share = (whiskyFill.getAmountofDistilateFillInLiters() / totalFluidsInWhisky()) * 100;
             DecimalFormat df = new DecimalFormat("##.##");
             share = Double.parseDouble(df.format(share));
             map.put(whiskyFill, share);

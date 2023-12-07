@@ -80,7 +80,7 @@ public class FillOnCask {
         double totalLiters = getTotalLitersForFills();
 
         for (DistillateFill fill : distillateFills) {
-            double share = fill.getAmountOfDistillateInLiters() / totalLiters;
+            double share = (fill.getAmountOfDistillateInLiters() / totalLiters) * 100;
             DecimalFormat df = new DecimalFormat("##.##");
             share = Double.parseDouble(df.format(share));
             map.put(fill, share);
