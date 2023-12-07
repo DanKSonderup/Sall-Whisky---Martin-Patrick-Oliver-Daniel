@@ -21,7 +21,7 @@ class ControllerTestCreateFillOnCask {
     @BeforeEach
     void setup() {
         cask = new Cask("Frankrig", 50, "Whisky");
-        distillate = new Distillate("nmn23", 8, 40, 150, null, null);
+        distillate = new Distillate("nmn23", 8, 40, 150, null, null, "");
     }
 
     @Test

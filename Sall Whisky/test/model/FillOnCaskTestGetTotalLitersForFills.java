@@ -17,8 +17,8 @@ class FillOnCaskTestGetTotalLitersForFills {
     @BeforeEach
     void setup() {
         fillOnCask = new FillOnCask(LocalDate.now(), null);
-        distillate1 = new Distillate("nmn12", 9, 67.4, 250, null, null);
-        distillate2 = new Distillate("nmn23", 8, 40, 150, null,null);
+        distillate1 = new Distillate("nmn12", 9, 67.4, 250, null, null, "");
+        distillate2 = new Distillate("nmn23", 8, 40, 150, null,null, "");
         df1 = new DistillateFill(20, distillate1);
         df2 = new DistillateFill(13.6, distillate2);
     }

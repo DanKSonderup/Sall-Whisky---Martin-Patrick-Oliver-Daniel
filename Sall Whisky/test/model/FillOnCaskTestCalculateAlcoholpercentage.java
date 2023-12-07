@@ -20,9 +20,9 @@ class FillOnCaskTestCalculateAlcoholpercentage {
     void setup() {
         fillOnCask = new FillOnCask(LocalDate.now(), null);
         distillate1 = new Distillate("nmn", 9, 67.4, 250,
-                null, null);
+                null, null, "");
         distillate2 = new Distillate("nmn23", 8, 40, 150,
-                null, null);
+                null, null, "");
         df1 = new DistillateFill(75, distillate1);
         df2 = new DistillateFill(60, distillate2);
     }
