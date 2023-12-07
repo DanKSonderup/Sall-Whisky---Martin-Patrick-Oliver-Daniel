@@ -32,6 +32,14 @@ public class Whisky {
         return whiskyFills;
     }
 
+    public double getWaterInLiters() {
+        return waterInLiters;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public void setWaterInLiters(double waterInLiters) {
         this.waterInLiters = waterInLiters;
     }
