@@ -88,8 +88,9 @@ public class CreateWhiskyViewController implements Initializable {
     private Label whiskyPropertieslbl;
     @FXML
     private TextArea txaContentOfWhisky;
+    @FXML
+    private TextArea txaDescriptionOfWhisky;
     private final List<WhiskyFill> whiskyFills = new ArrayList<>();
-
     private WhiskyFill whiskyFill;
     private Whisky whisky;
 
@@ -101,7 +102,8 @@ public class CreateWhiskyViewController implements Initializable {
         int amountOfBottles = Integer.parseInt(amountOfBottlestxf.getText().trim());
 
         String name = txfWhiskyName.getText().trim();
-        whisky = Controller.createWhisky(name, waterInLiters, whiskyFills);
+        String description = txaDescriptionOfWhisky.getText().trim();
+        whisky = Controller.createWhisky(name, waterInLiters, whiskyFills, description);
 
         Controller.createWhiskyBottlesForWhisky(amountOfBottles, sizeOfBottle, whisky);
 
@@ -169,7 +171,8 @@ public class CreateWhiskyViewController implements Initializable {
         }
 
         String name = txfWhiskyName.getText().trim();
-        whisky = new Whisky(name, waterInLiters, whiskyFills);
+        String description = txaDescriptionOfWhisky.getText().trim();
+        whisky = new Whisky(name, waterInLiters, whiskyFills, description);
         int amountOfBottles = Controller.amountOfBottles(whisky, sizeOfBottle);
         amountOfBottlestxf.setText("" + amountOfBottles);
 

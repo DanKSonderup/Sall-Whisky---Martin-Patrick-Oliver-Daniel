@@ -9,16 +9,18 @@ public class Distillate {
     private double alcoholPercentage;
     private double amountInLiters;
     private Employee employee;
+    private String description;
     List<Maltbatch> maltbatches = new ArrayList<>();
 
     public Distillate(String newMakeNr, double distillationTimeInHours, double alcoholPercentage,
-                      double amountInLiters, Employee employee, List<Maltbatch> maltbatches) {
+                      double amountInLiters, Employee employee, List<Maltbatch> maltbatches, String description) {
         this.newMakeNr = newMakeNr;
         this.distillationTimeInHours = distillationTimeInHours;
         this.alcoholPercentage = alcoholPercentage;
         this.amountInLiters = amountInLiters;
         this.employee = employee;
         this.maltbatches = maltbatches;
+        this.description = description;
     }
 
     public String getNewMakeNr() {

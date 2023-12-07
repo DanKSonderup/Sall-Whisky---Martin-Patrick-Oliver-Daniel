@@ -73,7 +73,7 @@ public class App {
 
         Cask mainCask = Controller.createCask("Frankrig", 50, "Bourbon", p1, cs1);
 
-        Distillate testD = Controller.createDistillate("Idk", 20, 50, 50, em1, Controller.getMaltbatches());
+        Distillate testD = Controller.createDistillate("Idk", 20, 50, 50, em1, Controller.getMaltbatches(), "Destilleret 2 gange");
 
         ArrayList<DistillateFill> distillateFills = new ArrayList<>();
         distillateFills.add(new DistillateFill(10, testD));

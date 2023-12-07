@@ -103,6 +103,8 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     @FXML
     private TextField typeLiterAmounttxf;
+    @FXML
+    private TextArea txaDescriptionOfDistillate;
 
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
@@ -153,10 +155,10 @@ public class CRUDDistilleryAndFillController implements Initializable {
             lvwMaltBatches.setStyle("-fx-border-color: red;");
             return;
         }
+        String description = txaDescriptionOfDistillate.getText().trim();
 
-        Controller.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches);
+        Controller.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches, description);
         clearErrorMarkings();
-
         updateControls();
 
 //        MainController.createDistillate()

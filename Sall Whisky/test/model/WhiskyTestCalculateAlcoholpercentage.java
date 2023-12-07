@@ -22,7 +22,7 @@ class WhiskyTestCalculateAlcoholpercentage {
         cask2 = new Cask("England", 70, "Whisky");
         whiskyFill1 = new WhiskyFill(50, null, LocalDate.now(), 50, cask1);
         whiskyFill2 = new WhiskyFill(70, null, LocalDate.now(), 50, cask2);
-        whisky = new Whisky("Name", 0, new ArrayList<>());
+        whisky = new Whisky("Name", 0, new ArrayList<>(), "");
     }
 
     @Test

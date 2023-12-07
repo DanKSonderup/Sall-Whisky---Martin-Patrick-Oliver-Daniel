@@ -7,6 +7,7 @@ public class Whisky {
     private String name;
     private double waterInLiters;
     private List<WhiskyFill> whiskyFills = new ArrayList<>();
+    private String description;
 
     /** Without whiskyFills */
     public Whisky(String name) {
@@ -14,10 +15,11 @@ public class Whisky {
     }
 
     /** With whiskyFills*/
-    public Whisky(String name, double waterInLiters, List<WhiskyFill> whiskyFills) {
+    public Whisky(String name, double waterInLiters, List<WhiskyFill> whiskyFills, String description) {
         this.name = name;
         this.waterInLiters = waterInLiters;
         this.whiskyFills = whiskyFills;
+        this.description = description;
     }
 
     public String getName() {

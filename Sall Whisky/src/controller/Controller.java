@@ -150,7 +150,6 @@ public abstract class Controller {
         } else {
             cask = new Cask(id, countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         }
-        System.out.println(cask.getCaskId());
         storage.storeCask(cask);
         position.addCask(cask);
         return cask;
@@ -290,9 +289,9 @@ public abstract class Controller {
      */
     public static Distillate createDistillate(String newMakenr, double distillationTimeInHours,
                                               double alcoholPercentage, double amountInLiters, Employee employee,
-                                              List<Maltbatch> maltbatches) {
+                                              List<Maltbatch> maltbatches, String description) {
         Distillate distillate = new Distillate(newMakenr, distillationTimeInHours, alcoholPercentage, amountInLiters,
-                employee, maltbatches);
+                employee, maltbatches, description);
         storage.storeDistillate(distillate);
         return distillate;
     }
@@ -413,8 +412,8 @@ public abstract class Controller {
      * Create, store and return a Whisky
      * Pre: alcoholPercentage > 0 && alcoholPercentage < 100
      */
-    public static Whisky createWhisky(String name, double waterInLiters, List<WhiskyFill> whiskyFills) {
-        Whisky whisky = new Whisky(name,waterInLiters, whiskyFills);
+    public static Whisky createWhisky(String name, double waterInLiters, List<WhiskyFill> whiskyFills, String description) {
+        Whisky whisky = new Whisky(name,waterInLiters, whiskyFills, description);
         storage.storeWhisky(whisky);
         return whisky;
     }
