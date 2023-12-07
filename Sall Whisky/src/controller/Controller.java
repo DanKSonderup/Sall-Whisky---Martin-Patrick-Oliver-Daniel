@@ -427,20 +427,14 @@ public abstract class Controller {
     }
 
     public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {
-
-        double sum = 0;
-        for (WhiskyFill whiskyFill : whisky.getWhiskyFills()) {
-            sum += whiskyFill.getAmountofDistilateFillInLiters();
-        }
-
-        int bottles = (int) (sum / 100) / whiskyBottleCapacity;
+        int bottles = (int) (whisky.totalFluidsInWhisky() / 100) / whiskyBottleCapacity;
 
         for (int i = 0; i < bottles; i++) {
             WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter().getWhiskyBottleCount(), whiskyBottleCapacity, whisky);
             storage.storeWhiskyBottle(whiskyBottle);
             storage.getStorageCounter().incrementWhiskyBottleCount();
         }
-        return (int) sum;
+        return bottles;
     }
 
     /**

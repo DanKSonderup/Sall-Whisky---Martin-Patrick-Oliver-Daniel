@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Whisky {
     private String name;
@@ -45,14 +47,30 @@ public class Whisky {
      */
     public double calculateAlcoholPercentage() {
         double alcoholPercentage = 0;
-        double totalFluids = waterInLiters;
         for (WhiskyFill whiskyFill : whiskyFills) {
             alcoholPercentage += (whiskyFill.getAmountofDistilateFillInLiters() *
                     (whiskyFill.getAlcoholPercentage() / 100.0));
-
-            totalFluids += whiskyFill.getAmountofDistilateFillInLiters();
         }
-        return alcoholPercentage / totalFluids * 100;
+        return alcoholPercentage / totalFluidsInWhisky() * 100;
+    }
+
+    /** Calculates the total amount of Whisky with water included. */
+    public double totalFluidsInWhisky() {
+        double totalFluids = waterInLiters;
+        for (WhiskyFill whiskyfill : whiskyFills) {
+            totalFluids += whiskyfill.getAmountofDistilateFillInLiters();
+        }
+        return totalFluids;
+    }
+
+    /** HashMap which returns a specific amount per whiskyFill */
+    public Map<WhiskyFill, Double> caskShare() {
+        Map<WhiskyFill, Double> map = new HashMap();
+
+        for (WhiskyFill whiskyFill : whiskyFills) {
+            map.put(whiskyFill, whiskyFill.getAmountofDistilateFillInLiters() / totalFluidsInWhisky());
+        }
+        return map;
     }
 
     @Override
