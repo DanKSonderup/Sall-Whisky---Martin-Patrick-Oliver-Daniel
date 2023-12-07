@@ -21,15 +21,12 @@ public abstract class Controller {
         return storage;
     }
 
-    /**
-     * Returns all Casks from Storage
-     */
-
+    /** Returns all Casks from Storage */
     public static List<Cask> getCasks() {
         return storage.getCasks();
     }
 
-
+    // TODO Mangler metode specifikation
     public static List<Cask> getRipeCasks() {
         List<Cask> ripeCasks = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
@@ -39,7 +36,6 @@ public abstract class Controller {
         }
         return ripeCasks;
     }
-
 
     /**
      * Finds warehouses that has atleast 1 rack where there is space for the Cask we're trying to add
@@ -104,7 +100,6 @@ public abstract class Controller {
      * @param shelf from which we want to find non-full positions
      * @return positions at which the cask can be added to
      */
-
     public static List<Position> getAvailablePositions(Shelf shelf, Cask cask) {
         List<Position> positions = new ArrayList<>(shelf.getPositions());
         for (int i = 0; i < positions.size(); i++) {
@@ -124,7 +119,6 @@ public abstract class Controller {
         }
         return positions;
     }
-
 
     /**
      * Create, store and return a Cask
@@ -149,14 +143,12 @@ public abstract class Controller {
         return cask;
     }
 
-    /**
-     * Remove a cask
-     */
+    /** Remove a cask */
     public static void removeCask(Cask cask) {
         storage.deleteCask(cask);
     }
 
-
+    /** Get all available casks */
     public static ArrayList<Cask> getAvailableCasks() {
         ArrayList<Cask> availableCasks = new ArrayList<>();
         for (Cask cask: Controller.getCasks()) {
@@ -166,7 +158,6 @@ public abstract class Controller {
         }
         return availableCasks;
     }
-
 
     /**
      * Create and return a Warehouse.
@@ -254,23 +245,17 @@ public abstract class Controller {
         return fillOnCask;
     }
 
-    /**
-     * Create, store and return an employee
-     */
+    /** Create, store and return an employee */
     public static Employee createEmployee(int id, String name) {
         Employee employee = new Employee(id, name);
         storage.storeEmployee(employee);
         return employee;
     }
 
-    /**
-     * Returns Employees from Storage
-     */
-
+    /** Returns Employees from Storage */
     public static List<Employee> getEmployees() {
         return new ArrayList<>(storage.getEmployees());
     }
-
 
     /**
      * Creates a Distillate and saves it to storage
@@ -290,16 +275,12 @@ public abstract class Controller {
         return distillate;
     }
 
-    /**
-     * Return all distillates
-     */
+    /** Return all distillates */
     public static List<Distillate> getDistillates() {
         return storage.getDistillates();
     }
 
-    /**
-     * Return all distillates that still haven't been fully filled on a Cask
-     */
+    /** Return all distillates that still haven't been fully filled on a Cask */
     public static List<Distillate> getAvailableDistillates() {
         List<Distillate> distillates = new ArrayList<>();
         for (Distillate distillate: storage.getDistillates())  {
@@ -320,20 +301,16 @@ public abstract class Controller {
         storage.storeMaltbatch(maltbatch);
         return maltbatch;
     }
-    /**
-     * Return all maltbatches
-     */
+
+    /** Return all maltbatches */
     public static List<Maltbatch> getMaltbatches() {
         return storage.getMaltbatches();
     }
 
-    /**
-     * Remove a maltbatch
-     */
+    /** Remove a maltbatch */
     public static void removeMaltbatch(Maltbatch maltbatch) {
         storage.deleteMaltbatch(maltbatch);
     }
-
 
     /**
      * Create, store and return a grain
@@ -346,46 +323,34 @@ public abstract class Controller {
         return grain;
     }
 
-    /**
-     * Return all fields
-     */
+    /** Return all fields */
     public static List<Grain> getGrains() {
         return storage.getGrains();
     }
 
-    /**
-     * Remove a grain
-     */
+    /** Remove a grain */
     public static void removeGrain(Grain grain) {
         storage.deleteGrain(grain);
     }
 
-    /**
-     * Create, store and return a field
-     */
+    /** Create, store and return a field */
     public static Field createField (String name, String description) {
         Field field = new Field(name, description);
         storage.storeField(field);
         return field;
     }
 
-    /**
-     * Return all fields
-     */
+    /** Return all fields */
     public static List<Field> getFields() {
         return storage.getFields();
     }
 
-    /**
-     * Remove a field
-     */
+    /** Remove a field */
     public static void removeField(Field field) {
         storage.deleteField(field);
     }
 
-    /**
-     * Create, store and return a GrainSupplier
-     */
+    /** Create, store and return a GrainSupplier */
     public static GrainSupplier createGrainSupplier (String name, String address, String country, String vatId) {
         GrainSupplier grainSupplier = new GrainSupplier(name, address, country, vatId);
         storage.storeGrainSupplier(grainSupplier);
@@ -393,9 +358,7 @@ public abstract class Controller {
     }
 
 
-    /**
-     * Create, store and return a CaskSupplier
-     */
+    /** Create, store and return a CaskSupplier */
     public static CaskSupplier createCaskSupplier (String name, String address, String country, String vatId) {
         CaskSupplier caskSupplier = new CaskSupplier(name, address, country, vatId);
         storage.storeCaskSupplier(caskSupplier);
@@ -411,23 +374,26 @@ public abstract class Controller {
         storage.storeWhisky(whisky);
         return whisky;
     }
-
+    /** Get all whiskys */
     public static List<Whisky> getWhiskies() {
         return new ArrayList<>(storage.getWhiskies());
     }
 
-
+    // TODO Metode specifikation
     public static void createWhiskyBottle(int centiliterCapacity, Whisky whisky) {
         WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter().getWhiskyBottleCount(),centiliterCapacity, whisky);
         storage.storeWhiskyBottle(whiskyBottle);
         storage.getStorageCounter().incrementWhiskyBottleCount();
     }
+
+    // TODO Metode specifikation
     public static void createWhiskyBottlesForWhisky(int numberOfBottles, int centiliterCapacity, Whisky whisky) {
         for (int i = 0; i < numberOfBottles; i++) {
             createWhiskyBottle(centiliterCapacity, whisky);
         }
     }
 
+    /** Calculates and returns the amount of bottles needed for a whisky creation */
     public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {
         int bottles = (int) (whisky.totalFluidsInWhisky() * 100) / whiskyBottleCapacity;
 
@@ -440,7 +406,6 @@ public abstract class Controller {
      * Add connection to cask
      * @return
      */
-
     public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, List<FillOnCask> fillOnCasks, double alcoholPercentage, Cask cask) throws InterruptedException {
         WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, fillOnCasks, LocalDate.now(), alcoholPercentage, cask);
 
@@ -457,19 +422,17 @@ public abstract class Controller {
         return whiskyFill;
     }
 
-
-
-    /**
-     * Return all grainSupplier objects
-     */
+    /** Get all grainSupplier objects */
     public static List<GrainSupplier> getGrainSuppliers() {
         return storage.getGrainSuppliers();
     }
 
+    /** Get all caskSupplier objects */
     public static List<CaskSupplier> getCaskSuppliers() {
         return storage.getCaskSuppliers();
     }
 
+    // TODO Metode specifikation
     public static String generateStoryForWhisky(Whisky whisky) {
         Stack<String> infoStrings = new Stack<>();
 
@@ -504,6 +467,7 @@ public abstract class Controller {
         return sb.toString();
     }
 
+    /** Observer methods */
     public static void notifyObserver() {
             for (Observer observer : observers) {
                 observer.update();
