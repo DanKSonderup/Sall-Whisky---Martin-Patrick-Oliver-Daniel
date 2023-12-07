@@ -3,7 +3,9 @@ package model;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FillOnCask {
     private LocalDate timeOfFill;
@@ -66,6 +68,21 @@ public class FillOnCask {
             totalFluids += distillateFill.getAmountOfDistillateInLiters();
         }
         return alcoholPercentage / totalFluids * 100;
+    }
+
+    /**
+     * Calculates and returns a hashMap that shows how big a share each distillate has of the
+     * total amount in the fillOnCask
+     */
+    public Map<DistillateFill, Double> distillateShare() {
+        Map<DistillateFill, Double> map = new HashMap<>();
+        double totalLiters = getTotalLitersForFills();
+
+        for (DistillateFill fill : distillateFills) {
+            map.put(fill, (fill.getAmountOfDistillateInLiters() / totalLiters));
+        }
+
+        return map;
     }
 
 

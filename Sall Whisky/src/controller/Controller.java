@@ -29,6 +29,7 @@ public abstract class Controller {
         return storage.getCasks();
     }
 
+
     public static List<Cask> getRipeCasks() {
         List<Cask> ripeCasks = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
@@ -37,15 +38,6 @@ public abstract class Controller {
             }
         }
         return ripeCasks;
-    }
-
-    public static Cask getAvailableCaskById(int id) {
-        for (Cask cask1: getAvailableCasks()) {
-            if (cask1.getCaskId() == id) {
-                return cask1;
-            }
-        }
-        return null;
     }
 
 
@@ -424,10 +416,6 @@ public abstract class Controller {
         return new ArrayList<>(storage.getWhiskies());
     }
 
-    public static double averageAmountInLitersRemoved(FillOnCask fillOnCask, int amountTaken) {
-        // fillOnCask.getDistillateFills()
-        return 09.0;
-    }
 
     public static void createWhiskyBottle(int centiliterCapacity, Whisky whisky) {
         WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter().getWhiskyBottleCount(),centiliterCapacity, whisky);
@@ -442,20 +430,14 @@ public abstract class Controller {
 
     // RET SÅ DEN TAGER HØJDE FOR VAND
     public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {
-
-        double sum = 0;
-        for (WhiskyFill whiskyFill : whisky.getWhiskyFills()) {
-            sum += whiskyFill.getAmountofDistilateFillInLiters();
-        }
-
-        int bottles = (int) (sum / 100) / whiskyBottleCapacity;
+        int bottles = (int) (whisky.totalFluidsInWhisky() / 100) / whiskyBottleCapacity;
 
         for (int i = 0; i < bottles; i++) {
             WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter().getWhiskyBottleCount(), whiskyBottleCapacity, whisky);
             storage.storeWhiskyBottle(whiskyBottle);
             storage.getStorageCounter().incrementWhiskyBottleCount();
         }
-        return (int) sum;
+        return bottles;
     }
 
     /**
