@@ -39,8 +39,6 @@ public class CreateSupplierViewController implements Initializable {
 
     @FXML
     private Button btnStartside;
-    @FXML
-    private Button btnCancel;
 
     @FXML
     private Button btnCreateSupplier;
@@ -102,11 +100,6 @@ public class CreateSupplierViewController implements Initializable {
         updateLvwCaskSupplier();
         updateLvwGrainSupplier();
 
-        clearInput();
-    }
-
-    @FXML
-    void btnCancelOnAction(ActionEvent event) {
         clearInput();
     }
 

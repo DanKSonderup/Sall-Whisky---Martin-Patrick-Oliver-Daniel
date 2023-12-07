@@ -26,7 +26,9 @@ public abstract class Controller {
         return storage.getCasks();
     }
 
-    // TODO Mangler metode specifikation
+    /**
+     * Create and return all Casks that have more than 0 currentContentInLiters and was filled more than 3 years ago
+     */
     public static List<Cask> getRipeCasks() {
         List<Cask> ripeCasks = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
@@ -262,8 +264,6 @@ public abstract class Controller {
      * @param newMakenr
      * Pre: 100 > alcoholPercentage > 0
      * Pre: amountInLiters > 0
-     * @param employee
-     * @param maltbatches
      * @return the created Distillate
      */
     public static Distillate createDistillate(String newMakenr, double distillationTimeInHours,
@@ -379,14 +379,24 @@ public abstract class Controller {
         return new ArrayList<>(storage.getWhiskies());
     }
 
-    // TODO Metode specifikation
-    public static void createWhiskyBottle(int centiliterCapacity, Whisky whisky) {
+    /**
+     * Create, store and return a WhiskyBottle
+     * Increment WhiskyBottleCount
+     * Pre: centiliterCapacity > 0
+     */
+    public static WhiskyBottle createWhiskyBottle(int centiliterCapacity, Whisky whisky) {
         WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter().getWhiskyBottleCount(),centiliterCapacity, whisky);
         storage.storeWhiskyBottle(whiskyBottle);
         storage.getStorageCounter().incrementWhiskyBottleCount();
+        return whiskyBottle;
     }
 
-    // TODO Metode specifikation
+
+    /**
+     * create multiple WhiskyBottles for a specific Whisky object
+     * Pre: numberOfBottles > 0
+     * Pre: centiliterCapacity > 0
+     */
     public static void createWhiskyBottlesForWhisky(int numberOfBottles, int centiliterCapacity, Whisky whisky) {
         for (int i = 0; i < numberOfBottles; i++) {
             createWhiskyBottle(centiliterCapacity, whisky);
@@ -395,16 +405,13 @@ public abstract class Controller {
 
     /** Calculates and returns the amount of bottles needed for a whisky creation */
     public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {
-        int bottles = (int) (whisky.totalFluidsInWhisky() * 100) / whiskyBottleCapacity;
-
-        return bottles;
+        return (int) (whisky.totalFluidsInWhisky() * 100) / whiskyBottleCapacity;
     }
 
     /**
      * Create and return a WhiskyFill
      * Pre: amountOfDistilateFillInLiters > 0
      * Add connection to cask
-     * @return
      */
     public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, List<FillOnCask> fillOnCasks, double alcoholPercentage, Cask cask) throws InterruptedException {
         WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, fillOnCasks, LocalDate.now(), alcoholPercentage, cask);
@@ -432,7 +439,9 @@ public abstract class Controller {
         return storage.getCaskSuppliers();
     }
 
-    // TODO Metode specifikation
+    /**
+     * Return a String containing the entire Story and process of a Whisky
+     */
     public static String generateStoryForWhisky(Whisky whisky) {
         Stack<String> infoStrings = new Stack<>();
 
@@ -472,7 +481,8 @@ public abstract class Controller {
             for (Observer observer : observers) {
                 observer.update();
             }
-        }
+    }
+
     public static void addObserver(Observer observer) {
         observers.add(observer);
     }
