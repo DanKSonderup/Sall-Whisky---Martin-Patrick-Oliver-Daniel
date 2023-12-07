@@ -27,6 +27,7 @@ public abstract class Controller {
         return storage.getCasks();
     }
 
+
     public static List<Cask> getRipeCasks() {
         List<Cask> ripeCasks = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
@@ -35,15 +36,6 @@ public abstract class Controller {
             }
         }
         return ripeCasks;
-    }
-
-    public static Cask getAvailableCaskById(int id) {
-        for (Cask cask1: getAvailableCasks()) {
-            if (cask1.getCaskId() == id) {
-                return cask1;
-            }
-        }
-        return null;
     }
 
 
@@ -422,10 +414,6 @@ public abstract class Controller {
         return new ArrayList<>(storage.getWhiskies());
     }
 
-    public static double averageAmountInLitersRemoved(FillOnCask fillOnCask, int amountTaken) {
-        // fillOnCask.getDistillateFills()
-        return 09.0;
-    }
 
     public static void createWhiskyBottle(int centiliterCapacity, Whisky whisky) {
         WhiskyBottle whiskyBottle = new WhiskyBottle(storage.getStorageCounter().getWhiskyBottleCount(),centiliterCapacity, whisky);
