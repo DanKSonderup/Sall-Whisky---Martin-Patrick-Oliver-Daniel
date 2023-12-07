@@ -116,6 +116,10 @@ public class MainViewController implements Initializable {
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         tbvRipeCasks.getItems().setAll(Controller.getRipeCasks());
         lvwWhisky.getItems().setAll(Controller.getWhiskies());
+
+        for (Whisky whisky: Controller.getStorage().getWhiskies()) {
+            System.out.println(Controller.generateStoryForWhisky(whisky));
+        }
     }
 
     private void updateViews() {

@@ -4,7 +4,9 @@ import model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 public abstract class Controller {
 
@@ -438,6 +440,7 @@ public abstract class Controller {
         }
     }
 
+    // RET SÅ DEN TAGER HØJDE FOR VAND
     public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {
 
         double sum = 0;
@@ -491,21 +494,38 @@ public abstract class Controller {
         return storage.getCaskSuppliers();
     }
 
-    /**
-     * returns a string consisting of cask's ID, countryOfOrigin, sizeInLiters, previousContent.
-     * Also returns the cask's location (warehouseID, rackID, shelfID, positionID)
-     */
-    public static String caskViewString(Cask cask) {
-        String s = String.format("%d | %s | %s | %s | %d | %d | %d | %d",
-                cask.getCaskId(),
-                cask.getCountryOfOrigin(),
-                cask.getSizeInLiters(),
-                cask.getPreviousContent(),
-                cask.getPosition().getShelf().getRack().getWarehouse(),
-                cask.getPosition().getShelf().getRack(),
-                cask.getPosition().getShelf(),
-                cask.getPosition());
-        return s;
+    public static String generateStoryForWhisky(Whisky whisky) {
+        Stack<String> infoStrings = new Stack<>();
+
+
+        String whiskyInfo = whisky.getName() + "\nTappet d. " + whisky.getWhiskyFills().get(0).getTimeOfFill() +
+                "\nFortyndet med " + whisky.getWaterInLiters() +
+                " liter vand \nBeskrivelse: " + whisky.getDescription();
+
+        infoStrings.add(whiskyInfo + "\n ------------------- \n");
+
+        String caskInfos = "\nFade i denne whisky:\n\n";
+        for (WhiskyFill whiskyFill: whisky.getWhiskyFills()) {
+            Cask currentCask = whiskyFill.getCask();
+            caskInfos += "FadID: " + currentCask.getCaskId()
+                    + "\nOprindelsesland: " + currentCask.getCountryOfOrigin()
+                    + "\nTidligere indhold: " + currentCask.getPreviousContent()
+                    + "\nFadtype: Egetræ"
+                    + "\nLeverandør: " + currentCask.getSupplierName()
+                    + "\n - Land: " + currentCask.getSupplier().getCountry();
+            caskInfos += "\n\n";
+        }
+
+
+        infoStrings.add(caskInfos);
+
+
+        StringBuilder sb = new StringBuilder();
+        Iterator<String> iterator = infoStrings.iterator();
+        while (iterator.hasNext()) {
+            sb.append(iterator.next());
+        }
+        return sb.toString();
     }
 
     public static void notifyObserver() {
