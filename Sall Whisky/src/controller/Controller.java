@@ -428,7 +428,6 @@ public abstract class Controller {
         }
     }
 
-    // RET SÅ DEN TAGER HØJDE FOR VAND
     public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {
         int bottles = (int) (whisky.totalFluidsInWhisky() * 100) / whiskyBottleCapacity;
 
