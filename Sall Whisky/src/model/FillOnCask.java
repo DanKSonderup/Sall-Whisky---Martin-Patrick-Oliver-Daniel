@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -71,7 +72,10 @@ public class FillOnCask {
         double totalLiters = getTotalLitersForFills();
 
         for (DistillateFill fill : distillateFills) {
-            map.put(fill, (fill.getAmountOfDistillateInLiters() / totalLiters));
+            double share = (fill.getAmountOfDistillateInLiters() / totalLiters) * 100;
+            DecimalFormat df = new DecimalFormat("##.##");
+            share = Double.parseDouble(df.format(share));
+            map.put(fill, share);
         }
         return map;
     }

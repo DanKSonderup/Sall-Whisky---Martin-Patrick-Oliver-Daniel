@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +77,10 @@ public class Whisky {
         Map<WhiskyFill, Double> map = new HashMap();
 
         for (WhiskyFill whiskyFill : whiskyFills) {
-            map.put(whiskyFill, whiskyFill.getAmountofDistilateFillInLiters() / totalFluidsInWhisky());
+            double share = (whiskyFill.getAmountofDistilateFillInLiters() / totalFluidsInWhisky()) * 100;
+            DecimalFormat df = new DecimalFormat("##.##");
+            share = Double.parseDouble(df.format(share));
+            map.put(whiskyFill, share);
         }
         return map;
     }
