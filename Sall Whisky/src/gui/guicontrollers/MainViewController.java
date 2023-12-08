@@ -131,6 +131,9 @@ public class MainViewController implements Initializable {
     /** Helper methods */
     // ---------------------------------------------------------------------
 
+    /**
+     * Update the Whisky ListView and TableView RipeCasks
+     */
     private void updateViews() {
         tvwRipeCasks.getItems().setAll(Controller.getRipeCasks());
         lvwWhisky.getItems().setAll(Controller.getWhiskies());
