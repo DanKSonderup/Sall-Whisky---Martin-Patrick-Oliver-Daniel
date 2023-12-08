@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateTransferenceController">
+   <children>
+      <Label layoutX="191.0" layoutY="70.0" text="Fade med destillat på" />
+      <Label layoutX="604.0" layoutY="70.0" text="Tilgængelige fade for omhældning" />
+      <Button fx:id="btnTransference" layoutX="647.0" layoutY="396.0" mnemonicParsing="false" onAction="#btnTransferenceOnAction" prefHeight="45.0" prefWidth="99.0" text="Omhæld fad" />
+      <Button fx:id="btnShowAvailableCasksForTransference" layoutX="155.0" layoutY="396.0" mnemonicParsing="false" onAction="#btnShowAvailableCasksForTransferenceOnAction" prefHeight="45.0" prefWidth="187.0" text="Vis mulige fade for omhældning" />
+      <TableView fx:id="tbvCasksWithDestillate" layoutX="33.0" layoutY="117.0" prefHeight="241.0" prefWidth="429.0">
+         <columns>
+            <TableColumn fx:id="tbcCaskID" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="tbcAlcoholPercentage" prefWidth="75.0" text="Alc %" />
+            <TableColumn fx:id="tbcAge" prefWidth="172.0" text="Alder" />
+            <TableColumn fx:id="tbcTotalLitersOfFills" prefWidth="105.0" text="Destillat (L)" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tbvAvailableCasksForTransference" layoutX="482.0" layoutY="117.0" prefHeight="241.0" prefWidth="429.0">
+         <columns>
+            <TableColumn fx:id="tbcCaskID1" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="tbcAlcoholPercentage1" prefWidth="75.0" text="Alc %" />
+            <TableColumn fx:id="tbcAge1" prefWidth="172.0" text="Alder" />
+            <TableColumn fx:id="tbcTotalLitersOfFills1" prefWidth="105.0" text="Destillat (L)" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

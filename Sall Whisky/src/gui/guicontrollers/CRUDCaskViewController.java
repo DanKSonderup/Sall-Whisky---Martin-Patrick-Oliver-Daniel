@@ -35,7 +35,7 @@ public class CRUDCaskViewController implements Initializable {
     @FXML
     private Button btnDeleteCask;
     @FXML
-    private Button btnEditCask;
+    private Button btnTransference;
     @FXML
     private Button btnStartside;
     @FXML
@@ -111,7 +111,7 @@ public class CRUDCaskViewController implements Initializable {
         if (tvwCasks.getSelectionModel().isEmpty()) {
             tvwCasks.setStyle("-fx-border-color: red;");
         }
-        else if (!cask.getFillOnCasks().isEmpty() || !cask.getPreviousFillOnCask().isEmpty()) {
+        else if (!cask.getCurrentPutOnCasks().isEmpty() || !cask.getPreviousPutOnCasks().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fejl");
             alert.setHeaderText("Fad kan ikke slettes");
@@ -136,8 +136,15 @@ public class CRUDCaskViewController implements Initializable {
 
 
     @FXML
-    void btnEditCaskOnAction(ActionEvent event) {
-        //TODO Til version to når der skal kunne omhældes
+    void btnTransferenceOnAction(ActionEvent event) throws IOException {
+        URL url = new File("Sall Whisky/src/gui/views/CreateTransferenceView.fxml").toURI().toURL();
+        Parent root1 = FXMLLoader.load(url);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Omhæld fad");
+        stage.setScene(new Scene(root1));
+        stage.showAndWait();
+        updateTvwCasks();
     }
 
     /**

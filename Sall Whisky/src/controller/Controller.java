@@ -38,6 +38,26 @@ public abstract class Controller {
         return ripeCasks;
     }
 
+    public static List<Cask> getCasksWithDistillateOn() {
+        ArrayList<Cask> casksWithDestillate = new ArrayList<>();
+        for (Cask cask: storage.getCasks()) {
+            if (cask.getCurrentPutOnCasks().size() > 0) {
+                casksWithDestillate.add(cask);
+            }
+        }
+        return casksWithDestillate;
+    }
+
+    public static List<Cask> getCasksWithXLitersAvailable(double litercapacity) {
+        ArrayList<Cask> caskAvailableForTransference = new ArrayList<>();
+        for (Cask cask: getCasksWithDistillateOn()) {
+            if (cask.getLitersAvailable() >= litercapacity) {
+                caskAvailableForTransference.add(cask);
+            }
+        }
+        return caskAvailableForTransference;
+    }
+
     /**
      * Finds warehouses that has atleast 1 rack where there is space for the Cask we're trying to add
      * @param cask we're checking for space for
@@ -241,7 +261,8 @@ public abstract class Controller {
             throw new IllegalArgumentException("Dato er efter nuværende dato");
         }
 
-        cask.addFillOnCask(fillOnCask);
+        PutOnCask putOnCask = new PutOnCask(timeOfFill, fillOnCask, cask);
+        cask.addPutOnCask(putOnCask);
 
         return fillOnCask;
     }
@@ -416,13 +437,23 @@ public abstract class Controller {
      */
     public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, List<FillOnCask> fillOnCasks, double alcoholPercentage, Cask cask) throws InterruptedException {
         WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, fillOnCasks, LocalDate.now(), alcoholPercentage, cask);
-
+        PutOnCask currentPutOnCask = null;
         if (cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters < 0) {
             throw new InterruptedException("Du prøver at påfylde flere liter end du har tilgængelig");
         } else if ((cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters) == 0) {
             for (FillOnCask fillOnCask: fillOnCasks) {
-                fillOnCask.getCask().addPreviousFillOnCask(fillOnCask);
-                fillOnCask.getCask().removeFillOnCask(fillOnCask);
+                LocalDate latestPutOnCask = fillOnCask.getPutOnCasks().get(0).getTimeFill();
+                for (PutOnCask putOnCask: fillOnCask.getPutOnCasks()) {
+                    if (putOnCask.getTimeFill().isAfter(latestPutOnCask)) {
+                        latestPutOnCask = putOnCask.getTimeFill();
+                        currentPutOnCask = putOnCask;
+                    }
+                }
+                if (currentPutOnCask == null) {
+                    throw new InterruptedException("En fejl 40 opstod");
+                }
+                currentPutOnCask.getCask().removeCurrentPutOnCask(currentPutOnCask);
+                currentPutOnCask.getCask().addPreviousPutOnCask(currentPutOnCask);
             }
         }
         cask.setCurrentContentInLiters(cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters);
@@ -525,7 +556,7 @@ public abstract class Controller {
                 observer.update();
             }
     }
-    
+
     public static void addObserver(Observer observer) {
         observers.add(observer);
     }

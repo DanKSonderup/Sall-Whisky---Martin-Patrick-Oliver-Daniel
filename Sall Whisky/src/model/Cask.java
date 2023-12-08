@@ -11,8 +11,8 @@ public class Cask {
     private String previousContent;
     private Position position;
     private CaskSupplier supplier;
-    private final List<FillOnCask> fillOnCasks = new ArrayList<>();
-    private final List<FillOnCask> previousFillOnCask = new ArrayList<>();
+    private final List<PutOnCask> currentPutOnCasks = new ArrayList<>();
+    private final List<PutOnCask> previousPutOnCasks = new ArrayList<>();
     private double currentContentInLiters;
 
     /** Constructor without Position */
@@ -52,12 +52,16 @@ public class Cask {
         return countryOfOrigin;
     }
 
-    public List<FillOnCask> getPreviousFillOnCask() {
-        return previousFillOnCask;
+    public List<PutOnCask> getCurrentPutOnCasks() {
+        return currentPutOnCasks;
     }
 
-    public void addPreviousFillOnCask(FillOnCask fillOnCask) {
-        previousFillOnCask.add(fillOnCask);
+    public List<PutOnCask> getPreviousPutOnCasks() {
+        return previousPutOnCasks;
+    }
+
+    public void addPreviousPutOnCask(PutOnCask putOnCask) {
+        previousPutOnCasks.add(putOnCask);
     }
     public void setCountryOfOrigin(String countryOfOrigin) {
         this.countryOfOrigin = countryOfOrigin;
@@ -97,8 +101,8 @@ public class Cask {
     /** Calculates and returns the amount of fluids currently in the cask */
     public double getTotalLitersOfFills() {
         double totalLiters = 0;
-        for (FillOnCask fillOnCask: fillOnCasks) {
-            totalLiters += fillOnCask.getTotalLitersForFills();
+        for (PutOnCask putOnCask: currentPutOnCasks) {
+            totalLiters += putOnCask.getFillOnCask().getTotalLitersForFills();
         }
         return totalLiters;
     }
@@ -108,7 +112,8 @@ public class Cask {
     public double getTotalAlcoholPercentage() {
         double alcoholPercentage = 0;
         double totalFluids = 0;
-        for (FillOnCask fillOnCask : fillOnCasks) {
+        for (PutOnCask putOnCask : currentPutOnCasks) {
+            FillOnCask fillOnCask = putOnCask.getFillOnCask();
             alcoholPercentage += (fillOnCask.getTotalLitersForFills() *
                     (fillOnCask.calculateAlcoholPercentage() / 100.0));
             totalFluids += fillOnCask.getTotalLitersForFills();
@@ -130,13 +135,9 @@ public class Cask {
 
 
     /** Adds a fillOnCask to the cask and updates the casks current content in liters */
-    public void addFillOnCask(FillOnCask fillOnCask) {
-        fillOnCasks.add(fillOnCask);
-        currentContentInLiters += fillOnCask.getTotalLitersForFills();
-    }
-
-    public List<FillOnCask> getFillOnCasks() {
-        return fillOnCasks;
+    public void addPutOnCask(PutOnCask putOnCask) {
+        currentPutOnCasks.add(putOnCask);
+        currentContentInLiters += putOnCask.getFillOnCask().getTotalLitersForFills();
     }
 
     public int getPositionId() {
@@ -165,21 +166,21 @@ public class Cask {
      * If the cask is empty, return null
      */
     public FillOnCask getYoungestFillOnCask() {
-        if (fillOnCasks.isEmpty()) {
+        if (currentPutOnCasks.isEmpty()) {
             return null;
         }
 
-        FillOnCask youngestFillOnCask = fillOnCasks.get(0);
-        for (FillOnCask fillOnCask: fillOnCasks) {
-            if (fillOnCask.getTimeOfFill().isAfter(youngestFillOnCask.getTimeOfFill())) {
-                youngestFillOnCask = fillOnCask;
+        FillOnCask youngestFillOnCask = currentPutOnCasks.get(0).getFillOnCask();
+        for (PutOnCask putOnCask: currentPutOnCasks) {
+            if (putOnCask.getFillOnCask().getTimeOfFill().isAfter(youngestFillOnCask.getTimeOfFill())) {
+                youngestFillOnCask = putOnCask.getFillOnCask();
             }
         }
         return youngestFillOnCask;
     }
 
-    public void removeFillOnCask(FillOnCask fillOnCask) {
-        fillOnCasks.remove(fillOnCask);
+    public void removeCurrentPutOnCask(PutOnCask putOnCask) {
+        currentPutOnCasks.remove(putOnCask);
     }
 
     @Override

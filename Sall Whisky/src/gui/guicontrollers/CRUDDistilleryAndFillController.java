@@ -104,7 +104,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
     @FXML
     private TextField typeLiterAmounttxf;
     @FXML
-    private TextArea txaDescriptionOfDistillate;
+    private TextArea txaDescription;
 
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
@@ -155,13 +155,12 @@ public class CRUDDistilleryAndFillController implements Initializable {
             lvwMaltBatches.setStyle("-fx-border-color: red;");
             return;
         }
-        String description = txaDescriptionOfDistillate.getText().trim();
+        String description = txaDescription.getText().trim();
 
         Controller.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches, description);
         clearErrorMarkings();
         updateControls();
 
-//        MainController.createDistillate()
         }
 
     @FXML
@@ -258,11 +257,12 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     private boolean canFillOnCask(double amountInLiters, Cask cask) {
         double currentContent = 0;
-        for (FillOnCask fillOnCask: cask.getFillOnCasks()) {
-            for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
+        for (PutOnCask putOnCask: cask.getCurrentPutOnCasks()) {
+            for (DistillateFill distillateFill: putOnCask.getFillOnCask().getDistillateFills()) {
                 currentContent += distillateFill.getAmountOfDistillateInLiters();
             }
         }
-        return currentContent - amountInLiters < 0;
+        System.out.println(currentContent - amountInLiters);
+        return currentContent - amountInLiters > 0;
     }
 }

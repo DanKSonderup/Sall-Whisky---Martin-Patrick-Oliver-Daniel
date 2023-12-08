@@ -10,20 +10,20 @@ import java.util.Map;
 
 public class FillOnCask {
     private LocalDate timeOfFill;
-    private Cask cask;
+    private ArrayList<PutOnCask> putOnCasks = new ArrayList<>();
     private List<DistillateFill> distillateFills = new ArrayList<>();
 
     public FillOnCask(LocalDate timeOfFill, Cask cask) {
         this.timeOfFill = timeOfFill;
-        this.cask = cask;
+        putOnCasks.add(new PutOnCask(timeOfFill, this, cask));
     }
 
     public LocalDate getTimeOfFill() {
         return timeOfFill;
     }
 
-    public Cask getCask() {
-        return cask;
+    public ArrayList<PutOnCask> getPutOnCasks() {
+        return putOnCasks;
     }
 
     /** Returns the total sum of liters from distillatefills connected to this object */
@@ -33,10 +33,6 @@ public class FillOnCask {
             sum += distillateFill.getAmountOfDistillateInLiters();
         }
         return sum;
-    }
-
-    public void setCask(Cask cask) {
-        this.cask = cask;
     }
 
     public List<DistillateFill> getDistillateFills() {
