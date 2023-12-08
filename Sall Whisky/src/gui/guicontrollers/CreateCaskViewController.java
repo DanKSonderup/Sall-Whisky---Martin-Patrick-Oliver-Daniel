@@ -57,7 +57,7 @@ public class CreateCaskViewController implements Initializable {
     private TextField txfPreviousContent;
     @FXML
     private TextField txfSizeInLiters;
-    private ArrayList<Cask> createdCasts = new ArrayList<>();
+    private ArrayList<Cask> createdCasks = new ArrayList<>();
     private Warehouse currentlySelectedWarehouse;
     private Rack currentlySelectedRack;
     private Shelf currentlySelectedShelf;
@@ -106,7 +106,6 @@ public class CreateCaskViewController implements Initializable {
      * If the user has not entered a size for the cask prompt the user to enter one
      * If the user has not selected a position for the cask prompt the user to select one
      * If the user has not selected a supplier for the cask prompt the user to select one
-     * @param event
      */
         @FXML
         void btnCreateCaskOnAction(ActionEvent event) {
@@ -124,7 +123,7 @@ public class CreateCaskViewController implements Initializable {
                 double sizeInLiters = Double.parseDouble(txfSizeInLiters.getText());
                 Position position = lvwPosition.getSelectionModel().getSelectedItem();
                 CaskSupplier supplier = lvwCaskSupplier.getSelectionModel().getSelectedItem();
-                createdCasts.add(Controller.createCask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText(),
+                createdCasks.add(Controller.createCask(txfCountryOfOrigin.getText(), sizeInLiters, txfPreviousContent.getText(),
                         position, supplier));
                 txfSizeInLiters.clear();
                 txfPreviousContent.clear();
@@ -161,13 +160,17 @@ public class CreateCaskViewController implements Initializable {
     }
 
 
+    /**
+     * Updates the displayed items in the ListViews based on the selected warehouse, rack and shelf
+     */
     public void selectedStorageItemChanged() {
-
          Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();
          Rack selectedRack = lvwRack.getSelectionModel().getSelectedItem();
          Shelf selectedShelf = lvwShelf.getSelectionModel().getSelectedItem();
 
          if (selectedWarehouse == null) return;
+
+         // If a new warehouse is selected, update the displayed racks and clear the rest
          if (selectedWarehouse != currentlySelectedWarehouse) {
              currentlySelectedWarehouse = selectedWarehouse;
              lvwRack.getItems().setAll(Controller.getAvailableRacks(currentlySelectedWarehouse, cask));
@@ -193,13 +196,20 @@ public class CreateCaskViewController implements Initializable {
          }
     }
 
+    /**
+     * Clear ListView Position, ListView Shelf, ListView Rack
+     */
     private void clearWareHouseListViews() {
         lvwPosition.getItems().clear();
         lvwShelf.getItems().clear();
         lvwRack.getItems().clear();
-        lvwPosition.getItems().clear();
     }
 
+    /**
+     * Checks whether a TextField can be parsed into a Double
+     * If the TextField can't be parsed into a double return false and catch a NumberFormatException
+     * Else return true
+     */
     private boolean canParseToDouble(TextField txf) {
         boolean cannotParse = false;
         try {
@@ -212,7 +222,10 @@ public class CreateCaskViewController implements Initializable {
         return cannotParse;
     }
 
+    /**
+     * Update the tableview with createdCasks
+     */
     private void updateTvwCreatedCasks() {
-        tvwCreatedCasks.getItems().setAll(createdCasts);
+        tvwCreatedCasks.getItems().setAll(createdCasks);
     }
 }

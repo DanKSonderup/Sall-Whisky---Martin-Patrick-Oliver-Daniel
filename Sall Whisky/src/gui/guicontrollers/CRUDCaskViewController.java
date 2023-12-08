@@ -78,6 +78,7 @@ public class CRUDCaskViewController implements Initializable {
 
     }
 
+
     @FXML
     void btnCreateCaskOnAction(ActionEvent event) throws IOException {
         URL url = new File("Sall Whisky/src/gui/views/CreateCaskView.fxml").toURI().toURL();
@@ -131,13 +132,6 @@ public class CRUDCaskViewController implements Initializable {
             updateTvwCasks();
 
         }
-    }
-
-
-
-    @FXML
-    void btnEditCaskOnAction(ActionEvent event) {
-        //TODO Til version to når der skal kunne omhældes
     }
 
     /**

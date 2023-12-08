@@ -395,6 +395,10 @@ public class CRUDRawMaterialsViewController implements Initializable {
         }
     }
 
+    /**
+     * Shows a confirmation dialog of a specific object that you want to delete depending
+     * on the object selected
+     */
     private ButtonType showDeleteConfirmationDialog(Object o) {
         String typeOfObjectToDelete = "";
         if (o instanceof Field) typeOfObjectToDelete = "denne mark";
@@ -410,6 +414,10 @@ public class CRUDRawMaterialsViewController implements Initializable {
         return alert.showAndWait().orElse(ButtonType.CANCEL);
     }
 
+    /**
+     * Checks whether a field is connected to a Grain object and if the grain is connected to the field
+     * Return true if they are connected
+     */
     private boolean isConnectedToGrain(Field field) {
         boolean ConnectionFound = false;
         int i = 0;
@@ -423,6 +431,10 @@ public class CRUDRawMaterialsViewController implements Initializable {
         return ConnectionFound;
     }
 
+    /**
+     * Checks whether a grain is connected to a Maltbach object and if the Maltbach is connected to the grain
+     * Return true if they are connected
+     */
     private boolean isConnectedToMaltbatch(Grain grain) {
         boolean ConnectionFound = false;
         int i = 0;
@@ -436,6 +448,10 @@ public class CRUDRawMaterialsViewController implements Initializable {
         return ConnectionFound;
     }
 
+    /**
+     * Checks whether a Maltbatch is connected to a Distillate object and if the Maltbatch is connected to the Distillate
+     * Return true if they are connected
+     */
     private boolean isConnectedToDistillate(Maltbatch maltbatch) {
         boolean ConnectionFound = false;
         int i = 0;

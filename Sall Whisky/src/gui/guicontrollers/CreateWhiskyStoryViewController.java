@@ -27,7 +27,9 @@ public class CreateWhiskyStoryViewController implements Initializable {
         @FXML
         private TextArea whiskyStorytxa;
 
-
+    /**
+     * Copies the clipboard to the TextArea
+     */
         @FXML
             void btnCopyStory(ActionEvent event) {
                 String ctc = whiskyStorytxa.getText().toString();

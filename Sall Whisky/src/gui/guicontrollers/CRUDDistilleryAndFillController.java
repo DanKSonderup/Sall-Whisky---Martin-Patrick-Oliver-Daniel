@@ -130,6 +130,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
     void btnSupplierOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
+
     @FXML
     void btnCreateDistillateOnAction(ActionEvent event) {
         String newMakenr = newMakeNrtxf.getText().trim();
@@ -151,7 +152,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
             pickEmployeeComboBox.setStyle("-fx-border-color: red;");
             return;
         }
-        if (maltBatches.size() == 0) {
+        if (maltBatches.isEmpty()) {
             lvwMaltBatches.setStyle("-fx-border-color: red;");
             return;
         }
@@ -225,6 +226,11 @@ public class CRUDDistilleryAndFillController implements Initializable {
             updateControls();
     }
 
+    /**
+     * Checks whether a TextField can be parsed into a Double
+     * If the TextField can't be parsed into a double catch a NumberFormatException and mark the field as red
+     * Else return the amount declared in the TextField
+     */
     private double txfParseDouble(TextField txf) {
         double returnValue = -1.0;
         try {
@@ -234,7 +240,10 @@ public class CRUDDistilleryAndFillController implements Initializable {
         }
         return returnValue;
     }
-
+    /**
+     * Clear all the error markings of newMakeNr, pickEmployeeComboBox, amountOfLiters
+     * alcoholPercentage and literAmount TextFields and Combobox
+     */
     private void clearErrorMarkings() {
         newMakeNrtxf.setStyle("-fx-border-color: transparent;");
         pickEmployeeComboBox.setStyle("-fx-border-color: transparent;");
@@ -242,6 +251,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         alcoholPercentagetxf.setStyle("-fx-border-color: transparent;");
         typeLiterAmounttxf.setStyle("-fx-border-color: transparent;");
     }
+
 
     private void updateControls() {
         distillatelvw.getItems().setAll(Controller.getAvailableDistillates());

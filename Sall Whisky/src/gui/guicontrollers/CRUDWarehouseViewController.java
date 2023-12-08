@@ -100,8 +100,18 @@ public class CRUDWarehouseViewController implements Initializable {
 
         lvwWarehouse.getItems().setAll(Controller.getStorage().getWarehouses());
 
-        }
+    }
 
+    /**
+     * Creates a Warehouse
+     * If the user has not entered an Address prompt the user to enter one
+     * Check whether the amount of Racks can be parsed to an Integer
+     * Check whether the amount of Shelves can be parsed to an Integer
+     * Check whether the amount of Positions can be parsed to an Integer
+     * If all values are valid create a Warehouse with the given amount of Racks, Shelves and Positions
+     * Update the warehouse listview
+     * Clear the textfields
+     */
     @FXML
     void btnCreateWarehouseOnAction(ActionEvent event) {
         boolean missingInfo = canParseToInteger(rackAmounttxf);
@@ -134,16 +144,9 @@ public class CRUDWarehouseViewController implements Initializable {
 
     }
 
-    @FXML
-    void btnCrudWarehouseOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnDeleteWarehouseOnAction(ActionEvent event) {
-        // TODO
-    }
-
+    /**
+     * Updates the displayed items in the ListViews based on the selected warehouse, rack and shelf
+     */
     public void selectedStorageItemChanged() {
         Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();
         Rack selectedRack = lvwRack.getSelectionModel().getSelectedItem();
@@ -174,6 +177,13 @@ public class CRUDWarehouseViewController implements Initializable {
             }
         }
     }
+
+    /**
+     * Checks whether a TextField can be parsed into an Integer
+     * If the TextField can't be parsed into an integer return false,
+     * catch a NumberFormatException and mark the TextField as red
+     * Else return true
+     */
     private boolean canParseToInteger(TextField txf) {
         boolean cannotParse = false;
         try {
@@ -186,6 +196,9 @@ public class CRUDWarehouseViewController implements Initializable {
         return cannotParse;
     }
 
+    /**
+     * Update the Warehouse ListView
+     */
     private void updateWarehouses() {
         lvwWarehouse.getItems().setAll(Controller.getStorage().getWarehouses());
     }

@@ -95,6 +95,12 @@ public class CreateWhiskyViewController implements Initializable {
     private Whisky whisky;
 
 
+    /**
+     * Create a Whisky with the name and description specified in the TextFields.
+     * Create a set amount of WhiskyBottles for the Whisky calculated by the size of the bottles,
+     * amount of water in Liters
+     * and amount of Bottles
+     */
     @FXML
     void btnCreateWhisky(ActionEvent event) {
         int sizeOfBottle = bottleSizecbb.getSelectionModel().getSelectedItem();
@@ -115,6 +121,16 @@ public class CreateWhiskyViewController implements Initializable {
         System.out.println(Controller.getStorage().getWhiskies());
     }
 
+    /**
+     * Gives the selected Cask from the table view a new AlcoholPercentage
+     * Make sure the new value is a double
+     * If no cask is selected show an errorWindow with a message
+     * Make sure the input for value and amountToFill is valid. Value < 0, amountToFill < 0. If value > 99 exit method
+     * and indicate error
+     * Create a new WhiskyFill and handle any possible exception and show error window
+     * Update all relevant List and tableViews
+     * Check whether the type of whisky is Blended or Single malt by the size of whiskyFills
+     */
     @FXML
     void btnRegisterAlcoholPercentageOnAction(ActionEvent event) {
         Cask cask = tbvRipeCasks.getSelectionModel().getSelectedItem();
@@ -159,6 +175,10 @@ public class CreateWhiskyViewController implements Initializable {
         clearErrorMarkings();
     }
 
+    /**
+     * Calculates the amount of bottles from a Whisky
+     * If waterInLiters < 0 or sizeOfBottles == 0 exit the method
+     */
     @FXML
     void btnCalcNumberOfBottlesOnAction(ActionEvent event) {
         int sizeOfBottle = bottleSizecbb.getSelectionModel().getSelectedItem();
@@ -183,6 +203,11 @@ public class CreateWhiskyViewController implements Initializable {
     }
 
 
+    /**
+     * Creates an alert
+     * @param header decides the alert's HeaderText
+     * @param content decides the alert's ContentText
+     */
     private void showErrorWindow(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Fejl");
@@ -191,11 +216,19 @@ public class CreateWhiskyViewController implements Initializable {
         alert.show();
     }
 
+    /**
+     * Clear all the error markings of wateredWhisky, alcoholPercentage and amountOfFill textFields
+     */
     private void clearErrorMarkings() {
         wateredWhiskytxf.setStyle("-fx-border-color: transparent;");
         amountOfFillCltxf.setStyle("-fx-border-color: transparent;");
         txfAlcoholPercentage.setStyle("-fx-border-color: transparent;");
     }
+    /**
+     * Checks whether a TextField can be parsed into a Double
+     * If the TextField can't be parsed into a double catch a NumberFormatException and mark the field as red
+     * Else return the amount declared in the TextField
+     */
     private double txfParseDouble(TextField txf) {
         double returnValue = -1.0;
         try {
@@ -207,15 +240,24 @@ public class CreateWhiskyViewController implements Initializable {
         return returnValue;
     }
 
+    /**
+     * Updates the WhiskyBatch ListView
+     */
     private void updatelvwWhiskyFillReadyForFill() {
         lvwWhiskyBatch.getItems().setAll(whiskyFills);
     }
 
+    /**
+     * Adds text to the ContentOfWhisky TextArea
+     */
     private void updateContentOfWhisky(String content) {
         txaContentOfWhisky.appendText(content + " \n");
     }
 
 
+    /**
+     * Updates the RipeCask TableView
+     */
     private void updateRipeCasks() {
         tbvRipeCasks.getItems().setAll(Controller.getRipeCasks());
     }

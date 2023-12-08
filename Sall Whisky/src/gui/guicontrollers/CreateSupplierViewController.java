@@ -72,7 +72,6 @@ public class CreateSupplierViewController implements Initializable {
         lvwCaskSupplier.getItems().setAll(Controller.getCaskSuppliers());
         lvwGrainSupplier.getItems().setAll(Controller.getGrainSuppliers());
 
-
         ChangeListener<GrainSupplier> grainSupplierChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
         lvwGrainSupplier.getSelectionModel().selectedItemProperty().addListener(grainSupplierChangeListener);
 
@@ -83,6 +82,10 @@ public class CreateSupplierViewController implements Initializable {
         cbbSupplier.setItems(FXCollections.observableArrayList(suppliers));
     }
 
+    /**
+     * Create a new Cask or Grain supplier depended on the selected instance from the ComboBox
+     * Update the Grain and Cask supplier ListView and reset the TextFields
+     */
     @FXML
     void btnCreateSupplierOnAction(ActionEvent event) {
         String name = txfName.getText().trim();
@@ -103,6 +106,9 @@ public class CreateSupplierViewController implements Initializable {
         clearInput();
     }
 
+    /**
+     * Clear the TextFields of Name, Address, Country, VatId and the supplier combobox
+     */
     private void clearInput() {
         cbbSupplier.getSelectionModel().clearSelection();
         txfName.clear();
@@ -127,9 +133,12 @@ public class CreateSupplierViewController implements Initializable {
     }
 
 
+    /**
+     * Get the selected object from the Grain- and Cask supplier Listview
+     */
     public void selectedStorageItemChanged() {
-        GrainSupplier selectedGrainSupplier = lvwGrainSupplier.getSelectionModel().getSelectedItem();
-        CaskSupplier selectedCaskSupplier = lvwCaskSupplier.getSelectionModel().getSelectedItem();
+        lvwGrainSupplier.getSelectionModel().getSelectedItem();
+        lvwCaskSupplier.getSelectionModel().getSelectedItem();
     }
 
     @FXML
