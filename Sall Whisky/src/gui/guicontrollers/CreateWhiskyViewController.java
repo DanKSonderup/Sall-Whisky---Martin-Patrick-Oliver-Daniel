@@ -103,7 +103,7 @@ public class CreateWhiskyViewController implements Initializable {
 
         String name = txfWhiskyName.getText().trim();
         String description = txaDescriptionOfWhisky.getText().trim();
-        whisky = Controller.createWhisky(name, waterInLiters, whiskyFills, description);
+        whisky = Controller.createWhisky(name, waterInLiters, new ArrayList<>(whiskyFills), description);
 
         Controller.createWhiskyBottlesForWhisky(amountOfBottles, sizeOfBottle, whisky);
 
@@ -112,7 +112,7 @@ public class CreateWhiskyViewController implements Initializable {
         alert.setHeaderText("Whisky oprettet");
         alert.setContentText("En ny whisky er oprettet med navn: " + whisky.getName() + "\n" + "Der er oprettet " + amountOfBottles + " flasker med den valgte whisky");
         alert.show();
-        System.out.println(Controller.getStorage().getWhiskies());
+        clearAllEditableFields();
     }
 
     @FXML
@@ -161,14 +161,14 @@ public class CreateWhiskyViewController implements Initializable {
 
     @FXML
     void btnCalcNumberOfBottlesOnAction(ActionEvent event) {
+        if (bottleSizecbb.getSelectionModel().getSelectedItem() == null) {
+            bottleSizecbb.setStyle("-fx-border-color: red;");
+            return;
+        }
         int sizeOfBottle = bottleSizecbb.getSelectionModel().getSelectedItem();
         double waterInLiters = Double.parseDouble(wateredWhiskytxf.getText().trim());
 
         if (waterInLiters < 0) {
-            return;
-        }
-        if (sizeOfBottle == 0) {
-            bottleSizecbb.setStyle("-fx-border-color: red;");
             return;
         }
 
@@ -206,8 +206,23 @@ public class CreateWhiskyViewController implements Initializable {
         txf.setOnMouseClicked(e -> {txf.setStyle("-fx-border-color: transparent;");});
         return returnValue;
     }
+    private void clearAllEditableFields() {
+        lvwWhiskyBatch.getItems().clear();
+        txfAlcoholPercentage.clear();
+        amountOfFillCltxf.clear();
+        txfWhiskyName.clear();
+        wateredWhiskytxf.clear();
+        txaContentOfWhisky.clear();
+        txaDescriptionOfWhisky.clear();
+        whiskyFills.clear();
+        txfTypeOfWhisky.clear();
+        amountOfBottlestxf.clear();
+    }
 
     private void updatelvwWhiskyFillReadyForFill() {
+        if (whiskyFills.isEmpty()) {
+            return;
+        }
         lvwWhiskyBatch.getItems().setAll(whiskyFills);
     }
 

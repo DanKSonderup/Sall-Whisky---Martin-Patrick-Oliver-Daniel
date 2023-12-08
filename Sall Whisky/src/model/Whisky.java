@@ -1,6 +1,7 @@
 package model;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,6 +89,11 @@ public class Whisky {
     @Override
     public String toString() {
         String newMakes = "";
+        String timeOfFillString = "";
+        if (!whiskyFills.isEmpty()) {
+            timeOfFillString += whiskyFills.get(0).getTimeOfFill();
+        }
+
         for (WhiskyFill whiskyFill: whiskyFills) {
             for (FillOnCask fillOnCask: whiskyFill.getFillOnCasks()) {
                 for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
@@ -95,6 +101,6 @@ public class Whisky {
                 }
             }
         }
-        return name + " (" + whiskyFills.get(0).getTimeOfFill() + "), Newmake: " + newMakes;
+        return name + " (" + timeOfFillString + "), Newmake: " + newMakes;
     }
 }
