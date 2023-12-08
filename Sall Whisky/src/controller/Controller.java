@@ -3,10 +3,7 @@ package controller;
 import model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public abstract class Controller {
 
@@ -32,8 +29,10 @@ public abstract class Controller {
     public static List<Cask> getRipeCasks() {
         List<Cask> ripeCasks = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
-            if (cask.getYoungestFillOnCask().getTimeOfFill().isBefore(LocalDate.now().minusYears(3)) && cask.getCurrentContentInLiters() > 0) {
-                ripeCasks.add(cask);
+            if (cask.getYoungestFillOnCask() != null) {
+                if (cask.getYoungestFillOnCask().getTimeOfFill().isBefore(LocalDate.now().minusYears(3)) && cask.getCurrentContentInLiters() > 0) {
+                    ripeCasks.add(cask);
+                }
             }
         }
         return ripeCasks;
@@ -372,6 +371,7 @@ public abstract class Controller {
     public static Whisky createWhisky(String name, double waterInLiters, List<WhiskyFill> whiskyFills, String description) {
         Whisky whisky = new Whisky(name,waterInLiters, whiskyFills, description);
         storage.storeWhisky(whisky);
+
         return whisky;
     }
     /** Get all whiskys */
@@ -445,34 +445,76 @@ public abstract class Controller {
     public static String generateStoryForWhisky(Whisky whisky) {
         Stack<String> infoStrings = new Stack<>();
 
-
         String whiskyInfo = whisky.getName() + "\nTappet d. " + whisky.getWhiskyFills().get(0).getTimeOfFill() +
                 "\nFortyndet med " + whisky.getWaterInLiters() +
                 " liter vand \nBeskrivelse: " + whisky.getDescription();
 
-        infoStrings.add(whiskyInfo + "\n ------------------- \n");
+        infoStrings.add(whiskyInfo + "\n------------------------");
 
         String caskInfos = "\nFade i denne whisky:\n\n";
-        for (WhiskyFill whiskyFill: whisky.getWhiskyFills()) {
-            Cask currentCask = whiskyFill.getCask();
-            caskInfos += "FadID: " + currentCask.getCaskId()
-                    + "\nOprindelsesland: " + currentCask.getCountryOfOrigin()
-                    + "\nTidligere indhold: " + currentCask.getPreviousContent()
-                    + "\nFadtype: Egetræ"
-                    + "\nLeverandør: " + currentCask.getSupplierName()
-                    + "\n - Land: " + currentCask.getSupplier().getCountry();
-            caskInfos += "\n\n";
-        }
-
-
         infoStrings.add(caskInfos);
-
+        infoStrings.add(getCaskStoryForWhisky(whisky));
 
         StringBuilder sb = new StringBuilder();
         Iterator<String> iterator = infoStrings.iterator();
         while (iterator.hasNext()) {
             sb.append(iterator.next());
         }
+        return sb.toString();
+    }
+
+    /**
+     * Helper method for generateStoryForWhisky
+     * Returns a full story of a Cask based on a Whisky's whiskyfills (Since a whiskyfill always has only 1 cask and
+     * the whiskyfill is connected to the FillOnCask (Which is the content we're interested in)
+     * @param whisky
+     * @return String containing the story of all Casks on this Whisky
+     */
+    private static String getCaskStoryForWhisky(Whisky whisky) {
+        StringBuilder sb = new StringBuilder();
+
+        for (WhiskyFill whiskyFill: whisky.getWhiskyFills()) {
+            System.out.println(whiskyFill.getCask().getCaskId());
+        }
+
+        for (WhiskyFill whiskyFill: whisky.getWhiskyFills()) {
+            Cask cask = whiskyFill.getCask();
+            sb.append("------------------------------------------");
+            sb.append("\n[FadID: " + cask.getCaskId() + " ]");
+            sb.append("\nProcentdel i % (medregnet vand): " + whisky.caskShare().get(whiskyFill));
+            sb.append("\nOprindelsesland: " + cask.getCountryOfOrigin());
+            sb.append("\nTidligere indhold: " + cask.getPreviousContent());
+            sb.append("\nFadtype: Egetræ");
+            sb.append("\nLeverandør: " + cask.getSupplierName());
+            sb.append("\n - Land: " + cask.getSupplier().getCountry());
+            sb.append("\n\n [Destillater fra dette fad]");
+            for (FillOnCask fillOnCask: whiskyFill.getFillOnCasks()) {
+                for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
+                    Distillate distillate = distillateFill.getDistillate();
+                    sb.append("\nDestillat: " + distillate.getNewMakeNr());
+                    sb.append("\nProcentdel af dette fad: " + fillOnCask.distillateShare().get(distillateFill));
+                    sb.append("\nPåfyldt: " + fillOnCask.getTimeOfFill());
+                    sb.append("\nMedarbejder: " + distillate.getEmployee());
+                    sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
+                    sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
+                    sb.append("\nBeskrivelse: " + distillate.getDescription());
+                    sb.append("\nBestår af følgende maltbatches:");
+                    sb.append("\n---------------------------------");
+                    for (Maltbatch maltbatch: distillate.getMaltbatches()) {
+                        Grain grain = maltbatch.getGrain();
+                        sb.append("\nMaltbatch: " + maltbatch.getName());
+                        sb.append("\nBeskrivelse:");
+                        sb.append("\n[Korn Information]");
+                        sb.append("\nKorntype: " + grain.getGrainType());
+                        sb.append("\nLandmand: " + grain.getGrainSupplier().getName());
+                        sb.append("\nMark: " + grain.getField());
+                        sb.append("\nDyrkelsesmetode: " + grain.getCultivationDescription());
+                    }
+                }
+            }
+            sb.append("------------------------------------------");
+        }
+
         return sb.toString();
     }
 

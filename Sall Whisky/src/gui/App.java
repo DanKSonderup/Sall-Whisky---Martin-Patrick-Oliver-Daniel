@@ -66,7 +66,7 @@ public class App {
         Controller.createPosition(sh1, 30);
         Controller.createPosition(sh2, 50);
         Controller.createPosition(sh1, 40);
-        Controller.createPosition(sh3, 100);
+        Position p2 = Controller.createPosition(sh3, 100);
         Position p1 = Controller.createPosition(sh5, 50);
 
         Employee em1 = Controller.createEmployee(1, "Hans");
@@ -74,15 +74,27 @@ public class App {
         Cask mainCask = Controller.createCask("Frankrig", 50, "Bourbon", p1, cs1);
 
         Distillate testD = Controller.createDistillate("Idk", 20, 50, 50, em1, Controller.getMaltbatches(), "Destilleret 2 gange");
+        Distillate testD2 = Controller.createDistillate("Test2", 20, 50, 50, em1, Controller.getMaltbatches(), "Destilleret 2 gange");
+
+
 
         ArrayList<DistillateFill> distillateFills = new ArrayList<>();
         distillateFills.add(new DistillateFill(10, testD));
 
-        ArrayList<DistillateFill> distillateFills2 = new ArrayList<>();
-        distillateFills2.add(new DistillateFill(30, testD));
+
+
+
+        Cask mainCask2 = Controller.createCask("Italien", 70, "Bourbon", p2, cs1);
+
+
+
+        ArrayList<DistillateFill> distillateFills3 = new ArrayList<>();
+        distillateFills3.add(new DistillateFill(40, testD2));
+
 
         Controller.createFillOnCask(LocalDate.of(2015, 10, 2), mainCask, distillateFills);
 
-        FillOnCask foc = Controller.createFillOnCask(LocalDate.of(2015, 10, 2), mainCask, distillateFills2);
+        Controller.createFillOnCask(LocalDate.of(2015, 10, 2), mainCask2, distillateFills3);
+
     }
 }

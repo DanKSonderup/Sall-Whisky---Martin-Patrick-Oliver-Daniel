@@ -61,10 +61,11 @@ public class MainViewController implements Initializable {
 
     @FXML
     private TableView<Cask> tbvRipeCasks;
-
-
+    @FXML
+    private Button btnGetWhiskyStory;
     @FXML
     private ListView<Whisky> lvwWhisky;
+    private Whisky whisky;
 
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
@@ -102,6 +103,17 @@ public class MainViewController implements Initializable {
     void btnStartSideOnAction(ActionEvent event) {
 
     }
+    @FXML
+    void btnGetWhiskyStoryOnAction(ActionEvent event) throws IOException {
+        this.whisky = lvwWhisky.getSelectionModel().getSelectedItem();
+        URL url = new File("Sall Whisky/src/gui/views/CreateWhiskyStoryView.fxml").toURI().toURL();
+        Parent root1 = FXMLLoader.load(url);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Hent Whisky historie");
+        stage.setScene(new Scene(root1));
+        stage.showAndWait();
+    }
 
     @FXML
     void btnSupplierOnAction(ActionEvent event) throws IOException {
@@ -125,5 +137,9 @@ public class MainViewController implements Initializable {
     private void updateViews() {
         tbvRipeCasks.getItems().setAll(Controller.getRipeCasks());
         lvwWhisky.getItems().setAll(Controller.getWhiskies());
+    }
+
+    public Whisky getWhisky() {
+        return whisky;
     }
 }

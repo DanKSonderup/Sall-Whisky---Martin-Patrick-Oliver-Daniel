@@ -263,6 +263,6 @@ public class CRUDDistilleryAndFillController implements Initializable {
                 currentContent += distillateFill.getAmountOfDistillateInLiters();
             }
         }
-        return currentContent > amountInLiters;
+        return currentContent - amountInLiters < 0;
     }
 }

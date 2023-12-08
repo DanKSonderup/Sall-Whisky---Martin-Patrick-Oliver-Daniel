@@ -46,6 +46,10 @@ public class Distillate {
         return alcoholPercentage;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     // TODO setAlcoholPercentage aldrig brugt
     public void setAlcoholPercentage(double alcoholPercentage) {
         this.alcoholPercentage = alcoholPercentage;

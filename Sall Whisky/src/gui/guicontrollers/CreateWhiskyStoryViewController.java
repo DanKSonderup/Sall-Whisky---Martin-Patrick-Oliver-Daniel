@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import model.Whisky;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -16,6 +17,7 @@ import java.util.ResourceBundle;
 
 public class CreateWhiskyStoryViewController implements Initializable {
 
+        private MainViewController mainViewController;
         @FXML
         private Button btnCopyStory;
 
@@ -25,17 +27,18 @@ public class CreateWhiskyStoryViewController implements Initializable {
         @FXML
         private TextArea whiskyStorytxa;
 
+
         @FXML
-        void btnCopyStory(ActionEvent event) {
-            String ctc = whiskyStorytxa.getText().toString();
-            StringSelection stringSelection = new StringSelection(ctc);
-            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(stringSelection, null);
-        }
+            void btnCopyStory(ActionEvent event) {
+                String ctc = whiskyStorytxa.getText().toString();
+                StringSelection stringSelection = new StringSelection(ctc);
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(stringSelection, null);
+            }
 
-        public void initialize(URL url, ResourceBundle resourceBundle) {
-//            whiskyStorytxa.setText(Controller.generateStoryForWhisky());
-        }
+            public void initialize(URL url, ResourceBundle resourceBundle) {
+            whiskyStorytxa.setText(Controller.generateStoryForWhisky(mainViewController.getWhisky()));
+            }
 
-    }
+        }
 

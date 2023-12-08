@@ -134,8 +134,10 @@ public class CreateWhiskyViewController implements Initializable {
             }
             return;
         }
+        ArrayList<FillOnCask> tempFillsOnCask = new ArrayList<>();
+        tempFillsOnCask.addAll(cask.getFillOnCasks());
         try {
-            whiskyFill = Controller.createWhiskyFill(amountToFill, cask.getFillOnCasks(), value, cask);
+            whiskyFill = Controller.createWhiskyFill(amountToFill, tempFillsOnCask, value, cask);
         } catch (InterruptedException e) {
             showErrorWindow("Påfyldningsfejl", e.getMessage());
             return;
