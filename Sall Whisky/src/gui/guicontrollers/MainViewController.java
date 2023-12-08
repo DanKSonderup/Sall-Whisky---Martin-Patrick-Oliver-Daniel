@@ -1,16 +1,14 @@
 package gui.guicontrollers;
 
 import controller.Controller;
+import gui.views.CreateWhiskyStoryWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -104,15 +102,18 @@ public class MainViewController implements Initializable {
 
     }
     @FXML
-    void btnGetWhiskyStoryOnAction(ActionEvent event) throws IOException {
-        this.whisky = lvwWhisky.getSelectionModel().getSelectedItem();
-        URL url = new File("Sall Whisky/src/gui/views/CreateWhiskyStoryView.fxml").toURI().toURL();
-        Parent root1 = FXMLLoader.load(url);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Hent Whisky historie");
-        stage.setScene(new Scene(root1));
-        stage.showAndWait();
+    void btnGetWhiskyStoryOnAction(ActionEvent event) {
+        whisky = lvwWhisky.getSelectionModel().getSelectedItem();
+        if (whisky != null) {
+            CreateWhiskyStoryWindow dialog = new CreateWhiskyStoryWindow(whisky);
+            dialog.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Whisky");
+            alert.setHeaderText("Du skal vælge en whisky");
+            alert.setContentText("Du skal vælge en whisky for at kunne hente en historie");
+            alert.show();
+        }
     }
 
     @FXML

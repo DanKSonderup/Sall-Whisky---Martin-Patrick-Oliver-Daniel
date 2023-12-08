@@ -25,10 +25,9 @@ class WhiskyTestCalculateAlcoholpercentage {
         whisky = new Whisky("Name", 0, new ArrayList<>(), "");
     }
 
-    // TODO test specifikation?
+    /** TC1: 1 whiskyFill, no water */
     @Test
     void testCase1() {
-        // Test with 1 whiskyFill and no water
         // Arrange
         whisky.addWhiskyFill(whiskyFill1);
         whiskyFill1.setAlcoholPercentage(52.5);
@@ -41,10 +40,9 @@ class WhiskyTestCalculateAlcoholpercentage {
         assertEquals(52.5, actualResult);
     }
 
-    // TODO test specifikation?
+    /** TC2: 1 whiskyFill, with water */
     @Test
     void testCase2() {
-        // Test with 1 whiskyFill and with water
         // Arrange
         whisky.addWhiskyFill(whiskyFill1);
         whisky.setWaterInLiters(12);
@@ -59,10 +57,9 @@ class WhiskyTestCalculateAlcoholpercentage {
 
     }
 
-    // TODO test specifikation?
+    /** TC3: 2 whiskyFills, no water */
     @Test
     void testCase3() {
-        // Test with 2 whiskyfills without water
         // Arrange
         whisky.addWhiskyFill(whiskyFill1);
         whisky.addWhiskyFill(whiskyFill2);
@@ -78,10 +75,9 @@ class WhiskyTestCalculateAlcoholpercentage {
 
     }
 
-    // TODO test specifikation?
+    /** TC4: 2 whiskyFills, limit values, with water */
     @Test
     void testCase4() {
-        // Test with 2 whiskyfills on edge cases with water
         // Arrange
         whisky.addWhiskyFill(whiskyFill1);
         whisky.addWhiskyFill(whiskyFill2);

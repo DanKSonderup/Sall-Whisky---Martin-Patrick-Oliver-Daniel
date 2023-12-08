@@ -123,7 +123,7 @@ public abstract class Controller {
 
     /**
      * Create, store and return a Cask
-     * Pre: sizeInLiters > 0 / Throw an illegalArgumentException if sizeInLiters <= 0
+     * Throws an illegalArgumentException if sizeInLiters <= 0
      * add the cask to the position
      */
     public static Cask createCask(String countryOfOrigin, double sizeInLiters, String previousContent,
@@ -144,7 +144,7 @@ public abstract class Controller {
         return cask;
     }
 
-    /** Remove a cask */
+    /** Remove a cask from Storage */
     public static void removeCask(Cask cask) {
         storage.deleteCask(cask);
     }
@@ -268,6 +268,7 @@ public abstract class Controller {
     public static Distillate createDistillate(String newMakenr, double distillationTimeInHours,
                                               double alcoholPercentage, double amountInLiters, Employee employee,
                                               List<Maltbatch> maltbatches, String description) {
+
         Distillate distillate = new Distillate(newMakenr, distillationTimeInHours, alcoholPercentage, amountInLiters,
                 employee, maltbatches, description);
         storage.storeDistillate(distillate);
@@ -445,13 +446,13 @@ public abstract class Controller {
     public static String generateStoryForWhisky(Whisky whisky) {
         Stack<String> infoStrings = new Stack<>();
 
-        String whiskyInfo = whisky.getName() + "\nTappet d. " + whisky.getWhiskyFills().get(0).getTimeOfFill() +
+        String whiskyInfo = "Navn: " + whisky.getName() + "\nTappet d. " + whisky.getWhiskyFills().get(0).getTimeOfFill() +
                 "\nFortyndet med " + whisky.getWaterInLiters() +
                 " liter vand \nBeskrivelse: " + whisky.getDescription();
 
-        infoStrings.add(whiskyInfo + "\n------------------------");
+        infoStrings.add(whiskyInfo);
 
-        String caskInfos = "\nFade i denne whisky:\n\n";
+        String caskInfos = "\n\nFade i denne whisky:\n";
         infoStrings.add(caskInfos);
         infoStrings.add(getCaskStoryForWhisky(whisky));
 
@@ -467,7 +468,7 @@ public abstract class Controller {
      * Helper method for generateStoryForWhisky
      * Returns a full story of a Cask based on a Whisky's whiskyfills (Since a whiskyfill always has only 1 cask and
      * the whiskyfill is connected to the FillOnCask (Which is the content we're interested in)
-     * @param whisky
+     * @param whisky we want a story from
      * @return String containing the story of all Casks on this Whisky
      */
     private static String getCaskStoryForWhisky(Whisky whisky) {
@@ -498,12 +499,12 @@ public abstract class Controller {
                     sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
                     sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
                     sb.append("\nBeskrivelse: " + distillate.getDescription());
-                    sb.append("\nBestår af følgende maltbatches:");
-                    sb.append("\n---------------------------------");
+                    sb.append("\n\n[Består af følgende maltbatches]");
+                    sb.append("\n------------------------------------------");
                     for (Maltbatch maltbatch: distillate.getMaltbatches()) {
                         Grain grain = maltbatch.getGrain();
                         sb.append("\nMaltbatch: " + maltbatch.getName());
-                        sb.append("\nBeskrivelse:");
+                        sb.append("\nBeskrivelse:" + maltbatch.getDescription());
                         sb.append("\n[Korn Information]");
                         sb.append("\nKorntype: " + grain.getGrainType());
                         sb.append("\nLandmand: " + grain.getGrainSupplier().getName());
@@ -512,7 +513,7 @@ public abstract class Controller {
                     }
                 }
             }
-            sb.append("------------------------------------------");
+            sb.append("\n------------------------------------------");
         }
 
         return sb.toString();
@@ -524,7 +525,7 @@ public abstract class Controller {
                 observer.update();
             }
     }
-
+    
     public static void addObserver(Observer observer) {
         observers.add(observer);
     }

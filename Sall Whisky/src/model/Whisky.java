@@ -1,6 +1,7 @@
 package model;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,9 +51,9 @@ public class Whisky {
     }
 
     /**
+     * Calculates and returns the alcoholpercentage for the whisky
      * Pre: totalFluids > waterInLiters, totalFluids > 0
      * Pre: waterInLiters >= 0
-     * @return
      */
     public double calculateAlcoholPercentage() {
         double alcoholPercentage = 0;
@@ -72,7 +73,7 @@ public class Whisky {
         return totalFluids;
     }
 
-    /** HashMap which returns a specific amount per whiskyFill */
+    /** Returns a HashMap that shows the of each whiskyfill in the whisky */
     public Map<WhiskyFill, Double> caskShare() {
         Map<WhiskyFill, Double> map = new HashMap();
 
@@ -88,6 +89,11 @@ public class Whisky {
     @Override
     public String toString() {
         String newMakes = "";
+        String timeOfFillString = "";
+        if (!whiskyFills.isEmpty()) {
+            timeOfFillString += whiskyFills.get(0).getTimeOfFill();
+        }
+
         for (WhiskyFill whiskyFill: whiskyFills) {
             for (FillOnCask fillOnCask: whiskyFill.getFillOnCasks()) {
                 for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
@@ -95,6 +101,6 @@ public class Whisky {
                 }
             }
         }
-        return name + " (" + whiskyFills.get(0).getTimeOfFill() + "), Newmake: " + newMakes;
+        return name + " (" + timeOfFillString + "), Newmake: " + newMakes;
     }
 }

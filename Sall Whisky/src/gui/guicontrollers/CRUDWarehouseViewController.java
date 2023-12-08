@@ -143,10 +143,15 @@ public class CRUDWarehouseViewController implements Initializable {
         warehouseAddresstxf.clear();
 
     }
-
+    
     /**
      * Updates the displayed items in the ListViews based on the selected warehouse, rack and shelf
      */
+    @FXML
+    void btnDeleteWarehouseOnAction(ActionEvent event) {
+        // TODO
+    }
+
     public void selectedStorageItemChanged() {
         Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();
         Rack selectedRack = lvwRack.getSelectionModel().getSelectedItem();
