@@ -5,15 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Cask;
-import model.FillOnCask;
+import model.TapFromDistillate;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class CreateTransferenceController implements Initializable {
@@ -25,10 +23,10 @@ public class CreateTransferenceController implements Initializable {
     private Button btnTransference;
 
     @FXML
-    private TableColumn<Cask, FillOnCask> tbcAge;
+    private TableColumn<Cask, TapFromDistillate> tbcAge;
 
     @FXML
-    private TableColumn<Cask, FillOnCask> tbcAge1;
+    private TableColumn<Cask, TapFromDistillate> tbcAge1;
 
     @FXML
     private TableColumn<Cask, Double> tbcAlcoholPercentage;
@@ -80,8 +78,8 @@ public class CreateTransferenceController implements Initializable {
         tbcCaskID1.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
         tbcAlcoholPercentage1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
-        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, FillOnCask>("YoungestFillOnCask"));
-        tbcAge1.setCellValueFactory(new PropertyValueFactory<Cask, FillOnCask>("YoungestFillOnCask"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
+        tbcAge1.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         tbcTotalLitersOfFills1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("LitersAvailable"));
 

@@ -247,13 +247,13 @@ public abstract class Controller {
      * If distillateFill is > sizeInLiters (Cask) throw an illegalArgumentException
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
      */
-    public static FillOnCask createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) throws IllegalArgumentException {
-        FillOnCask fillOnCask = new FillOnCask(timeOfFill, cask);
+    public static TapFromDistillate createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) throws IllegalArgumentException {
+        TapFromDistillate tapFromDistillate = new TapFromDistillate(timeOfFill, cask);
 
         double sum = 0;
         for (DistillateFill distillateFill : distillateFills) {
             sum += distillateFill.getAmountOfDistillateInLiters();
-            fillOnCask.addDistillateFill(distillateFill);
+            tapFromDistillate.addDistillateFill(distillateFill);
         }
         if (sum > cask.getSizeInLiters())
             throw new IllegalArgumentException("Fadets størrelse er mindre end din påfyldning");
@@ -261,10 +261,10 @@ public abstract class Controller {
             throw new IllegalArgumentException("Dato er efter nuværende dato");
         }
 
-        PutOnCask putOnCask = new PutOnCask(timeOfFill, fillOnCask, cask);
-        cask.addCurrentPutOnCask(putOnCask);
+        FillOnCask fillOnCask = new FillOnCask(timeOfFill, tapFromDistillate, cask);
+        cask.addCurrentPutOnCask(fillOnCask);
 
-        return fillOnCask;
+        return tapFromDistillate;
     }
 
     /** Create, store and return an employee */
@@ -435,27 +435,27 @@ public abstract class Controller {
      * Pre: amountOfDistilateFillInLiters > 0
      * Add connection to cask
      */
-    public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, List<FillOnCask> fillOnCasks, double alcoholPercentage, Cask cask) throws InterruptedException {
-        WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, fillOnCasks, LocalDate.now(), alcoholPercentage, cask);
-        PutOnCask currentPutOnCask = null;
+    public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, List<TapFromDistillate> tapFromDistillates, double alcoholPercentage, Cask cask) throws InterruptedException {
+        WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, tapFromDistillates, LocalDate.now(), alcoholPercentage, cask);
+        FillOnCask currentFillOnCask = null;
         if (cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters < 0) {
             throw new InterruptedException("Du prøver at påfylde flere liter end du har tilgængelig");
         } else if ((cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters) == 0) {
-            for (FillOnCask fillOnCask: fillOnCasks) {
-                LocalDate latestPutOnCask = fillOnCask.getPutOnCasks().get(0).getTimeFill();
-                for (PutOnCask putOnCask: fillOnCask.getPutOnCasks()) {
-                    if (putOnCask.getTimeFill().isAfter(latestPutOnCask)) {
-                        latestPutOnCask = putOnCask.getTimeFill();
-                        currentPutOnCask = putOnCask;
+            for (TapFromDistillate tapFromDistillate : tapFromDistillates) {
+                LocalDate latestPutOnCask = tapFromDistillate.getPutOnCasks().get(0).getTimeFill();
+                for (FillOnCask fillOnCask : tapFromDistillate.getPutOnCasks()) {
+                    if (fillOnCask.getTimeFill().isAfter(latestPutOnCask)) {
+                        latestPutOnCask = fillOnCask.getTimeFill();
+                        currentFillOnCask = fillOnCask;
                     }
                 }
-                if (currentPutOnCask == null) {
+                if (currentFillOnCask == null) {
                     throw new InterruptedException("En fejl 40 opstod");
                 }
-                Cask currentCask = currentPutOnCask.getCask();
-                for (PutOnCask putOnCask: currentCask.getCurrentPutOnCasks()) {
-                    currentCask.removeCurrentPutOnCask(putOnCask);
-                    currentCask.addPreviousPutOnCask(putOnCask);
+                Cask currentCask = currentFillOnCask.getCask();
+                for (FillOnCask fillOnCask : currentCask.getCurrentPutOnCasks()) {
+                    currentCask.removeCurrentPutOnCask(fillOnCask);
+                    currentCask.addPreviousPutOnCask(fillOnCask);
                 }
             }
         }
@@ -523,12 +523,12 @@ public abstract class Controller {
             sb.append("\nLeverandør: " + cask.getSupplierName());
             sb.append("\n - Land: " + cask.getSupplier().getCountry());
             sb.append("\n\n [Destillater fra dette fad]");
-            for (FillOnCask fillOnCask: whiskyFill.getFillOnCasks()) {
-                for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
+            for (TapFromDistillate tapFromDistillate : whiskyFill.getFillOnCasks()) {
+                for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
                     Distillate distillate = distillateFill.getDistillate();
                     sb.append("\nDestillat: " + distillate.getNewMakeNr());
-                    sb.append("\nProcentdel af dette fad: " + fillOnCask.distillateShare().get(distillateFill));
-                    sb.append("\nPåfyldt: " + fillOnCask.getTimeOfFill());
+                    sb.append("\nProcentdel af dette fad: " + tapFromDistillate.distillateShare().get(distillateFill));
+                    sb.append("\nPåfyldt: " + tapFromDistillate.getTimeOfFill());
                     sb.append("\nMedarbejder: " + distillate.getEmployee());
                     sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
                     sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
@@ -554,13 +554,13 @@ public abstract class Controller {
     }
 
     public static void createPutOnCask(Cask oldCask, Cask newCask) {
-        List<PutOnCask> putOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentPutOnCasks());
+        List<FillOnCask> fillOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentPutOnCasks());
 
-        for (int i = 0; i < putOnCaskFromOldCask.size(); i++) {
-            newCask.addCurrentPutOnCask(new PutOnCask(LocalDate.now(), putOnCaskFromOldCask.get(i).getFillOnCask(), newCask));
+        for (int i = 0; i < fillOnCaskFromOldCask.size(); i++) {
+            newCask.addCurrentPutOnCask(new FillOnCask(LocalDate.now(), fillOnCaskFromOldCask.get(i).getFillOnCask(), newCask));
         }
-        oldCask.getCurrentPutOnCasks().removeAll(putOnCaskFromOldCask);
-        oldCask.getPreviousPutOnCasks().addAll(putOnCaskFromOldCask);
+        oldCask.getCurrentPutOnCasks().removeAll(fillOnCaskFromOldCask);
+        oldCask.getPreviousPutOnCasks().addAll(fillOnCaskFromOldCask);
 
     }
 

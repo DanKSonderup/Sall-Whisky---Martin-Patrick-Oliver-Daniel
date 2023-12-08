@@ -47,7 +47,7 @@ public class CreateWhiskyViewController implements Initializable {
     private Button btnRegistrerAlcoholPercentage;
 
     @FXML
-    private TableColumn<Cask, FillOnCask> tbcAge;
+    private TableColumn<Cask, TapFromDistillate> tbcAge;
 
     @FXML
     private TableColumn<Cask, Double> tbcAlcoholPercentage;
@@ -134,9 +134,9 @@ public class CreateWhiskyViewController implements Initializable {
             }
             return;
         }
-        ArrayList<FillOnCask> tempFillsOnCask = new ArrayList<>();
-        for (PutOnCask putOnCask: cask.getCurrentPutOnCasks()) {
-            tempFillsOnCask.add(putOnCask.getFillOnCask());
+        ArrayList<TapFromDistillate> tempFillsOnCask = new ArrayList<>();
+        for (FillOnCask fillOnCask : cask.getCurrentPutOnCasks()) {
+            tempFillsOnCask.add(fillOnCask.getFillOnCask());
         }
 
         try {
@@ -246,7 +246,7 @@ public class CreateWhiskyViewController implements Initializable {
 
         tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
-        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, FillOnCask>("YoungestFillOnCask"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         updateRipeCasks();
     }

@@ -13,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Cask;
-import model.FillOnCask;
+import model.TapFromDistillate;
 import model.Whisky;
 
 import java.io.File;
@@ -46,7 +46,7 @@ public class MainViewController implements Initializable {
     @FXML
     private Button btnCreateWhisky;
     @FXML
-    private TableColumn<Cask, FillOnCask> tbcAge;
+    private TableColumn<Cask, TapFromDistillate> tbcAge;
 
     @FXML
     private TableColumn<Cask, Double> tbcAlcoholPercentage;
@@ -125,7 +125,7 @@ public class MainViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
-        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, FillOnCask>("YoungestFillOnCask"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         tbvRipeCasks.getItems().setAll(Controller.getRipeCasks());
         lvwWhisky.getItems().setAll(Controller.getWhiskies());

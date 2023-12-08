@@ -3,7 +3,7 @@ package model;
 public class DistillateFill {
     private double amountOfDistillateInLiters;
     private Distillate distillate;
-    private FillOnCask fillOnCask;
+    private TapFromDistillate tapFromDistillate;
 
     public DistillateFill(double amountOfDistillateInLiters, Distillate distillate) {
         this.amountOfDistillateInLiters = amountOfDistillateInLiters;
@@ -14,12 +14,12 @@ public class DistillateFill {
         distillate.setAmountInLiters(distillate.getAmountInLiters() - amountOfDistillateInLiters);
     }
 
-    public FillOnCask getFillOnCask() {
-        return fillOnCask;
+    public TapFromDistillate getFillOnCask() {
+        return tapFromDistillate;
     }
 
-    public void setFillOnCask(FillOnCask fillOnCask) {
-        this.fillOnCask = fillOnCask;
+    public void setFillOnCask(TapFromDistillate tapFromDistillate) {
+        this.tapFromDistillate = tapFromDistillate;
     }
 
     public double getAmountOfDistillateInLiters() {

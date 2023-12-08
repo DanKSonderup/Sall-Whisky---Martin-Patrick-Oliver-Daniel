@@ -1,7 +1,6 @@
 package model;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,8 +94,8 @@ public class Whisky {
         }
 
         for (WhiskyFill whiskyFill: whiskyFills) {
-            for (FillOnCask fillOnCask: whiskyFill.getFillOnCasks()) {
-                for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
+            for (TapFromDistillate tapFromDistillate : whiskyFill.getFillOnCasks()) {
+                for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
                     newMakes += distillateFill.getDistillate().getNewMakeNr() + ", ";
                 }
             }

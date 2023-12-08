@@ -3,7 +3,7 @@ package controller;
 import model.Cask;
 import model.Distillate;
 import model.DistillateFill;
-import model.FillOnCask;
+import model.TapFromDistillate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ControllerTestCreateFillOnCask {
+class ControllerTestCreateTapFromDistillate {
 
     private Cask cask;
     private Distillate distillate;
@@ -33,16 +33,16 @@ class ControllerTestCreateFillOnCask {
         // Arrange
         distillateFill = new DistillateFill(49, distillate);
         distillateFills.add(distillateFill);
-        FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 1), cask, distillateFills);
+        TapFromDistillate tapFromDistillate = Controller.createFillOnCask(LocalDate.of(2023, 12, 1), cask, distillateFills);
 
         // Act
-        cask.addFillOnCask(fillOnCask);
-        distillateFill.setFillOnCask(fillOnCask);
+        cask.addFillOnCask(tapFromDistillate);
+        distillateFill.setFillOnCask(tapFromDistillate);
 
         // Assert
-        assertTrue(cask.getFillOnCasks().contains(fillOnCask));
-        assertTrue(fillOnCask.getDistillateFills().contains(distillateFill));
-        assertTrue(distillateFill.getFillOnCask().equals(fillOnCask));
+        assertTrue(cask.getFillOnCasks().contains(tapFromDistillate));
+        assertTrue(tapFromDistillate.getDistillateFills().contains(distillateFill));
+        assertTrue(distillateFill.getFillOnCask().equals(tapFromDistillate));
     }
 
     /** TC2: TimeOfFill 04-12-2024, fill: 49 liters (max caskSize 50 liters) */
@@ -64,16 +64,16 @@ class ControllerTestCreateFillOnCask {
         // Arrange
         distillateFill = new DistillateFill(50, distillate);
         distillateFills.add(distillateFill);
-        FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 3), cask, distillateFills);
+        TapFromDistillate tapFromDistillate = Controller.createFillOnCask(LocalDate.of(2023, 12, 3), cask, distillateFills);
 
         // Act
-        cask.addFillOnCask(fillOnCask);
-        distillateFill.setFillOnCask(fillOnCask);
+        cask.addFillOnCask(tapFromDistillate);
+        distillateFill.setFillOnCask(tapFromDistillate);
 
         // Assert
-        assertTrue(cask.getFillOnCasks().contains(fillOnCask));
-        assertTrue(fillOnCask.getDistillateFills().contains(distillateFill));
-        assertTrue(distillateFill.getFillOnCask().equals(fillOnCask));
+        assertTrue(cask.getFillOnCasks().contains(tapFromDistillate));
+        assertTrue(tapFromDistillate.getDistillateFills().contains(distillateFill));
+        assertTrue(distillateFill.getFillOnCask().equals(tapFromDistillate));
     }
 
     /** TC4: TimeOfFill 01-12-2023, fill: 51 liters (max caskSize 50 liters) */

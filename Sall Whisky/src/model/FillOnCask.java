@@ -1,91 +1,39 @@
 package model;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class FillOnCask {
-    private LocalDate timeOfFill;
-    private ArrayList<PutOnCask> putOnCasks = new ArrayList<>();
-    private List<DistillateFill> distillateFills = new ArrayList<>();
+    private LocalDate timeFill;
+    private TapFromDistillate tapFromDistillate;
+    private Cask cask;
 
-    public FillOnCask(LocalDate timeOfFill, Cask cask) {
-        this.timeOfFill = timeOfFill;
-        putOnCasks.add(new PutOnCask(timeOfFill, this, cask));
+    public FillOnCask(LocalDate timeFill, TapFromDistillate tapFromDistillate, Cask cask) {
+        this.timeFill = timeFill;
+        this.tapFromDistillate = tapFromDistillate;
+        this.cask = cask;
     }
 
-    public LocalDate getTimeOfFill() {
-        return timeOfFill;
+    public LocalDate getTimeFill() {
+        return timeFill;
     }
 
-    public ArrayList<PutOnCask> getPutOnCasks() {
-        return putOnCasks;
+    public TapFromDistillate getFillOnCask() {
+        return tapFromDistillate;
     }
 
-    /** Returns the total sum of liters from distillatefills connected to this object */
-    public double getTotalLitersForFills() {
-        double sum = 0.0;
-        for (DistillateFill distillateFill: distillateFills) {
-            sum += distillateFill.getAmountOfDistillateInLiters();
-        }
-        return sum;
+    public Cask getCask() {
+        return cask;
     }
 
-    public List<DistillateFill> getDistillateFills() {
-        return distillateFills;
-    }
-    public void addDistillateFill(DistillateFill distillateFill) {
-        distillateFills.add(distillateFill);
+    public void setTimeFill(LocalDate timeFill) {
+        this.timeFill = timeFill;
     }
 
-    /** Calculates and returns the alcohol percentage in fillOnCask */
-    public double calculateAlcoholPercentage() {
-        double alcoholPercentage = 0;
-        double totalFluids = 0;
-        for (DistillateFill distillateFill : distillateFills) {
-            alcoholPercentage += (distillateFill.getAmountOfDistillateInLiters() *
-                    (distillateFill.getDistillate().getAlcoholPercentage() / 100.0));
-            totalFluids += distillateFill.getAmountOfDistillateInLiters();
-        }
-        return alcoholPercentage / totalFluids * 100;
+    public void setFillOnCask(TapFromDistillate tapFromDistillate) {
+        this.tapFromDistillate = tapFromDistillate;
     }
 
-    /**
-     * Calculates and returns a hashMap that shows how big a share each distillate has of the
-     * total amount in the fillOnCask
-     */
-    public Map<DistillateFill, Double> distillateShare() {
-        Map<DistillateFill, Double> map = new HashMap<>();
-        double totalLiters = getTotalLitersForFills();
-
-        for (DistillateFill fill : distillateFills) {
-            double share = (fill.getAmountOfDistillateInLiters() / totalLiters) * 100;
-            DecimalFormat df = new DecimalFormat("##.##");
-            share = Double.parseDouble(df.format(share));
-            map.put(fill, share);
-        }
-        return map;
-    }
-
-    @Override
-    public String toString() {
-        int years = Period.between(timeOfFill, LocalDate.now()).getYears();
-        int months = Period.between(timeOfFill, LocalDate.now()).getMonths();
-        int days = Period.between(timeOfFill, LocalDate.now()).getDays();
-        String timeOfAging = "";
-        if (years > 0) {
-            timeOfAging += years + " År, ";
-        }
-        if (months > 0) {
-            timeOfAging += months + " Måneder, ";
-        }
-        if (days > 0) {
-            timeOfAging += days + " Dage";
-        }
-        return timeOfAging;
+    public void setCask(Cask cask) {
+        this.cask = cask;
     }
 }

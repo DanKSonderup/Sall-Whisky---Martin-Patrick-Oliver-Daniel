@@ -257,8 +257,8 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     private boolean canFillOnCask(double amountInLiters, Cask cask) {
         double currentContent = 0;
-        for (PutOnCask putOnCask: cask.getCurrentPutOnCasks()) {
-            for (DistillateFill distillateFill: putOnCask.getFillOnCask().getDistillateFills()) {
+        for (FillOnCask fillOnCask : cask.getCurrentPutOnCasks()) {
+            for (DistillateFill distillateFill: fillOnCask.getFillOnCask().getDistillateFills()) {
                 currentContent += distillateFill.getAmountOfDistillateInLiters();
             }
         }

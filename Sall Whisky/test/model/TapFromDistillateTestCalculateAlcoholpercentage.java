@@ -8,8 +8,8 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-class FillOnCaskTestCalculateAlcoholpercentage {
-    private FillOnCask fillOnCask;
+class TapFromDistillateTestCalculateAlcoholpercentage {
+    private TapFromDistillate tapFromDistillate;
     private Distillate distillate1;
     private Distillate distillate2;
     private DistillateFill df1;
@@ -17,7 +17,7 @@ class FillOnCaskTestCalculateAlcoholpercentage {
 
     @BeforeEach
     void setup() {
-        fillOnCask = new FillOnCask(LocalDate.now(), null);
+        tapFromDistillate = new TapFromDistillate(LocalDate.now(), null);
         distillate1 = new Distillate("nmn", 9, 67.4, 250,
                 null, null, "");
         distillate2 = new Distillate("nmn23", 8, 40, 150,
@@ -30,10 +30,10 @@ class FillOnCaskTestCalculateAlcoholpercentage {
     @Test
     void TestCase1() {
         // Arrange
-        fillOnCask.addDistillateFill(df1);
+        tapFromDistillate.addDistillateFill(df1);
 
         // Act
-        double actualResult = fillOnCask.calculateAlcoholPercentage();
+        double actualResult = tapFromDistillate.calculateAlcoholPercentage();
 
         // Assert
         assertEquals(67.4, actualResult, 0.01);
@@ -43,11 +43,11 @@ class FillOnCaskTestCalculateAlcoholpercentage {
     @Test
     void TestCase2() {
         // Arrange
-        fillOnCask.addDistillateFill(df1);
-        fillOnCask.addDistillateFill(df2);
+        tapFromDistillate.addDistillateFill(df1);
+        tapFromDistillate.addDistillateFill(df2);
 
         // Act
-        double actualResult = fillOnCask.calculateAlcoholPercentage();
+        double actualResult = tapFromDistillate.calculateAlcoholPercentage();
 
         // Assert
         assertEquals(55.22, actualResult, 0.01);

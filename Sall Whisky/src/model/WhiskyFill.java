@@ -1,21 +1,19 @@
 package model;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WhiskyFill {
     private double amountofDistilateFillInLiters;
-    private List<FillOnCask> fillOnCasks = new ArrayList<>();
+    private List<TapFromDistillate> tapFromDistillates = new ArrayList<>();
     private LocalDate timeOfFill;
     private double alcoholPercentage;
     private Cask cask;
 
-    public WhiskyFill(double amountofDistilateFillInLiters, List<FillOnCask> fillOnCasks, LocalDate timeOfFill, double alcoholPercentage, Cask cask) {
+    public WhiskyFill(double amountofDistilateFillInLiters, List<TapFromDistillate> tapFromDistillates, LocalDate timeOfFill, double alcoholPercentage, Cask cask) {
         this.amountofDistilateFillInLiters = amountofDistilateFillInLiters;
-        this.fillOnCasks = fillOnCasks;
+        this.tapFromDistillates = tapFromDistillates;
         this.timeOfFill = timeOfFill;
         this.alcoholPercentage = alcoholPercentage;
         this.cask = cask;
@@ -25,8 +23,8 @@ public class WhiskyFill {
         return amountofDistilateFillInLiters;
     }
 
-    public List<FillOnCask> getFillOnCasks() {
-        return fillOnCasks;
+    public List<TapFromDistillate> getFillOnCasks() {
+        return tapFromDistillates;
     }
 
     public double getAlcoholPercentage() {
@@ -48,8 +46,8 @@ public class WhiskyFill {
     @Override
     public String toString() {
         String distillates = "";
-        for (FillOnCask fillOnCask: fillOnCasks) {
-            for (DistillateFill distillateFill: fillOnCask.getDistillateFills()) {
+        for (TapFromDistillate tapFromDistillate : tapFromDistillates) {
+            for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
                 distillates += "NewMake: " + distillateFill.getDistillate().getNewMakeNr() + ", ";
             }
         }
