@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,7 +134,7 @@ public class Cask {
 
 
     /** Adds a fillOnCask to the cask and updates the casks current content in liters */
-    public void addPutOnCask(PutOnCask putOnCask) {
+    public void addCurrentPutOnCask(PutOnCask putOnCask) {
         currentPutOnCasks.add(putOnCask);
         currentContentInLiters += putOnCask.getFillOnCask().getTotalLitersForFills();
     }

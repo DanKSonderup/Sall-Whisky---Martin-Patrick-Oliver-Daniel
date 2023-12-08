@@ -13,6 +13,7 @@ import model.Cask;
 import model.FillOnCask;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class CreateTransferenceController implements Initializable {
@@ -66,7 +67,12 @@ public class CreateTransferenceController implements Initializable {
 
     @FXML
     void btnTransferenceOnAction(ActionEvent event) {
+        Cask oldCask = tbvCasksWithDestillate.getSelectionModel().getSelectedItem();
+        Cask newCask = tbvAvailableCasksForTransference.getSelectionModel().getSelectedItem();
 
+        Controller.createPutOnCask(oldCask, newCask);
+        System.out.println(oldCask.getCurrentPutOnCasks());
+        System.out.println(oldCask.getLitersAvailable());
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,6 +84,8 @@ public class CreateTransferenceController implements Initializable {
         tbcAge1.setCellValueFactory(new PropertyValueFactory<Cask, FillOnCask>("YoungestFillOnCask"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         tbcTotalLitersOfFills1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("LitersAvailable"));
+
+        tbvCasksWithDestillate.getItems().setAll(Controller.getCasksWithDistillateOn());
     }
 }
 

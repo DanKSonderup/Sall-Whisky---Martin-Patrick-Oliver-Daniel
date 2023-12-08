@@ -16,8 +16,8 @@
          <columns>
             <TableColumn fx:id="tbcCaskID" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="tbcAlcoholPercentage" prefWidth="75.0" text="Alc %" />
-            <TableColumn fx:id="tbcAge" prefWidth="172.0" text="Alder" />
-            <TableColumn fx:id="tbcTotalLitersOfFills" prefWidth="105.0" text="Destillat (L)" />
+            <TableColumn fx:id="tbcAge" prefWidth="141.0" text="Alder" />
+            <TableColumn fx:id="tbcTotalLitersOfFills" prefWidth="136.0" text="Nuværende indhold(L)" />
          </columns>
       </TableView>
       <TableView fx:id="tbvAvailableCasksForTransference" layoutX="482.0" layoutY="117.0" prefHeight="241.0" prefWidth="429.0">
@@ -25,7 +25,7 @@
             <TableColumn fx:id="tbcCaskID1" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="tbcAlcoholPercentage1" prefWidth="75.0" text="Alc %" />
             <TableColumn fx:id="tbcAge1" prefWidth="172.0" text="Alder" />
-            <TableColumn fx:id="tbcTotalLitersOfFills1" prefWidth="105.0" text="Destillat (L)" />
+            <TableColumn fx:id="tbcTotalLitersOfFills1" prefWidth="105.0" text="Tilgængelig (L)" />
          </columns>
       </TableView>
    </children>

@@ -50,7 +50,7 @@ public abstract class Controller {
 
     public static List<Cask> getCasksWithXLitersAvailable(double litercapacity) {
         ArrayList<Cask> caskAvailableForTransference = new ArrayList<>();
-        for (Cask cask: getCasksWithDistillateOn()) {
+        for (Cask cask: storage.getCasks()) {
             if (cask.getLitersAvailable() >= litercapacity) {
                 caskAvailableForTransference.add(cask);
             }
@@ -262,7 +262,7 @@ public abstract class Controller {
         }
 
         PutOnCask putOnCask = new PutOnCask(timeOfFill, fillOnCask, cask);
-        cask.addPutOnCask(putOnCask);
+        cask.addCurrentPutOnCask(putOnCask);
 
         return fillOnCask;
     }
@@ -452,8 +452,11 @@ public abstract class Controller {
                 if (currentPutOnCask == null) {
                     throw new InterruptedException("En fejl 40 opstod");
                 }
-                currentPutOnCask.getCask().removeCurrentPutOnCask(currentPutOnCask);
-                currentPutOnCask.getCask().addPreviousPutOnCask(currentPutOnCask);
+                Cask currentCask = currentPutOnCask.getCask();
+                for (PutOnCask putOnCask: currentCask.getCurrentPutOnCasks()) {
+                    currentCask.removeCurrentPutOnCask(putOnCask);
+                    currentCask.addPreviousPutOnCask(putOnCask);
+                }
             }
         }
         cask.setCurrentContentInLiters(cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters);
@@ -548,6 +551,17 @@ public abstract class Controller {
         }
 
         return sb.toString();
+    }
+
+    public static void createPutOnCask(Cask oldCask, Cask newCask) {
+        List<PutOnCask> putOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentPutOnCasks());
+
+        for (int i = 0; i < putOnCaskFromOldCask.size(); i++) {
+            newCask.addCurrentPutOnCask(new PutOnCask(LocalDate.now(), putOnCaskFromOldCask.get(i).getFillOnCask(), newCask));
+        }
+        oldCask.getCurrentPutOnCasks().removeAll(putOnCaskFromOldCask);
+        oldCask.getPreviousPutOnCasks().addAll(putOnCaskFromOldCask);
+
     }
 
     /** Observer methods */
