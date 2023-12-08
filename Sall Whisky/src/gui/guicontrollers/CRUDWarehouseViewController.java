@@ -143,7 +143,7 @@ public class CRUDWarehouseViewController implements Initializable {
         warehouseAddresstxf.clear();
 
     }
-    
+
     /**
      * Updates the displayed items in the ListViews based on the selected warehouse, rack and shelf
      */
