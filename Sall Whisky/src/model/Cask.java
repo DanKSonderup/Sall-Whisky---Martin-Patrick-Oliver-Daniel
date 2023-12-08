@@ -59,7 +59,6 @@ public class Cask {
     public void addPreviousFillOnCask(FillOnCask fillOnCask) {
         previousFillOnCask.add(fillOnCask);
     }
-    // TODO setCountryOfOrigin aldrig brugt
     public void setCountryOfOrigin(String countryOfOrigin) {
         this.countryOfOrigin = countryOfOrigin;
     }
@@ -67,7 +66,6 @@ public class Cask {
     public double getSizeInLiters() {
         return sizeInLiters;
     }
-    // TODO setSizeInLiters aldrig brugt
     public void setSizeInLiters(double sizeInLiters) {
         this.sizeInLiters = sizeInLiters;
     }
@@ -83,7 +81,6 @@ public class Cask {
     public void setCurrentContentInLiters(double currentContentInLiters) {
         this.currentContentInLiters = currentContentInLiters;
     }
-    // TODO setPreviousContent aldrig brugt
     public void setPreviousContent(String previousContent) {
         this.previousContent = previousContent;
     }
@@ -92,16 +89,12 @@ public class Cask {
         return position;
     }
 
-    // TODO metode specifikation
+    /** Calculates and returns the space left in the cask in liters */
     public double getLitersAvailable() {
-        double sum = 0.0;
-        for (FillOnCask fillOnCask: fillOnCasks) {
-            sum += fillOnCask.getTotalLitersForFills();
-        }
-        return sizeInLiters - sum;
+        return sizeInLiters - getTotalLitersOfFills();
     }
 
-    // TODO getTotalLitersOfFills aldrig brugt
+    /** Calculates and returns the amount of fluids currently in the cask */
     public double getTotalLitersOfFills() {
         double totalLiters = 0;
         for (FillOnCask fillOnCask: fillOnCasks) {
@@ -110,7 +103,8 @@ public class Cask {
         return totalLiters;
     }
 
-    // TODO getTotalAlcoholPercentage aldrig brugt
+
+    /** Calculates and returns the weighted average alcoholpercentage for all the fillOnCasks in the cask */
     public double getTotalAlcoholPercentage() {
         double alcoholPercentage = 0;
         double totalFluids = 0;
@@ -122,7 +116,6 @@ public class Cask {
         return alcoholPercentage / totalFluids * 100;
     }
 
-    // TODO setPosition aldrig brugt
     public void setPosition(Position position) {
         this.position = position;
     }
@@ -135,7 +128,8 @@ public class Cask {
         this.supplier = supplier;
     }
 
-    // TODO metode specifikation
+
+    /** Adds a fillOnCask to the cask and updates the casks current content in liters */
     public void addFillOnCask(FillOnCask fillOnCask) {
         fillOnCasks.add(fillOnCask);
         currentContentInLiters += fillOnCask.getTotalLitersForFills();
@@ -145,7 +139,6 @@ public class Cask {
         return fillOnCasks;
     }
 
-    // TODO 4 getters aldrig brugt
     public int getPositionId() {
         return position.getPositionId();
     }
@@ -166,18 +159,23 @@ public class Cask {
         return supplier.getName();
     }
 
-    // TODO metode specifikation
+
+    /**
+     * Returns the fillOnCask that has been in the cask for the shortest amount of time
+     * If the cask is empty, return null
+     */
     public FillOnCask getYoungestFillOnCask() {
-        if (fillOnCasks.size() == 0) {
+        if (fillOnCasks.isEmpty()) {
             return null;
         }
-        LocalDate youngestDate = fillOnCasks.get(0).getTimeOfFill();
+
+        FillOnCask youngestFillOnCask = fillOnCasks.get(0);
         for (FillOnCask fillOnCask: fillOnCasks) {
-            if (fillOnCask.getTimeOfFill().isAfter(youngestDate)) {
-                return fillOnCask;
+            if (fillOnCask.getTimeOfFill().isAfter(youngestFillOnCask.getTimeOfFill())) {
+                youngestFillOnCask = fillOnCask;
             }
         }
-        return fillOnCasks.get(0);
+        return youngestFillOnCask;
     }
 
     public void removeFillOnCask(FillOnCask fillOnCask) {

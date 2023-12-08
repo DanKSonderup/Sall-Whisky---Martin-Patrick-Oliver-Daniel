@@ -51,9 +51,9 @@ public class Whisky {
     }
 
     /**
+     * Calculates and returns the alcoholpercentage for the whisky
      * Pre: totalFluids > waterInLiters, totalFluids > 0
      * Pre: waterInLiters >= 0
-     * @return
      */
     public double calculateAlcoholPercentage() {
         double alcoholPercentage = 0;
@@ -73,7 +73,7 @@ public class Whisky {
         return totalFluids;
     }
 
-    /** HashMap which returns a specific amount per whiskyFill */
+    /** Returns a HashMap that shows the of each whiskyfill in the whisky */
     public Map<WhiskyFill, Double> caskShare() {
         Map<WhiskyFill, Double> map = new HashMap();
 
