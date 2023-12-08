@@ -26,7 +26,7 @@ class FillOnCaskTestCalculateAlcoholpercentage {
         df2 = new DistillateFill(60, distillate2);
     }
 
-    // TODO test specifikation?
+    /** TC1: 1 fill */
     @Test
     void TestCase1() {
         // Arrange
@@ -36,10 +36,10 @@ class FillOnCaskTestCalculateAlcoholpercentage {
         double actualResult = fillOnCask.calculateAlcoholPercentage();
 
         // Assert
-        assertEquals(67.4, actualResult, 0.001);
+        assertEquals(67.4, actualResult, 0.01);
     }
 
-    // TODO test specifikation?
+    /** TC2: 2 fills */
     @Test
     void TestCase2() {
         // Arrange

@@ -17,21 +17,23 @@ class ControllerTestCreateFillOnCask {
 
     private Cask cask;
     private Distillate distillate;
+    private DistillateFill distillateFill;
+    private ArrayList<DistillateFill> distillateFills = new ArrayList<>();
 
     @BeforeEach
     void setup() {
         cask = new Cask("Frankrig", 50, "Whisky");
         distillate = new Distillate("nmn23", 8, 40, 150, null, null, "");
+        distillateFills = new ArrayList<>();
     }
 
-    // TODO test specifikation?
+    /** TC1: TimeOfFill 01-12-2023, fill: 49 liters (max caskSize 50 liters) */
     @Test
     void TestCase1() {
         // Arrange
-        DistillateFill distillateFill = new DistillateFill(49, distillate);
-        ArrayList<DistillateFill> distillateFills = new ArrayList<>();
+        distillateFill = new DistillateFill(49, distillate);
         distillateFills.add(distillateFill);
-        FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 3), cask, distillateFills);
+        FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 1), cask, distillateFills);
 
         // Act
         cask.addFillOnCask(fillOnCask);
@@ -43,12 +45,11 @@ class ControllerTestCreateFillOnCask {
         assertTrue(distillateFill.getFillOnCask().equals(fillOnCask));
     }
 
-    // TODO test specifikation?
+    /** TC2: TimeOfFill 04-12-2024, fill: 49 liters (max caskSize 50 liters) */
     @Test
     void TestCase2() {
         // Arrange
-        DistillateFill distillateFill = new DistillateFill(49, distillate);
-        ArrayList<DistillateFill> distillateFills = new ArrayList<>();
+        distillateFill = new DistillateFill(49, distillate);
         distillateFills.add(distillateFill);
 
         // Asserts
@@ -57,12 +58,11 @@ class ControllerTestCreateFillOnCask {
         });
     }
 
-    // TODO test specifikation?
+    /** TC3: TimeOfFill 03-12-2023, fill: 50 liters (max caskSize 50 liters) */
     @Test
     void TestCase3() {
         // Arrange
-        DistillateFill distillateFill = new DistillateFill(50, distillate);
-        ArrayList<DistillateFill> distillateFills = new ArrayList<>();
+        distillateFill = new DistillateFill(50, distillate);
         distillateFills.add(distillateFill);
         FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 3), cask, distillateFills);
 
@@ -76,12 +76,11 @@ class ControllerTestCreateFillOnCask {
         assertTrue(distillateFill.getFillOnCask().equals(fillOnCask));
     }
 
-    // TODO test specifikation?
+    /** TC4: TimeOfFill 01-12-2023, fill: 51 liters (max caskSize 50 liters) */
     @Test
     void TestCase4() {
         // Arrange
-        DistillateFill distillateFill = new DistillateFill(51, distillate);
-        ArrayList<DistillateFill> distillateFills = new ArrayList<>();
+        distillateFill = new DistillateFill(51, distillate);
         distillateFills.add(distillateFill);
 
         // Assert
