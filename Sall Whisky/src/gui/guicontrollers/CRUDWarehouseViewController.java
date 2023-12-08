@@ -135,11 +135,6 @@ public class CRUDWarehouseViewController implements Initializable {
     }
 
     @FXML
-    void btnCrudWarehouseOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void btnDeleteWarehouseOnAction(ActionEvent event) {
         // TODO
     }
