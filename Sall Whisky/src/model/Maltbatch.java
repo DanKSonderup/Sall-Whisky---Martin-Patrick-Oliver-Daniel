@@ -19,7 +19,6 @@ public class Maltbatch {
         this.name = name;
     }
 
-    // TODO getDescription aldrig brugt
     public String getDescription() {
         return description;
     }
@@ -30,11 +29,6 @@ public class Maltbatch {
 
     public Grain getGrain() {
         return grain;
-    }
-
-    // TODO setGrain aldrig brugt
-    public void setGrain(Grain grain) {
-        this.grain = grain;
     }
 
     @Override

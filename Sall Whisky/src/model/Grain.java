@@ -15,26 +15,10 @@ public class Grain implements Serializable {
         this.field = field;
     }
 
-    // TODO getGrainType aldrig brugt
-    public String getGrainType() {
-        return grainType;
-    }
-
     public void setGrainType(String grainType) {
         this.grainType = grainType;
     }
 
-    // TODO getGrainSupplier aldrig brugt
-    public GrainSupplier getGrainSupplier() {
-        return grainSupplier;
-    }
-
-    // TODO setGrainSupplier aldrig brugt
-    public void setGrainSupplier(GrainSupplier grainSupplier) {
-        this.grainSupplier = grainSupplier;
-    }
-
-    // TODO getCultivationDescription aldrig brugt
     public String getCultivationDescription() {
         return cultivationDescription;
     }
@@ -43,13 +27,16 @@ public class Grain implements Serializable {
         this.cultivationDescription = cultivationDescription;
     }
 
-    public Field getField() {
-        return field;
+    public String getGrainType() {
+        return grainType;
     }
 
-    // TODO setField aldrig brugt
-    public void setField(Field field) {
-        this.field = field;
+    public GrainSupplier getGrainSupplier() {
+        return grainSupplier;
+    }
+
+    public Field getField() {
+        return field;
     }
 
     @Override

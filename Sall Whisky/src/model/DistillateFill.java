@@ -26,11 +26,6 @@ public class DistillateFill {
         return amountOfDistillateInLiters;
     }
 
-    // TODO setAmountOfDistillateInLiters aldrig brugt
-    public void setAmountOfDistillateInLiters(double amountOfDistillateInLiters) {
-        this.amountOfDistillateInLiters = amountOfDistillateInLiters;
-    }
-
     public Distillate getDistillate() {
         return distillate;
     }

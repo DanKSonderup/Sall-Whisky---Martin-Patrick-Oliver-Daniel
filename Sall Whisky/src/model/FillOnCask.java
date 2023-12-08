@@ -22,11 +22,6 @@ public class FillOnCask {
         return timeOfFill;
     }
 
-    // TODO setTimeOfFill aldrig brugt
-    public void setTimeOfFill(LocalDate timeOfFill) {
-        this.timeOfFill = timeOfFill;
-    }
-
     public Cask getCask() {
         return cask;
     }

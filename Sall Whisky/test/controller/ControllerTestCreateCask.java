@@ -32,7 +32,7 @@ class ControllerTestCreateCask {
         supplier = new CaskSupplier("Cask123", "ABC123", "Frankrig", "2");
     }
 
-    // TODO test specifikation?
+    /** TC1: SizeInLiters 50, prevC Whisky */
     @Test
     void testCase1() {
         // Arrange
@@ -46,7 +46,7 @@ class ControllerTestCreateCask {
         assertTrue(cask.getSupplier().equals(supplier));
     }
 
-    // TODO test specifikation?
+    /** SizeInLiters 50, prevC null */
     @Test
     void testCase2() {
         // Arrange
@@ -60,7 +60,7 @@ class ControllerTestCreateCask {
         assertTrue(cask.getSupplier().equals(supplier));
     }
 
-    // TODO test specifikation?
+    /** SizeInLiters 0, prevC Whisky */
     @Test
     void testCase3() {
         // Arrange
