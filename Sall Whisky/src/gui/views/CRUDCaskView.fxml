@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDCaskViewController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDCaskViewController">
     <children>
 
         <Button fx:id="btnTransference" layoutX="740.0" layoutY="281.0" mnemonicParsing="false" onAction="#btnTransferenceOnAction" prefHeight="50.0" prefWidth="200.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Omhæld fad">

@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="ap_Pane1" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDWarehouseViewController">
+<AnchorPane fx:id="ap_Pane1" prefHeight="700.0" prefWidth="1000.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDWarehouseViewController">
    <children>
       <Button fx:id="btnCRUDCask" layoutX="167.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer fade">
          <font>
@@ -76,10 +75,7 @@
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="293.0" layoutY="579.0" prefHeight="25.0" text="Hylder pr. reol">
-         <font>
-            <Font name="Century Gothic Bold" size="12.0" />
-         </font></Label>
+      <Label layoutX="293.0" layoutY="579.0" prefHeight="25.0" text="Hylder pr. reol" />
       <TextField fx:id="txfShelfAmount" layoutX="395.0" layoutY="579.0" prefWidth="150.0" />
       <TextField fx:id="txfPositionAmount" layoutX="395.0" layoutY="619.0" prefWidth="150.0" />
    </children>
