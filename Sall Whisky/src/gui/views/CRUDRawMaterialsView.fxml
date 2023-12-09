@@ -49,7 +49,7 @@
             <Font name="Century Gothic Bold" size="24.0" />
          </font>
       </Label>
-      <ListView fx:id="lvwFields" layoutX="29.0" layoutY="122.0" prefHeight="200.0" prefWidth="275.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" />
+      <ListView fx:id="lvwFields" layoutX="29.0" layoutY="122.0" prefHeight="200.0" prefWidth="275.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" />
       <Label layoutX="29.0" layoutY="99.0" text="Vælg mark">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
@@ -83,7 +83,7 @@
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
       </Button>
-      <ListView fx:id="lvwGrains" layoutX="363.0" layoutY="122.0" prefHeight="200.0" prefWidth="275.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" />
+      <ListView fx:id="lvwGrains" layoutX="363.0" layoutY="122.0" prefHeight="200.0" prefWidth="275.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" />
       <Label layoutX="363.0" layoutY="99.0" text="Vælg korn">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
@@ -124,7 +124,7 @@
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
       </Button>
-      <ListView fx:id="lvwMaltbatches" layoutX="697.0" layoutY="122.0" prefHeight="200.0" prefWidth="275.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" />
+      <ListView fx:id="lvwMaltbatches" layoutX="697.0" layoutY="122.0" prefHeight="200.0" prefWidth="275.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" />
       <Label layoutX="697.0" layoutY="331.0" text="Opret batch">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
@@ -135,11 +135,29 @@
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
       </TextField>
-      <Button fx:id="btnCRUDCask" layoutX="167.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer fade" />
-      <Button fx:id="btnCRUDStorage" layoutX="334.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer lager" />
-      <Button fx:id="btnDestillateAndFillOnCask" layoutX="501.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Destillater og påfyldninger" />
-      <Button fx:id="btnCRUDRawMaterial" disable="true" layoutX="668.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="167.0" text="Adminstrer råvarer" />
-      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Adminstrer leverandører" />
-      <Button fx:id="btnStartside" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="167.0" text="Startside" />
+      <Button fx:id="btnCRUDCask" layoutX="167.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer fade">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnCRUDStorage" layoutX="334.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer lager">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnDestillateAndFillOnCask" layoutX="501.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Destillater og påfyldninger">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnCRUDRawMaterial" disable="true" layoutX="668.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="167.0" text="Adminstrer råvarer">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Adminstrer leverandører">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnStartside" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="167.0" text="Startside">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
    </children>
 </AnchorPane>

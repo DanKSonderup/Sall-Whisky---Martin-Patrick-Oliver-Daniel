@@ -31,8 +31,6 @@ public class CRUDCaskViewController implements Initializable {
     @FXML
     private Button btnCreateCask;
     @FXML
-    private Button btnCreateFillOnCask;
-    @FXML
     private Button btnDeleteCask;
     @FXML
     private Button btnTransference;
@@ -90,15 +88,6 @@ public class CRUDCaskViewController implements Initializable {
         updateTvwCasks();
     }
 
-    /**
-     * Opens the distillary and fill view
-     */
-    @FXML
-    void btnCreateFillOnCask(ActionEvent event) throws IOException {
-        SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
-        updateTvwCasks();
-    }
-
 
     /**
      * Deletes the selected Cask
@@ -115,7 +104,7 @@ public class CRUDCaskViewController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fejl");
             alert.setHeaderText("Fad kan ikke slettes");
-            alert.setContentText("Dette fad kan ikke slettes, da der er eller har været opfyldninger" +
+            alert.setContentText("Dette fad kan ikke slettes, da der er eller har været opfyldninger " +
                     "på faddet.");
             alert.show();
         }

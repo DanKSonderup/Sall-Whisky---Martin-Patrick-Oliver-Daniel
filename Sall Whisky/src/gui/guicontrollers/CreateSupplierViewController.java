@@ -47,10 +47,10 @@ public class CreateSupplierViewController implements Initializable {
     private ComboBox<String> cbbSupplier;
 
     @FXML
-    private ListView<CaskSupplier> lvwCaskSupplier;
+    private ListView<CaskSupplier> lvwCaskSuppliers;
 
     @FXML
-    private ListView<GrainSupplier> lvwGrainSupplier;
+    private ListView<GrainSupplier> lvwGrainSuppliers;
 
     @FXML
     private TextField txfAddress;
@@ -69,15 +69,15 @@ public class CreateSupplierViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        lvwCaskSupplier.getItems().setAll(Controller.getCaskSuppliers());
-        lvwGrainSupplier.getItems().setAll(Controller.getGrainSuppliers());
+        lvwCaskSuppliers.getItems().setAll(Controller.getCaskSuppliers());
+        lvwGrainSuppliers.getItems().setAll(Controller.getGrainSuppliers());
 
 
         ChangeListener<GrainSupplier> grainSupplierChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
-        lvwGrainSupplier.getSelectionModel().selectedItemProperty().addListener(grainSupplierChangeListener);
+        lvwGrainSuppliers.getSelectionModel().selectedItemProperty().addListener(grainSupplierChangeListener);
 
         ChangeListener<CaskSupplier> caskSupplierChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
-        lvwCaskSupplier.getSelectionModel().selectedItemProperty().addListener(caskSupplierChangeListener);
+        lvwCaskSuppliers.getSelectionModel().selectedItemProperty().addListener(caskSupplierChangeListener);
 
         String suppliers[] = {"Kornleverandør", "Fadleverandør"};
         cbbSupplier.setItems(FXCollections.observableArrayList(suppliers));
@@ -116,20 +116,20 @@ public class CreateSupplierViewController implements Initializable {
      * Updates the grain supplier listview
      */
     private void updateLvwGrainSupplier() {
-        lvwGrainSupplier.getItems().setAll(Controller.getGrainSuppliers());
+        lvwGrainSuppliers.getItems().setAll(Controller.getGrainSuppliers());
     }
 
     /**
      * Updates the cask supplier listview
      */
     private void updateLvwCaskSupplier() {
-        lvwCaskSupplier.getItems().setAll(Controller.getCaskSuppliers());
+        lvwCaskSuppliers.getItems().setAll(Controller.getCaskSuppliers());
     }
 
 
     public void selectedStorageItemChanged() {
-        GrainSupplier selectedGrainSupplier = lvwGrainSupplier.getSelectionModel().getSelectedItem();
-        CaskSupplier selectedCaskSupplier = lvwCaskSupplier.getSelectionModel().getSelectedItem();
+        GrainSupplier selectedGrainSupplier = lvwGrainSuppliers.getSelectionModel().getSelectedItem();
+        CaskSupplier selectedCaskSupplier = lvwCaskSuppliers.getSelectionModel().getSelectedItem();
     }
 
     @FXML

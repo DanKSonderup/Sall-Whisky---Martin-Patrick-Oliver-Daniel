@@ -7,25 +7,51 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDCaskViewController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDCaskViewController">
     <children>
 
-        <Button fx:id="btnTransference" layoutX="740.0" layoutY="281.0" mnemonicParsing="false" onAction="#btnTransferenceOnAction" prefHeight="50.0" prefWidth="200.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Omhæld fad" />
-        <Button fx:id="btnDeleteCask" layoutX="740.0" layoutY="356.0" mnemonicParsing="false" onAction="#btnDeleteCaskOnAction" prefHeight="50.0" prefWidth="200.0" style="-fx-text-fill: red;" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Slet Fad(e)" />
-        <Button fx:id="btnCreateCask" layoutX="740.0" layoutY="206.0" mnemonicParsing="false" onAction="#btnCreateCaskOnAction" prefHeight="50.0" prefWidth="200.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Opret Fad(e)" />
-      <Button fx:id="btnCreateFillOnCask" layoutX="740.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnCreateFillOnCask" prefHeight="50.0" prefWidth="200.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Opret Påfyldning" />
-      <Button fx:id="btnCRUDCask" disable="true" layoutX="167.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="167.0" text="Administrer fade" />
-      <Button fx:id="btnCRUDStorage" layoutX="334.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer lager" />
-      <Button fx:id="btnDestillateAndFillOnCask" layoutX="501.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Destillater og påfyldninger" />
-      <Button fx:id="btnCRUDRawMaterial" layoutX="668.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="167.0" text="Adminstrer råvare" />
-      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Adminstrer leverandører" />
-      <Button fx:id="btnStartside" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="167.0" text="Startside" />
+        <Button fx:id="btnTransference" layoutX="740.0" layoutY="281.0" mnemonicParsing="false" onAction="#btnTransferenceOnAction" prefHeight="50.0" prefWidth="200.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Omhæld fad">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Button>
+        <Button fx:id="btnDeleteCask" layoutX="740.0" layoutY="356.0" mnemonicParsing="false" onAction="#btnDeleteCaskOnAction" prefHeight="50.0" prefWidth="200.0" style="-fx-text-fill: red;" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Slet Fad(e)">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Button>
+        <Button fx:id="btnCreateCask" layoutX="740.0" layoutY="206.0" mnemonicParsing="false" onAction="#btnCreateCaskOnAction" prefHeight="50.0" prefWidth="200.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Opret Fad(e)">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="btnCRUDCask" disable="true" layoutX="167.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="167.0" text="Administrer fade">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnCRUDStorage" layoutX="334.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer lager">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnDestillateAndFillOnCask" layoutX="501.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Destillater og påfyldninger">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnCRUDRawMaterial" layoutX="668.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="167.0" text="Adminstrer råvare">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Adminstrer leverandører">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnStartside" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="167.0" text="Startside">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
       <Label alignment="CENTER" layoutX="336.0" layoutY="58.0" text="Fade">
          <font>
             <Font name="Century Gothic Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="tvwCasks" layoutX="50.0" layoutY="118.0" prefHeight="550.0" prefWidth="630.0">
+      <TableView fx:id="tvwCasks" layoutX="50.0" layoutY="118.0" prefHeight="550.0" prefWidth="630.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css">
         <columns>
             <TableColumn fx:id="columnID" prefWidth="51.0" text="ID" />
           <TableColumn fx:id="columnCountryOfOrigin" prefWidth="110.0" text="Oprindelsesland" />

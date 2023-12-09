@@ -11,24 +11,63 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateCaskViewController">
    <children>
-      <Button fx:id="btnFindAvailableStorageSpace" layoutX="195.0" layoutY="400.0" mnemonicParsing="false" onAction="#btnFindAvailableStorageSpaceOnAction" prefHeight="25.0" prefWidth="190.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Vis ledige lagerpladser" />
-      <TextField fx:id="txfSizeInLiters" layoutX="196.0" layoutY="58.0" prefHeight="25.0" prefWidth="190.0" promptText="Størrelse i liter" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" />
-      <TextField fx:id="txfPreviousContent" layoutX="195.0" layoutY="104.0" prefHeight="25.0" prefWidth="190.0" promptText="fx &quot;bourbon&quot;" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" />
-      <TextField fx:id="txfCountryOfOrigin" layoutX="195.0" layoutY="150.0" prefHeight="25.0" prefWidth="190.0" promptText="fx &quot;Frankrig&quot;" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" />
-      <Label layoutX="90.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Størrelse" />
-      <Label layoutX="90.0" layoutY="109.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Tidligere indhold" />
-      <Label layoutX="90.0" layoutY="155.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Oprindelsesland" />
-      <ListView fx:id="lvwCaskSupplier" layoutX="195.0" layoutY="200.0" prefHeight="180.0" prefWidth="190.0" />
-      <Label layoutX="90.0" layoutY="201.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Leverandører" />
-      <Button fx:id="btnCreateCask" layoutX="625.0" layoutY="400.0" mnemonicParsing="false" onAction="#btnCreateCaskOnAction" prefHeight="25.0" prefWidth="240.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Opret fad" />
+      <Button fx:id="btnFindAvailableStorageSpace" layoutX="195.0" layoutY="400.0" mnemonicParsing="false" onAction="#btnFindAvailableStorageSpaceOnAction" prefHeight="25.0" prefWidth="190.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Vis ledige lagerpladser">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Button>
+      <TextField fx:id="txfSizeInLiters" layoutX="196.0" layoutY="58.0" prefHeight="25.0" prefWidth="190.0" promptText="Størrelse i liter" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></TextField>
+      <TextField fx:id="txfPreviousContent" layoutX="195.0" layoutY="104.0" prefHeight="25.0" prefWidth="190.0" promptText="fx &quot;bourbon&quot;" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></TextField>
+      <TextField fx:id="txfCountryOfOrigin" layoutX="195.0" layoutY="150.0" prefHeight="25.0" prefWidth="190.0" promptText="fx &quot;Frankrig&quot;" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></TextField>
+      <Label layoutX="90.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Størrelse">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="90.0" layoutY="109.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Tidligere indhold">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="90.0" layoutY="155.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Oprindelsesland">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <ListView fx:id="lvwCaskSupplier" layoutX="195.0" layoutY="200.0" prefHeight="180.0" prefWidth="190.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" />
+      <Label layoutX="90.0" layoutY="201.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Leverandører">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <Button fx:id="btnCreateCask" layoutX="625.0" layoutY="400.0" mnemonicParsing="false" onAction="#btnCreateCaskOnAction" prefHeight="25.0" prefWidth="240.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Opret fad">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Button>
       <ListView fx:id="lvwWarehouse" layoutX="625.0" layoutY="91.0" prefHeight="289.0" prefWidth="60.0" />
       <ListView fx:id="lvwRack" layoutX="685.0" layoutY="91.0" prefHeight="289.0" prefWidth="60.0" />
       <ListView fx:id="lvwShelf" layoutX="745.0" layoutY="91.0" prefHeight="289.0" prefWidth="60.0" />
       <ListView fx:id="lvwPosition" layoutX="805.0" layoutY="91.0" prefHeight="289.0" prefWidth="60.0" />
-      <Label layoutX="639.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Lager" />
-      <Label layoutX="702.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Reol" />
-      <Label layoutX="758.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Hylde" />
-      <Label layoutX="820.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Plads" />
+      <Label layoutX="639.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Lager">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="702.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Reol">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="758.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Hylde">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="820.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Plads">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
       <Label alignment="CENTER" layoutX="228.0" layoutY="4.0" prefHeight="52.0" prefWidth="125.0" text="Fad">
          <font>
             <Font name="Century Gothic Bold" size="24.0" />

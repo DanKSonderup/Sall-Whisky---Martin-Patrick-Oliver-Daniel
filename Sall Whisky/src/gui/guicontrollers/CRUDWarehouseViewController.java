@@ -7,7 +7,6 @@ package gui.guicontrollers;
         import javafx.fxml.Initializable;
         import javafx.scene.Scene;
         import javafx.scene.control.Button;
-        import javafx.scene.control.Label;
         import javafx.scene.control.ListView;
         import javafx.scene.control.TextField;
         import javafx.scene.layout.AnchorPane;
@@ -38,9 +37,6 @@ public class CRUDWarehouseViewController implements Initializable {
     private Button btnCreateWarehouse;
 
     @FXML
-    private Button btnDeleteWarehouse;
-
-    @FXML
     private Button btnDestillateAndFillOnCask;
 
     @FXML
@@ -57,23 +53,14 @@ public class CRUDWarehouseViewController implements Initializable {
 
     @FXML
     private ListView<Warehouse> lvwWarehouse;
-
     @FXML
-    private Label rackAmountlbl;
-
+    private TextField txfRackAmount;
     @FXML
-    private TextField rackAmounttxf;
-
+    private TextField txfPositionAmount;
     @FXML
-    private TextField positionAmounttxf;
+    private TextField txfShelfAmount;
     @FXML
-    private TextField shelfAmounttxf;
-    @FXML
-    private TextField warehouseAddresstxf;
-    @FXML
-    private Label warehouseAddresslbl;
-    @FXML
-    private Label warehouselbl;
+    private TextField txfWarehouseAddress;
     private Stage stage;
     private Scene scene;
     private Rack rack;
@@ -104,40 +91,37 @@ public class CRUDWarehouseViewController implements Initializable {
 
     @FXML
     void btnCreateWarehouseOnAction(ActionEvent event) {
-        boolean missingInfo = canParseToInteger(rackAmounttxf);
-        missingInfo = canParseToInteger(shelfAmounttxf);
-        missingInfo = canParseToInteger(positionAmounttxf);
+        boolean missingInfo = canParseToInteger(txfRackAmount);
+        missingInfo = canParseToInteger(txfShelfAmount);
+        missingInfo = canParseToInteger(txfPositionAmount);
 
-        if (warehouseAddresstxf.getText().isEmpty()) {
+        if (txfWarehouseAddress.getText().isEmpty()) {
             missingInfo = true;
-            warehouseAddresstxf.setStyle("-fx-border-color: red;");
-            warehouseAddresstxf.setOnMouseClicked(e -> {warehouseAddresstxf.setStyle("-fx-border-color: transparent;");});
+            txfWarehouseAddress.setStyle("-fx-border-color: red;");
+            txfWarehouseAddress.setOnMouseClicked(e -> {
+                txfWarehouseAddress.setStyle("-fx-border-color: transparent;");});
         }
 
         if (!missingInfo) {
-            warehouse = Controller.createWarehouse(warehouseAddresstxf.getText());
-            for (int i = 0; i < Integer.parseInt(rackAmounttxf.getText()); i++) {
+            warehouse = Controller.createWarehouse(txfWarehouseAddress.getText());
+            for (int i = 0; i < Integer.parseInt(txfRackAmount.getText()); i++) {
                 rack = Controller.createRack(warehouse);
-                for (int j = 0; j < Integer.parseInt(shelfAmounttxf.getText()); j++) {
+                for (int j = 0; j < Integer.parseInt(txfShelfAmount.getText()); j++) {
                     shelf = Controller.createShelf(rack);
-                    for (int k = 0; k < Integer.parseInt(positionAmounttxf.getText()); k++) {
+                    for (int k = 0; k < Integer.parseInt(txfPositionAmount.getText()); k++) {
                         position = Controller.createPosition(shelf, 500);
                     }
                 }
             }
         }
         updateWarehouses();
-        rackAmounttxf.clear();
-        shelfAmounttxf.clear();
-        positionAmounttxf.clear();
-        warehouseAddresstxf.clear();
+        txfRackAmount.clear();
+        txfShelfAmount.clear();
+        txfPositionAmount.clear();
+        txfWarehouseAddress.clear();
 
     }
 
-    @FXML
-    void btnDeleteWarehouseOnAction(ActionEvent event) {
-        // TODO
-    }
 
     public void selectedStorageItemChanged() {
         Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();

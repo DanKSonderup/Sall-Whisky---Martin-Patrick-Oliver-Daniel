@@ -5,14 +5,27 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateTransferenceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CreateTransferenceController">
    <children>
-      <Label layoutX="191.0" layoutY="70.0" text="Fade med destillat på" />
-      <Label layoutX="604.0" layoutY="70.0" text="Tilgængelige fade for omhældning" />
-      <Button fx:id="btnTransference" layoutX="647.0" layoutY="396.0" mnemonicParsing="false" onAction="#btnTransferenceOnAction" prefHeight="45.0" prefWidth="99.0" text="Omhæld fad" />
-      <Button fx:id="btnShowAvailableCasksForTransference" layoutX="155.0" layoutY="396.0" mnemonicParsing="false" onAction="#btnShowAvailableCasksForTransferenceOnAction" prefHeight="45.0" prefWidth="187.0" text="Vis mulige fade for omhældning" />
-      <TableView fx:id="tbvCasksWithDestillate" layoutX="33.0" layoutY="117.0" prefHeight="241.0" prefWidth="429.0">
+      <Label layoutX="183.0" layoutY="56.0" text="Fade med destillat på">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="668.0" layoutY="56.0" text="Tilgængelige fade for omhældning">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <Button fx:id="btnTransference" layoutX="670.0" layoutY="600.0" mnemonicParsing="false" onAction="#btnTransferenceOnAction" prefHeight="50.0" prefWidth="200.0" text="Omhæld fad">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="btnShowAvailableCasksForTransference" layoutX="140.0" layoutY="600.0" mnemonicParsing="false" onAction="#btnShowAvailableCasksForTransferenceOnAction" prefHeight="50.0" prefWidth="200.0" text="Vis fade for omhældning">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Button>
+      <TableView fx:id="tvwCasksWithDestillate" layoutX="25.0" layoutY="90.0" prefHeight="487.0" prefWidth="429.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css">
          <columns>
             <TableColumn fx:id="tbcCaskID" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="tbcAlcoholPercentage" prefWidth="75.0" text="Alc %" />
@@ -20,7 +33,7 @@
             <TableColumn fx:id="tbcTotalLitersOfFills" prefWidth="136.0" text="Nuværende indhold(L)" />
          </columns>
       </TableView>
-      <TableView fx:id="tbvAvailableCasksForTransference" layoutX="482.0" layoutY="117.0" prefHeight="241.0" prefWidth="429.0">
+      <TableView fx:id="tvwAvailableCasksForTransference" layoutX="546.0" layoutY="90.0" prefHeight="487.0" prefWidth="429.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css">
          <columns>
             <TableColumn fx:id="tbcCaskID1" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="tbcAlcoholPercentage1" prefWidth="75.0" text="Alc %" />

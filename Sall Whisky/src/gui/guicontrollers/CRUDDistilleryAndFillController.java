@@ -21,88 +21,41 @@ public class CRUDDistilleryAndFillController implements Initializable {
     private Stage stage;
     private Scene scene;
     @FXML
-    private Label alcoholPercentagelbl;
-
+    private TextField txfAlcoholpercentage;
     @FXML
-    private TextField alcoholPercentagetxf;
-
+    private TextField txfAmountOfDistillateInLiters;
     @FXML
-    private Label amountOfLiterlbl;
-
-    @FXML
-    private TextField amountOfLiterstxf;
-
-    @FXML
-    private Label availableCaskslbl;
-
-    @FXML
-    private ListView<Cask> availableCaskslvw;
-
+    private ListView<Cask> lvwAvailableCasks;
     @FXML
     private Button btnCRUDCask;
-
     @FXML
     private Button btnCRUDRawMaterial;
-
     @FXML
     private Button btnCRUDStorage;
-
     @FXML
     private Button btnCRUDSupplier;
-
     @FXML
     private Button btnCreateDistillate;
-
     @FXML
     private Button btnDestillateAndFillOnCask;
-
     @FXML
     private Button btnFillOnCask;
-
     @FXML
     private Button btnStartside;
-
     @FXML
-    private Label distillatelbl;
-
+    private ListView<Distillate> lvwDistillates;
     @FXML
-    private ListView<Distillate> distillatelvw;
-
+    private TextField txfDistillationTime;
     @FXML
-    private Label distillationTimelbl;
-
+    private TextField txfNewMakeNo;
     @FXML
-    private TextField distillationTimetxf;
-
+    private ComboBox<Employee> cbbEmployees;
     @FXML
-    private Label newMakeNrlbl;
-
+    private ListView<Maltbatch> lvwMaltbatches;
     @FXML
-    private TextField newMakeNrtxf;
-
+    private TextField txfSmokingMaterial;
     @FXML
-    private ComboBox<Employee> pickEmployeeComboBox;
-
-    @FXML
-    private Label pickEmployeelbl;
-
-    @FXML
-    private ListView<Maltbatch> lvwMaltBatches;
-
-    @FXML
-    private Label pickMaltbatchlbl;
-
-    @FXML
-    private Label rygematerialelbl;
-
-    @FXML
-    private TextField rygematerialetxf;
-
-    @FXML
-    private Label typeLiterAmountlbl;
-
-    @FXML
-    private TextField typeLiterAmounttxf;
+    private TextField txfAmountToPutOnCaskInLiters;
     @FXML
     private TextArea txaDescription;
 
@@ -132,27 +85,27 @@ public class CRUDDistilleryAndFillController implements Initializable {
     }
     @FXML
     void btnCreateDistillateOnAction(ActionEvent event) {
-        String newMakenr = newMakeNrtxf.getText().trim();
+        String newMakenr = txfNewMakeNo.getText().trim();
         double distillationTime;
         double alcoholPercentage;
         double amountInLiters;
-        Employee employee = pickEmployeeComboBox.getSelectionModel().getSelectedItem();
-        ObservableList<Maltbatch> maltBatches = lvwMaltBatches.getSelectionModel().getSelectedItems();
+        Employee employee = cbbEmployees.getSelectionModel().getSelectedItem();
+        ObservableList<Maltbatch> maltBatches = lvwMaltbatches.getSelectionModel().getSelectedItems();
 
-        distillationTime = txfParseDouble(distillationTimetxf);
-        alcoholPercentage = txfParseDouble(alcoholPercentagetxf);
-        amountInLiters = txfParseDouble(amountOfLiterstxf);
+        distillationTime = txfParseDouble(txfDistillationTime);
+        alcoholPercentage = txfParseDouble(txfAlcoholpercentage);
+        amountInLiters = txfParseDouble(txfAmountOfDistillateInLiters);
 
         if (distillationTime < 0 || alcoholPercentage < 0 || amountInLiters < 0) {
             return;
         }
 
         if (employee == null) {
-            pickEmployeeComboBox.setStyle("-fx-border-color: red;");
+            cbbEmployees.setStyle("-fx-border-color: red;");
             return;
         }
-        if (maltBatches.size() == 0) {
-            lvwMaltBatches.setStyle("-fx-border-color: red;");
+        if (maltBatches.isEmpty()) {
+            lvwMaltbatches.setStyle("-fx-border-color: red;");
             return;
         }
         String description = txaDescription.getText().trim();
@@ -165,12 +118,12 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     @FXML
     void btnFillOnCaskOnAction(ActionEvent event) {
-        Distillate distillate = distillatelvw.getSelectionModel().getSelectedItem();
-        Cask cask = availableCaskslvw.getSelectionModel().getSelectedItem();
-        double amountInLiters = txfParseDouble(typeLiterAmounttxf);
+        Distillate distillate = lvwDistillates.getSelectionModel().getSelectedItem();
+        Cask cask = lvwAvailableCasks.getSelectionModel().getSelectedItem();
+        double amountInLiters = txfParseDouble(txfAmountToPutOnCaskInLiters);
 
         if (cask == null) {
-            availableCaskslvw.setStyle("-fx-border-color: red;");
+            lvwAvailableCasks.setStyle("-fx-border-color: red;");
             return;
         }
         if (amountInLiters < 0) {
@@ -235,24 +188,24 @@ public class CRUDDistilleryAndFillController implements Initializable {
     }
 
     private void clearErrorMarkings() {
-        newMakeNrtxf.setStyle("-fx-border-color: transparent;");
-        pickEmployeeComboBox.setStyle("-fx-border-color: transparent;");
-        amountOfLiterstxf.setStyle("-fx-border-color: transparent;");
-        alcoholPercentagetxf.setStyle("-fx-border-color: transparent;");
-        typeLiterAmounttxf.setStyle("-fx-border-color: transparent;");
+        txfNewMakeNo.setStyle("-fx-border-color: transparent;");
+        cbbEmployees.setStyle("-fx-border-color: transparent;");
+        txfAmountOfDistillateInLiters.setStyle("-fx-border-color: transparent;");
+        txfAlcoholpercentage.setStyle("-fx-border-color: transparent;");
+        txfAmountToPutOnCaskInLiters.setStyle("-fx-border-color: transparent;");
     }
 
     private void updateControls() {
-        distillatelvw.getItems().setAll(Controller.getAvailableDistillates());
-        availableCaskslvw.getItems().setAll(Controller.getAvailableCasks());
+        lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
+        lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        availableCaskslvw.getItems().setAll(Controller.getAvailableCasks());
-        lvwMaltBatches.getItems().setAll(Controller.getMaltbatches());
-        pickEmployeeComboBox.getItems().setAll(Controller.getEmployees());
-        distillatelvw.getItems().setAll(Controller.getAvailableDistillates());
+        lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
+        lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
+        cbbEmployees.getItems().setAll(Controller.getEmployees());
+        lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
     }
 
     private boolean canFillOnCask(double amountInLiters, Cask cask) {

@@ -47,26 +47,26 @@ public class CreateTransferenceController implements Initializable {
     private TableColumn<Cask, Double> tbcTotalLitersOfFills1;
 
     @FXML
-    private TableView<Cask> tbvAvailableCasksForTransference;
+    private TableView<Cask> tvwAvailableCasksForTransference;
 
     @FXML
-    private TableView<Cask> tbvCasksWithDestillate;
+    private TableView<Cask> tvwCasksWithDestillate;
 
     @FXML
     void btnShowAvailableCasksForTransferenceOnAction(ActionEvent event) {
-        Cask selectedCask = tbvCasksWithDestillate.getSelectionModel().getSelectedItem();
+        Cask selectedCask = tvwCasksWithDestillate.getSelectionModel().getSelectedItem();
         if (selectedCask == null) {
-            tbvCasksWithDestillate.setStyle("-fx-border-color: red;");
+            tvwCasksWithDestillate.setStyle("-fx-border-color: red;");
             return;
         }
         double currentContentInLiters = selectedCask.getCurrentContentInLiters();
-        tbvAvailableCasksForTransference.getItems().setAll(Controller.getCasksWithXLitersAvailable(currentContentInLiters));
+        tvwAvailableCasksForTransference.getItems().setAll(Controller.getCasksWithXLitersAvailable(currentContentInLiters));
     }
 
     @FXML
     void btnTransferenceOnAction(ActionEvent event) {
-        Cask oldCask = tbvCasksWithDestillate.getSelectionModel().getSelectedItem();
-        Cask newCask = tbvAvailableCasksForTransference.getSelectionModel().getSelectedItem();
+        Cask oldCask = tvwCasksWithDestillate.getSelectionModel().getSelectedItem();
+        Cask newCask = tvwAvailableCasksForTransference.getSelectionModel().getSelectedItem();
 
         Controller.createPutOnCask(oldCask, newCask);
         System.out.println(oldCask.getCurrentPutOnCasks());
@@ -83,7 +83,7 @@ public class CreateTransferenceController implements Initializable {
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         tbcTotalLitersOfFills1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("LitersAvailable"));
 
-        tbvCasksWithDestillate.getItems().setAll(Controller.getCasksWithDistillateOn());
+        tvwCasksWithDestillate.getItems().setAll(Controller.getCasksWithDistillateOn());
     }
 }
 

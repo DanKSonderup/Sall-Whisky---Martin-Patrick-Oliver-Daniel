@@ -58,7 +58,7 @@ public class MainViewController implements Initializable {
     private TableColumn<Cask, Double> tbcTotalLitersOfFills;
 
     @FXML
-    private TableView<Cask> tbvRipeCasks;
+    private TableView<Cask> tvwRipeCasks;
     @FXML
     private Button btnGetWhiskyStory;
     @FXML
@@ -127,7 +127,7 @@ public class MainViewController implements Initializable {
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
         tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
-        tbvRipeCasks.getItems().setAll(Controller.getRipeCasks());
+        tvwRipeCasks.getItems().setAll(Controller.getRipeCasks());
         lvwWhisky.getItems().setAll(Controller.getWhiskies());
 
         for (Whisky whisky: Controller.getStorage().getWhiskies()) {
@@ -136,7 +136,7 @@ public class MainViewController implements Initializable {
     }
 
     private void updateViews() {
-        tbvRipeCasks.getItems().setAll(Controller.getRipeCasks());
+        tvwRipeCasks.getItems().setAll(Controller.getRipeCasks());
         lvwWhisky.getItems().setAll(Controller.getWhiskies());
     }
 

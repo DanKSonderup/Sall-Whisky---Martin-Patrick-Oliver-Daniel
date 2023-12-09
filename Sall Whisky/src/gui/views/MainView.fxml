@@ -6,21 +6,46 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.MainViewController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.MainViewController">
    <children>
-      <Label layoutX="142.0" layoutY="97.0" text="Fade der har modnet mere end 3 år" />
-      <Button fx:id="btnCreateWhisky" layoutX="30.0" layoutY="601.0" mnemonicParsing="false" onAction="#btnCreateWhiskyOnAction" prefHeight="34.0" prefWidth="111.0" text="Opret Whisky" />
-      <ListView fx:id="lvwWhisky" layoutX="575.0" layoutY="123.0" prefHeight="466.0" prefWidth="308.0" />
-      <Label layoutX="690.0" layoutY="97.0" text="Whisky oversigt" />
-      <Button fx:id="btnGetWhiskyStory" layoutX="575.0" layoutY="601.0" mnemonicParsing="false" onAction="#btnGetWhiskyStoryOnAction" prefHeight="34.0" prefWidth="157.0" text="Udtræk historik for whisky" />
-      <Button fx:id="btnCRUDCask" layoutX="167.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer fade" />
-      <Button fx:id="btnCRUDStorage" layoutX="334.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer lager" />
-      <Button fx:id="btnDestillateAndFillOnCask" layoutX="501.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Destillater og påfyldninger" />
-      <Button fx:id="btnCRUDRawMaterial" layoutX="668.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer råvare" />
-      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Administrer leverandører" />
-      <Button fx:id="btnStartside" disable="true" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="167.0" text="Startside" />
-      <TableView fx:id="tbvRipeCasks" layoutX="23.0" layoutY="123.0" prefHeight="466.0" prefWidth="427.0">
+      <Label layoutX="177.0" layoutY="97.0" text="Fade modnet over 3 år">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <Button fx:id="btnCreateWhisky" layoutX="137.0" layoutY="601.0" mnemonicParsing="false" onAction="#btnCreateWhiskyOnAction" prefHeight="50.0" prefWidth="200.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" text="Opret whisky" />
+      <ListView fx:id="lvwWhisky" layoutX="550.0" layoutY="123.0" prefHeight="466.0" prefWidth="427.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" />
+      <Label layoutX="719.0" layoutY="97.0" text="Whisky oversigt">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font></Label>
+      <Button fx:id="btnGetWhiskyStory" layoutX="652.0" layoutY="601.0" mnemonicParsing="false" onAction="#btnGetWhiskyStoryOnAction" prefHeight="50.0" prefWidth="200.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" text="Udtræk historik for whisky" />
+      <Button fx:id="btnCRUDCask" layoutX="167.0" mnemonicParsing="false" onAction="#btnCrudCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer fade">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnCRUDStorage" layoutX="334.0" mnemonicParsing="false" onAction="#btnCrudStorageOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer lager">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnDestillateAndFillOnCask" layoutX="501.0" mnemonicParsing="false" onAction="#btnDestillateAndFillOnCaskOnAction" prefHeight="34.0" prefWidth="167.0" text="Destillater og påfyldninger">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnCRUDRawMaterial" layoutX="668.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer råvare">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Administrer leverandører">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnStartside" disable="true" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="167.0" text="Startside">
+         <font>
+            <Font name="Century Gothic Bold" size="11.0" />
+         </font></Button>
+      <TableView fx:id="tvwRipeCasks" layoutX="23.0" layoutY="123.0" prefHeight="466.0" prefWidth="427.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css">
          <columns>
             <TableColumn fx:id="tbcCaskID" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="tbcAlcoholPercentage" prefWidth="75.0" text="Alc %" />
