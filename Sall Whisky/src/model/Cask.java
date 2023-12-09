@@ -51,7 +51,7 @@ public class Cask {
         return countryOfOrigin;
     }
 
-    public List<FillOnCask> getCurrentPutOnCasks() {
+    public List<FillOnCask> getCurrentFillOnCasks() {
         return currentFillOnCasks;
     }
 
@@ -59,7 +59,7 @@ public class Cask {
         return previousFillOnCasks;
     }
 
-    public void addPreviousPutOnCask(FillOnCask fillOnCask) {
+    public void addPreviousFillOnCask(FillOnCask fillOnCask) {
         previousFillOnCasks.add(fillOnCask);
     }
     public void setCountryOfOrigin(String countryOfOrigin) {
@@ -101,7 +101,7 @@ public class Cask {
     public double getTotalLitersOfFills() {
         double totalLiters = 0;
         for (FillOnCask fillOnCask : currentFillOnCasks) {
-            totalLiters += fillOnCask.getFillOnCask().getTotalLitersForFills();
+            totalLiters += fillOnCask.getTapFromDistillate().getTotalLitersForFills();
         }
         return totalLiters;
     }
@@ -112,7 +112,7 @@ public class Cask {
         double alcoholPercentage = 0;
         double totalFluids = 0;
         for (FillOnCask fillOnCask : currentFillOnCasks) {
-            TapFromDistillate tapFromDistillate = fillOnCask.getFillOnCask();
+            TapFromDistillate tapFromDistillate = fillOnCask.getTapFromDistillate();
             alcoholPercentage += (tapFromDistillate.getTotalLitersForFills() *
                     (tapFromDistillate.calculateAlcoholPercentage() / 100.0));
             totalFluids += tapFromDistillate.getTotalLitersForFills();
@@ -134,9 +134,9 @@ public class Cask {
 
 
     /** Adds a fillOnCask to the cask and updates the casks current content in liters */
-    public void addCurrentPutOnCask(FillOnCask fillOnCask) {
+    public void addCurrentFillOnCask(FillOnCask fillOnCask) {
         currentFillOnCasks.add(fillOnCask);
-        currentContentInLiters += fillOnCask.getFillOnCask().getTotalLitersForFills();
+        currentContentInLiters += fillOnCask.getTapFromDistillate().getTotalLitersForFills();
     }
 
     public int getPositionId() {
@@ -169,16 +169,16 @@ public class Cask {
             return null;
         }
 
-        TapFromDistillate youngestTapFromDistillate = currentFillOnCasks.get(0).getFillOnCask();
+        TapFromDistillate youngestTapFromDistillate = currentFillOnCasks.get(0).getTapFromDistillate();
         for (FillOnCask fillOnCask : currentFillOnCasks) {
-            if (fillOnCask.getFillOnCask().getTimeOfFill().isAfter(youngestTapFromDistillate.getTimeOfFill())) {
-                youngestTapFromDistillate = fillOnCask.getFillOnCask();
+            if (fillOnCask.getTapFromDistillate().getTimeOfFill().isAfter(youngestTapFromDistillate.getTimeOfFill())) {
+                youngestTapFromDistillate = fillOnCask.getTapFromDistillate();
             }
         }
         return youngestTapFromDistillate;
     }
 
-    public void removeCurrentPutOnCask(FillOnCask fillOnCask) {
+    public void removeCurrentFillOnCask(FillOnCask fillOnCask) {
         currentFillOnCasks.remove(fillOnCask);
     }
 

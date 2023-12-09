@@ -193,6 +193,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         txfAmountOfDistillateInLiters.setStyle("-fx-border-color: transparent;");
         txfAlcoholpercentage.setStyle("-fx-border-color: transparent;");
         txfAmountToPutOnCaskInLiters.setStyle("-fx-border-color: transparent;");
+        txfDistillationTime.setStyle("-fx-border-color: transparent;");
     }
 
     private void updateControls() {
@@ -202,6 +203,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        lvwMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
         lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
         cbbEmployees.getItems().setAll(Controller.getEmployees());
@@ -210,8 +212,8 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     private boolean canFillOnCask(double amountInLiters, Cask cask) {
         double currentContent = 0;
-        for (FillOnCask fillOnCask : cask.getCurrentPutOnCasks()) {
-            for (DistillateFill distillateFill: fillOnCask.getFillOnCask().getDistillateFills()) {
+        for (FillOnCask fillOnCask : cask.getCurrentFillOnCasks()) {
+            for (DistillateFill distillateFill: fillOnCask.getTapFromDistillate().getDistillateFills()) {
                 currentContent += distillateFill.getAmountOfDistillateInLiters();
             }
         }

@@ -17,7 +17,7 @@ public class FillOnCask {
         return timeFill;
     }
 
-    public TapFromDistillate getFillOnCask() {
+    public TapFromDistillate getTapFromDistillate() {
         return tapFromDistillate;
     }
 
@@ -29,11 +29,16 @@ public class FillOnCask {
         this.timeFill = timeFill;
     }
 
-    public void setFillOnCask(TapFromDistillate tapFromDistillate) {
-        this.tapFromDistillate = tapFromDistillate;
-    }
-
     public void setCask(Cask cask) {
         this.cask = cask;
+    }
+
+    @Override
+    public String toString() {
+        return "FillOnCask{" +
+                "timeFill=" + timeFill +
+                ", tapFromDistillate=" + tapFromDistillate +
+                ", cask=" + cask +
+                '}';
     }
 }

@@ -59,7 +59,7 @@ public class Distillate {
     public String toString() {
         String maltbatchesString = "";
         for (Maltbatch mb: maltbatches) {
-            maltbatchesString += mb.getName();
+            maltbatchesString += mb.getName() + ", ";
         }
         return newMakeNr + ", [ " + maltbatchesString + " ] - " + "(L: " + amountInLiters + ", Alc: " + alcoholPercentage + " Medarbejder: " + employee.getName() + " )";
     }

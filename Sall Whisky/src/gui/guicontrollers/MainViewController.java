@@ -1,7 +1,7 @@
 package gui.guicontrollers;
 
 import controller.Controller;
-import gui.views.CreateWhiskyStoryWindow;
+import gui.javaFXViews.CreateWhiskyStoryWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -100,7 +100,7 @@ public class CRUDCaskViewController implements Initializable {
         if (tvwCasks.getSelectionModel().isEmpty()) {
             tvwCasks.setStyle("-fx-border-color: red;");
         }
-        else if (!cask.getCurrentPutOnCasks().isEmpty() || !cask.getPreviousPutOnCasks().isEmpty()) {
+        else if (!cask.getCurrentFillOnCasks().isEmpty() || !cask.getPreviousPutOnCasks().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fejl");
             alert.setHeaderText("Fad kan ikke slettes");

@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDDistilleryAndFillController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDDistilleryAndFillController">
    <children>
       <ListView fx:id="lvwAvailableCasks" layoutX="472.0" layoutY="325.0" prefHeight="200.0" prefWidth="450.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" />
       <ListView fx:id="lvwDistillates" layoutX="472.0" layoutY="97.0" prefHeight="200.0" prefWidth="450.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" />
@@ -38,7 +39,7 @@
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></TextField>
-      <TextField fx:id="txfAmountOfDistillateInLiters" layoutX="184.0" layoutY="310.0" prefHeight="25.0" prefWidth="200.0" promptText="Liter">
+      <TextField fx:id="txfAmountOfDistillateInLiters" layoutX="184.0" layoutY="310.0" prefHeight="25.0" prefWidth="200.0">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></TextField>
@@ -62,11 +63,11 @@
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="45.0" layoutY="230.0" prefHeight="25.0" text="Destilleringstid">
+      <Label layoutX="45.0" layoutY="230.0" prefHeight="25.0" text="Destilleringstid (Timer)">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="45.0" layoutY="310.0" prefHeight="25.0" text="Væskemængde">
+      <Label layoutX="45.0" layoutY="310.0" prefHeight="25.0" text="Væskemængde (Liter)">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Label>
@@ -74,7 +75,7 @@
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="45.0" layoutY="390.0" prefHeight="25.0" text="Alkoholprocent">
+      <Label layoutX="45.0" layoutY="390.0" prefHeight="25.0" text="Alkoholprocent (%)">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Label>

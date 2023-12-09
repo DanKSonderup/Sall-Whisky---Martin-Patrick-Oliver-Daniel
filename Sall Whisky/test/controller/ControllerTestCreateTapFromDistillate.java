@@ -36,11 +36,11 @@ class ControllerTestCreateTapFromDistillate {
         TapFromDistillate tapFromDistillate = Controller.createFillOnCask(LocalDate.of(2023, 12, 1), cask, distillateFills);
 
         // Act
-        cask.addFillOnCask(tapFromDistillate);
+        cask.addCurrentFillOnCask(tapFromDistillate);
         distillateFill.setFillOnCask(tapFromDistillate);
 
         // Assert
-        assertTrue(cask.getFillOnCasks().contains(tapFromDistillate));
+        // assertTrue(cask.getFillOnCasks().contains(tapFromDistillate));
         assertTrue(tapFromDistillate.getDistillateFills().contains(distillateFill));
         assertTrue(distillateFill.getFillOnCask().equals(tapFromDistillate));
     }

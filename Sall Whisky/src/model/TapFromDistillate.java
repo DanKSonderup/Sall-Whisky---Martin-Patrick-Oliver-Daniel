@@ -22,7 +22,7 @@ public class TapFromDistillate {
         return timeOfFill;
     }
 
-    public ArrayList<FillOnCask> getPutOnCasks() {
+    public ArrayList<FillOnCask> getFillOnCasks() {
         return fillOnCasks;
     }
 

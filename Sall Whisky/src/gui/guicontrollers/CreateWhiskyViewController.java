@@ -79,7 +79,7 @@ public class CreateWhiskyViewController implements Initializable {
             return;
         }
         int sizeOfBottle = cbbBottleSizeInCl.getSelectionModel().getSelectedItem();
-        double waterInLiters = Double.parseDouble(txfWaterForDilution.getText().trim());
+        double waterInLiters = txfParseDouble(txfWaterForDilution);
 
         if (waterInLiters < 0) {
             return;
@@ -98,8 +98,12 @@ public class CreateWhiskyViewController implements Initializable {
     @FXML
     void btnCreateWhiskyOnAction(ActionEvent event) {
         int sizeOfBottle = cbbBottleSizeInCl.getSelectionModel().getSelectedItem();
-        double waterInLiters = Double.parseDouble(txfWaterForDilution.getText().trim());
+        double waterInLiters = txfParseDouble(txfWaterForDilution);
         int amountOfBottles = Integer.parseInt(lblAmountOfBottles.getText());
+
+        if (amountOfBottles < 0) {
+            return;
+        }
         String name = txfWhiskyName.getText().trim();
         String description = txaDescriptionOfWhisky.getText().trim();
         whisky = Controller.createWhisky(name, waterInLiters, new ArrayList<>(whiskyFills), description);
@@ -134,8 +138,8 @@ public class CreateWhiskyViewController implements Initializable {
             return;
         }
         ArrayList<TapFromDistillate> tempFillsOnCask = new ArrayList<>();
-        for (FillOnCask fillOnCask : cask.getCurrentPutOnCasks()) {
-            tempFillsOnCask.add(fillOnCask.getFillOnCask());
+        for (FillOnCask fillOnCask : cask.getCurrentFillOnCasks()) {
+            tempFillsOnCask.add(fillOnCask.getTapFromDistillate());
         }
 
         try {
@@ -180,6 +184,7 @@ public class CreateWhiskyViewController implements Initializable {
             returnValue = Double.parseDouble(txf.getText().trim());
         } catch (NumberFormatException e) {
             txf.setStyle("-fx-border-color: red;");
+            return returnValue;
         }
         txf.setOnMouseClicked(e -> {txf.setStyle("-fx-border-color: transparent;");});
         return returnValue;
@@ -202,6 +207,10 @@ public class CreateWhiskyViewController implements Initializable {
             return;
         }
         lvwWhiskybatch.getItems().setAll(whiskyFills);
+    }
+
+    private void updateTbvRipeCasks() {
+
     }
 
     private void updateContentOfWhisky(String content) {

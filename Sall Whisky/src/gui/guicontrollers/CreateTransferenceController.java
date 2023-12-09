@@ -12,6 +12,7 @@ import model.Cask;
 import model.TapFromDistillate;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CreateTransferenceController implements Initializable {
@@ -60,7 +61,9 @@ public class CreateTransferenceController implements Initializable {
             return;
         }
         double currentContentInLiters = selectedCask.getCurrentContentInLiters();
-        tvwAvailableCasksForTransference.getItems().setAll(Controller.getCasksWithXLitersAvailable(currentContentInLiters));
+        ArrayList<Cask> availableCasksForTransference = new ArrayList<>(Controller.getCasksWithXLitersAvailable(currentContentInLiters));
+        availableCasksForTransference.remove(selectedCask);
+        tvwAvailableCasksForTransference.getItems().setAll(availableCasksForTransference);
     }
 
     @FXML
@@ -69,8 +72,7 @@ public class CreateTransferenceController implements Initializable {
         Cask newCask = tvwAvailableCasksForTransference.getSelectionModel().getSelectedItem();
 
         Controller.createPutOnCask(oldCask, newCask);
-        System.out.println(oldCask.getCurrentPutOnCasks());
-        System.out.println(oldCask.getLitersAvailable());
+        updateControls();
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -84,6 +86,11 @@ public class CreateTransferenceController implements Initializable {
         tbcTotalLitersOfFills1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("LitersAvailable"));
 
         tvwCasksWithDestillate.getItems().setAll(Controller.getCasksWithDistillateOn());
+    }
+
+    public void updateControls() {
+        tvwCasksWithDestillate.getItems().setAll(Controller.getCasksWithDistillateOn());
+        tvwAvailableCasksForTransference.getItems().clear();
     }
 }
 

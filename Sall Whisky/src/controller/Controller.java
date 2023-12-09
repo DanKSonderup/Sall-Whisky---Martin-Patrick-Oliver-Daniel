@@ -41,7 +41,7 @@ public abstract class Controller {
     public static List<Cask> getCasksWithDistillateOn() {
         ArrayList<Cask> casksWithDestillate = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
-            if (cask.getCurrentPutOnCasks().size() > 0) {
+            if (cask.getCurrentFillOnCasks().size() > 0) {
                 casksWithDestillate.add(cask);
             }
         }
@@ -262,7 +262,7 @@ public abstract class Controller {
         }
 
         FillOnCask fillOnCask = new FillOnCask(timeOfFill, tapFromDistillate, cask);
-        cask.addCurrentPutOnCask(fillOnCask);
+        cask.addCurrentFillOnCask(fillOnCask);
 
         return tapFromDistillate;
     }
@@ -437,30 +437,17 @@ public abstract class Controller {
      */
     public static WhiskyFill createWhiskyFill(double amountOfDistilateFillInLiters, List<TapFromDistillate> tapFromDistillates, double alcoholPercentage, Cask cask) throws InterruptedException {
         WhiskyFill whiskyFill = new WhiskyFill(amountOfDistilateFillInLiters, tapFromDistillates, LocalDate.now(), alcoholPercentage, cask);
-        FillOnCask currentFillOnCask = null;
+
         if (cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters < 0) {
             throw new InterruptedException("Du prøver at påfylde flere liter end du har tilgængelig");
         } else if ((cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters) == 0) {
-            for (TapFromDistillate tapFromDistillate : tapFromDistillates) {
-                LocalDate latestPutOnCask = tapFromDistillate.getPutOnCasks().get(0).getTimeFill();
-                for (FillOnCask fillOnCask : tapFromDistillate.getPutOnCasks()) {
-                    if (fillOnCask.getTimeFill().isAfter(latestPutOnCask)) {
-                        latestPutOnCask = fillOnCask.getTimeFill();
-                        currentFillOnCask = fillOnCask;
-                    }
-                }
-                if (currentFillOnCask == null) {
-                    throw new InterruptedException("En fejl 40 opstod");
-                }
-                Cask currentCask = currentFillOnCask.getCask();
-                for (FillOnCask fillOnCask : currentCask.getCurrentPutOnCasks()) {
-                    currentCask.removeCurrentPutOnCask(fillOnCask);
-                    currentCask.addPreviousPutOnCask(fillOnCask);
+                ArrayList<FillOnCask> currentFillOnCasks = new ArrayList<>(cask.getCurrentFillOnCasks());
+                for (FillOnCask fillOnCask : currentFillOnCasks) {
+                    cask.removeCurrentFillOnCask(fillOnCask);
+                    cask.addPreviousFillOnCask(fillOnCask);
                 }
             }
-        }
         cask.setCurrentContentInLiters(cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters);
-
         return whiskyFill;
     }
 
@@ -554,14 +541,16 @@ public abstract class Controller {
     }
 
     public static void createPutOnCask(Cask oldCask, Cask newCask) {
-        List<FillOnCask> fillOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentPutOnCasks());
+        List<FillOnCask> fillOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentFillOnCasks());
 
         for (int i = 0; i < fillOnCaskFromOldCask.size(); i++) {
-            newCask.addCurrentPutOnCask(new FillOnCask(LocalDate.now(), fillOnCaskFromOldCask.get(i).getFillOnCask(), newCask));
+            newCask.addCurrentFillOnCask(new FillOnCask(LocalDate.now(), fillOnCaskFromOldCask.get(i).getTapFromDistillate(), newCask));
         }
-        oldCask.getCurrentPutOnCasks().removeAll(fillOnCaskFromOldCask);
+        oldCask.getCurrentFillOnCasks().removeAll(fillOnCaskFromOldCask);
         oldCask.getPreviousPutOnCasks().addAll(fillOnCaskFromOldCask);
 
+        oldCask.setCurrentContentInLiters(0);
+        newCask.setCurrentContentInLiters(newCask.getTotalLitersOfFills());
     }
 
     /** Observer methods */
