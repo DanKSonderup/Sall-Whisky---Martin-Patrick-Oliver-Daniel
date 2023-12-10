@@ -96,7 +96,16 @@ public class CRUDDistilleryAndFillController implements Initializable {
         alcoholPercentage = txfParseDouble(txfAlcoholpercentage);
         amountInLiters = txfParseDouble(txfAmountOfDistillateInLiters);
 
-        if (distillationTime < 0 || alcoholPercentage < 0 || amountInLiters < 0) {
+        if (distillationTime < 0) {
+            txfDistillationTime.setStyle("-fx-border-color: red;");
+            return;
+        }
+        if (amountInLiters < 0) {
+            txfAmountOfDistillateInLiters.setStyle("-fx-border-color: red;");
+            return;
+        }
+        if (alcoholPercentage > 99) {
+            txfAlcoholpercentage.setStyle("-fx-border-color: red;");
             return;
         }
 
@@ -112,6 +121,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
         Controller.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches, description);
         clearErrorMarkings();
+        clearCreateDistillateFields();
         updateControls();
         }
 
@@ -182,6 +192,15 @@ public class CRUDDistilleryAndFillController implements Initializable {
     private void updateControls() {
         lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
         lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
+    }
+
+    private void clearCreateDistillateFields() {
+        txfDistillationTime.clear();
+        txfAlcoholpercentage.clear();
+        txfEmployee.clear();
+        txfSmokingMaterial.clear();
+        txfNewMakeNo.clear();
+        txfAmountOfDistillateInLiters.clear();
     }
 
     @Override
