@@ -180,7 +180,7 @@ public class CreateWhiskyViewController implements Initializable {
         for (int i = 0; i < whiskyFills.size() - 1; i++) {
             WhiskyFill current = whiskyFills.get(i);
             WhiskyFill next = whiskyFills.get(i + 1);
-            if (current.getCask() != next.getCask()) {
+            if (!current.getCask().equals(next.getCask())) {
                 return true;
             }
         }
@@ -231,10 +231,6 @@ public class CreateWhiskyViewController implements Initializable {
             return;
         }
         lvwWhiskybatch.getItems().setAll(whiskyFills);
-    }
-
-    private void updateTbvRipeCasks() {
-
     }
 
     private void updateContentOfWhisky(String content) {
