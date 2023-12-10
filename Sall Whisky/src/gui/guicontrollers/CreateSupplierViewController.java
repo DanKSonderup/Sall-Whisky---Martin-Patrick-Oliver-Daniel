@@ -98,20 +98,20 @@ public class CreateSupplierViewController implements Initializable {
         if (name.isEmpty()) {
             canParseToInteger(txfName);
         }
-            if (address.isEmpty()) {
+        if (address.isEmpty()) {
                 canParseToInteger(txfAddress);
-            }
-                if (country.isEmpty()) {
-                    canParseToInteger(txfCountry);
-                }
-                    if (vatId.isEmpty()) {
-                        canParseToInteger(txfVatId);
         }
-            else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
+        if (country.isEmpty()) {
+            canParseToInteger(txfCountry);
+        }
+        if (vatId.isEmpty()) {
+            canParseToInteger(txfVatId);
+        }
+
+        if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
                 Controller.createGrainSupplier(name, address, country, vatId);
                  clearInput();
-
-                } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
+        } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
                     Controller.createCaskSupplier(name, address, country, vatId);
                     clearInput();
         }

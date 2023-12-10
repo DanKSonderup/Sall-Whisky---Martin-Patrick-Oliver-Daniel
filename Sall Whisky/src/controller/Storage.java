@@ -17,15 +17,12 @@ public interface Storage {
     /** Warehouses */
     List<Warehouse> getWarehouses();
     void storeWarehouse(Warehouse warehouse);
-    void deleteWarehouse(Warehouse warehouse);
-
 
 
     //-------------------------------------------------
     /** Distillates */
     List<Distillate> getDistillates();
     void storeDistillate(Distillate distillate);
-    void deleteDistillate(Distillate distillate);
 
     //-------------------------------------------------
     /** StorageCounter */
@@ -53,23 +50,19 @@ public interface Storage {
     /** GrainSupplier */
     List<GrainSupplier> getGrainSuppliers();
     void storeGrainSupplier(GrainSupplier grainSupplier);
-    void deleteGrainSupplier(GrainSupplier grainSupplier);
 
     //-------------------------------------------------
     /** CaskSupplier */
     List<CaskSupplier> getCaskSuppliers();
     void storeCaskSupplier(CaskSupplier caskSupplier);
-    void deleteCaskSupplier(CaskSupplier caskSupplier);
 
     //-------------------------------------------------
     /** WhiskyBottle */
     List<WhiskyBottle> getWhiskyBottles();
     void storeWhiskyBottle(WhiskyBottle whiskyBottle);
-    void deleteWhiskyBottle(WhiskyBottle whiskyBottle);
 
     //-------------------------------------------------
     /** Whisky */
     List<Whisky> getWhiskies();
     void storeWhisky(Whisky whisky);
-    void deleteWhisky(Whisky whisky);
 }
