@@ -75,6 +75,8 @@ public class CreateSupplierViewController implements Initializable {
         lvwGrainSuppliers.getItems().setAll(Controller.getGrainSuppliers());
 
 
+
+
         ChangeListener<GrainSupplier> grainSupplierChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
         lvwGrainSuppliers.getSelectionModel().selectedItemProperty().addListener(grainSupplierChangeListener);
 
@@ -83,6 +85,7 @@ public class CreateSupplierViewController implements Initializable {
 
         String suppliers[] = {"Kornleverandør", "Fadleverandør"};
         cbbSupplier.setItems(FXCollections.observableArrayList(suppliers));
+        cbbSupplier.getSelectionModel().select(cbbSupplier.getItems().get(0));
     }
 
     @FXML
@@ -92,25 +95,52 @@ public class CreateSupplierViewController implements Initializable {
         String country = txfCountry.getText().trim();
         String vatId = txfVatId.getText().trim();
 
-
-        if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
-            Controller.createGrainSupplier(name, address, country, vatId);
-
-        } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
-            Controller.createCaskSupplier(name, address, country, vatId);
+        if (name.isEmpty()) {
+            canParseToInteger(txfName);
         }
+            if (address.isEmpty()) {
+                canParseToInteger(txfAddress);
+            }
+                if (country.isEmpty()) {
+                    canParseToInteger(txfCountry);
+                }
+                    if (vatId.isEmpty()) {
+                        canParseToInteger(txfVatId);
+        }
+            else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
+                Controller.createGrainSupplier(name, address, country, vatId);
+                 clearInput();
+
+                } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
+                    Controller.createCaskSupplier(name, address, country, vatId);
+                    clearInput();
+        }
+
         updateLvwCaskSupplier();
         updateLvwGrainSupplier();
-
-        clearInput();
     }
 
     private void clearInput() {
-        cbbSupplier.getSelectionModel().clearSelection();
         txfName.clear();
         txfAddress.clear();
         txfCountry.clear();
         txfVatId.clear();
+        txfName.setStyle("-fx-border-color: transparent");
+        txfAddress.setStyle("-fx-border-color: transparent");
+        txfCountry.setStyle("-fx-border-color: transparent");
+        txfVatId.setStyle("-fx-border-color: transparent");
+    }
+
+    private boolean canParseToInteger(TextField txf) {
+        boolean cannotParse = false;
+        try {
+            double returnValue = Integer.parseInt(txf.getText().trim());
+        } catch (NumberFormatException exception) {
+            cannotParse = true;
+            txf.setStyle("-fx-border-color: red;");
+            txf.setOnMouseClicked(e -> {txf.setStyle("-fx-border-color: transparent");});
+        }
+        return cannotParse;
     }
 
 
