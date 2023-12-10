@@ -1,12 +1,10 @@
 package controller;
 
-import model.Cask;
-import model.Distillate;
-import model.DistillateFill;
-import model.TapFromDistillate;
+import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.naming.ldap.Control;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -33,14 +31,12 @@ class ControllerTestCreateTapFromDistillate {
         // Arrange
         distillateFill = new DistillateFill(49, distillate);
         distillateFills.add(distillateFill);
-        TapFromDistillate tapFromDistillate = Controller.createFillOnCask(LocalDate.of(2023, 12, 1), cask, distillateFills);
+        TapFromDistillate tapFromDistillate = Controller.createTapFromDistillate(LocalDate.of(2023, 12, 1), cask, distillateFills);
 
         // Act
-        cask.addCurrentFillOnCask(tapFromDistillate);
         distillateFill.setFillOnCask(tapFromDistillate);
 
         // Assert
-        // assertTrue(cask.getFillOnCasks().contains(tapFromDistillate));
         assertTrue(tapFromDistillate.getDistillateFills().contains(distillateFill));
         assertTrue(distillateFill.getFillOnCask().equals(tapFromDistillate));
     }
@@ -54,7 +50,7 @@ class ControllerTestCreateTapFromDistillate {
 
         // Asserts
         assertThrows(IllegalArgumentException.class, () -> {
-            Controller.createFillOnCask(LocalDate.of(2024, 12, 4), cask, distillateFills);
+            Controller.createTapFromDistillate(LocalDate.of(2024, 12, 4), cask, distillateFills);
         });
     }
 
@@ -64,14 +60,12 @@ class ControllerTestCreateTapFromDistillate {
         // Arrange
         distillateFill = new DistillateFill(50, distillate);
         distillateFills.add(distillateFill);
-        TapFromDistillate tapFromDistillate = Controller.createFillOnCask(LocalDate.of(2023, 12, 3), cask, distillateFills);
+        TapFromDistillate tapFromDistillate = Controller.createTapFromDistillate(LocalDate.of(2023, 12, 3), cask, distillateFills);
 
         // Act
-        cask.addFillOnCask(tapFromDistillate);
         distillateFill.setFillOnCask(tapFromDistillate);
 
         // Assert
-        assertTrue(cask.getFillOnCasks().contains(tapFromDistillate));
         assertTrue(tapFromDistillate.getDistillateFills().contains(distillateFill));
         assertTrue(distillateFill.getFillOnCask().equals(tapFromDistillate));
     }
@@ -85,7 +79,7 @@ class ControllerTestCreateTapFromDistillate {
 
         // Assert
         assertThrows(IllegalArgumentException.class, () -> {
-            Controller.createFillOnCask(LocalDate.of(2023, 12, 1), cask, distillateFills);
+            Controller.createTapFromDistillate(LocalDate.of(2023, 12, 1), cask, distillateFills);
         });
     }
 }
