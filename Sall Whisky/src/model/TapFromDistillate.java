@@ -27,6 +27,10 @@ public class TapFromDistillate implements Serializable {
         return fillOnCasks;
     }
 
+    public void addFillOnCask(FillOnCask fillOnCask) {
+        fillOnCasks.add(fillOnCask);
+    }
+
     /** Returns the total sum of liters from distillatefills connected to this object */
     public double getTotalLitersForFills() {
         double sum = 0.0;
@@ -70,6 +74,21 @@ public class TapFromDistillate implements Serializable {
             map.put(fill, share);
         }
         return map;
+    }
+
+    /**
+     * Finds a fillOnCask on TapFromDistillate that is connected to the cask param
+     * If no connection to the cask is found, returns null
+     * @param cask that you want to find a fillOnCask connected to it
+     * @return The first fillOnCask connected to the selected cask
+     */
+    public FillOnCask getFillOnCaskForCask(Cask cask) {
+        for (FillOnCask fillOnCask: fillOnCasks) {
+            if (fillOnCask.getCask().equals(cask)) {
+                return fillOnCask;
+            }
+        }
+        return null;
     }
 
     @Override
