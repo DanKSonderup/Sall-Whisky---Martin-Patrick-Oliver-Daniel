@@ -19,11 +19,7 @@ public interface Storage {
     void storeWarehouse(Warehouse warehouse);
     void deleteWarehouse(Warehouse warehouse);
 
-    //-------------------------------------------------
-    /** Employee */
-    List<Employee> getEmployees();
-    void storeEmployee(Employee employee);
-    void deleteEmployee(Employee employee);
+
 
     //-------------------------------------------------
     /** Distillates */

@@ -247,7 +247,7 @@ public abstract class Controller {
      * If distillateFill is > sizeInLiters (Cask) throw an illegalArgumentException
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
      */
-    public static TapFromDistillate createFillOnCask(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) throws IllegalArgumentException {
+    public static TapFromDistillate createTapFromDistillate(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) throws IllegalArgumentException {
         TapFromDistillate tapFromDistillate = new TapFromDistillate(timeOfFill, cask);
 
         double sum = 0;
@@ -267,17 +267,6 @@ public abstract class Controller {
         return tapFromDistillate;
     }
 
-    /** Create, store and return an employee */
-    public static Employee createEmployee(int id, String name) {
-        Employee employee = new Employee(id, name);
-        storage.storeEmployee(employee);
-        return employee;
-    }
-
-    /** Returns Employees from Storage */
-    public static List<Employee> getEmployees() {
-        return new ArrayList<>(storage.getEmployees());
-    }
 
     /**
      * Creates a Distillate and saves it to storage
@@ -287,7 +276,7 @@ public abstract class Controller {
      * @return the created Distillate
      */
     public static Distillate createDistillate(String newMakenr, double distillationTimeInHours,
-                                              double alcoholPercentage, double amountInLiters, Employee employee,
+                                              double alcoholPercentage, double amountInLiters, String employee,
                                               List<Maltbatch> maltbatches, String description) {
 
         Distillate distillate = new Distillate(newMakenr, distillationTimeInHours, alcoholPercentage, amountInLiters,

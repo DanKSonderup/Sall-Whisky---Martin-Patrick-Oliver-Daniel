@@ -49,7 +49,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
     @FXML
     private TextField txfNewMakeNo;
     @FXML
-    private ComboBox<Employee> cbbEmployees;
+    private TextField txfEmployee;
     @FXML
     private ListView<Maltbatch> lvwMaltbatches;
     @FXML
@@ -89,7 +89,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         double distillationTime;
         double alcoholPercentage;
         double amountInLiters;
-        Employee employee = cbbEmployees.getSelectionModel().getSelectedItem();
+        String employee = txfEmployee.getText().trim();
         ObservableList<Maltbatch> maltBatches = lvwMaltbatches.getSelectionModel().getSelectedItems();
 
         distillationTime = txfParseDouble(txfDistillationTime);
@@ -100,8 +100,8 @@ public class CRUDDistilleryAndFillController implements Initializable {
             return;
         }
 
-        if (employee == null) {
-            cbbEmployees.setStyle("-fx-border-color: red;");
+        if (employee.isEmpty()) {
+            txfEmployee.setStyle("-fx-border-color: red;");
             return;
         }
         if (maltBatches.isEmpty()) {
@@ -159,7 +159,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         }
 
             try {
-                Controller.createFillOnCask(LocalDate.now(), cask, distillateFills);
+                Controller.createTapFromDistillate(LocalDate.now(), cask, distillateFills);
             } catch (IllegalArgumentException e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Fejl");
@@ -189,7 +189,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     private void clearErrorMarkings() {
         txfNewMakeNo.setStyle("-fx-border-color: transparent;");
-        cbbEmployees.setStyle("-fx-border-color: transparent;");
+        txfEmployee.setStyle("-fx-border-color: transparent;");
         txfAmountOfDistillateInLiters.setStyle("-fx-border-color: transparent;");
         txfAlcoholpercentage.setStyle("-fx-border-color: transparent;");
         txfAmountToPutOnCaskInLiters.setStyle("-fx-border-color: transparent;");
@@ -206,7 +206,6 @@ public class CRUDDistilleryAndFillController implements Initializable {
         lvwMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
         lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
-        cbbEmployees.getItems().setAll(Controller.getEmployees());
         lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
     }
 
