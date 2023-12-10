@@ -28,9 +28,6 @@ public class ListStorage implements Storage, Serializable {
     public void storeCaskSupplier(CaskSupplier caskSupplier) {
         caskSuppliers.add(caskSupplier);
     }
-    public void deleteCaskSupplier(CaskSupplier caskSupplier) {
-        caskSuppliers.remove(caskSupplier);
-    }
     //----------------------------------------------------------------------
     /** GrainSupplier */
     @Override
@@ -39,9 +36,6 @@ public class ListStorage implements Storage, Serializable {
     }
     public void storeGrainSupplier(GrainSupplier grainSupplier) {
         grainSuppliers.add(grainSupplier);
-    }
-    public void deleteGrainSupplier(GrainSupplier grainSupplier) {
-        grainSuppliers.remove(grainSupplier);
     }
     //----------------------------------------------------------------------
     /** Casks */
@@ -62,9 +56,7 @@ public class ListStorage implements Storage, Serializable {
     public void storeWarehouse(Warehouse warehouse) {
         warehouses.add(warehouse);
     }
-    public void deleteWarehouse(Warehouse warehouse) {
-        warehouses.remove(warehouse);
-    }
+
     //----------------------------------------------------------------------
     /** StorageCounter */
     public StorageCounter getStorageCounter() {
@@ -91,9 +83,7 @@ public class ListStorage implements Storage, Serializable {
     public void storeDistillate(Distillate distillate) {
         distillates.add(distillate);
     }
-    public void deleteDistillate(Distillate distillate) {
-        distillates.remove(distillate);
-    }
+
     //----------------------------------------------------------------------
     /** Grain */
     @Override
@@ -132,10 +122,7 @@ public class ListStorage implements Storage, Serializable {
     public void storeWhiskyBottle(WhiskyBottle whiskyBottle) {
         whiskyBottles.add(whiskyBottle);
     }
-    @Override
-    public void deleteWhiskyBottle(WhiskyBottle whiskyBottle) {
-        whiskyBottles.remove(whiskyBottle);
-    }
+
     //----------------------------------------------------------------------
     /** Whisky */
     @Override
@@ -146,10 +133,7 @@ public class ListStorage implements Storage, Serializable {
     public void storeWhisky(Whisky whisky) {
         whiskies.add(whisky);
     }
-    @Override
-    public void deleteWhisky(Whisky whisky) {
-        whiskies.remove(whisky);
-    }
+
     //----------------------------------------------------------------------
     /** Serializable */
 

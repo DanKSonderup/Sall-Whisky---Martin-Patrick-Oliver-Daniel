@@ -1,6 +1,7 @@
 package gui.guicontrollers;
 
 import controller.Controller;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -82,6 +83,11 @@ public class CRUDRawMaterialsViewController implements Initializable {
 
         lvwFields.getSelectionModel().selectedIndexProperty().addListener((o, ov, nv) -> {
             lvwFields.setStyle("-fx-border-color: transparent;");
+
+            if (lvwFields.getSelectionModel().getSelectedItem() != null) {
+                txfFieldName.setText(lvwFields.getSelectionModel().getSelectedItem().getName());
+                txaFieldDescription.setText(lvwFields.getSelectionModel().getSelectedItem().getDescription());
+            }
             updateLvwGrains();
         });
 
