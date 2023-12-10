@@ -104,7 +104,12 @@ public class CreateWhiskyViewController implements Initializable {
         if (amountOfBottles < 0) {
             return;
         }
+
         String name = txfWhiskyName.getText().trim();
+        if (name.isEmpty()) {
+            txfWhiskyName.setStyle("-fx-border-color: red;");
+            return;
+        }
         String description = txaDescriptionOfWhisky.getText().trim();
         whisky = Controller.createWhisky(name, waterInLiters, new ArrayList<>(whiskyFills), description);
 
@@ -116,6 +121,7 @@ public class CreateWhiskyViewController implements Initializable {
         alert.setContentText("En ny whisky er oprettet med navn: " + whisky.getName() + "\n" + "Der er oprettet " + amountOfBottles + " flasker med den valgte whisky");
         alert.show();
         clearAllEditableFields();
+        clearErrorMarkings();
     }
 
     @FXML
@@ -160,12 +166,25 @@ public class CreateWhiskyViewController implements Initializable {
         updateContentOfWhisky(whiskyFill.toString());
         btnCreateWhisky.setDisable(true);
 
-        if (whiskyFills.size() > 1) {
+
+
+        if (whiskyFills.size() > 1 && haveDuplicate(whiskyFills)) {
             lblTypeOfWhisky.setText("Blended");
         } else {
             lblTypeOfWhisky.setText("Single malt");
         }
         clearErrorMarkings();
+    }
+
+    public static boolean haveDuplicate(List<WhiskyFill> whiskyFills) {
+        for (int i = 0; i < whiskyFills.size() - 1; i++) {
+            WhiskyFill current = whiskyFills.get(i);
+            WhiskyFill next = whiskyFills.get(i + 1);
+            if (current.getCask() != next.getCask()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void showErrorWindow(String header, String content) {
@@ -180,6 +199,7 @@ public class CreateWhiskyViewController implements Initializable {
         txfWaterForDilution.setStyle("-fx-border-color: transparent;");
         amountOfFillCltxf.setStyle("-fx-border-color: transparent;");
         txfAlcoholPercentage.setStyle("-fx-border-color: transparent;");
+        txfWhiskyName.setStyle("-fx-border-color: transparent;");
     }
     private double txfParseDouble(TextField txf) {
         double returnValue = -1.0;
@@ -203,6 +223,7 @@ public class CreateWhiskyViewController implements Initializable {
         whiskyFills.clear();
         lblAmountOfBottles.setText("" + 0);
         lblTypeOfWhisky.setText("");
+        cbbBottleSizeInCl.valueProperty().set(null);
     }
 
     private void updatelvwWhiskyFillReadyForFill() {

@@ -25,7 +25,7 @@ public class App {
 
         Application.launch(Gui.class);
 
-//        ListStorage.saveStorage(storage);
+        // ListStorage.saveStorage(storage);
     }
 
     // Bare til at teste, skal fjernes da vi jo bruger serialization
