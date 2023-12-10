@@ -255,12 +255,18 @@ public abstract class Controller {
             sum += distillateFill.getAmountOfDistillateInLiters();
             tapFromDistillate.addDistillateFill(distillateFill);
         }
-        if (sum > cask.getSizeInLiters())
+        if (sum > cask.getLitersAvailable())
             throw new IllegalArgumentException("Fadets størrelse er mindre end din påfyldning");
         if (timeOfFill.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Dato er efter nuværende dato");
         }
-
+        for (DistillateFill distillateFill: distillateFills) {
+            Distillate distillate = distillateFill.getDistillate();
+            if (distillate.getAmountInLiters() - distillateFill.getAmountOfDistillateInLiters() < 0) {
+                throw new IllegalArgumentException("Du prøver at påfylde mere distillat end tilgængeligt");
+            }
+            distillate.setAmountInLiters(distillate.getAmountInLiters() - distillateFill.getAmountOfDistillateInLiters());
+        }
         FillOnCask fillOnCask = new FillOnCask(timeOfFill, tapFromDistillate, cask);
         cask.addCurrentFillOnCask(fillOnCask);
 

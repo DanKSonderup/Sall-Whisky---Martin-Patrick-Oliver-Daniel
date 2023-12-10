@@ -138,25 +138,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
             return;
         }
         ArrayList<DistillateFill> distillateFills = new ArrayList<>();
-        try {
-            distillateFills.add(new DistillateFill(amountInLiters, distillate));
-        } catch (IllegalArgumentException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Fejl");
-            alert.setHeaderText("For stor påfyldning");
-            alert.setContentText("Du har prøvet på at påfylde flere liter end der er tilgængelige for dit destillat!");
-            alert.show();
-            return;
-        }
-        if (!canFillOnCask(amountInLiters, cask)) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Fejl");
-            alert.setHeaderText("Påfyldningsfejl");
-            alert.setContentText("Du prøver at påfylde flere liter end dit fad har tilgængeligt");
-            alert.show();
-            return;
-        }
-
+        distillateFills.add(new DistillateFill(amountInLiters, distillate));
             try {
                 Controller.createTapFromDistillate(LocalDate.now(), cask, distillateFills);
             } catch (IllegalArgumentException e) {
@@ -167,6 +149,8 @@ public class CRUDDistilleryAndFillController implements Initializable {
                 alert.show();
                 return;
             }
+
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Påfyldning");
             alert.setHeaderText("Påfyldning oprettet");
@@ -206,16 +190,5 @@ public class CRUDDistilleryAndFillController implements Initializable {
         lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
         lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
         lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
-    }
-
-    private boolean canFillOnCask(double amountInLiters, Cask cask) {
-        double currentContent = 0;
-        for (FillOnCask fillOnCask : cask.getCurrentFillOnCasks()) {
-            for (DistillateFill distillateFill: fillOnCask.getTapFromDistillate().getDistillateFills()) {
-                currentContent += distillateFill.getAmountOfDistillateInLiters();
-            }
-        }
-        System.out.println(currentContent - amountInLiters);
-        return currentContent - amountInLiters > 0;
     }
 }
