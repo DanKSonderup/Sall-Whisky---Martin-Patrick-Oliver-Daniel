@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class FillOnCask {
+public class FillOnCask implements Serializable {
     private LocalDate timeFill;
     private TapFromDistillate tapFromDistillate;
     private Cask cask;

@@ -1,6 +1,8 @@
 package model;
 
-public class GrainSupplier extends Supplier {
+import java.io.Serializable;
+
+public class GrainSupplier extends Supplier implements Serializable {
 
 
     public GrainSupplier(String name, String address, String country, String vatId) {

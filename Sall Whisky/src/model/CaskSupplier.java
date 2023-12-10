@@ -1,10 +1,11 @@
 package model;
 
-public class CaskSupplier extends Supplier{
+import java.io.Serializable;
+
+public class CaskSupplier extends Supplier implements Serializable {
     public CaskSupplier(String name, String address, String country, String vatId) {
         super(name, address, country, vatId);
     }
-
 
     /** Getters and setters */
     @Override

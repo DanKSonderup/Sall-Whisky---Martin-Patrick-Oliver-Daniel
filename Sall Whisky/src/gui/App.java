@@ -12,21 +12,20 @@ import java.util.ArrayList;
 public class App {
     public static void main(String[] args) {
 
-//        Storage storage = ListStorage.loadStorage();
-        Storage storage = new ListStorage();
+        Storage storage = ListStorage.loadStorage();
         if (storage == null) {
             storage = new ListStorage();
             System.out.println("Empty ListStorage created");
         }
         Controller.setStorage(storage);
-        initStorage();
-
+        if (Controller.getGrainSuppliers().isEmpty()) {
+            initStorage();
+            System.out.println("Storage initialized");
+        }
 
         Application.launch(Gui.class);
 
-
-
-        // ListStorage.saveStorage(storage);
+//        ListStorage.saveStorage(storage);
     }
 
     // Bare til at teste, skal fjernes da vi jo bruger serialization

@@ -1,6 +1,8 @@
 package model;
 
-public class DistillateFill {
+import java.io.Serializable;
+
+public class DistillateFill implements Serializable {
     private double amountOfDistillateInLiters;
     private Distillate distillate;
     private TapFromDistillate tapFromDistillate;

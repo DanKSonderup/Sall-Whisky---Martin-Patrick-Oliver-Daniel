@@ -1,6 +1,8 @@
 package model;
 
-public class WhiskyBottle {
+import java.io.Serializable;
+
+public class WhiskyBottle implements Serializable {
     private int bottleId;
     private int centiliterCapacity;
     private Whisky whisky;

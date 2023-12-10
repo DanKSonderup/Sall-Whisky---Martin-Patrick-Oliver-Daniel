@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -8,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TapFromDistillate {
+public class TapFromDistillate implements Serializable {
     private LocalDate timeOfFill;
     private ArrayList<FillOnCask> fillOnCasks = new ArrayList<>();
     private List<DistillateFill> distillateFills = new ArrayList<>();
@@ -64,7 +65,7 @@ public class TapFromDistillate {
 
         for (DistillateFill fill : distillateFills) {
             double share = (fill.getAmountOfDistillateInLiters() / totalLiters) * 100;
-            DecimalFormat df = new DecimalFormat("##.##");
+            DecimalFormat df = new DecimalFormat("##,##");
             share = Double.parseDouble(df.format(share));
             map.put(fill, share);
         }

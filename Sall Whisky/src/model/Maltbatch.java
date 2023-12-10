@@ -1,6 +1,8 @@
 package model;
 
-public class Maltbatch {
+import java.io.Serializable;
+
+public class Maltbatch implements Serializable {
     private String name;
     private String description;
     private Grain grain;

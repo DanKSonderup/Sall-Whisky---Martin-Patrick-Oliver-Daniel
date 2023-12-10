@@ -3,10 +3,12 @@ package storage;
 import controller.Storage;
 import model.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class ListStorage implements Storage {
+public class ListStorage implements Storage, Serializable {
     private final List<Cask> casks = new ArrayList<>();
     private final List<CaskSupplier> caskSuppliers = new ArrayList<>();
     private final List<GrainSupplier> grainSuppliers = new ArrayList<>();
@@ -19,7 +21,6 @@ public class ListStorage implements Storage {
     private final List<WhiskyBottle> whiskyBottles = new ArrayList<>();
     private final List<Whisky> whiskies = new ArrayList<>();
     private StorageCounter storageCounter = new StorageCounter();
-
     //----------------------------------------------------------------------
     /** CaskSupplier */
     public List<CaskSupplier> getCaskSuppliers() {
@@ -31,8 +32,6 @@ public class ListStorage implements Storage {
     public void deleteCaskSupplier(CaskSupplier caskSupplier) {
         caskSuppliers.remove(caskSupplier);
     }
-
-
     //----------------------------------------------------------------------
     /** GrainSupplier */
     @Override
@@ -45,10 +44,7 @@ public class ListStorage implements Storage {
     public void deleteGrainSupplier(GrainSupplier grainSupplier) {
         grainSuppliers.remove(grainSupplier);
     }
-
-
     //----------------------------------------------------------------------
-
     /** Casks */
     public List<Cask> getCasks() {
         return new ArrayList<>(casks);
@@ -70,9 +66,6 @@ public class ListStorage implements Storage {
     public void deleteWarehouse(Warehouse warehouse) {
         warehouses.remove(warehouse);
     }
-
-
-
     //----------------------------------------------------------------------
     /** StorageCounter */
     public StorageCounter getStorageCounter() {
@@ -89,10 +82,8 @@ public class ListStorage implements Storage {
     public void deleteMaltbatch(Maltbatch maltBatch) {
         maltbatches.remove(maltBatch);
     }
-
     //----------------------------------------------------------------------
     /** Employee */
-
     @Override
     public List<Employee> getEmployees() {
         return new ArrayList<>(employees);
@@ -103,8 +94,7 @@ public class ListStorage implements Storage {
     public void deleteEmployee(Employee employee) {
         employees.remove(employee);
     }
-
-
+    //----------------------------------------------------------------------
     /** Distillate */
     @Override
     public List<Distillate> getDistillates() {
@@ -116,7 +106,7 @@ public class ListStorage implements Storage {
     public void deleteDistillate(Distillate distillate) {
         distillates.remove(distillate);
     }
-
+    //----------------------------------------------------------------------
     /** Grain */
     @Override
     public List<Grain> getGrains() {
@@ -130,7 +120,7 @@ public class ListStorage implements Storage {
     public void deleteGrain(Grain grain) {
         grains.remove(grain);
     }
-
+    //----------------------------------------------------------------------
     /** Field */
     @Override
     public List<Field> getFields() {
@@ -144,7 +134,7 @@ public class ListStorage implements Storage {
     public void deleteField(Field field) {
         fields.remove(field);
     }
-
+    //----------------------------------------------------------------------
     /** WhiskyBottle */
     @Override
     public List<WhiskyBottle> getWhiskyBottles() {
@@ -158,20 +148,50 @@ public class ListStorage implements Storage {
     public void deleteWhiskyBottle(WhiskyBottle whiskyBottle) {
         whiskyBottles.remove(whiskyBottle);
     }
-
+    //----------------------------------------------------------------------
     /** Whisky */
     @Override
     public List<Whisky> getWhiskies() {
         return new ArrayList<>(whiskies);
     }
-
     @Override
     public void storeWhisky(Whisky whisky) {
         whiskies.add(whisky);
     }
-
     @Override
     public void deleteWhisky(Whisky whisky) {
         whiskies.remove(whisky);
     }
+    //----------------------------------------------------------------------
+    /** Serializable */
+
+    public static ListStorage loadStorage() {
+        String fileName = "C:/Users/Patrick/IdeaProjects/Sall-Whisky/Sall Whisky/src/storageData.ser";
+        try (FileInputStream fileIn = new FileInputStream(fileName);
+             ObjectInputStream objIn = new ObjectInputStream(fileIn)
+        ) {
+            Object obj = objIn.readObject();
+            ListStorage storage = (ListStorage) obj;
+            System.out.println("Storage loaded from file " + fileName);
+            return storage;
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println("Error deserializing storage");
+            System.out.println(ex);
+            return null;
+        }
+    }
+    public static void saveStorage(Storage storage) {
+        String fileName = "C:/Users/Patrick/IdeaProjects/Sall-Whisky/Sall Whisky/src/storageData.ser";
+        try (FileOutputStream fileOut = new FileOutputStream(fileName);
+             ObjectOutputStream objOut = new ObjectOutputStream(fileOut)
+        ) {
+            objOut.writeObject(storage);
+            System.out.println("Storage saved in file " + fileName);
+        } catch (IOException ex) {
+            System.out.println("Error serializing storage");
+            System.out.println(ex);
+            throw new RuntimeException();
+        }
+    }
+
 }

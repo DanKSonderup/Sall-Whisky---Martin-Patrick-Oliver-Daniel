@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WhiskyFill {
+public class WhiskyFill implements Serializable {
     private double amountofDistilateFillInLiters;
     private List<TapFromDistillate> tapFromDistillates = new ArrayList<>();
     private LocalDate timeOfFill;

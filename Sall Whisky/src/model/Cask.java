@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cask {
+public class Cask implements Serializable {
     private int caskId;
     private String countryOfOrigin;
     private double sizeInLiters;

@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Whisky {
+public class Whisky implements Serializable {
     private String name;
     private double waterInLiters;
     private List<WhiskyFill> whiskyFills = new ArrayList<>();
