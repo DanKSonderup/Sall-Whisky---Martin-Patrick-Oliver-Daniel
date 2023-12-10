@@ -30,7 +30,7 @@ public abstract class Controller {
         List<Cask> ripeCasks = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
             if (cask.getYoungestFillOnCask() != null) {
-                if (cask.getYoungestFillOnCask().getTimeOfFill().isBefore(LocalDate.now().minusYears(3)) && cask.getCurrentContentInLiters() > 0) {
+                if (cask.getYoungestFillOnCask().getFirstTimeOfFill().isBefore(LocalDate.now().minusYears(3)) && cask.getCurrentContentInLiters() > 0) {
                     ripeCasks.add(cask);
                 }
             }
@@ -510,12 +510,44 @@ public abstract class Controller {
             sb.append("\nLeverandør: " + cask.getSupplierName());
             sb.append("\n - Land: " + cask.getSupplier().getCountry());
             sb.append("\n\n [Destillater fra dette fad]");
-            for (TapFromDistillate tapFromDistillate : whiskyFill.getFillOnCasks()) {
+
+            for (TapFromDistillate tapFromDistillate: whiskyFill.getTapFromDestillates()) {
+                for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
+                        Distillate distillate = distillateFill.getDistillate();
+                        if (tapFromDistillate.getFillOnCasks().size() == 1) {
+                            sb.append("\nDestillat: " + distillate.getNewMakeNr());
+                            sb.append("\nProcentdel af dette fad: " + tapFromDistillate.distillateShare().get(distillateFill));
+                            // sb.append("\nPåfyldt: " + fillOnCask.getTimeFill());
+                        } else {
+                            sb.append("\nTidligere Destillat: " + distillate.getNewMakeNr());
+                            sb.append("\nPåfyldt: " + tapFromDistillate.getFirstTimeOfFill());
+                           //  sb.append("\nOmhældt: " + fillOnCask.getTimeFill());
+                        }
+                        sb.append("\nMedarbejder: " + distillate.getEmployee());
+                        sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
+                        sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
+                        sb.append("\nBeskrivelse: " + distillate.getDescription());
+                        sb.append("\n\n[Består af følgende maltbatches]");
+                        sb.append("\n------------------------------------------");
+                        for (Maltbatch maltbatch : distillate.getMaltbatches()) {
+                            Grain grain = maltbatch.getGrain();
+                            sb.append("\nMaltbatch: " + maltbatch.getName());
+                            sb.append("\nBeskrivelse:" + maltbatch.getDescription());
+                            sb.append("\n[Korn Information]");
+                            sb.append("\nKorntype: " + grain.getGrainType());
+                            sb.append("\nLandmand: " + grain.getGrainSupplier().getName());
+                            sb.append("\nMark: " + grain.getField());
+                            sb.append("\nDyrkelsesmetode: " + grain.getCultivationDescription());
+                        }
+                    }
+
+            /*
+            for (TapFromDistillate tapFromDistillate : whiskyFill.getTapFromDestillates()) {
                 for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
                     Distillate distillate = distillateFill.getDistillate();
                     sb.append("\nDestillat: " + distillate.getNewMakeNr());
                     sb.append("\nProcentdel af dette fad: " + tapFromDistillate.distillateShare().get(distillateFill));
-                    sb.append("\nPåfyldt: " + tapFromDistillate.getTimeOfFill());
+                    sb.append("\nPåfyldt: " + tapFromDistillate.getFirstTimeOfFill());
                     sb.append("\nMedarbejder: " + distillate.getEmployee());
                     sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
                     sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
@@ -533,9 +565,11 @@ public abstract class Controller {
                         sb.append("\nDyrkelsesmetode: " + grain.getCultivationDescription());
                     }
                 }
+
+             */
+            }
             }
             sb.append("\n------------------------------------------");
-        }
 
         return sb.toString();
     }
@@ -551,6 +585,11 @@ public abstract class Controller {
 
         oldCask.setCurrentContentInLiters(0);
         newCask.setCurrentContentInLiters(newCask.getTotalLitersOfFills());
+        for (FillOnCask fillOnCask: newCask.getCurrentFillOnCasks()) {
+            for (DistillateFill distillateFill: fillOnCask.getTapFromDistillate().getDistillateFills()) {
+                System.out.println(distillateFill.getDistillate());
+            }
+        }
     }
 
     /** Observer methods */

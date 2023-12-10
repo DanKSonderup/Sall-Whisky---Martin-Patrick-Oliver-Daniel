@@ -10,17 +10,17 @@ import java.util.List;
 import java.util.Map;
 
 public class TapFromDistillate implements Serializable {
-    private LocalDate timeOfFill;
+    private LocalDate firstTimeOfFill;
     private ArrayList<FillOnCask> fillOnCasks = new ArrayList<>();
     private List<DistillateFill> distillateFills = new ArrayList<>();
 
-    public TapFromDistillate(LocalDate timeOfFill, Cask cask) {
-        this.timeOfFill = timeOfFill;
-        fillOnCasks.add(new FillOnCask(timeOfFill, this, cask));
+    public TapFromDistillate(LocalDate firstTimeOfFill, Cask cask) {
+        this.firstTimeOfFill = firstTimeOfFill;
+        fillOnCasks.add(new FillOnCask(firstTimeOfFill, this, cask));
     }
 
-    public LocalDate getTimeOfFill() {
-        return timeOfFill;
+    public LocalDate getFirstTimeOfFill() {
+        return firstTimeOfFill;
     }
 
     public ArrayList<FillOnCask> getFillOnCasks() {
@@ -65,7 +65,7 @@ public class TapFromDistillate implements Serializable {
 
         for (DistillateFill fill : distillateFills) {
             double share = (fill.getAmountOfDistillateInLiters() / totalLiters) * 100;
-            DecimalFormat df = new DecimalFormat("##,##");
+            DecimalFormat df = new DecimalFormat("##.##");
             share = Double.parseDouble(df.format(share));
             map.put(fill, share);
         }
@@ -74,9 +74,9 @@ public class TapFromDistillate implements Serializable {
 
     @Override
     public String toString() {
-        int years = Period.between(timeOfFill, LocalDate.now()).getYears();
-        int months = Period.between(timeOfFill, LocalDate.now()).getMonths();
-        int days = Period.between(timeOfFill, LocalDate.now()).getDays();
+        int years = Period.between(firstTimeOfFill, LocalDate.now()).getYears();
+        int months = Period.between(firstTimeOfFill, LocalDate.now()).getMonths();
+        int days = Period.between(firstTimeOfFill, LocalDate.now()).getDays();
         String timeOfAging = "";
         if (years > 0) {
             timeOfAging += years + " År, ";

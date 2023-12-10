@@ -95,7 +95,7 @@ public class Whisky implements Serializable {
         }
 
         for (WhiskyFill whiskyFill: whiskyFills) {
-            for (TapFromDistillate tapFromDistillate : whiskyFill.getFillOnCasks()) {
+            for (TapFromDistillate tapFromDistillate : whiskyFill.getTapFromDestillates()) {
                 for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
                     newMakes += distillateFill.getDistillate().getNewMakeNr() + ", ";
                 }

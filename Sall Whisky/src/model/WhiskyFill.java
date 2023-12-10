@@ -24,7 +24,7 @@ public class WhiskyFill implements Serializable {
         return amountofDistilateFillInLiters;
     }
 
-    public List<TapFromDistillate> getFillOnCasks() {
+    public List<TapFromDistillate> getTapFromDestillates() {
         return tapFromDistillates;
     }
 

@@ -172,7 +172,7 @@ public class Cask implements Serializable {
 
         TapFromDistillate youngestTapFromDistillate = currentFillOnCasks.get(0).getTapFromDistillate();
         for (FillOnCask fillOnCask : currentFillOnCasks) {
-            if (fillOnCask.getTapFromDistillate().getTimeOfFill().isAfter(youngestTapFromDistillate.getTimeOfFill())) {
+            if (fillOnCask.getTapFromDistillate().getFirstTimeOfFill().isAfter(youngestTapFromDistillate.getFirstTimeOfFill())) {
                 youngestTapFromDistillate = fillOnCask.getTapFromDistillate();
             }
         }
