@@ -166,7 +166,7 @@ public class ListStorage implements Storage, Serializable {
     /** Serializable */
 
     public static ListStorage loadStorage() {
-        String fileName = "C:/Users/Patrick/IdeaProjects/Sall-Whisky/Sall Whisky/src/storageData.ser";
+        String fileName = "Sall Whisky/src/storageData.ser";
         try (FileInputStream fileIn = new FileInputStream(fileName);
              ObjectInputStream objIn = new ObjectInputStream(fileIn)
         ) {
@@ -181,7 +181,7 @@ public class ListStorage implements Storage, Serializable {
         }
     }
     public static void saveStorage(Storage storage) {
-        String fileName = "C:/Users/Patrick/IdeaProjects/Sall-Whisky/Sall Whisky/src/storageData.ser";
+        String fileName = "Sall Whisky/src/storageData.ser";
         try (FileOutputStream fileOut = new FileOutputStream(fileName);
              ObjectOutputStream objOut = new ObjectOutputStream(fileOut)
         ) {
