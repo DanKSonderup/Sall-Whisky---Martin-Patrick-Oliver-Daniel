@@ -84,7 +84,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
     @FXML
-    void btnCreateDistillateOnAction(ActionEvent event) {
+    void btnCreateDistillateOnAction() {
         String newMakenr = txfNewMakeNo.getText().trim();
         double distillationTime;
         double alcoholPercentage;
@@ -104,7 +104,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
             txfAmountOfDistillateInLiters.setStyle("-fx-border-color: red;");
             return;
         }
-        if (alcoholPercentage > 99) {
+        if (alcoholPercentage > 99 || alcoholPercentage < 0) {
             txfAlcoholpercentage.setStyle("-fx-border-color: red;");
             return;
         }
@@ -126,7 +126,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         }
 
     @FXML
-    void btnFillOnCaskOnAction(ActionEvent event) {
+    void btnFillOnCaskOnAction() {
         Distillate distillate = lvwDistillates.getSelectionModel().getSelectedItem();
         Cask cask = lvwAvailableCasks.getSelectionModel().getSelectedItem();
         double amountInLiters = txfParseDouble(txfAmountToPutOnCaskInLiters);
@@ -209,5 +209,12 @@ public class CRUDDistilleryAndFillController implements Initializable {
         lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
         lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
         lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
+
+        txfNewMakeNo.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfEmployee.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfAlcoholpercentage.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfAmountOfDistillateInLiters.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfSmokingMaterial.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfDistillationTime.setOnMouseClicked(e -> { clearErrorMarkings();});
     }
 }

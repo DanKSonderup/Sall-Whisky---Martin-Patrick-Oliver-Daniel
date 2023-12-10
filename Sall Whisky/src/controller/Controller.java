@@ -462,9 +462,14 @@ public abstract class Controller {
     public static String generateStoryForWhisky(Whisky whisky) {
         Stack<String> infoStrings = new Stack<>();
 
-        String whiskyInfo = "Navn: " + whisky.getName() + "\nTappet d. " + whisky.getWhiskyFills().get(0).getTimeOfFill() +
-                "\nFortyndet med " + whisky.getWaterInLiters() +
-                " liter vand \nBeskrivelse: " + whisky.getDescription();
+        String whiskyInfo = "Navn: " + whisky.getName()
+                + "\nTappet d. "
+                + whisky.getWhiskyFills().get(0).getTimeOfFill() +
+                "\nFortyndet med "
+                + whisky.getWaterInLiters() +
+                " liter vand \nBeskrivelse: "
+                + whisky.getDescription()
+                + "Alc %: " + whisky.calculateAlcoholPercentage();
 
         infoStrings.add(whiskyInfo);
 
@@ -506,9 +511,10 @@ public abstract class Controller {
             sb.append("\n - Land: " + cask.getSupplier().getCountry());
             sb.append("\n\n [Destillater fra dette fad]");
             sb.append("\n------------------------------------------");
+            sb.append(generateDistillateStory(whiskyFill));
 
+            /*
             for (TapFromDistillate tapFromDistillate: whiskyFill.getTapFromDestillates()) {
-                System.out.println(tapFromDistillate.getFillOnCasks().size());
                 for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
                         Distillate distillate = distillateFill.getDistillate();
                         if (tapFromDistillate.getFillOnCasks().size() == 1) {
@@ -548,36 +554,57 @@ public abstract class Controller {
                         }
                     sb.append("\n-------------------------------------------------");
                     }
-
-            /*
-            for (TapFromDistillate tapFromDistillate : whiskyFill.getTapFromDestillates()) {
-                for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
-                    Distillate distillate = distillateFill.getDistillate();
-                    sb.append("\nDestillat: " + distillate.getNewMakeNr());
-                    sb.append("\nProcentdel af dette fad: " + tapFromDistillate.distillateShare().get(distillateFill));
-                    sb.append("\nPåfyldt: " + tapFromDistillate.getFirstTimeOfFill());
-                    sb.append("\nMedarbejder: " + distillate.getEmployee());
-                    sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
-                    sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
-                    sb.append("\nBeskrivelse: " + distillate.getDescription());
-                    sb.append("\n\n[Består af følgende maltbatches]");
-                    sb.append("\n------------------------------------------");
-                    for (Maltbatch maltbatch: distillate.getMaltbatches()) {
-                        Grain grain = maltbatch.getGrain();
-                        sb.append("\nMaltbatch: " + maltbatch.getName());
-                        sb.append("\nBeskrivelse:" + maltbatch.getDescription());
-                        sb.append("\n[Korn Information]");
-                        sb.append("\nKorntype: " + grain.getGrainType());
-                        sb.append("\nLandmand: " + grain.getGrainSupplier().getName());
-                        sb.append("\nMark: " + grain.getField());
-                        sb.append("\nDyrkelsesmetode: " + grain.getCultivationDescription());
-                    }
-                }
+            }
 
              */
             }
-            }
 
+        return sb.toString();
+    }
+
+    private static String generateDistillateStory(WhiskyFill whiskyFill) {
+        StringBuilder sb = new StringBuilder();
+        for (TapFromDistillate tapFromDistillate: whiskyFill.getTapFromDestillates()) {
+            for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
+                Distillate distillate = distillateFill.getDistillate();
+                if (tapFromDistillate.getFillOnCasks().size() == 1) {
+                    sb.append("\nDestillat: " + distillate.getNewMakeNr());
+                    sb.append("\nProcentdel af dette fad: " + tapFromDistillate.distillateShare().get(distillateFill));
+                    sb.append("\nPåfyldt: " + tapFromDistillate.getFirstTimeOfFill());
+                } else {
+                    sb.append("\nDestillat: " + distillate.getNewMakeNr());
+                    sb.append("\n\n[Tidligere lagt på disse fade]");
+                    for (int i = 0; i < tapFromDistillate.getFillOnCasks().size()-1; i++) {
+                        FillOnCask currentFillOnCask = tapFromDistillate.getFillOnCasks().get(i);
+                        FillOnCask nextFillOnCask = tapFromDistillate.getFillOnCasks().get(i+1);
+                        sb.append("\nFadID: " + currentFillOnCask.getCask().getCaskId());
+                        sb.append("\nPåfyldt: " + currentFillOnCask.getTimeFill());
+                        sb.append("\nOmhældt: " + nextFillOnCask.getTimeFill());
+                    }
+                    FillOnCask lastFill = tapFromDistillate.getFillOnCasks().get(tapFromDistillate.getFillOnCasks().size()-1);
+                    sb.append("\n\n[Lagt på dette fad]");
+                    sb.append("\nPåfyldt: " + lastFill.getTimeFill());
+                    sb.append("\nTil: " + LocalDate.now());
+                }
+                sb.append("\nMedarbejder: " + distillate.getEmployee());
+                sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
+                sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
+                sb.append("\nBeskrivelse: " + distillate.getDescription());
+                sb.append("\n\n     [Består af følgende maltbatches]");
+                sb.append("\n       ------------------------------------------");
+                for (Maltbatch maltbatch : distillate.getMaltbatches()) {
+                    Grain grain = maltbatch.getGrain();
+                    sb.append("\n       Maltbatch: " + maltbatch.getName());
+                    sb.append("\n       Beskrivelse:" + maltbatch.getDescription());
+                    sb.append("\n       [Korn Information]");
+                    sb.append("\n       Korntype: " + grain.getGrainType());
+                    sb.append("\n       Landmand: " + grain.getGrainSupplier().getName());
+                    sb.append("\n       Mark: " + grain.getField());
+                    sb.append("\n       Dyrkelsesmetode: " + grain.getCultivationDescription());
+                }
+                sb.append("\n-------------------------------------------------");
+            }
+        }
         return sb.toString();
     }
 
