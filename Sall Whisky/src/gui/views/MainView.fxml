@@ -33,7 +33,7 @@
          <font>
             <Font name="Century Gothic Bold" size="11.0" />
          </font></Button>
-      <Button fx:id="btnCRUDRawMaterial" layoutX="668.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer råvare">
+      <Button fx:id="btnCRUDRawMaterial" layoutX="668.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer råvarer">
          <font>
             <Font name="Century Gothic Bold" size="11.0" />
          </font></Button>

@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.CRUDDistilleryAndFillController">
    <children>
       <ListView fx:id="lvwAvailableCasks" layoutX="472.0" layoutY="325.0" prefHeight="200.0" prefWidth="450.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" />
@@ -95,11 +94,11 @@
          <font>
             <Font name="Century Gothic Bold" size="11.0" />
          </font></Button>
-      <Button fx:id="btnCRUDRawMaterial" layoutX="668.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="167.0" text="Adminstrer råvare">
+      <Button fx:id="btnCRUDRawMaterial" layoutX="668.0" mnemonicParsing="false" onAction="#btnRawMaterialOnAction" prefHeight="34.0" prefWidth="167.0" text="Administrer råvarer">
          <font>
             <Font name="Century Gothic Bold" size="11.0" />
          </font></Button>
-      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Adminstrer leverandører">
+      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Administrer leverandører">
          <font>
             <Font name="Century Gothic Bold" size="11.0" />
          </font></Button>

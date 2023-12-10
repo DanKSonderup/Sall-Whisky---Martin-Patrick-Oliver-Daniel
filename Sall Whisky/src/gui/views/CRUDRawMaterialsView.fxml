@@ -147,11 +147,11 @@
          <font>
             <Font name="Century Gothic Bold" size="11.0" />
          </font></Button>
-      <Button fx:id="btnCRUDRawMaterial" disable="true" layoutX="668.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="167.0" text="Adminstrer råvarer">
+      <Button fx:id="btnCRUDRawMaterial" disable="true" layoutX="668.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="167.0" text="Administrer råvarer">
          <font>
             <Font name="Century Gothic Bold" size="11.0" />
          </font></Button>
-      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Adminstrer leverandører">
+      <Button fx:id="btnCRUDSupplier" layoutX="835.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="34.0" prefWidth="165.0" text="Administrer leverandører">
          <font>
             <Font name="Century Gothic Bold" size="11.0" />
          </font></Button>
