@@ -9,12 +9,12 @@ public class Distillate implements Serializable {
     private double distillationTimeInHours;
     private double alcoholPercentage;
     private double amountInLiters;
-    private Employee employee;
+    private String employee;
     private String description;
     List<Maltbatch> maltbatches = new ArrayList<>();
 
     public Distillate(String newMakeNr, double distillationTimeInHours, double alcoholPercentage,
-                      double amountInLiters, Employee employee, List<Maltbatch> maltbatches, String description) {
+                      double amountInLiters, String employee, List<Maltbatch> maltbatches, String description) {
         this.newMakeNr = newMakeNr;
         this.distillationTimeInHours = distillationTimeInHours;
         this.alcoholPercentage = alcoholPercentage;
@@ -52,7 +52,7 @@ public class Distillate implements Serializable {
         return distillationTimeInHours;
     }
 
-    public Employee getEmployee() {
+    public String getEmployee() {
         return employee;
     }
 
@@ -62,6 +62,6 @@ public class Distillate implements Serializable {
         for (Maltbatch mb: maltbatches) {
             maltbatchesString += mb.getName() + ", ";
         }
-        return newMakeNr + ", [ " + maltbatchesString + " ] - " + "(L: " + amountInLiters + ", Alc: " + alcoholPercentage + " Medarbejder: " + employee.getName() + " )";
+        return newMakeNr + ", [ " + maltbatchesString + " ] - " + "(L: " + amountInLiters + ", Alc: " + alcoholPercentage + " Medarbejder: " + getEmployee() + " )";
     }
 }

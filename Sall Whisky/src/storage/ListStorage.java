@@ -14,7 +14,6 @@ public class ListStorage implements Storage, Serializable {
     private final List<GrainSupplier> grainSuppliers = new ArrayList<>();
     private final List<Warehouse> warehouses = new ArrayList<>();
     private final List<Maltbatch> maltbatches = new ArrayList<>();
-    private final List<Employee> employees = new ArrayList<>();
     private final List<Distillate> distillates = new ArrayList<>();
     private final List<Grain> grains = new ArrayList<>();
     private final List<Field> fields = new ArrayList<>();
@@ -82,18 +81,7 @@ public class ListStorage implements Storage, Serializable {
     public void deleteMaltbatch(Maltbatch maltBatch) {
         maltbatches.remove(maltBatch);
     }
-    //----------------------------------------------------------------------
-    /** Employee */
-    @Override
-    public List<Employee> getEmployees() {
-        return new ArrayList<>(employees);
-    }
-    public void storeEmployee(Employee employee) {
-        employees.add(employee);
-    }
-    public void deleteEmployee(Employee employee) {
-        employees.remove(employee);
-    }
+
     //----------------------------------------------------------------------
     /** Distillate */
     @Override
