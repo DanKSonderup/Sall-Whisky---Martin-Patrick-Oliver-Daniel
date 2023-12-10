@@ -131,9 +131,12 @@ public class CreateWhiskyViewController implements Initializable {
         value = txfParseDouble(txfAlcoholPercentage);
         amountToFill = txfParseDouble(amountOfFillCltxf);
 
-        if (value < 0 || amountToFill < 0 || value > 99) {
-            if (value > 99) {
+        if (value < 1 || amountToFill < 1 || value > 99) {
+            if (value > 99 || value < 1) {
                 txfAlcoholPercentage.setStyle("-fx-border-color: red;");
+            }
+            if (amountToFill < 1) {
+                amountOfFillCltxf.setStyle("-fx-border-color: red;");
             }
             return;
         }
