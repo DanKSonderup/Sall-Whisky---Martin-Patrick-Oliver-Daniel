@@ -40,6 +40,10 @@ public class WhiskyFill implements Serializable {
         return cask;
     }
 
+    public void setAlcoholPercentage(double alcoholPercentage) {
+        this.alcoholPercentage = alcoholPercentage;
+    }
+
     @Override
     public String toString() {
         String distillates = "";
