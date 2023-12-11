@@ -92,40 +92,34 @@ public class CRUDWarehouseViewController implements Initializable {
         /** Pre: Racks, Shelves and Positions amount < 10 */
     @FXML
     void btnCreateWarehouseOnAction(ActionEvent event) {
-        TextField[] txfFields = {txfRackAmount, txfPositionAmount, txfShelfAmount};
-        for (int i = 0; i < txfFields.length; i++) {
-            if (canParseToInteger(txfFields[i])) {
-                return;
-            }
-        }
-        boolean missingInfo = false;
+        boolean missingInfo = canParseToInteger(txfRackAmount);
+        missingInfo = canParseToInteger(txfShelfAmount);
+        missingInfo = canParseToInteger(txfPositionAmount);
 
         if (txfWarehouseAddress.getText().isEmpty()) {
             missingInfo = true;
             txfWarehouseAddress.setStyle("-fx-border-color: red;");
             txfWarehouseAddress.setOnMouseClicked(e -> {
                 txfWarehouseAddress.setStyle("-fx-border-color: transparent;");});
-            return;
         }
         if (Integer.parseInt(txfRackAmount.getText()) > 10) {
-            missingInfo = true;
             txfRackAmount.setStyle("-fx-border-color: red;");
             txfRackAmount.setOnMouseClicked(e -> {
                 txfRackAmount.setStyle("-fx-border-color: transparent;");});
-            return;
         }
             if (Integer.parseInt(txfShelfAmount.getText()) > 10) {
-                missingInfo = true;
                 txfShelfAmount.setStyle("-fx-border-color: red;");
                 txfShelfAmount.setOnMouseClicked(e -> {
                     txfShelfAmount.setStyle("-fx-border-color: transparent;");});
-                return;
             }
                 if (Integer.parseInt(txfPositionAmount.getText()) > 10) {
-                    missingInfo = true;
                     txfPositionAmount.setStyle("-fx-border-color: red;");
                     txfPositionAmount.setOnMouseClicked(e -> {
                         txfPositionAmount.setStyle("-fx-border-color: transparent;");});
+                }
+
+                if (txfWarehouseAddress.getText().isEmpty() || Integer.parseInt(txfRackAmount.getText()) > 10 ||
+                        Integer.parseInt(txfShelfAmount.getText()) > 10 || Integer.parseInt(txfPositionAmount.getText()) > 10) {
                     return;
                 }
 

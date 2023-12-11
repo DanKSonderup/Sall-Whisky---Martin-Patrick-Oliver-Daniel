@@ -96,25 +96,38 @@ public class CreateSupplierViewController implements Initializable {
         String vatId = txfVatId.getText().trim();
 
         if (name.isEmpty()) {
-            canParseToInteger(txfName);
+            txfName.setStyle("-fx-border-color: red;");
+            txfName.setOnMouseClicked(e -> {
+                txfName.setStyle("-fx-border-color: transparent;");});
         }
         if (address.isEmpty()) {
-                canParseToInteger(txfAddress);
+            txfAddress.setStyle("-fx-border-color: red;");
+            txfAddress.setOnMouseClicked(e -> {
+                txfAddress.setStyle("-fx-border-color: transparent;");});
         }
         if (country.isEmpty()) {
-            canParseToInteger(txfCountry);
+            txfCountry.setStyle("-fx-border-color: red;");
+            txfCountry.setOnMouseClicked(e -> {
+                txfCountry.setStyle("-fx-border-color: transparent;");});
         }
         if (vatId.isEmpty()) {
             canParseToInteger(txfVatId);
         }
 
-        if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
-                Controller.createGrainSupplier(name, address, country, vatId);
-                 clearInput();
-        } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
-                    Controller.createCaskSupplier(name, address, country, vatId);
-                    clearInput();
+        if (country.isEmpty() || name.isEmpty()  || address.isEmpty() || vatId.isEmpty()) {
+            return;
         }
+
+
+        if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
+            Controller.createGrainSupplier(name, address, country, vatId);
+            clearInput();
+        } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
+            Controller.createCaskSupplier(name, address, country, vatId);
+            clearInput();
+        }
+
+
 
         updateLvwCaskSupplier();
         updateLvwGrainSupplier();
