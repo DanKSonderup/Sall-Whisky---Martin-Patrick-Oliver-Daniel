@@ -23,7 +23,8 @@ class ControllerTestCreateFillOnCask {
     @BeforeEach
     void setup() {
         cask = new Cask("Frankrig", 50, "Whisky");
-        distillate = new Distillate("nmn23", 8, 40, 150, null, null, "");
+        distillate = new Distillate("nmn23", 8, 40, 150,
+                null, null, "");
         distillateFills = new ArrayList<>();
     }
 
@@ -33,10 +34,10 @@ class ControllerTestCreateFillOnCask {
         // Arrange
         distillateFill = new DistillateFill(49, distillate);
         distillateFills.add(distillateFill);
-        FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 1), cask, distillateFills);
 
         // Act
-        cask.addFillOnCask(fillOnCask);
+        FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 1),
+                cask, distillateFills);
         distillateFill.setFillOnCask(fillOnCask);
 
         // Assert
@@ -64,10 +65,10 @@ class ControllerTestCreateFillOnCask {
         // Arrange
         distillateFill = new DistillateFill(50, distillate);
         distillateFills.add(distillateFill);
-        FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 3), cask, distillateFills);
 
         // Act
-        cask.addFillOnCask(fillOnCask);
+        FillOnCask fillOnCask = Controller.createFillOnCask(LocalDate.of(2023, 12, 3),
+                cask, distillateFills);
         distillateFill.setFillOnCask(fillOnCask);
 
         // Assert
