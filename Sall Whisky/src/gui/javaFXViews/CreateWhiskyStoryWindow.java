@@ -32,9 +32,7 @@ public class CreateWhiskyStoryWindow extends Stage {
         txaWhiskyStory.setText(Controller.generateStoryForWhisky(whisky));
         txaWhiskyStory.setPrefHeight(700);
         pane.setPadding(new Insets(20));
-        // set horizontal gap between components
         pane.setHgap(30);
-        // set vertical gap between components
         pane.setVgap(10);
         Label lblWhiskyStory = new Label("Whisky historie");
         pane.add(lblWhiskyStory, 0,0);

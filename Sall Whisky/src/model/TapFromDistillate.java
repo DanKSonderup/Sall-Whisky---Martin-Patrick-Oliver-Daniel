@@ -47,7 +47,7 @@ public class TapFromDistillate implements Serializable {
         distillateFills.add(distillateFill);
     }
 
-    /** Calculates and returns the alcohol percentage in fillOnCask */
+    /** Calculates and returns the alcohol percentage in distillateFills */
     public double calculateAlcoholPercentage() {
         double alcoholPercentage = 0;
         double totalFluids = 0;

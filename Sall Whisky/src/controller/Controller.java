@@ -38,7 +38,7 @@ public abstract class Controller {
         return ripeCasks;
     }
 
-    /** Get casks with distillate on */
+    /** Get all casks with Distillatefills */
     public static List<Cask> getCasksWithDistillateOn() {
         ArrayList<Cask> casksWithDestillate = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
@@ -49,6 +49,12 @@ public abstract class Controller {
         return casksWithDestillate;
     }
 
+
+    /**
+     * Gets a list of all casks with litersAvailable above litercapacity
+     * @param litercapacity minimum amount of liters that the casks has to have available
+     * @return casks with litersAvailable above litercapacity
+     */
     public static List<Cask> getCasksWithXLitersAvailable(double litercapacity) {
         ArrayList<Cask> caskAvailableForTransference = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
@@ -62,7 +68,7 @@ public abstract class Controller {
     /**
      * Finds warehouses that has atleast 1 rack where there is space for the Cask we're trying to add
      * @param cask we're checking for space for
-     * @return Warehouses where
+     * @return Warehouses where atleast 1 rack is available
      */
     public static List<Warehouse> getAvailableWarehouses(Cask cask) {
         List<Warehouse> warehouses = new ArrayList<>(storage.getWarehouses());
@@ -344,7 +350,7 @@ public abstract class Controller {
         return grain;
     }
 
-    /** Return all fields */
+    /** Return all grains */
     public static List<Grain> getGrains() {
         return storage.getGrains();
     }
@@ -463,7 +469,7 @@ public abstract class Controller {
 
 
     /**
-     * Takes a list of WhiskyFills and finds occurences of unique casks and maltbatches
+     * Takes a list of WhiskyFills and finds occurrences of unique casks and maltbatches
      * @param whiskyFills that you want a whiskytype from
      * @return A String with the type of whisky based on unique occurences of casks and maltbatches
      * The Following returns are possible: "Single malt" (Only 1 unique maltbatch),
@@ -533,7 +539,7 @@ public abstract class Controller {
     /**
      * Helper method for generateStoryForWhisky
      * Returns a full story of a Cask based on a Whisky's whiskyfills (Since a whiskyfill always has only 1 cask and
-     * the whiskyfill is connected to the FillOnCask (Which is the content we're interested in)
+     * the whiskyfill is connected to the TapFromDestillate (Which is the content we're interested in)
      * @param whisky we want a story from
      * @return String containing the story of all Casks on this Whisky
      */
@@ -614,7 +620,7 @@ public abstract class Controller {
         return sb.toString();
     }
 
-    /** Create and put an old cask on a new cask */
+    /** Creates a Transference by moving all currentFillOnCask from oldcask */
     public static void createTransference(Cask oldCask, Cask newCask) {
         List<FillOnCask> fillOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentFillOnCasks());
 

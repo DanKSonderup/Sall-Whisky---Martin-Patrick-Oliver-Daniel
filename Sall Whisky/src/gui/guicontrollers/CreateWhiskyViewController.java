@@ -176,7 +176,7 @@ public class CreateWhiskyViewController implements Initializable {
         clearErrorMarkings();
     }
 
-    /** shows and errorWindow */
+    /** shows an errorWindow */
     private void showErrorWindow(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Fejl");

@@ -108,7 +108,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * If Name is empty prompt the user to enter a name
      */
     @FXML
-    void btnCreateFieldOnAction(ActionEvent event) {
+    void btnCreateFieldOnAction() {
         if (txfFieldName.getText().isEmpty()) {
             txfFieldName.setStyle("-fx-border-color: red;");
             txfFieldName.setOnMouseClicked(e -> {txfFieldName.setStyle("");});
@@ -246,7 +246,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Prompt the user with a confirmation dialog (delete or keep)
      */
     @FXML
-    void btnDeleteGrainOnAction(ActionEvent event) {
+    void btnDeleteGrainOnAction() {
         Grain grain = lvwGrains.getSelectionModel().getSelectedItem();
         if (lvwGrains.getSelectionModel().isEmpty()) {
             lvwGrains.setStyle("-fx-border-color: red;");
@@ -274,7 +274,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * If no grain selected, prompt the user to select a grain
      */
     @FXML
-    void btnCreateMaltbatchOnAction(ActionEvent event) {
+    void btnCreateMaltbatchOnAction() {
         boolean missingInfo = false;
         if (lvwGrains.getSelectionModel().isEmpty()) {
             missingInfo = true;
@@ -301,7 +301,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Update the listview.
      */
     @FXML
-    void btnUpdateMaltbatchOnAction(ActionEvent event) {
+    void btnUpdateMaltbatchOnAction() {
         boolean missingInfo = false;
         if (lvwMaltbatches.getSelectionModel().isEmpty()) {
             missingInfo = true;
@@ -326,7 +326,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Prompt the user with a confirmation dialog (delete or keep)
      */
     @FXML
-    void btnRemoveMaltbatchOnAction(ActionEvent event) {
+    void btnRemoveMaltbatchOnAction() {
         Maltbatch maltbatch = lvwMaltbatches.getSelectionModel().getSelectedItem();
         if (lvwMaltbatches.getSelectionModel().isEmpty()) {
             lvwMaltbatches.setStyle("-fx-border-color: red;");
