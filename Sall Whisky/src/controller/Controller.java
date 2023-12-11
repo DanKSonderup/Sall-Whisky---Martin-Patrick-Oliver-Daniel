@@ -38,6 +38,7 @@ public abstract class Controller {
         return ripeCasks;
     }
 
+    /** Get casks with distillate on */
     public static List<Cask> getCasksWithDistillateOn() {
         ArrayList<Cask> casksWithDestillate = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
@@ -609,6 +610,7 @@ public abstract class Controller {
         return sb.toString();
     }
 
+    /** Create and put an old cask on a new cask */
     public static void createTransference(Cask oldCask, Cask newCask) {
         List<FillOnCask> fillOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentFillOnCasks());
 
