@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class Grain implements Serializable {
     private String grainType;
-    private GrainSupplier grainSupplier;
     private String cultivationDescription;
     private Field field;
+    private GrainSupplier grainSupplier;
 
     public Grain(String grainType, GrainSupplier grainSupplier, String cultivationDescription, Field field) {
         this.grainType = grainType;
-        this.grainSupplier = grainSupplier;
         this.cultivationDescription = cultivationDescription;
+        this.grainSupplier = grainSupplier;
         this.field = field;
     }
 

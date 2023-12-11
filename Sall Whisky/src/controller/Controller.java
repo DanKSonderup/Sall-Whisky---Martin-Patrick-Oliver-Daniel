@@ -29,8 +29,8 @@ public abstract class Controller {
     public static List<Cask> getRipeCasks() {
         List<Cask> ripeCasks = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
-            if (cask.getYoungestFillOnCask() != null) {
-                if (cask.getYoungestFillOnCask().getFirstTimeOfFill().isBefore(LocalDate.now().minusYears(3)) && cask.getCurrentContentInLiters() > 0) {
+            if (cask.getYoungestTapFromDistillate() != null) {
+                if (cask.getYoungestTapFromDistillate().getFirstTimeOfFill().isBefore(LocalDate.now().minusYears(3)) && cask.getCurrentContentInLiters() > 0) {
                     ripeCasks.add(cask);
                 }
             }
