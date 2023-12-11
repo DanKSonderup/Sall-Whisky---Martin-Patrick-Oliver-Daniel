@@ -84,18 +84,42 @@ public class CRUDRawMaterialsViewController implements Initializable {
         lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
         cbbPickGrainSupplier.setItems(FXCollections.observableArrayList(Controller.getGrainSuppliers()));
 
+
+        lvwMaltbatches.getSelectionModel().selectedIndexProperty().addListener((o, ov, nv) -> {
+            lvwMaltbatches.setStyle("-fx-border-color: transparent;");
+
+            if (lvwMaltbatches.getSelectionModel().getSelectedItem() != null) {
+                txfMaltbatchName.setText(lvwMaltbatches.getSelectionModel().getSelectedItem().getName());
+                txaMaltbatchDescription.setText(lvwMaltbatches.getSelectionModel().getSelectedItem().getDescription());
+            } else {
+                txfMaltbatchName.setText("");
+                txaMaltbatchDescription.setText("");
+            }
+        });
+
         lvwFields.getSelectionModel().selectedIndexProperty().addListener((o, ov, nv) -> {
             lvwFields.setStyle("-fx-border-color: transparent;");
 
             if (lvwFields.getSelectionModel().getSelectedItem() != null) {
                 txfFieldName.setText(lvwFields.getSelectionModel().getSelectedItem().getName());
                 txaFieldDescription.setText(lvwFields.getSelectionModel().getSelectedItem().getDescription());
+            } else {
+                txfFieldName.setText("");
+                txaFieldDescription.setText("");
+
             }
             updateLvwGrains();
         });
 
         lvwGrains.getSelectionModel().selectedIndexProperty().addListener((o, ov, nv) -> {
             lvwGrains.setStyle("-fx-border-color: transparent;");
+            if (lvwGrains.getSelectionModel().getSelectedItem() != null) {
+                txfGrainType.setText(lvwGrains.getSelectionModel().getSelectedItem().getGrainType());
+                txaCultivationDescription.setText(lvwGrains.getSelectionModel().getSelectedItem().getCultivationDescription());
+            } else {
+                txfGrainType.setText("");
+                txaCultivationDescription.setText("");
+            }
             updateLvwMaltbatches();
         });
 
