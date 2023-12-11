@@ -221,6 +221,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lvwMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        lvwDistillates.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
         lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
         lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
