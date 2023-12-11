@@ -14,15 +14,20 @@ public class Position implements Observer, Serializable {
     private List<Cask> casks = new ArrayList<>();
     private Shelf shelf;
 
+    // ---------------------------------------------------------------------
+    /** Constructors */
+    // ---------------------------------------------------------------------
+
     public Position(int positionId, double literCapacity, Shelf shelf) {
         this.positionId = positionId;
         this.literCapacity = literCapacity;
         this.shelf = shelf;
     }
+    // ---------------------------------------------------------------------
+    /** Methods */
+    // ---------------------------------------------------------------------
 
-    /**
-     * Checks if the position is full, if so, set isFilled to true.
-     */
+    /** Checks if the position is full, if so, set isFilled to true. */
     public void update() {
         double amountFilled = 0;
         for (Cask cask : casks)
@@ -35,29 +40,31 @@ public class Position implements Observer, Serializable {
             Controller.notifyObserver();
         }
     }
-
-    /** Getters */
-    public int getPositionId() {
-        return positionId;
-    }
-
     public boolean isFilled() {
         return isFilled;
     }
 
+    // ---------------------------------------------------------------------
+    /** Getters & setters */
+    // ---------------------------------------------------------------------
+
+    public int getPositionId() {
+        return positionId;
+    }
     public Shelf getShelf() {
         return shelf;
     }
-
     public double getLiterCapacity() {
         return literCapacity;
     }
-
     public List<Cask> getCasks() {
         return casks;
     }
 
-    /** Add & remove shelf */
+    // ---------------------------------------------------------------------
+    /** Adds & removes */
+    // ---------------------------------------------------------------------
+
     public void addCask(Cask cask) {
         casks.add(cask);
     }

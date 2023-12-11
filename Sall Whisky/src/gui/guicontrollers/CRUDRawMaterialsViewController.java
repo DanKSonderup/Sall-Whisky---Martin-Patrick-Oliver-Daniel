@@ -73,7 +73,9 @@ public class CRUDRawMaterialsViewController implements Initializable {
     @FXML
     private TextField txfMaltbatchName;
 
-
+    // ---------------------------------------------------------------------
+    /** Initialize */
+    // ---------------------------------------------------------------------
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -102,6 +104,9 @@ public class CRUDRawMaterialsViewController implements Initializable {
         });
     }
 
+    // ---------------------------------------------------------------------
+    /** ButtonOnAction */
+    // ---------------------------------------------------------------------
 
     /**
      * Creates a new field and updates the listview
@@ -175,7 +180,6 @@ public class CRUDRawMaterialsViewController implements Initializable {
                 Controller.removeField(field);
             }
         }
-
         updateLvwFields();
     }
 
@@ -201,7 +205,6 @@ public class CRUDRawMaterialsViewController implements Initializable {
             missingInfo = true;
             cbbPickGrainSupplier.setStyle("-fx-border-color: red;");
         }
-
         if (!missingInfo) {
             GrainSupplier grainSupplier = cbbPickGrainSupplier.getValue();
             Field field = lvwFields.getSelectionModel().getSelectedItem();
@@ -210,7 +213,6 @@ public class CRUDRawMaterialsViewController implements Initializable {
             txfGrainType.setText("");
             txaCultivationDescription.setText("");
         }
-
         updateLvwGrains();
     }
 
@@ -346,17 +348,11 @@ public class CRUDRawMaterialsViewController implements Initializable {
             }
         }
         updateLvwMaltbatches();
-
     }
 
-    /**
-     * Opens the view for supplier creation
-     */
-    @FXML
-    void btnCreateSupplierOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
-    }
-
+    // ---------------------------------------------------------------------
+    /** Helper methods */
+    // ---------------------------------------------------------------------
 
     /** Updates the listView with all the fields from storage */
     private void updateLvwFields() {
@@ -452,30 +448,33 @@ public class CRUDRawMaterialsViewController implements Initializable {
         return ConnectionFound;
     }
 
+    // ---------------------------------------------------------------------
+    /** Scene switch buttons */
+    // ---------------------------------------------------------------------
 
+    /** Opens the view for supplier creation */
+    @FXML
+    void btnCreateSupplierOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
+    }
     @FXML
     void btnStartSideOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnStartView(stage, scene, event);
     }
-
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCrudCask(stage, scene, event);
     }
-
     @FXML
     void btnCrudStorageOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCrudStorage(stage, scene, event);
     }
-
     @FXML
     void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
     }
-
     @FXML
     void btnSupplierOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
-
 }

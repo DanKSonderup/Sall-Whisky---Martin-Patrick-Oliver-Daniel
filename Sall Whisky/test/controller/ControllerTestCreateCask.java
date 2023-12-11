@@ -20,6 +20,10 @@ class ControllerTestCreateCask {
     private CaskSupplier supplier;
     private Storage storage;
 
+    // ---------------------------------------------------------------------
+    /** setUp */
+    // ---------------------------------------------------------------------
+
     @BeforeEach
     void setUp() {
         storage = new ListStorage();
@@ -31,6 +35,10 @@ class ControllerTestCreateCask {
         position = new Position(15,50, shelf);
         supplier = new CaskSupplier("Cask123", "ABC123", "Frankrig", "2");
     }
+
+    // ---------------------------------------------------------------------
+    /** Testcases */
+    // ---------------------------------------------------------------------
 
     /** TC1: SizeInLiters 50, prevC Whisky */
     @Test

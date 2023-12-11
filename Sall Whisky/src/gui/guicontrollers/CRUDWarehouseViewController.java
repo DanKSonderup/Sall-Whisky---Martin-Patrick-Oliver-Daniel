@@ -71,6 +71,9 @@ public class CRUDWarehouseViewController implements Initializable {
     private Shelf currentlySelectedShelf;
     private Warehouse warehouse;
 
+    // ---------------------------------------------------------------------
+    /** Initialize */
+    // ---------------------------------------------------------------------
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ChangeListener<Warehouse> warehouseChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
@@ -86,13 +89,16 @@ public class CRUDWarehouseViewController implements Initializable {
         lvwPosition.getSelectionModel().selectedItemProperty().addListener(positionChangeListener);
 
         lvwWarehouse.getItems().setAll(Controller.getStorage().getWarehouses());
+    }
 
-        }
+    // ---------------------------------------------------------------------
+    /** ButtonOnAction */
+    // ---------------------------------------------------------------------
 
-        /** Pre: Racks, Shelves and Positions amount < 10
-         * Creates a warehouse with the given address and the given amount of racks, shelves and positions
-         * Updates the listview with all the warehouses
-         * */
+    /** Pre: Racks, Shelves and Positions amount < 10
+     * Creates a warehouse with the given address and the given amount of racks, shelves and positions
+     * Updates the listview with all the warehouses
+     * */
     @FXML
     void btnCreateWarehouseOnAction(ActionEvent event) {
         boolean missingInfo = canParseToInteger(txfRackAmount);
@@ -142,6 +148,9 @@ public class CRUDWarehouseViewController implements Initializable {
         clearInput();
     }
 
+    // ---------------------------------------------------------------------
+    /** Helper methods */
+    // ---------------------------------------------------------------------
 
     /** Changes the listviews to show the racks, shelves and positions of the selected warehouse
      * if the selected warehouse is not null
@@ -201,26 +210,26 @@ public class CRUDWarehouseViewController implements Initializable {
         txfWarehouseAddress.clear();
     }
 
+    // ---------------------------------------------------------------------
+    /** Scene switch buttons */
+    // ---------------------------------------------------------------------
+
     @FXML
     void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
     }
-
     @FXML
     void btnRawMaterialOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnRawMaterial(stage, scene, event);
     }
-
     @FXML
     void btnStartSideOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnStartView(stage, scene, event);
     }
-
     @FXML
     void btnSupplierOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
-
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCrudCask(stage, scene, event);

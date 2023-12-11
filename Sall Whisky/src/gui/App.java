@@ -76,25 +76,15 @@ public class App {
         Distillate testD = Controller.createDistillate("Idk", 20, 50, 50, "Hans", mList1, "Destilleret 2 gange");
         Distillate testD2 = Controller.createDistillate("Test2", 20, 50, 50, "Hans", Controller.getMaltbatches(), "Destilleret 2 gange");
 
-
-
         ArrayList<DistillateFill> distillateFills = new ArrayList<>();
         distillateFills.add(new DistillateFill(10, testD));
 
-
-
-
         Cask mainCask2 = Controller.createCask("Italien", 70, "Bourbon", p2, cs1);
-
-
-
 
         ArrayList<DistillateFill> distillateFills3 = new ArrayList<>();
         distillateFills3.add(new DistillateFill(40, testD2));
 
-
         Controller.createTapFromDistillate(LocalDate.of(2015, 10, 2), mainCask, distillateFills);
-
         Controller.createTapFromDistillate(LocalDate.of(2015, 10, 2), mainCask2, distillateFills3);
 
     }

@@ -13,6 +13,10 @@ public class Whisky implements Serializable {
     private List<WhiskyFill> whiskyFills = new ArrayList<>();
     private String description;
 
+    // ---------------------------------------------------------------------
+    /** Constructors */
+    // ---------------------------------------------------------------------
+
     /** Without whiskyFills */
     public Whisky(String name) {
         this.name = name;
@@ -26,28 +30,21 @@ public class Whisky implements Serializable {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
-    }
+    // ---------------------------------------------------------------------
+    /** Methods */
+    // ---------------------------------------------------------------------
 
-    public List<WhiskyFill> getWhiskyFills() {
-        return whiskyFills;
-    }
+    /** Returns a HashMap that shows the of each whiskyfill in the whisky */
+    public Map<WhiskyFill, Double> caskShare() {
+        Map<WhiskyFill, Double> map = new HashMap();
 
-    public double getWaterInLiters() {
-        return waterInLiters;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setWaterInLiters(double waterInLiters) {
-        this.waterInLiters = waterInLiters;
-    }
-
-    public void addWhiskyFill(WhiskyFill whiskyFill) {
-        whiskyFills.add(whiskyFill);
+        for (WhiskyFill whiskyFill : whiskyFills) {
+            double share = (whiskyFill.getAmountofDistilateFillInLiters() / totalFluidsInWhisky()) * 100;
+            DecimalFormat df = new DecimalFormat("##,##");
+            share = Double.parseDouble(df.format(share));
+            map.put(whiskyFill, share);
+        }
+        return map;
     }
 
     /**
@@ -73,17 +70,32 @@ public class Whisky implements Serializable {
         return totalFluids;
     }
 
-    /** Returns a HashMap that shows the of each whiskyfill in the whisky */
-    public Map<WhiskyFill, Double> caskShare() {
-        Map<WhiskyFill, Double> map = new HashMap();
+    // ---------------------------------------------------------------------
+    /** Getters & setters */
+    // ---------------------------------------------------------------------
 
-        for (WhiskyFill whiskyFill : whiskyFills) {
-            double share = (whiskyFill.getAmountofDistilateFillInLiters() / totalFluidsInWhisky()) * 100;
-            DecimalFormat df = new DecimalFormat("##,##");
-            share = Double.parseDouble(df.format(share));
-            map.put(whiskyFill, share);
-        }
-        return map;
+    public String getName() {
+        return name;
+    }
+    public List<WhiskyFill> getWhiskyFills() {
+        return whiskyFills;
+    }
+    public double getWaterInLiters() {
+        return waterInLiters;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setWaterInLiters(double waterInLiters) {
+        this.waterInLiters = waterInLiters;
+    }
+
+    // ---------------------------------------------------------------------
+    /** Getters & setters */
+    // ---------------------------------------------------------------------
+
+    public void addWhiskyFill(WhiskyFill whiskyFill) {
+        whiskyFills.add(whiskyFill);
     }
 
     @Override

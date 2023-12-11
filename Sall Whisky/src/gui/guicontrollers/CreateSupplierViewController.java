@@ -26,46 +26,36 @@ public class CreateSupplierViewController implements Initializable {
     private Scene scene;
     @FXML
     private Button btnCRUDCask;
-
     @FXML
     private Button btnCRUDRawMaterial;
-
     @FXML
     private Button btnCRUDStorage;
-
     @FXML
     private Button btnCRUDSupplier;
     @FXML
     private Button btnDestillateAndFillOnCask;
-
     @FXML
     private Button btnStartside;
-
     @FXML
     private Button btnCreateSupplier;
-
     @FXML
     private ComboBox<String> cbbSupplier;
-
     @FXML
     private ListView<CaskSupplier> lvwCaskSuppliers;
-
     @FXML
     private ListView<GrainSupplier> lvwGrainSuppliers;
-
     @FXML
     private TextField txfAddress;
-
     @FXML
     private TextField txfCountry;
-
     @FXML
     private TextField txfName;
-
     @FXML
     private TextField txfVatId;
 
-
+    // ---------------------------------------------------------------------
+    /** Initialize */
+    // ---------------------------------------------------------------------
 
     /** Uses eventListeners to update the supplier view */
     @Override
@@ -84,6 +74,10 @@ public class CreateSupplierViewController implements Initializable {
         cbbSupplier.setItems(FXCollections.observableArrayList(suppliers));
         cbbSupplier.getSelectionModel().select(cbbSupplier.getItems().get(0));
     }
+
+    // ---------------------------------------------------------------------
+    /** ButtonOnAction */
+    // ---------------------------------------------------------------------
 
     /**
      * Creates a new supplier on input
@@ -115,12 +109,9 @@ public class CreateSupplierViewController implements Initializable {
         if (vatId.isEmpty()) {
             canParseToInteger(txfVatId);
         }
-
         if (country.isEmpty() || name.isEmpty()  || address.isEmpty() || vatId.isEmpty()) {
             return;
         }
-
-
         if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
             Controller.createGrainSupplier(name, address, country, vatId);
             clearInput();
@@ -128,12 +119,13 @@ public class CreateSupplierViewController implements Initializable {
             Controller.createCaskSupplier(name, address, country, vatId);
             clearInput();
         }
-
-
-
         updateLvwCaskSupplier();
         updateLvwGrainSupplier();
     }
+
+    // ---------------------------------------------------------------------
+    /** Helper methods */
+    // ---------------------------------------------------------------------
 
     /** Clears the input fields */
     private void clearInput() {
@@ -160,7 +152,6 @@ public class CreateSupplierViewController implements Initializable {
         return cannotParse;
     }
 
-
     /** Updates the grain supplier listview */
     private void updateLvwGrainSupplier() {
         lvwGrainSuppliers.getItems().setAll(Controller.getGrainSuppliers());
@@ -177,36 +168,35 @@ public class CreateSupplierViewController implements Initializable {
         CaskSupplier selectedCaskSupplier = lvwCaskSuppliers.getSelectionModel().getSelectedItem();
     }
 
+    // ---------------------------------------------------------------------
+    /** Scene switch buttons */
+    // ---------------------------------------------------------------------
+
     /** Switches to the CRUDCask view */
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCrudCask(stage, scene, event);
     }
-
     /** Switches to the warehouse view */
     @FXML
     void btnCrudStorageOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCrudStorage(stage, scene, event);
     }
-
     /** Switches to the RawMaterial view */
     @FXML
     void btnRawMaterialOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnRawMaterial(stage, scene, event);
     }
-
     /** Switches to the start view */
     @FXML
     void btnStartSideOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnStartView(stage, scene, event);
     }
-
     /** Switches to the CRUDSupplier view */
     @FXML
     void btnSupplierOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
-
     /** Switches to the DestillateAndFillOnCask view */
     @FXML
     void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {

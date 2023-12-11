@@ -10,25 +10,16 @@ public abstract class Controller {
     private static List<Observer> observers = new ArrayList<>();
     private static Storage storage;
 
-    public static void setStorage(Storage storage) {
-        Controller.storage = storage;
-    }
-
-    public static Storage getStorage() {
-        return storage;
-    }
-
-    /** Returns all Casks from Storage */
-    public static List<Cask> getCasks() {
-        return storage.getCasks();
-    }
+    // ---------------------------------------------------------------------
+    /** Getters & setters */
+    // ---------------------------------------------------------------------
 
     /**
      * Create and return all Casks that have more than 0 currentContentInLiters and was filled more than 3 years ago
      */
     public static List<Cask> getRipeCasks() {
         List<Cask> ripeCasks = new ArrayList<>();
-        for (Cask cask: storage.getCasks()) {
+        for (Cask cask : storage.getCasks()) {
             if (cask.getYoungestTapFromDistillate() != null) {
                 if (cask.getYoungestTapFromDistillate().getFirstTimeOfFill().isBefore(LocalDate.now().minusYears(3)) && cask.getCurrentContentInLiters() > 0) {
                     ripeCasks.add(cask);
@@ -41,14 +32,13 @@ public abstract class Controller {
     /** Get all casks with Distillatefills */
     public static List<Cask> getCasksWithDistillateOn() {
         ArrayList<Cask> casksWithDestillate = new ArrayList<>();
-        for (Cask cask: storage.getCasks()) {
+        for (Cask cask : storage.getCasks()) {
             if (cask.getCurrentFillOnCasks().size() > 0) {
                 casksWithDestillate.add(cask);
             }
         }
         return casksWithDestillate;
     }
-
 
     /**
      * Gets a list of all casks with litersAvailable above litercapacity
@@ -57,7 +47,7 @@ public abstract class Controller {
      */
     public static List<Cask> getCasksWithXLitersAvailable(double litercapacity) {
         ArrayList<Cask> caskAvailableForTransference = new ArrayList<>();
-        for (Cask cask: storage.getCasks()) {
+        for (Cask cask : storage.getCasks()) {
             if (cask.getLitersAvailable() >= litercapacity) {
                 caskAvailableForTransference.add(cask);
             }
@@ -123,6 +113,17 @@ public abstract class Controller {
         return shelves;
     }
 
+    /** Returns all casks not fully filled */
+    public static ArrayList<Cask> getAvailableCasks() {
+        ArrayList<Cask> availableCasks = new ArrayList<>();
+        for (Cask cask: Controller.getCasks()) {
+            if (cask.getLitersAvailable() > 0) {
+                availableCasks.add(cask);
+            }
+        }
+        return availableCasks;
+    }
+
     /**
      * Finds positions at a specific shelf that aren't full
      * @param shelf from which we want to find non-full positions
@@ -148,6 +149,51 @@ public abstract class Controller {
         return positions;
     }
 
+    /** Return all distillates that still haven't been fully filled on a Cask */
+    public static List<Distillate> getAvailableDistillates() {
+        List<Distillate> distillates = new ArrayList<>();
+        for (Distillate distillate: storage.getDistillates())  {
+            if (distillate.getAmountInLiters() > 0) {
+                distillates.add(distillate);
+            }
+        }
+        return distillates;
+    }
+    public static void setStorage(Storage storage) {
+        Controller.storage = storage;
+    }
+    public static Storage getStorage() {
+        return storage;
+    }
+    public static List<Cask> getCasks() {
+        return storage.getCasks();
+    }
+    public static List<Maltbatch> getMaltbatches() {
+        return storage.getMaltbatches();
+    }
+    public static List<Grain> getGrains() {
+        return storage.getGrains();
+    }
+    public static List<Field> getFields() {
+        return storage.getFields();
+    }
+    public static List<Whisky> getWhiskies() {
+        return new ArrayList<>(storage.getWhiskies());
+    }
+    public static List<GrainSupplier> getGrainSuppliers() {
+        return storage.getGrainSuppliers();
+    }
+    public static List<CaskSupplier> getCaskSuppliers() {
+        return storage.getCaskSuppliers();
+    }
+    public static List<Distillate> getDistillates() {
+        return storage.getDistillates();
+    }
+
+    // ---------------------------------------------------------------------
+    /** Create methods */
+    // ---------------------------------------------------------------------
+
     /**
      * Create, store and return a Cask
      * Throws an illegalArgumentException if sizeInLiters <= 0
@@ -160,31 +206,11 @@ public abstract class Controller {
         if (sizeInLiters <= 0) {
             throw new IllegalArgumentException();
         }
-        Cask cask;
-        if (previousContent.isBlank()) {
-            cask = new Cask(id, countryOfOrigin, sizeInLiters, position, supplier);
-        } else {
-            cask = new Cask(id, countryOfOrigin, sizeInLiters, previousContent, position, supplier);
-        }
+        Cask cask = new Cask(id, countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         storage.storeCask(cask);
         position.addCask(cask);
+        notifyObserver();
         return cask;
-    }
-
-    /** Remove a cask from Storage */
-    public static void removeCask(Cask cask) {
-        storage.deleteCask(cask);
-    }
-
-    /** Returns all casks not fully filled */
-    public static ArrayList<Cask> getAvailableCasks() {
-        ArrayList<Cask> availableCasks = new ArrayList<>();
-        for (Cask cask: Controller.getCasks()) {
-            if (cask.getLitersAvailable() > 0) {
-                availableCasks.add(cask);
-            }
-        }
-        return availableCasks;
     }
 
     /**
@@ -284,6 +310,21 @@ public abstract class Controller {
         return tapFromDistillate;
     }
 
+    /** Creates a Transference by moving all currentFillOnCask from oldcask */
+    public static void createTransference(Cask oldCask, Cask newCask) {
+        List<FillOnCask> fillOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentFillOnCasks());
+
+        for (int i = 0; i < fillOnCaskFromOldCask.size(); i++) {
+            FillOnCask currentFillOnCask = fillOnCaskFromOldCask.get(i);
+            newCask.addCurrentFillOnCask(new FillOnCask(LocalDate.now(), currentFillOnCask.getTapFromDistillate(), newCask));
+            currentFillOnCask.getTapFromDistillate().addFillOnCask(currentFillOnCask);
+        }
+        oldCask.getCurrentFillOnCasks().removeAll(fillOnCaskFromOldCask);
+        oldCask.getPreviousPutOnCasks().addAll(fillOnCaskFromOldCask);
+
+        oldCask.setCurrentContentInLiters(0);
+        newCask.setCurrentContentInLiters(newCask.getTotalLitersOfFills());
+    }
 
     /**
      * Creates a Distillate and saves it to storage
@@ -302,22 +343,6 @@ public abstract class Controller {
         return distillate;
     }
 
-    /** Return all distillates */
-    public static List<Distillate> getDistillates() {
-        return storage.getDistillates();
-    }
-
-    /** Return all distillates that still haven't been fully filled on a Cask */
-    public static List<Distillate> getAvailableDistillates() {
-        List<Distillate> distillates = new ArrayList<>();
-        for (Distillate distillate: storage.getDistillates())  {
-            if (distillate.getAmountInLiters() > 0) {
-                distillates.add(distillate);
-            }
-        }
-        return distillates;
-    }
-
     /**
      * Create, store and return a maltbatch
      * Add the connection to the grain
@@ -327,16 +352,6 @@ public abstract class Controller {
         Maltbatch maltbatch = new Maltbatch(name, description, grain);
         storage.storeMaltbatch(maltbatch);
         return maltbatch;
-    }
-
-    /** Return all maltbatches */
-    public static List<Maltbatch> getMaltbatches() {
-        return storage.getMaltbatches();
-    }
-
-    /** Remove a maltbatch */
-    public static void removeMaltbatch(Maltbatch maltbatch) {
-        storage.deleteMaltbatch(maltbatch);
     }
 
     /**
@@ -350,31 +365,11 @@ public abstract class Controller {
         return grain;
     }
 
-    /** Return all grains */
-    public static List<Grain> getGrains() {
-        return storage.getGrains();
-    }
-
-    /** Remove a grain */
-    public static void removeGrain(Grain grain) {
-        storage.deleteGrain(grain);
-    }
-
     /** Create, store and return a field */
     public static Field createField (String name, String description) {
         Field field = new Field(name, description);
         storage.storeField(field);
         return field;
-    }
-
-    /** Return all fields */
-    public static List<Field> getFields() {
-        return storage.getFields();
-    }
-
-    /** Remove a field */
-    public static void removeField(Field field) {
-        storage.deleteField(field);
     }
 
     /** Create, store and return a GrainSupplier */
@@ -402,10 +397,6 @@ public abstract class Controller {
 
         return whisky;
     }
-    /** Get all whiskys */
-    public static List<Whisky> getWhiskies() {
-        return new ArrayList<>(storage.getWhiskies());
-    }
 
     /**
      * Create, store and return a WhiskyBottle
@@ -417,23 +408,6 @@ public abstract class Controller {
         storage.storeWhiskyBottle(whiskyBottle);
         storage.getStorageCounter().incrementWhiskyBottleCount();
         return whiskyBottle;
-    }
-
-
-    /**
-     * create multiple WhiskyBottles for a specific Whisky object
-     * Pre: numberOfBottles > 0
-     * Pre: centiliterCapacity > 0
-     */
-    public static void createWhiskyBottlesForWhisky(int numberOfBottles, int centiliterCapacity, Whisky whisky) {
-        for (int i = 0; i < numberOfBottles; i++) {
-            createWhiskyBottle(centiliterCapacity, whisky);
-        }
-    }
-
-    /** Calculates and returns the amount of bottles needed for a whisky creation */
-    public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {
-        return (int) (whisky.totalFluidsInWhisky() * 100) / whiskyBottleCapacity;
     }
 
     /**
@@ -457,16 +431,25 @@ public abstract class Controller {
         return whiskyFill;
     }
 
-    /** Get all grainSupplier objects */
-    public static List<GrainSupplier> getGrainSuppliers() {
-        return storage.getGrainSuppliers();
+    /**
+     * create multiple WhiskyBottles for a specific Whisky object
+     * Pre: numberOfBottles > 0
+     * Pre: centiliterCapacity > 0
+     */
+    public static void createWhiskyBottlesForWhisky(int numberOfBottles, int centiliterCapacity, Whisky whisky) {
+        for (int i = 0; i < numberOfBottles; i++) {
+            createWhiskyBottle(centiliterCapacity, whisky);
+        }
     }
 
-    /** Get all caskSupplier objects */
-    public static List<CaskSupplier> getCaskSuppliers() {
-        return storage.getCaskSuppliers();
+    /** Calculates and returns the amount of bottles needed for a whisky creation */
+    public static int amountOfBottles(Whisky whisky, int whiskyBottleCapacity) {
+        return (int) (whisky.totalFluidsInWhisky() * 100) / whiskyBottleCapacity;
     }
 
+    // ---------------------------------------------------------------------
+    /** Generate methods */
+    // ---------------------------------------------------------------------
 
     /**
      * Takes a list of WhiskyFills and finds occurrences of unique casks and maltbatches
@@ -495,15 +478,12 @@ public abstract class Controller {
                 }
             }
         }
-
         if (maltbatches.size() == 1) {
             return "Single Malt";
         }
-
         if (casks.size() == 1) {
             return "Single Cask";
         }
-
         return "Blended";
      }
 
@@ -620,20 +600,24 @@ public abstract class Controller {
         return sb.toString();
     }
 
-    /** Creates a Transference by moving all currentFillOnCask from oldcask */
-    public static void createTransference(Cask oldCask, Cask newCask) {
-        List<FillOnCask> fillOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentFillOnCasks());
+    /** Remove a grain */
+    public static void removeGrain(Grain grain) {
+        storage.deleteGrain(grain);
+    }
 
-        for (int i = 0; i < fillOnCaskFromOldCask.size(); i++) {
-            FillOnCask currentFillOnCask = fillOnCaskFromOldCask.get(i);
-            newCask.addCurrentFillOnCask(new FillOnCask(LocalDate.now(), currentFillOnCask.getTapFromDistillate(), newCask));
-            currentFillOnCask.getTapFromDistillate().addFillOnCask(currentFillOnCask);
-        }
-        oldCask.getCurrentFillOnCasks().removeAll(fillOnCaskFromOldCask);
-        oldCask.getPreviousPutOnCasks().addAll(fillOnCaskFromOldCask);
+    /** Remove a maltbatch */
+    public static void removeMaltbatch(Maltbatch maltbatch) {
+        storage.deleteMaltbatch(maltbatch);
+    }
 
-        oldCask.setCurrentContentInLiters(0);
-        newCask.setCurrentContentInLiters(newCask.getTotalLitersOfFills());
+    /** Remove a field */
+    public static void removeField(Field field) {
+        storage.deleteField(field);
+    }
+
+    /** Remove a cask from Storage */
+    public static void removeCask(Cask cask) {
+        storage.deleteCask(cask);
     }
 
     /** Observer methods */

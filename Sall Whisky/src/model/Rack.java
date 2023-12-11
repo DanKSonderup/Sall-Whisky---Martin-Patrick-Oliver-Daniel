@@ -12,10 +12,34 @@ public class Rack implements Observer, Serializable {
     private List<Shelf> shelves = new ArrayList<>();
     private Warehouse warehouse;
 
+    // ---------------------------------------------------------------------
+    /** Constructors */
+    // ---------------------------------------------------------------------
+
     public Rack(int rackId, Warehouse warehouse) {
         this.rackId = rackId;
         this.warehouse = warehouse;
     }
+
+    // ---------------------------------------------------------------------
+    /** Methods */
+    // ---------------------------------------------------------------------
+
+    /** Checks if all the shelves on the rack are full, if so, set isFilled to true. */
+    public void update() {
+        if (getAvailableShelves().isEmpty()) {
+            isFilled = true;
+        } else {
+            isFilled = false;
+        }
+    }
+    public boolean isFilled() {
+        return isFilled;
+    }
+
+    // ---------------------------------------------------------------------
+    /** Getters & setters */
+    // ---------------------------------------------------------------------
 
     /** Return a list of all the shelves on the rack that are not fully filled. */
     public List<Shelf> getAvailableShelves() {
@@ -26,34 +50,20 @@ public class Rack implements Observer, Serializable {
         }
         return availableShelves;
     }
-
-    /** Checks if all the shelves on the rack are full, if so, set isFilled to true. */
-    public void update() {
-        if (getAvailableShelves().isEmpty()) {
-            isFilled = true;
-        } else {
-            isFilled = false;
-        }
-    }
-
-    /** Getters */
     public int getRackId() {
         return rackId;
     }
-
-    public boolean isFilled() {
-        return isFilled;
-    }
-
     public List<Shelf> getShelves() {
         return shelves;
     }
-
     public Warehouse getWarehouse() {
         return warehouse;
     }
 
-    /** Add & remove shelf */
+    // ---------------------------------------------------------------------
+    /** Adds & removes */
+    // ---------------------------------------------------------------------
+
     public void addShelf(Shelf shelf) {
         shelves.add(shelf);
     }

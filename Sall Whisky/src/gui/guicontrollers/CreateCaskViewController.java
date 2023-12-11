@@ -65,11 +65,9 @@ public class CreateCaskViewController implements Initializable {
     private double currentSizeInLiters;
     private Cask cask;
 
-    /**
-     * Opens the start view
-     * @param event
-     * @throws IOException
-     */
+    // ---------------------------------------------------------------------
+    /** Initialize */
+    // ---------------------------------------------------------------------
 
     /** Uses eventListeners to update the listviews */
     @Override
@@ -101,6 +99,10 @@ public class CreateCaskViewController implements Initializable {
 
 
     }
+
+    // ---------------------------------------------------------------------
+    /** ButtonsOnAction */
+    // ---------------------------------------------------------------------
 
     /**
      * Creates a new cask
@@ -138,7 +140,6 @@ public class CreateCaskViewController implements Initializable {
             }
         }
 
-
     /**
      * Takes the size of the cask and finds all warehouses with space for the cask
      * If the size entered is not a double, prompt the user to enter a double
@@ -160,6 +161,11 @@ public class CreateCaskViewController implements Initializable {
         }
     }
 
+    // ---------------------------------------------------------------------
+    /** Helper methods */
+    // ---------------------------------------------------------------------
+
+    /** Handles change in the selected storage items in the interface
     /** Handles change in the selected warehouse in the UI
      * Updates listviews based on selection */
     public void selectedWarehouseChanged() {

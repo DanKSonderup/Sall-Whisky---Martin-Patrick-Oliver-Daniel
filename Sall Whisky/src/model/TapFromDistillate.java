@@ -14,50 +14,18 @@ public class TapFromDistillate implements Serializable {
     private ArrayList<FillOnCask> fillOnCasks = new ArrayList<>();
     private List<DistillateFill> distillateFills = new ArrayList<>();
 
+    // ---------------------------------------------------------------------
+    /** Constructors */
+    // ---------------------------------------------------------------------
+
     public TapFromDistillate(LocalDate firstTimeOfFill, Cask cask) {
         this.firstTimeOfFill = firstTimeOfFill;
         fillOnCasks.add(new FillOnCask(firstTimeOfFill, this, cask));
     }
 
-    public LocalDate getFirstTimeOfFill() {
-        return firstTimeOfFill;
-    }
-
-    public ArrayList<FillOnCask> getFillOnCasks() {
-        return fillOnCasks;
-    }
-
-    public void addFillOnCask(FillOnCask fillOnCask) {
-        fillOnCasks.add(fillOnCask);
-    }
-
-    /** Returns the total sum of liters from distillatefills connected to this object */
-    public double getTotalLitersForFills() {
-        double sum = 0.0;
-        for (DistillateFill distillateFill: distillateFills) {
-            sum += distillateFill.getAmountOfDistillateInLiters();
-        }
-        return sum;
-    }
-
-    public List<DistillateFill> getDistillateFills() {
-        return distillateFills;
-    }
-    public void addDistillateFill(DistillateFill distillateFill) {
-        distillateFills.add(distillateFill);
-    }
-
-    /** Calculates and returns the alcohol percentage in distillateFills */
-    public double calculateAlcoholPercentage() {
-        double alcoholPercentage = 0;
-        double totalFluids = 0;
-        for (DistillateFill distillateFill : distillateFills) {
-            alcoholPercentage += (distillateFill.getAmountOfDistillateInLiters() *
-                    (distillateFill.getDistillate().getAlcoholPercentage() / 100.0));
-            totalFluids += distillateFill.getAmountOfDistillateInLiters();
-        }
-        return alcoholPercentage / totalFluids * 100;
-    }
+    // ---------------------------------------------------------------------
+    /** Methods */
+    // ---------------------------------------------------------------------
 
     /**
      * Calculates and returns a hashMap that shows how big a share each distillate has of the
@@ -74,6 +42,50 @@ public class TapFromDistillate implements Serializable {
             map.put(fill, share);
         }
         return map;
+    }
+    /** Calculates and returns the alcohol percentage in distillateFills */
+    public double calculateAlcoholPercentage() {
+        double alcoholPercentage = 0;
+        double totalFluids = 0;
+        for (DistillateFill distillateFill : distillateFills) {
+            alcoholPercentage += (distillateFill.getAmountOfDistillateInLiters() *
+                    (distillateFill.getDistillate().getAlcoholPercentage() / 100.0));
+            totalFluids += distillateFill.getAmountOfDistillateInLiters();
+        }
+        return alcoholPercentage / totalFluids * 100;
+    }
+
+    // ---------------------------------------------------------------------
+    /** Getters & setters */
+    // ---------------------------------------------------------------------
+
+    /** Returns the total sum of liters from distillatefills connected to this object */
+    public double getTotalLitersForFills() {
+        double sum = 0.0;
+        for (DistillateFill distillateFill: distillateFills) {
+            sum += distillateFill.getAmountOfDistillateInLiters();
+        }
+        return sum;
+    }
+    public LocalDate getFirstTimeOfFill() {
+        return firstTimeOfFill;
+    }
+    public ArrayList<FillOnCask> getFillOnCasks() {
+        return fillOnCasks;
+    }
+    public List<DistillateFill> getDistillateFills() {
+        return distillateFills;
+    }
+
+    // ---------------------------------------------------------------------
+    /** Adds & removes */
+    // ---------------------------------------------------------------------
+
+    public void addFillOnCask(FillOnCask fillOnCask) {
+        fillOnCasks.add(fillOnCask);
+    }
+    public void addDistillateFill(DistillateFill distillateFill) {
+        distillateFills.add(distillateFill);
     }
 
     @Override

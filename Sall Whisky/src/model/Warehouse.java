@@ -12,10 +12,32 @@ public class Warehouse implements Observer, Serializable {
     private boolean isFilled = true;
     private List<Rack> racks = new ArrayList<>();
 
+    // ---------------------------------------------------------------------
+    /** Constructors */
+    // ---------------------------------------------------------------------
+
     public Warehouse(int warehouseId, String address) {
         this.address = address;
         this.warehouseId = warehouseId;
     }
+
+    // ---------------------------------------------------------------------
+    /** Methods */
+    // ---------------------------------------------------------------------
+
+    /** Checks if all the racks in the warehouse are full, if so, set isFilled to true. */
+    public void update() {
+        if (getAvailableRacks().isEmpty())
+            isFilled = true;
+        else isFilled = false;
+    }
+    public boolean isFilled() {
+        return isFilled;
+    }
+
+    // ---------------------------------------------------------------------
+    /** Getters & setters */
+    // ---------------------------------------------------------------------
 
     /** Return a list of all the racks in the warehouse that are not fully filled. */
     public List<Rack> getAvailableRacks() {
@@ -26,32 +48,20 @@ public class Warehouse implements Observer, Serializable {
         }
         return availableRacks;
     }
-
-    /** Checks if all the racks in the warehouse are full, if so, set isFilled to true. */
-    public void update() {
-        if (getAvailableRacks().isEmpty())
-            isFilled = true;
-        else isFilled = false;
-    }
-
-    /** Getters */
     public int getWarehouseId() {
         return warehouseId;
     }
-
     public String getAddress() {
         return address;
     }
-
-    public boolean isFilled() {
-        return isFilled;
-    }
-
     public List<Rack> getRacks() {
         return racks;
     }
 
-    /** Add & remove rack */
+    // ---------------------------------------------------------------------
+    /** Adds & removes */
+    // ---------------------------------------------------------------------
+
     public void addRack(Rack rack) {
         racks.add(rack);
     }

@@ -13,6 +13,10 @@ public class Distillate implements Serializable {
     private String description;
     List<Maltbatch> maltbatches = new ArrayList<>();
 
+    // ---------------------------------------------------------------------
+    /** Constructors */
+    // ---------------------------------------------------------------------
+
     public Distillate(String newMakeNr, double distillationTimeInHours, double alcoholPercentage,
                       double amountInLiters, String employee, List<Maltbatch> maltbatches, String description) {
         this.newMakeNr = newMakeNr;
@@ -24,34 +28,31 @@ public class Distillate implements Serializable {
         this.description = description;
     }
 
+    // ---------------------------------------------------------------------
+    /** Getters & setters */
+    // ---------------------------------------------------------------------
+
     public String getNewMakeNr() {
         return newMakeNr;
     }
-
     public double getAlcoholPercentage() {
         return alcoholPercentage;
     }
-
     public String getDescription() {
         return description;
     }
-
     public double getAmountInLiters() {
         return amountInLiters;
     }
-
     public void setAmountInLiters(double amountInLiters) {
         this.amountInLiters = amountInLiters;
     }
-
     public List<Maltbatch> getMaltbatches() {
         return maltbatches;
     }
-
     public double getDistillationTimeInHours() {
         return distillationTimeInHours;
     }
-
     public String getEmployee() {
         return employee;
     }
