@@ -21,9 +21,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CreateCaskViewController implements Initializable {
-//        private Supplier supplier;
-
-
     @FXML
     private Button btnCreateCask;
     @FXML
@@ -71,6 +68,13 @@ public class CreateCaskViewController implements Initializable {
     private double currentSizeInLiters;
     private Cask cask;
 
+    /**
+     * Opens the start view
+     * @param event
+     * @throws IOException
+     */
+
+    /** Uses eventListeners to update the listviews */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ChangeListener<Warehouse> warehouseChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
@@ -113,7 +117,6 @@ public class CreateCaskViewController implements Initializable {
      * If the user has not entered a size for the cask prompt the user to enter one
      * If the user has not selected a position for the cask prompt the user to select one
      * If the user has not selected a supplier for the cask prompt the user to select one
-     * @param event
      */
         @FXML
         void btnCreateCaskOnAction(ActionEvent event) {
@@ -167,7 +170,8 @@ public class CreateCaskViewController implements Initializable {
         }
     }
 
-
+    /** Handles change in the selected storage items in the interface
+     * Updates listviews based on selection */
     public void selectedStorageItemChanged() {
 
          Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();
@@ -200,6 +204,7 @@ public class CreateCaskViewController implements Initializable {
          }
     }
 
+    /** Clears the listviews */
     private void clearWareHouseListViews() {
         lvwPosition.getItems().clear();
         lvwShelf.getItems().clear();
@@ -207,6 +212,7 @@ public class CreateCaskViewController implements Initializable {
         lvwPosition.getItems().clear();
     }
 
+    /** Checks if the input can be parsed to a double */
     private boolean canParseToDouble(TextField txf) {
         boolean cannotParse = false;
         try {
@@ -219,6 +225,7 @@ public class CreateCaskViewController implements Initializable {
         return cannotParse;
     }
 
+    /** Updates the created cask tableview */
     private void updateTvwCreatedCasks() {
         tvwCreatedCasks.getItems().setAll(createdCasts);
     }

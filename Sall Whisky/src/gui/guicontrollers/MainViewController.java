@@ -85,6 +85,7 @@ public class MainViewController implements Initializable {
         SwitchSceneController.btnRawMaterial(stage, scene, event);
     }
 
+    /** Initializes the stage and scene for the createCaskView */
     @FXML
     void btnCreateWhiskyOnAction(ActionEvent event) throws IOException {
         URL url = new File("Sall Whisky/src/gui/views/CreateWhiskyView.fxml").toURI().toURL();
@@ -101,6 +102,8 @@ public class MainViewController implements Initializable {
     void btnStartSideOnAction(ActionEvent event) {
 
     }
+
+    /** Updates and initializes the tableview with all the casks */
     @FXML
     void btnGetWhiskyStoryOnAction(ActionEvent event) {
         whisky = lvwWhisky.getSelectionModel().getSelectedItem();
@@ -125,7 +128,7 @@ public class MainViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
-        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestTapFromDistillate"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         tvwRipeCasks.getItems().setAll(Controller.getRipeCasks());
         lvwWhisky.getItems().setAll(Controller.getWhiskies());

@@ -83,8 +83,13 @@ public class CRUDDistilleryAndFillController implements Initializable {
     void btnSupplierOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
+
+    /** Creates a distillate with the given information
+     * If the information is invalid, the textfields will be marked red
+     * If the information is valid, the distillate will be created and the textfields will be cleared
+     */
     @FXML
-    void btnCreateDistillateOnAction(ActionEvent event) {
+    void btnCreateDistillateOnAction() {
         String newMakenr = txfNewMakeNo.getText().trim();
         double distillationTime;
         double alcoholPercentage;
@@ -104,7 +109,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
             txfAmountOfDistillateInLiters.setStyle("-fx-border-color: red;");
             return;
         }
-        if (alcoholPercentage > 99) {
+        if (alcoholPercentage > 99 || alcoholPercentage < 0) {
             txfAlcoholpercentage.setStyle("-fx-border-color: red;");
             return;
         }
@@ -125,8 +130,13 @@ public class CRUDDistilleryAndFillController implements Initializable {
         updateControls();
         }
 
+    /** Fills the selected cask with the selected distillate
+     * If the user has not selected a distillate prompt the user to select one
+     * If the user has not selected a cask prompt the user to select one
+     * Alert the user that the cask has been filled
+     */
     @FXML
-    void btnFillOnCaskOnAction(ActionEvent event) {
+    void btnFillOnCaskOnAction() {
         Distillate distillate = lvwDistillates.getSelectionModel().getSelectedItem();
         Cask cask = lvwAvailableCasks.getSelectionModel().getSelectedItem();
         double amountInLiters = txfParseDouble(txfAmountToPutOnCaskInLiters);
@@ -170,6 +180,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
             updateControls();
     }
 
+    /** Parses the textfield to a double */
     private double txfParseDouble(TextField txf) {
         double returnValue = -1.0;
         try {
@@ -180,6 +191,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         return returnValue;
     }
 
+    /** Clears the error markings on the textfields */
     private void clearErrorMarkings() {
         txfNewMakeNo.setStyle("-fx-border-color: transparent;");
         txfEmployee.setStyle("-fx-border-color: transparent;");
@@ -189,11 +201,13 @@ public class CRUDDistilleryAndFillController implements Initializable {
         txfDistillationTime.setStyle("-fx-border-color: transparent;");
     }
 
+    /** Updates the listviews */
     private void updateControls() {
         lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
         lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
     }
 
+    /** Clears the textfields */
     private void clearCreateDistillateFields() {
         txfDistillationTime.clear();
         txfAlcoholpercentage.clear();
@@ -203,11 +217,20 @@ public class CRUDDistilleryAndFillController implements Initializable {
         txfAmountOfDistillateInLiters.clear();
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lvwMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        lvwDistillates.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
         lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
         lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
+
+        txfNewMakeNo.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfEmployee.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfAlcoholpercentage.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfAmountOfDistillateInLiters.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfSmokingMaterial.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfDistillationTime.setOnMouseClicked(e -> { clearErrorMarkings();});
     }
 }

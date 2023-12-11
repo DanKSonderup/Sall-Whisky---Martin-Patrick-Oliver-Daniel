@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CreateSupplierViewController implements Initializable {
-
     private Stage stage;
     private Scene scene;
     @FXML
@@ -68,14 +67,12 @@ public class CreateSupplierViewController implements Initializable {
 
 
 
+    /** Uses eventListeners to update the supplier view */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         lvwCaskSuppliers.getItems().setAll(Controller.getCaskSuppliers());
         lvwGrainSuppliers.getItems().setAll(Controller.getGrainSuppliers());
-
-
-
 
         ChangeListener<GrainSupplier> grainSupplierChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
         lvwGrainSuppliers.getSelectionModel().selectedItemProperty().addListener(grainSupplierChangeListener);
@@ -88,6 +85,11 @@ public class CreateSupplierViewController implements Initializable {
         cbbSupplier.getSelectionModel().select(cbbSupplier.getItems().get(0));
     }
 
+    /**
+     * Creates a new supplier on input
+     * Checks if the input is valid
+     * Updates the listviews
+     */
     @FXML
     void btnCreateSupplierOnAction(ActionEvent event) {
         String name = txfName.getText().trim();
@@ -96,30 +98,44 @@ public class CreateSupplierViewController implements Initializable {
         String vatId = txfVatId.getText().trim();
 
         if (name.isEmpty()) {
-            canParseToInteger(txfName);
+            txfName.setStyle("-fx-border-color: red;");
+            txfName.setOnMouseClicked(e -> {
+                txfName.setStyle("-fx-border-color: transparent;");});
         }
         if (address.isEmpty()) {
-                canParseToInteger(txfAddress);
+            txfAddress.setStyle("-fx-border-color: red;");
+            txfAddress.setOnMouseClicked(e -> {
+            txfAddress.setStyle("-fx-border-color: transparent;");});
         }
         if (country.isEmpty()) {
-            canParseToInteger(txfCountry);
+            txfCountry.setStyle("-fx-border-color: red;");
+            txfCountry.setOnMouseClicked(e -> {
+                txfCountry.setStyle("-fx-border-color: transparent;");});
         }
         if (vatId.isEmpty()) {
             canParseToInteger(txfVatId);
         }
 
-        if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
-                Controller.createGrainSupplier(name, address, country, vatId);
-                 clearInput();
-        } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
-                    Controller.createCaskSupplier(name, address, country, vatId);
-                    clearInput();
+        if (country.isEmpty() || name.isEmpty()  || address.isEmpty() || vatId.isEmpty()) {
+            return;
         }
+
+
+        if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Kornleverandør")) {
+            Controller.createGrainSupplier(name, address, country, vatId);
+            clearInput();
+        } else if (cbbSupplier.getSelectionModel().getSelectedItem().equals("Fadleverandør")) {
+            Controller.createCaskSupplier(name, address, country, vatId);
+            clearInput();
+        }
+
+
 
         updateLvwCaskSupplier();
         updateLvwGrainSupplier();
     }
 
+    /** Clears the input fields */
     private void clearInput() {
         txfName.clear();
         txfAddress.clear();
@@ -131,10 +147,11 @@ public class CreateSupplierViewController implements Initializable {
         txfVatId.setStyle("-fx-border-color: transparent");
     }
 
+    /** Checks if the input can be parsed to an integer */
     private boolean canParseToInteger(TextField txf) {
         boolean cannotParse = false;
         try {
-            double returnValue = Integer.parseInt(txf.getText().trim());
+            Integer.parseInt(txf.getText().trim());
         } catch (NumberFormatException exception) {
             cannotParse = true;
             txf.setStyle("-fx-border-color: red;");
@@ -144,50 +161,53 @@ public class CreateSupplierViewController implements Initializable {
     }
 
 
-    /**
-     * Updates the grain supplier listview
-     */
+    /** Updates the grain supplier listview */
     private void updateLvwGrainSupplier() {
         lvwGrainSuppliers.getItems().setAll(Controller.getGrainSuppliers());
     }
 
-    /**
-     * Updates the cask supplier listview
-     */
+    /** Updates the cask supplier listview */
     private void updateLvwCaskSupplier() {
         lvwCaskSuppliers.getItems().setAll(Controller.getCaskSuppliers());
     }
 
-
+    /** Updates the listviews */
     public void selectedStorageItemChanged() {
         GrainSupplier selectedGrainSupplier = lvwGrainSuppliers.getSelectionModel().getSelectedItem();
         CaskSupplier selectedCaskSupplier = lvwCaskSuppliers.getSelectionModel().getSelectedItem();
     }
 
+    /** Switches to the CRUDCask view */
     @FXML
     void btnCrudCaskOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCrudCask(stage, scene, event);
     }
 
+    /** Switches to the warehouse view */
     @FXML
     void btnCrudStorageOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCrudStorage(stage, scene, event);
     }
 
+    /** Switches to the RawMaterial view */
     @FXML
     void btnRawMaterialOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnRawMaterial(stage, scene, event);
     }
 
+    /** Switches to the start view */
     @FXML
     void btnStartSideOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnStartView(stage, scene, event);
     }
 
+    /** Switches to the CRUDSupplier view */
     @FXML
     void btnSupplierOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
+
+    /** Switches to the DestillateAndFillOnCask view */
     @FXML
     void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);

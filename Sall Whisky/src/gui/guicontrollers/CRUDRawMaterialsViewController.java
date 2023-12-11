@@ -74,6 +74,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
     private TextField txfMaltbatchName;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lvwFields.getItems().setAll(Controller.getFields());
@@ -99,10 +100,6 @@ public class CRUDRawMaterialsViewController implements Initializable {
         cbbPickGrainSupplier.valueProperty().addListener((o, ov, nv) -> {
             cbbPickGrainSupplier.setStyle("-fx-border-color: transparent;");
         });
-
-        /**
-         * If no field (or grain) is selected, have the delete button be disabled
-         */
     }
 
 
@@ -111,7 +108,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * If Name is empty prompt the user to enter a name
      */
     @FXML
-    void btnCreateFieldOnAction(ActionEvent event) {
+    void btnCreateFieldOnAction() {
         if (txfFieldName.getText().isEmpty()) {
             txfFieldName.setStyle("-fx-border-color: red;");
             txfFieldName.setOnMouseClicked(e -> {txfFieldName.setStyle("");});
@@ -130,7 +127,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Update the listview.
      */
     @FXML
-    void btnUpdateFieldOnAction(ActionEvent event) {
+    void btnUpdateFieldOnAction() {
         boolean missingInfo = false;
         if (lvwFields.getSelectionModel().isEmpty()) {
             missingInfo = true;
@@ -159,7 +156,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Checks all grain to see if the field is connected to any, if so, abort deletion
      */
     @FXML
-    void btnDeleteFieldOnAction(ActionEvent event) {
+    void btnDeleteFieldOnAction() {
         Field field = lvwFields.getSelectionModel().getSelectedItem();
         if (lvwFields.getSelectionModel().isEmpty()) {
             lvwFields.setStyle("-fx-border-color: red;");
@@ -189,7 +186,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * If no field selected, prompt user to select a field
      */
     @FXML
-    void btnCreateGrainOnAction(ActionEvent event) {
+    void btnCreateGrainOnAction() {
         boolean missingInfo = false;
         if (lvwFields.getSelectionModel().isEmpty()) {
             missingInfo = true;
@@ -224,7 +221,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Update the listview.
      */
     @FXML
-    void btnUpdateGrainOnAction(ActionEvent event) {
+    void btnUpdateGrainOnAction() {
         boolean missingInfo = false;
         if (lvwGrains.getSelectionModel().isEmpty()) {
             missingInfo = true;
@@ -249,7 +246,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Prompt the user with a confirmation dialog (delete or keep)
      */
     @FXML
-    void btnDeleteGrainOnAction(ActionEvent event) {
+    void btnDeleteGrainOnAction() {
         Grain grain = lvwGrains.getSelectionModel().getSelectedItem();
         if (lvwGrains.getSelectionModel().isEmpty()) {
             lvwGrains.setStyle("-fx-border-color: red;");
@@ -277,7 +274,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * If no grain selected, prompt the user to select a grain
      */
     @FXML
-    void btnCreateMaltbatchOnAction(ActionEvent event) {
+    void btnCreateMaltbatchOnAction() {
         boolean missingInfo = false;
         if (lvwGrains.getSelectionModel().isEmpty()) {
             missingInfo = true;
@@ -304,7 +301,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Update the listview.
      */
     @FXML
-    void btnUpdateMaltbatchOnAction(ActionEvent event) {
+    void btnUpdateMaltbatchOnAction() {
         boolean missingInfo = false;
         if (lvwMaltbatches.getSelectionModel().isEmpty()) {
             missingInfo = true;
@@ -329,7 +326,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Prompt the user with a confirmation dialog (delete or keep)
      */
     @FXML
-    void btnRemoveMaltbatchOnAction(ActionEvent event) {
+    void btnRemoveMaltbatchOnAction() {
         Maltbatch maltbatch = lvwMaltbatches.getSelectionModel().getSelectedItem();
         if (lvwMaltbatches.getSelectionModel().isEmpty()) {
             lvwMaltbatches.setStyle("-fx-border-color: red;");
@@ -361,9 +358,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
     }
 
 
-    /**
-     * Updates the listView with all the fields from storage
-     */
+    /** Updates the listView with all the fields from storage */
     private void updateLvwFields() {
         lvwFields.getItems().setAll(Controller.getFields());
     }
@@ -385,9 +380,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         }
     }
 
-    /**
-     * Updates the listView with all the maltbatches from storage
-     */
+    /** Updates the listView with all the maltbatches from storage */
     private void updateLvwMaltbatches() {
         if (lvwGrains.getSelectionModel().isEmpty())
             lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
@@ -401,6 +394,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         }
     }
 
+    /** Shows a confirmation dialog for deletion of an object */
     private ButtonType showDeleteConfirmationDialog(Object o) {
         String typeOfObjectToDelete = "";
         if (o instanceof Field) typeOfObjectToDelete = "denne mark";
@@ -416,6 +410,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         return alert.showAndWait().orElse(ButtonType.CANCEL);
     }
 
+    /** Checks if a field is connected to any grain-objects */
     private boolean isConnectedToGrain(Field field) {
         boolean ConnectionFound = false;
         int i = 0;
@@ -429,6 +424,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         return ConnectionFound;
     }
 
+    /** Checks if a grain is connected to any maltbatch-objects */
     private boolean isConnectedToMaltbatch(Grain grain) {
         boolean ConnectionFound = false;
         int i = 0;
@@ -442,6 +438,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         return ConnectionFound;
     }
 
+    /** Checks if a maltbatch is connected to any distillate-objects */
     private boolean isConnectedToDistillate(Maltbatch maltbatch) {
         boolean ConnectionFound = false;
         int i = 0;

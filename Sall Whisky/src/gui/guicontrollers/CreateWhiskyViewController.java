@@ -72,6 +72,7 @@ public class CreateWhiskyViewController implements Initializable {
     private WhiskyFill whiskyFill;
     private Whisky whisky;
 
+    /** Calculates the amount of bottles that can be filled with the selected whisky */
     @FXML
     void btnCalcNumberOfBottlesOnAction(ActionEvent event) {
         if (cbbBottleSizeInCl.getSelectionModel().getSelectedItem() == null) {
@@ -95,6 +96,7 @@ public class CreateWhiskyViewController implements Initializable {
         clearErrorMarkings();
     }
 
+    /** Creates a new whisky object and whisky bottles for the whisky */
     @FXML
     void btnCreateWhiskyOnAction(ActionEvent event) {
         int sizeOfBottle = cbbBottleSizeInCl.getSelectionModel().getSelectedItem();
@@ -124,6 +126,8 @@ public class CreateWhiskyViewController implements Initializable {
         clearErrorMarkings();
     }
 
+    /** Registers the alcohol percentage of the whisky fill
+     * If the cask is null, return error window */
     @FXML
     void btnRegisterAlcoholpercentageOnAction(ActionEvent event) {
         Cask cask = tvwRipeCasks.getSelectionModel().getSelectedItem();
@@ -167,26 +171,12 @@ public class CreateWhiskyViewController implements Initializable {
         btnCreateWhisky.setDisable(true);
 
 
+        lblTypeOfWhisky.setText(Controller.getWhiskyType(whiskyFills));
 
-        if (whiskyFills.size() > 1 && haveDuplicate(whiskyFills)) {
-            lblTypeOfWhisky.setText("Blended");
-        } else {
-            lblTypeOfWhisky.setText("Single malt");
-        }
         clearErrorMarkings();
     }
 
-    public static boolean haveDuplicate(List<WhiskyFill> whiskyFills) {
-        for (int i = 0; i < whiskyFills.size() - 1; i++) {
-            WhiskyFill current = whiskyFills.get(i);
-            WhiskyFill next = whiskyFills.get(i + 1);
-            if (!current.getCask().equals(next.getCask())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    /** shows an errorWindow */
     private void showErrorWindow(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Fejl");
@@ -195,12 +185,15 @@ public class CreateWhiskyViewController implements Initializable {
         alert.show();
     }
 
+    /** Clears the error markings on the textfields */
     private void clearErrorMarkings() {
         txfWaterForDilution.setStyle("-fx-border-color: transparent;");
         amountOfFillCltxf.setStyle("-fx-border-color: transparent;");
         txfAlcoholPercentage.setStyle("-fx-border-color: transparent;");
         txfWhiskyName.setStyle("-fx-border-color: transparent;");
     }
+
+    /** Parses a string to a double */
     private double txfParseDouble(TextField txf) {
         double returnValue = -1.0;
         try {
@@ -212,6 +205,8 @@ public class CreateWhiskyViewController implements Initializable {
         txf.setOnMouseClicked(e -> {txf.setStyle("-fx-border-color: transparent;");});
         return returnValue;
     }
+
+    /** Clears all editable fields */
     private void clearAllEditableFields() {
         lvwWhiskybatch.getItems().clear();
         txfAlcoholPercentage.clear();
@@ -226,6 +221,7 @@ public class CreateWhiskyViewController implements Initializable {
         cbbBottleSizeInCl.valueProperty().set(null);
     }
 
+    /** Updates the listview with the whisky fills ready for fill */
     private void updatelvwWhiskyFillReadyForFill() {
         if (whiskyFills.isEmpty()) {
             return;
@@ -233,24 +229,26 @@ public class CreateWhiskyViewController implements Initializable {
         lvwWhiskybatch.getItems().setAll(whiskyFills);
     }
 
+    /** Updates the content of the whisky */
     private void updateContentOfWhisky(String content) {
         txaContentOfWhisky.appendText(content + " \n");
     }
 
 
+    /** Updates the tableview with the ripe casks */
     private void updateRipeCasks() {
         tvwRipeCasks.getItems().setAll(Controller.getRipeCasks());
     }
 
+    /** Initializes the controls */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // updatelvwWhiskyFillReadyForFill();
         Integer bottleSize[] = {50, 75, 100, 120};
         cbbBottleSizeInCl.setItems(FXCollections.observableArrayList(bottleSize));
 
         tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
-        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestTapFromDistillate"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         updateRipeCasks();
     }

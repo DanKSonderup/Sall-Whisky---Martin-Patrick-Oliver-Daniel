@@ -9,11 +9,11 @@ public class Cask implements Serializable {
     private String countryOfOrigin;
     private double sizeInLiters;
     private String previousContent;
+    private double currentContentInLiters;
     private Position position;
     private CaskSupplier supplier;
     private final List<FillOnCask> currentFillOnCasks = new ArrayList<>();
     private final List<FillOnCask> previousFillOnCasks = new ArrayList<>();
-    private double currentContentInLiters;
 
     /** Constructor without Position */
     public Cask(String countryOfOrigin, double sizeInLiters, String previousContent) {
@@ -162,10 +162,10 @@ public class Cask implements Serializable {
 
 
     /**
-     * Returns the fillOnCask that has been in the cask for the shortest amount of time
+     * Returns the tapFromDistillate that has been in the cask for the shortest amount of time
      * If the cask is empty, return null
      */
-    public TapFromDistillate getYoungestFillOnCask() {
+    public TapFromDistillate getYoungestTapFromDistillate() {
         if (currentFillOnCasks.isEmpty()) {
             return null;
         }

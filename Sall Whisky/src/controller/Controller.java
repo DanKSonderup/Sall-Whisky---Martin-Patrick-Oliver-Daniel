@@ -29,8 +29,8 @@ public abstract class Controller {
     public static List<Cask> getRipeCasks() {
         List<Cask> ripeCasks = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
-            if (cask.getYoungestFillOnCask() != null) {
-                if (cask.getYoungestFillOnCask().getFirstTimeOfFill().isBefore(LocalDate.now().minusYears(3)) && cask.getCurrentContentInLiters() > 0) {
+            if (cask.getYoungestTapFromDistillate() != null) {
+                if (cask.getYoungestTapFromDistillate().getFirstTimeOfFill().isBefore(LocalDate.now().minusYears(3)) && cask.getCurrentContentInLiters() > 0) {
                     ripeCasks.add(cask);
                 }
             }
@@ -38,6 +38,7 @@ public abstract class Controller {
         return ripeCasks;
     }
 
+    /** Get all casks with Distillatefills */
     public static List<Cask> getCasksWithDistillateOn() {
         ArrayList<Cask> casksWithDestillate = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
@@ -48,6 +49,12 @@ public abstract class Controller {
         return casksWithDestillate;
     }
 
+
+    /**
+     * Gets a list of all casks with litersAvailable above litercapacity
+     * @param litercapacity minimum amount of liters that the casks has to have available
+     * @return casks with litersAvailable above litercapacity
+     */
     public static List<Cask> getCasksWithXLitersAvailable(double litercapacity) {
         ArrayList<Cask> caskAvailableForTransference = new ArrayList<>();
         for (Cask cask: storage.getCasks()) {
@@ -61,7 +68,7 @@ public abstract class Controller {
     /**
      * Finds warehouses that has atleast 1 rack where there is space for the Cask we're trying to add
      * @param cask we're checking for space for
-     * @return Warehouses where
+     * @return Warehouses where atleast 1 rack is available
      */
     public static List<Warehouse> getAvailableWarehouses(Cask cask) {
         List<Warehouse> warehouses = new ArrayList<>(storage.getWarehouses());
@@ -169,7 +176,7 @@ public abstract class Controller {
         storage.deleteCask(cask);
     }
 
-    /** Get all available casks */
+    /** Returns all casks not fully filled */
     public static ArrayList<Cask> getAvailableCasks() {
         ArrayList<Cask> availableCasks = new ArrayList<>();
         for (Cask cask: Controller.getCasks()) {
@@ -241,13 +248,17 @@ public abstract class Controller {
     }
 
     /**
-     * Create and return FillOnCask object
+     * Creates and returns a TapFromDistillate object
+     * Creates a fillOnCask object and connects it to the TapFromDistillate and cask
      * Connection is added to cask
      * Connection is added to DistillateFill
-     * If distillateFill is > sizeInLiters (Cask) throw an illegalArgumentException
+     * If sum of distillateFills amount in liters > sizeInLiters (Cask) throw an illegalArgumentException
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
+     * If total amount of distillateFills getAmountOfDistillateInLiters is above the Distillates amount
+     * throw IllegalArgumentException
      */
-    public static TapFromDistillate createTapFromDistillate(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) throws IllegalArgumentException {
+    public static TapFromDistillate createTapFromDistillate(LocalDate timeOfFill, Cask cask,
+                                                            ArrayList<DistillateFill> distillateFills) throws IllegalArgumentException {
         TapFromDistillate tapFromDistillate = new TapFromDistillate(timeOfFill, cask);
 
         double sum = 0;
@@ -263,7 +274,7 @@ public abstract class Controller {
         for (DistillateFill distillateFill: distillateFills) {
             Distillate distillate = distillateFill.getDistillate();
             if (distillate.getAmountInLiters() - distillateFill.getAmountOfDistillateInLiters() < 0) {
-                throw new IllegalArgumentException("Du prøver at påfylde mere distillat end tilgængeligt");
+                throw new IllegalArgumentException("Du prøver at påfylde mere destillat end tilgængeligt");
             }
             distillate.setAmountInLiters(distillate.getAmountInLiters() - distillateFill.getAmountOfDistillateInLiters());
         }
@@ -339,7 +350,7 @@ public abstract class Controller {
         return grain;
     }
 
-    /** Return all fields */
+    /** Return all grains */
     public static List<Grain> getGrains() {
         return storage.getGrains();
     }
@@ -456,15 +467,60 @@ public abstract class Controller {
         return storage.getCaskSuppliers();
     }
 
+
+    /**
+     * Takes a list of WhiskyFills and finds occurrences of unique casks and maltbatches
+     * @param whiskyFills that you want a whiskytype from
+     * @return A String with the type of whisky based on unique occurences of casks and maltbatches
+     * The Following returns are possible: "Single malt" (Only 1 unique maltbatch),
+     * "Single Cask" (Multiple maltbatches in 1 cask), "Blended" (Multiple casks with different maltbatches)
+     */
+    public static String getWhiskyType(List<WhiskyFill> whiskyFills) {
+        ArrayList<Cask> casks = new ArrayList<>();
+        ArrayList<Maltbatch> maltbatches = new ArrayList<>();
+
+        for (WhiskyFill whiskyFill: whiskyFills) {
+            for (TapFromDistillate tapFromDistillate: whiskyFill.getTapFromDestillates()) {
+                for (FillOnCask fillOnCask: tapFromDistillate.getFillOnCasks()) {
+                    if (!casks.contains(fillOnCask.getCask())) {
+                        casks.add(fillOnCask.getCask());
+                    }
+                }
+                for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
+                    for (Maltbatch maltbatch: distillateFill.getDistillate().getMaltbatches()) {
+                        if (!maltbatches.contains(maltbatch)) {
+                            maltbatches.add(maltbatch);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (maltbatches.size() == 1) {
+            return "Single Malt";
+        }
+
+        if (casks.size() == 1) {
+            return "Single Cask";
+        }
+
+        return "Blended";
+     }
+
     /**
      * Return a String containing the entire Story and process of a Whisky
      */
     public static String generateStoryForWhisky(Whisky whisky) {
         Stack<String> infoStrings = new Stack<>();
 
-        String whiskyInfo = "Navn: " + whisky.getName() + "\nTappet d. " + whisky.getWhiskyFills().get(0).getTimeOfFill() +
-                "\nFortyndet med " + whisky.getWaterInLiters() +
-                " liter vand \nBeskrivelse: " + whisky.getDescription();
+        String whiskyInfo = "Navn: " + whisky.getName()
+                + "\nTappet d. "
+                + whisky.getWhiskyFills().get(0).getTimeOfFill() +
+                "\nFortyndet med "
+                + whisky.getWaterInLiters() +
+                " liter vand \nBeskrivelse: "
+                + whisky.getDescription()
+                + "\nAlc %: " + whisky.calculateAlcoholPercentage();
 
         infoStrings.add(whiskyInfo);
 
@@ -483,7 +539,7 @@ public abstract class Controller {
     /**
      * Helper method for generateStoryForWhisky
      * Returns a full story of a Cask based on a Whisky's whiskyfills (Since a whiskyfill always has only 1 cask and
-     * the whiskyfill is connected to the FillOnCask (Which is the content we're interested in)
+     * the whiskyfill is connected to the TapFromDestillate (Which is the content we're interested in)
      * @param whisky we want a story from
      * @return String containing the story of all Casks on this Whisky
      */
@@ -506,82 +562,66 @@ public abstract class Controller {
             sb.append("\n - Land: " + cask.getSupplier().getCountry());
             sb.append("\n\n [Destillater fra dette fad]");
             sb.append("\n------------------------------------------");
-
-            for (TapFromDistillate tapFromDistillate: whiskyFill.getTapFromDestillates()) {
-                System.out.println(tapFromDistillate.getFillOnCasks().size());
-                for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
-                        Distillate distillate = distillateFill.getDistillate();
-                        if (tapFromDistillate.getFillOnCasks().size() == 1) {
-                            sb.append("\nDestillat: " + distillate.getNewMakeNr());
-                            sb.append("\nProcentdel af dette fad: " + tapFromDistillate.distillateShare().get(distillateFill));
-                            sb.append("\nPåfyldt: " + tapFromDistillate.getFirstTimeOfFill());
-                        } else {
-                                sb.append("\nDestillat: " + distillate.getNewMakeNr());
-                                sb.append("\n\n[Tidligere lagt på disse fade]");
-                                for (int i = 0; i < tapFromDistillate.getFillOnCasks().size()-1; i++) {
-                                    FillOnCask currentFillOnCask = tapFromDistillate.getFillOnCasks().get(i);
-                                    FillOnCask nextFillOnCask = tapFromDistillate.getFillOnCasks().get(i+1);
-                                    sb.append("\nFadID: " + currentFillOnCask.getCask().getCaskId());
-                                    sb.append("\nPåfyldt: " + currentFillOnCask.getTimeFill());
-                                    sb.append("\nOmhældt: " + nextFillOnCask.getTimeFill());
-                                }
-                                FillOnCask lastFill = tapFromDistillate.getFillOnCasks().get(tapFromDistillate.getFillOnCasks().size()-1);
-                                sb.append("\n\n[Lagt på dette fad]");
-                                sb.append("\nPåfyldt: " + lastFill.getTimeFill());
-                                sb.append("\nTil: " + LocalDate.now());
-                        }
-                        sb.append("\nMedarbejder: " + distillate.getEmployee());
-                        sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
-                        sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
-                        sb.append("\nBeskrivelse: " + distillate.getDescription());
-                        sb.append("\n\n     [Består af følgende maltbatches]");
-                        sb.append("\n       ------------------------------------------");
-                        for (Maltbatch maltbatch : distillate.getMaltbatches()) {
-                            Grain grain = maltbatch.getGrain();
-                            sb.append("\n       Maltbatch: " + maltbatch.getName());
-                            sb.append("\n       Beskrivelse:" + maltbatch.getDescription());
-                            sb.append("\n       [Korn Information]");
-                            sb.append("\n       Korntype: " + grain.getGrainType());
-                            sb.append("\n       Landmand: " + grain.getGrainSupplier().getName());
-                            sb.append("\n       Mark: " + grain.getField());
-                            sb.append("\n       Dyrkelsesmetode: " + grain.getCultivationDescription());
-                        }
-                    sb.append("\n-------------------------------------------------");
-                    }
-
-            /*
-            for (TapFromDistillate tapFromDistillate : whiskyFill.getTapFromDestillates()) {
-                for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
-                    Distillate distillate = distillateFill.getDistillate();
-                    sb.append("\nDestillat: " + distillate.getNewMakeNr());
-                    sb.append("\nProcentdel af dette fad: " + tapFromDistillate.distillateShare().get(distillateFill));
-                    sb.append("\nPåfyldt: " + tapFromDistillate.getFirstTimeOfFill());
-                    sb.append("\nMedarbejder: " + distillate.getEmployee());
-                    sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
-                    sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
-                    sb.append("\nBeskrivelse: " + distillate.getDescription());
-                    sb.append("\n\n[Består af følgende maltbatches]");
-                    sb.append("\n------------------------------------------");
-                    for (Maltbatch maltbatch: distillate.getMaltbatches()) {
-                        Grain grain = maltbatch.getGrain();
-                        sb.append("\nMaltbatch: " + maltbatch.getName());
-                        sb.append("\nBeskrivelse:" + maltbatch.getDescription());
-                        sb.append("\n[Korn Information]");
-                        sb.append("\nKorntype: " + grain.getGrainType());
-                        sb.append("\nLandmand: " + grain.getGrainSupplier().getName());
-                        sb.append("\nMark: " + grain.getField());
-                        sb.append("\nDyrkelsesmetode: " + grain.getCultivationDescription());
-                    }
-                }
-
-             */
-            }
+            sb.append(generateDistillateStory(whiskyFill));
             }
 
         return sb.toString();
     }
 
-    public static void createPutOnCask(Cask oldCask, Cask newCask) {
+    /**
+     * Helper method for getCasksStoryForWhisky()
+     * Generates an info string based on a whiskyfill and classes connected to it
+     * @param whiskyFill you want info about
+     * @return A string with info about a Whiskyfills: Distillates, DistillateFill
+     */
+    private static String generateDistillateStory(WhiskyFill whiskyFill) {
+        StringBuilder sb = new StringBuilder();
+        for (TapFromDistillate tapFromDistillate: whiskyFill.getTapFromDestillates()) {
+            for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
+                Distillate distillate = distillateFill.getDistillate();
+                if (tapFromDistillate.getFillOnCasks().size() == 1) {
+                    sb.append("\nDestillat: " + distillate.getNewMakeNr());
+                    sb.append("\nProcentdel af dette fad: " + tapFromDistillate.distillateShare().get(distillateFill));
+                    sb.append("\nPåfyldt: " + tapFromDistillate.getFirstTimeOfFill());
+                } else {
+                    sb.append("\nDestillat: " + distillate.getNewMakeNr());
+                    sb.append("\n\n[Tidligere lagt på disse fade]");
+                    for (int i = 0; i < tapFromDistillate.getFillOnCasks().size()-1; i++) {
+                        FillOnCask currentFillOnCask = tapFromDistillate.getFillOnCasks().get(i);
+                        FillOnCask nextFillOnCask = tapFromDistillate.getFillOnCasks().get(i+1);
+                        sb.append("\nFadID: " + currentFillOnCask.getCask().getCaskId());
+                        sb.append("\nPåfyldt: " + currentFillOnCask.getTimeFill());
+                        sb.append("\nOmhældt: " + nextFillOnCask.getTimeFill());
+                    }
+                    FillOnCask lastFill = tapFromDistillate.getFillOnCasks().get(tapFromDistillate.getFillOnCasks().size()-1);
+                    sb.append("\n\n[Lagt på dette fad]");
+                    sb.append("\nPåfyldt: " + lastFill.getTimeFill());
+                    sb.append("\nTil: " + LocalDate.now());
+                }
+                sb.append("\nMedarbejder: " + distillate.getEmployee());
+                sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
+                sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
+                sb.append("\nBeskrivelse: " + distillate.getDescription());
+                sb.append("\n\n     [Består af følgende maltbatches]");
+                sb.append("\n       ------------------------------------------");
+                for (Maltbatch maltbatch : distillate.getMaltbatches()) {
+                    Grain grain = maltbatch.getGrain();
+                    sb.append("\n       Maltbatch: " + maltbatch.getName());
+                    sb.append("\n       Beskrivelse:" + maltbatch.getDescription());
+                    sb.append("\n       [Korn Information]");
+                    sb.append("\n       Korntype: " + grain.getGrainType());
+                    sb.append("\n       Landmand: " + grain.getGrainSupplier().getName());
+                    sb.append("\n       Mark: " + grain.getField());
+                    sb.append("\n       Dyrkelsesmetode: " + grain.getCultivationDescription());
+                }
+                sb.append("\n-------------------------------------------------");
+            }
+        }
+        return sb.toString();
+    }
+
+    /** Creates a Transference by moving all currentFillOnCask from oldcask */
+    public static void createTransference(Cask oldCask, Cask newCask) {
         List<FillOnCask> fillOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentFillOnCasks());
 
         for (int i = 0; i < fillOnCaskFromOldCask.size(); i++) {

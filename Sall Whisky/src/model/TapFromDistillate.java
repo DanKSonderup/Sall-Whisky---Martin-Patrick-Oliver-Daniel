@@ -47,7 +47,7 @@ public class TapFromDistillate implements Serializable {
         distillateFills.add(distillateFill);
     }
 
-    /** Calculates and returns the alcohol percentage in fillOnCask */
+    /** Calculates and returns the alcohol percentage in distillateFills */
     public double calculateAlcoholPercentage() {
         double alcoholPercentage = 0;
         double totalFluids = 0;
@@ -74,21 +74,6 @@ public class TapFromDistillate implements Serializable {
             map.put(fill, share);
         }
         return map;
-    }
-
-    /**
-     * Finds a fillOnCask on TapFromDistillate that is connected to the cask param
-     * If no connection to the cask is found, returns null
-     * @param cask that you want to find a fillOnCask connected to it
-     * @return The first fillOnCask connected to the selected cask
-     */
-    public FillOnCask getFillOnCaskForCask(Cask cask) {
-        for (FillOnCask fillOnCask: fillOnCasks) {
-            if (fillOnCask.getCask().equals(cask)) {
-                return fillOnCask;
-            }
-        }
-        return null;
     }
 
     @Override
