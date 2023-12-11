@@ -66,8 +66,6 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // lvwMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        // lvwDistillates.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
         lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
         lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
@@ -91,13 +89,17 @@ public class CRUDDistilleryAndFillController implements Initializable {
     @FXML
     void btnCreateDistillateOnAction() {
         String newMakenr = txfNewMakeNo.getText().trim();
+        Maltbatch maltbatch = lvwMaltbatches.getSelectionModel().getSelectedItem();
         double distillationTime;
         double alcoholPercentage;
         double amountInLiters;
         String employee = txfEmployee.getText().trim();
+        if (maltbatch == null) {
+            lvwMaltbatches.setStyle("-fx-border-color: red;");
+            return;
+        }
         List<Maltbatch> maltBatches = new ArrayList<>();
         maltBatches.add(lvwMaltbatches.getSelectionModel().getSelectedItem());
-        // List<Maltbatch> maltBatches = lvwMaltbatches.getSelectionModel().getSelectedItems();
 
         distillationTime = txfParseDouble(txfDistillationTime);
         alcoholPercentage = txfParseDouble(txfAlcoholpercentage);
@@ -120,13 +122,6 @@ public class CRUDDistilleryAndFillController implements Initializable {
             txfEmployee.setStyle("-fx-border-color: red;");
             return;
         }
-        /*
-        if (maltBatches.isEmpty()) {
-            lvwMaltbatches.setStyle("-fx-border-color: red;");
-            return;
-        }
-
-         */
         String description = txaDescription.getText().trim();
 
         Controller.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches, description);
