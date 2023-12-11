@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CRUDDistilleryAndFillController implements Initializable {
@@ -65,8 +66,8 @@ public class CRUDDistilleryAndFillController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lvwMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        lvwDistillates.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        // lvwMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        // lvwDistillates.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
         lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
         lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
@@ -94,7 +95,9 @@ public class CRUDDistilleryAndFillController implements Initializable {
         double alcoholPercentage;
         double amountInLiters;
         String employee = txfEmployee.getText().trim();
-        ObservableList<Maltbatch> maltBatches = lvwMaltbatches.getSelectionModel().getSelectedItems();
+        List<Maltbatch> maltBatches = new ArrayList<>();
+        maltBatches.add(lvwMaltbatches.getSelectionModel().getSelectedItem());
+        // List<Maltbatch> maltBatches = lvwMaltbatches.getSelectionModel().getSelectedItems();
 
         distillationTime = txfParseDouble(txfDistillationTime);
         alcoholPercentage = txfParseDouble(txfAlcoholpercentage);
@@ -117,10 +120,13 @@ public class CRUDDistilleryAndFillController implements Initializable {
             txfEmployee.setStyle("-fx-border-color: red;");
             return;
         }
+        /*
         if (maltBatches.isEmpty()) {
             lvwMaltbatches.setStyle("-fx-border-color: red;");
             return;
         }
+
+         */
         String description = txaDescription.getText().trim();
 
         Controller.createDistillate(newMakenr, distillationTime, alcoholPercentage, amountInLiters, employee, maltBatches, description);
@@ -174,6 +180,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         alert.setContentText("En påfyldning af " + amountInLiters + " liter er blevet påfyldt på fadID: " + cask.getCaskId());
         alert.show();
         clearErrorMarkings();
+        clearCreateDistillateFillFields();
         updateControls();
     }
 
@@ -225,6 +232,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         txfAlcoholpercentage.setStyle("-fx-border-color: transparent;");
         txfAmountToPutOnCaskInLiters.setStyle("-fx-border-color: transparent;");
         txfDistillationTime.setStyle("-fx-border-color: transparent;");
+        lvwMaltbatches.setStyle("-fx-border-color: transparent;");
     }
 
     /** Updates the listviews */
@@ -241,5 +249,10 @@ public class CRUDDistilleryAndFillController implements Initializable {
         txfSmokingMaterial.clear();
         txfNewMakeNo.clear();
         txfAmountOfDistillateInLiters.clear();
+        txaDescription.clear();
+    }
+
+    private void clearCreateDistillateFillFields() {
+        txfAmountToPutOnCaskInLiters.clear();
     }
 }

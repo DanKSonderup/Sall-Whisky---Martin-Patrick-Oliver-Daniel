@@ -2,11 +2,9 @@ package storage;
 
 import controller.Storage;
 import model.*;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Serializable;
 
 public class ListStorage implements Storage, Serializable {
     private final List<Cask> casks = new ArrayList<>();
@@ -163,7 +161,7 @@ public class ListStorage implements Storage, Serializable {
     // ---------------------------------------------------------------------
 
     public static ListStorage loadStorage() {
-        String fileName = "Sall Whisky/src/storageData.ser";
+        String fileName = "Sall Whisky/src/storage.ser";
         try (FileInputStream fileIn = new FileInputStream(fileName);
              ObjectInputStream objIn = new ObjectInputStream(fileIn)
         ) {
@@ -178,7 +176,7 @@ public class ListStorage implements Storage, Serializable {
         }
     }
     public static void saveStorage(Storage storage) {
-        String fileName = "Sall Whisky/src/storageData.ser";
+        String fileName = "Sall Whisky/src/storage.ser";
         try (FileOutputStream fileOut = new FileOutputStream(fileName);
              ObjectOutputStream objOut = new ObjectOutputStream(fileOut)
         ) {

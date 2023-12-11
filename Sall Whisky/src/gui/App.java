@@ -19,17 +19,19 @@ public class App {
             System.out.println("Empty ListStorage created");
         }
         Controller.setStorage(storage);
+        /*
         if (Controller.getGrainSuppliers().isEmpty()) {
             initStorage();
             System.out.println("Storage initialized");
         }
 
-        // Application.launch(Gui.class);
+         */
 
-        // ListStorage.saveStorage(storage);
+        Application.launch(Gui.class);
+
+        ListStorage.saveStorage(storage);
     }
 
-    // Bare til at teste, skal fjernes da vi jo bruger serialization
     public static void initStorage() {
         CaskSupplier cs1 = Controller.createCaskSupplier("CaskTest1", "CaskVej1", "Caskland", "123");
         Controller.createCaskSupplier("CaskTest2", "CaskVej2", "Caskland", "125");
@@ -45,7 +47,7 @@ public class App {
         Grain g1 = Controller.createGrain("Byg", gs1, "Korn lavet i initStorage", f1);
         Grain g2 = Controller.createGrain("Hvede", gs1, "Korn lavet i initStorage", f1);
 
-        Maltbatch m1 = Controller.createMaltbatch("nvm4949", "jeg er hoar", g1);
+        Maltbatch m1 = Controller.createMaltbatch("H8292", "jeg er hoar", g1);
         Maltbatch m2 = Controller.createMaltbatch("MB2018", "En stærk rygning", g1);
         List<Maltbatch> mList1 = new ArrayList<>();
         mList1.add(m1);

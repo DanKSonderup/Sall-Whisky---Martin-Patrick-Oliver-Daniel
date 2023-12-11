@@ -71,10 +71,12 @@ public abstract class Controller {
             if (warehouses.get(i).isFilled()) {
                 warehouses.remove(warehouses.get(i));
                 i--;
+
             } else if (getAvailableRacks(warehouses.get(i), cask).isEmpty()) {
                 warehouses.remove(warehouses.get(i));
                 i--;
             }
+
         }
         return warehouses;
     }
