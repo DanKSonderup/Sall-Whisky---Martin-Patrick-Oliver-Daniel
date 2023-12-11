@@ -17,6 +17,7 @@ public class ListStorage implements Storage, Serializable {
     private final List<Field> fields = new ArrayList<>();
     private final List<WhiskyBottle> whiskyBottles = new ArrayList<>();
     private final List<Whisky> whiskies = new ArrayList<>();
+    private final List<WhiskyFill> whiskyFills = new ArrayList<>();
     private StorageCounter storageCounter = new StorageCounter();
 
     // ---------------------------------------------------------------------
@@ -141,6 +142,16 @@ public class ListStorage implements Storage, Serializable {
     @Override
     public void storeWhiskyBottle(WhiskyBottle whiskyBottle) {
         whiskyBottles.add(whiskyBottle);
+    }
+
+    @Override
+    public List<WhiskyFill> getWhiskyFills() {
+        return whiskyFills;
+    }
+
+    @Override
+    public void storeWhiskyFill(WhiskyFill whiskyFill) {
+        whiskyFills.add(whiskyFill);
     }
 
     // ---------------------------------------------------------------------

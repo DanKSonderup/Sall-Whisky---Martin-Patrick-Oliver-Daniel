@@ -80,6 +80,12 @@ public interface Storage {
     List<WhiskyBottle> getWhiskyBottles();
     void storeWhiskyBottle(WhiskyBottle whiskyBottle);
 
+
+    /** WhiskyFill */
+    // ---------------------------------------------------------------------
+    List<WhiskyFill> getWhiskyFills();
+    void storeWhiskyFill(WhiskyFill whiskyFill);
+
     // ---------------------------------------------------------------------
     /** Whisky */
     // ---------------------------------------------------------------------

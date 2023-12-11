@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import storage.ListStorage;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -186,6 +187,10 @@ public abstract class Controller {
     public static List<Whisky> getWhiskies() {
         return new ArrayList<>(storage.getWhiskies());
     }
+
+    public static List<WhiskyFill> getWhiskyFills() {
+        return new ArrayList<>(storage.getWhiskyFills());
+    }
     public static List<GrainSupplier> getGrainSuppliers() {
         return storage.getGrainSuppliers();
     }
@@ -216,6 +221,7 @@ public abstract class Controller {
         storage.storeCask(cask);
         position.addCask(cask);
         notifyObserver();
+        // ListStorage.saveStorage(storage);
         return cask;
     }
 
@@ -438,6 +444,7 @@ public abstract class Controller {
                 }
             }
         cask.setCurrentContentInLiters(cask.getCurrentContentInLiters() - amountOfDistilateFillInLiters);
+        storage.storeWhiskyFill(whiskyFill);
         return whiskyFill;
     }
 

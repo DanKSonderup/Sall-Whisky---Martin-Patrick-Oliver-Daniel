@@ -48,23 +48,23 @@
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Button>
-      <ListView fx:id="lvwWarehouse" layoutX="625.0" layoutY="91.0" prefHeight="289.0" prefWidth="60.0" />
-      <ListView fx:id="lvwRack" layoutX="685.0" layoutY="91.0" prefHeight="289.0" prefWidth="60.0" />
-      <ListView fx:id="lvwShelf" layoutX="745.0" layoutY="91.0" prefHeight="289.0" prefWidth="60.0" />
-      <ListView fx:id="lvwPosition" layoutX="805.0" layoutY="91.0" prefHeight="289.0" prefWidth="60.0" />
-      <Label layoutX="639.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Lager">
+      <ListView fx:id="lvwWarehouse" layoutX="601.0" layoutY="91.0" prefHeight="289.0" prefWidth="78.0" />
+      <ListView fx:id="lvwRack" layoutX="679.0" layoutY="91.0" prefHeight="289.0" prefWidth="78.0" />
+      <ListView fx:id="lvwShelf" layoutX="757.0" layoutY="91.0" prefHeight="289.0" prefWidth="78.0" />
+      <ListView fx:id="lvwPosition" layoutX="835.0" layoutY="91.0" prefHeight="289.0" prefWidth="78.0" />
+      <Label layoutX="624.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Lager">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="702.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Reol">
+      <Label layoutX="705.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Reol">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="758.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Hylde">
+      <Label layoutX="779.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Hylde">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="820.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Plads">
+      <Label layoutX="859.0" layoutY="63.0" styleClass="listview" stylesheets="@../CRUDRawMaterialsCSS.css" text="Plads">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font></Label>

@@ -51,7 +51,6 @@ public class CreateWhiskyViewController implements Initializable {
     private TextField txfWaterForDilution;
     @FXML
     private TextField txfWhiskyName;
-    private final List<WhiskyFill> whiskyFills = new ArrayList<>();
     private WhiskyFill whiskyFill;
     private Whisky whisky;
 
@@ -67,6 +66,7 @@ public class CreateWhiskyViewController implements Initializable {
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
         tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestTapFromDistillate"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
+        lvwWhiskybatch.getItems().setAll(Controller.getWhiskyFills());
         updateRipeCasks();
     }
 
@@ -88,12 +88,17 @@ public class CreateWhiskyViewController implements Initializable {
             return;
         }
 
+        if (lvwWhiskybatch.getItems().size() == 0) {
+            showErrorWindow("Ingen batch", "Du har ingen whiskybatches");
+        }
+
         String name = txfWhiskyName.getText().trim();
         String description = txaDescriptionOfWhisky.getText().trim();
-        whisky = new Whisky(name, waterInLiters, whiskyFills, description);
+        whisky = new Whisky(name, waterInLiters, lvwWhiskybatch.getItems(), description);
         int amountOfBottles = Controller.amountOfBottles(whisky, sizeOfBottle);
         lblAmountOfBottles.setText("" + amountOfBottles);
         btnCreateWhisky.setDisable(false);
+        lvwWhiskybatch.getItems().setAll(Controller.getWhiskyFills());
         clearErrorMarkings();
     }
 
@@ -113,7 +118,7 @@ public class CreateWhiskyViewController implements Initializable {
             return;
         }
         String description = txaDescriptionOfWhisky.getText().trim();
-        whisky = Controller.createWhisky(name, waterInLiters, new ArrayList<>(whiskyFills), description);
+        whisky = Controller.createWhisky(name, waterInLiters, new ArrayList<>(lvwWhiskybatch.getItems()), description);
 
         Controller.createWhiskyBottlesForWhisky(amountOfBottles, sizeOfBottle, whisky);
 
@@ -161,13 +166,13 @@ public class CreateWhiskyViewController implements Initializable {
             showErrorWindow("Påfyldningsfejl", e.getMessage());
             return;
         }
-        whiskyFills.add(whiskyFill);
+
         tvwRipeCasks.getItems().removeAll();
         updateRipeCasks();
         updatelvwWhiskyFillReadyForFill();
         updateContentOfWhisky(whiskyFill.toString());
         btnCreateWhisky.setDisable(true);
-        lblTypeOfWhisky.setText(Controller.getWhiskyType(whiskyFills));
+        lblTypeOfWhisky.setText(Controller.getWhiskyType(lvwWhiskybatch.getItems()));
         clearErrorMarkings();
     }
 
@@ -214,7 +219,6 @@ public class CreateWhiskyViewController implements Initializable {
         txfWaterForDilution.clear();
         txaContentOfWhisky.clear();
         txaDescriptionOfWhisky.clear();
-        whiskyFills.clear();
         lblAmountOfBottles.setText("" + 0);
         lblTypeOfWhisky.setText("");
         cbbBottleSizeInCl.valueProperty().set(null);
@@ -222,10 +226,10 @@ public class CreateWhiskyViewController implements Initializable {
 
     /** Updates the listview with the whisky fills ready for fill */
     private void updatelvwWhiskyFillReadyForFill() {
-        if (whiskyFills.isEmpty()) {
+        if (lvwWhiskybatch.getItems().isEmpty()) {
             return;
         }
-        lvwWhiskybatch.getItems().setAll(whiskyFills);
+        lvwWhiskybatch.getItems().setAll(Controller.getWhiskyFills());
     }
 
     /** Updates the content of the whisky */
@@ -237,5 +241,6 @@ public class CreateWhiskyViewController implements Initializable {
     /** Updates the tableview with the ripe casks */
     private void updateRipeCasks() {
         tvwRipeCasks.getItems().setAll(Controller.getRipeCasks());
+        lvwWhiskybatch.getItems().setAll(Controller.getWhiskyFills());
     }
 }
