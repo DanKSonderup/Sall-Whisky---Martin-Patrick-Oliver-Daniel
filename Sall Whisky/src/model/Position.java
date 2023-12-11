@@ -37,7 +37,6 @@ public class Position implements Observer, Serializable {
             isFilled = true;
         } else {
             isFilled = false;
-            Controller.notifyObserver();
         }
     }
     public boolean isFilled() {
