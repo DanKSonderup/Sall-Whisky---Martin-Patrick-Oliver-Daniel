@@ -62,9 +62,6 @@ public class CreateCaskViewController implements Initializable {
     @FXML
     private TextField txfSizeInLiters;
     private ArrayList<Cask> createdCasts = new ArrayList<>();
-    private Warehouse currentlySelectedWarehouse;
-    private Rack currentlySelectedRack;
-    private Shelf currentlySelectedShelf;
     private double currentSizeInLiters;
     private Cask cask;
 
@@ -77,26 +74,19 @@ public class CreateCaskViewController implements Initializable {
     /** Uses eventListeners to update the listviews */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ChangeListener<Warehouse> warehouseChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        ChangeListener<Warehouse> warehouseChangeListener = (ov, o, n) -> this.selectedWarehouseChanged();
         lvwWarehouse.getSelectionModel().selectedItemProperty().addListener(warehouseChangeListener);
 
-        ChangeListener<Rack> rackChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        ChangeListener<Rack> rackChangeListener = (ov, o, n) -> this.selectedRackChanged();
         lvwRack.getSelectionModel().selectedItemProperty().addListener(rackChangeListener);
 
-        ChangeListener<Shelf> shelfChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        ChangeListener<Shelf> shelfChangeListener = (ov, o, n) -> this.selectedShelfChanged();
         lvwShelf.getSelectionModel().selectedItemProperty().addListener(shelfChangeListener);
-
-        ChangeListener<Position> positionChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
-        lvwPosition.getSelectionModel().selectedItemProperty().addListener(positionChangeListener);
 
         lvwCaskSupplier.getItems().setAll(Controller.getCaskSuppliers());
 
         lvwCaskSupplier.getSelectionModel().selectedIndexProperty().addListener((o, ov, nv) -> {
             lvwCaskSupplier.setStyle("-fx-border-color: transparent;");
-        });
-
-        lvwPosition.getSelectionModel().selectedIndexProperty().addListener((o, ov, nv) -> {
-            lvwPosition.setStyle("-fx-border-color: transparent;");
         });
 
         columnID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
@@ -170,38 +160,35 @@ public class CreateCaskViewController implements Initializable {
         }
     }
 
-    /** Handles change in the selected storage items in the interface
+    /** Handles change in the selected warehouse in the UI
      * Updates listviews based on selection */
-    public void selectedStorageItemChanged() {
+    public void selectedWarehouseChanged() {
+        Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();
+        if (selectedWarehouse != null) {
+            lvwRack.getItems().setAll(Controller.getAvailableRacks(selectedWarehouse, cask));
+            lvwShelf.getItems().clear();
+            lvwPosition.getItems().clear();
+        }
+    }
 
-         Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();
-         Rack selectedRack = lvwRack.getSelectionModel().getSelectedItem();
-         Shelf selectedShelf = lvwShelf.getSelectionModel().getSelectedItem();
+    /** Handles change in the selected rack in the UI
+     * Updates listviews based on selection */
+    public void selectedRackChanged() {
+        Rack selectedRack = lvwRack.getSelectionModel().getSelectedItem();
+        if (selectedRack != null) {
+            lvwShelf.getItems().setAll(Controller.getAvailableShelves(selectedRack, cask));
+            lvwPosition.getItems().clear();
+        }
+    }
 
-         if (selectedWarehouse == null) return;
-         if (selectedWarehouse != currentlySelectedWarehouse) {
-             currentlySelectedWarehouse = selectedWarehouse;
-             lvwRack.getItems().setAll(Controller.getAvailableRacks(currentlySelectedWarehouse, cask));
-             lvwShelf.getItems().clear();
-             lvwPosition.getItems().clear();
-             return;
-         }
-         if (selectedRack != currentlySelectedRack) {
-             currentlySelectedRack = selectedRack;
-             lvwShelf.getItems().clear();
-             lvwPosition.getItems().clear();
-             if (selectedRack != null) {
-                 lvwShelf.getItems().setAll(Controller.getAvailableShelves(currentlySelectedRack, cask));
-             }
-             return;
-         }
-         if (selectedShelf != currentlySelectedShelf) {
-             lvwPosition.getItems().removeAll();
-             if (selectedShelf != null) {
-                 currentlySelectedShelf = selectedShelf;
-                 lvwPosition.getItems().setAll(Controller.getAvailablePositions(currentlySelectedShelf, cask));
-             }
-         }
+    /** Handles change in the selected Shelf in the UI
+     * Updates listviews based on selection */
+    public void selectedShelfChanged() {
+        Shelf selectedShelf = lvwShelf.getSelectionModel().getSelectedItem();
+        if (selectedShelf != null) {
+            System.out.println(selectedShelf);
+            lvwPosition.getItems().setAll(Controller.getAvailablePositions(selectedShelf, cask));
+        }
     }
 
     /** Clears the listviews */

@@ -69,9 +69,17 @@ public class CreateTransferenceController implements Initializable {
 
     /** Creates a new PutOnCask object and updates the controls */
     @FXML
-    void btnTransferenceOnAction(ActionEvent event) {
+    void btnTransferenceOnAction() {
         Cask oldCask = tvwCasksWithDestillate.getSelectionModel().getSelectedItem();
         Cask newCask = tvwAvailableCasksForTransference.getSelectionModel().getSelectedItem();
+        if (oldCask == null) {
+            tvwCasksWithDestillate.setStyle("-fx-border-color: red;");
+            return;
+        }
+        if (newCask == null) {
+            tvwAvailableCasksForTransference.setStyle("-fx-border-color: red;");
+            return;
+        }
 
         Controller.createTransference(oldCask, newCask);
         updateControls();
@@ -84,8 +92,8 @@ public class CreateTransferenceController implements Initializable {
         tbcCaskID1.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
         tbcAlcoholPercentage1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
-        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
-        tbcAge1.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestTapFromDistillate"));
+        tbcAge1.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestTapFromDistillate"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         tbcTotalLitersOfFills1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("LitersAvailable"));
 
