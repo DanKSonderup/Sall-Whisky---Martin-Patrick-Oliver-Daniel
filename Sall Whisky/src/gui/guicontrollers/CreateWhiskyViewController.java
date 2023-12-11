@@ -173,7 +173,6 @@ public class CreateWhiskyViewController implements Initializable {
 
         lblTypeOfWhisky.setText(Controller.getWhiskyType(whiskyFills));
 
-
         clearErrorMarkings();
     }
 
@@ -244,7 +243,6 @@ public class CreateWhiskyViewController implements Initializable {
     /** Initializes the controls */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // updatelvwWhiskyFillReadyForFill();
         Integer bottleSize[] = {50, 75, 100, 120};
         cbbBottleSizeInCl.setItems(FXCollections.observableArrayList(bottleSize));
 

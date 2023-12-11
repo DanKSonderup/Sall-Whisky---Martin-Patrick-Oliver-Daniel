@@ -609,7 +609,7 @@ public abstract class Controller {
         return sb.toString();
     }
 
-    public static void createPutOnCask(Cask oldCask, Cask newCask) {
+    public static void createTransference(Cask oldCask, Cask newCask) {
         List<FillOnCask> fillOnCaskFromOldCask = new ArrayList<>(oldCask.getCurrentFillOnCasks());
 
         for (int i = 0; i < fillOnCaskFromOldCask.size(); i++) {

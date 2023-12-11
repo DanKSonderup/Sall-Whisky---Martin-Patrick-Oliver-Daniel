@@ -91,7 +91,7 @@
             <TableColumn fx:id="columnPosition" prefWidth="75.0" text="Plads" />
         </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="431.0" layoutY="442.0" prefHeight="52.0" text="Oprettede fad">
+      <Label alignment="CENTER" layoutX="424.0" layoutY="442.0" prefHeight="52.0" text="Oprettede fade">
          <font>
             <Font name="Century Gothic Bold" size="24.0" />
          </font>

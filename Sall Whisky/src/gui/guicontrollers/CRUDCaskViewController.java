@@ -79,7 +79,7 @@ public class CRUDCaskViewController implements Initializable {
 
     /** Initializes the stage and scene for the createCaskView */
     @FXML
-    void btnCreateCaskOnAction(ActionEvent event) throws IOException {
+    void btnCreateCaskOnAction() throws IOException {
         URL url = new File("Sall Whisky/src/gui/views/CreateCaskView.fxml").toURI().toURL();
         Parent root1 = FXMLLoader.load(url);
         Stage stage = new Stage();
@@ -97,7 +97,7 @@ public class CRUDCaskViewController implements Initializable {
      * prompt the user with that info and abort deletion
      */
     @FXML
-    void btnDeleteCaskOnAction(ActionEvent event) {
+    void btnDeleteCaskOnAction() {
         Cask cask = tvwCasks.getSelectionModel().getSelectedItem();
         if (tvwCasks.getSelectionModel().isEmpty()) {
             tvwCasks.setStyle("-fx-border-color: red;");
@@ -127,7 +127,7 @@ public class CRUDCaskViewController implements Initializable {
 
     /** Initializes the stage and scene for the createTransferenceView */
     @FXML
-    void btnTransferenceOnAction(ActionEvent event) throws IOException {
+    void btnTransferenceOnAction() throws IOException {
         URL url = new File("Sall Whisky/src/gui/views/CreateTransferenceView.fxml").toURI().toURL();
         Parent root1 = FXMLLoader.load(url);
         Stage stage = new Stage();

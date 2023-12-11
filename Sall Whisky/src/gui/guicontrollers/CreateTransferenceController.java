@@ -73,7 +73,7 @@ public class CreateTransferenceController implements Initializable {
         Cask oldCask = tvwCasksWithDestillate.getSelectionModel().getSelectedItem();
         Cask newCask = tvwAvailableCasksForTransference.getSelectionModel().getSelectedItem();
 
-        Controller.createPutOnCask(oldCask, newCask);
+        Controller.createTransference(oldCask, newCask);
         updateControls();
     }
 

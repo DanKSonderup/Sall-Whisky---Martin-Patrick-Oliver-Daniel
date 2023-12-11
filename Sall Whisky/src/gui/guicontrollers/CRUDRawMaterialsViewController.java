@@ -100,10 +100,6 @@ public class CRUDRawMaterialsViewController implements Initializable {
         cbbPickGrainSupplier.valueProperty().addListener((o, ov, nv) -> {
             cbbPickGrainSupplier.setStyle("-fx-border-color: transparent;");
         });
-
-        /**
-         * If no field (or grain) is selected, have the delete button be disabled
-         */
     }
 
 
@@ -131,7 +127,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Update the listview.
      */
     @FXML
-    void btnUpdateFieldOnAction(ActionEvent event) {
+    void btnUpdateFieldOnAction() {
         boolean missingInfo = false;
         if (lvwFields.getSelectionModel().isEmpty()) {
             missingInfo = true;
@@ -160,7 +156,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Checks all grain to see if the field is connected to any, if so, abort deletion
      */
     @FXML
-    void btnDeleteFieldOnAction(ActionEvent event) {
+    void btnDeleteFieldOnAction() {
         Field field = lvwFields.getSelectionModel().getSelectedItem();
         if (lvwFields.getSelectionModel().isEmpty()) {
             lvwFields.setStyle("-fx-border-color: red;");
@@ -190,7 +186,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * If no field selected, prompt user to select a field
      */
     @FXML
-    void btnCreateGrainOnAction(ActionEvent event) {
+    void btnCreateGrainOnAction() {
         boolean missingInfo = false;
         if (lvwFields.getSelectionModel().isEmpty()) {
             missingInfo = true;
@@ -225,7 +221,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
      * Update the listview.
      */
     @FXML
-    void btnUpdateGrainOnAction(ActionEvent event) {
+    void btnUpdateGrainOnAction() {
         boolean missingInfo = false;
         if (lvwGrains.getSelectionModel().isEmpty()) {
             missingInfo = true;

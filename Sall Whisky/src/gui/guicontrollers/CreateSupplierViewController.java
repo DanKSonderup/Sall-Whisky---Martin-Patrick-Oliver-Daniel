@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CreateSupplierViewController implements Initializable {
-
     private Stage stage;
     private Scene scene;
     @FXML
@@ -106,7 +105,7 @@ public class CreateSupplierViewController implements Initializable {
         if (address.isEmpty()) {
             txfAddress.setStyle("-fx-border-color: red;");
             txfAddress.setOnMouseClicked(e -> {
-                txfAddress.setStyle("-fx-border-color: transparent;");});
+            txfAddress.setStyle("-fx-border-color: transparent;");});
         }
         if (country.isEmpty()) {
             txfCountry.setStyle("-fx-border-color: red;");
@@ -152,7 +151,7 @@ public class CreateSupplierViewController implements Initializable {
     private boolean canParseToInteger(TextField txf) {
         boolean cannotParse = false;
         try {
-            double returnValue = Integer.parseInt(txf.getText().trim());
+            Integer.parseInt(txf.getText().trim());
         } catch (NumberFormatException exception) {
             cannotParse = true;
             txf.setStyle("-fx-border-color: red;");

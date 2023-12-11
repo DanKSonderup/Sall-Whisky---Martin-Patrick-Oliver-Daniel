@@ -21,9 +21,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CreateCaskViewController implements Initializable {
-//        private Supplier supplier;
-
-
     @FXML
     private Button btnCreateCask;
     @FXML
