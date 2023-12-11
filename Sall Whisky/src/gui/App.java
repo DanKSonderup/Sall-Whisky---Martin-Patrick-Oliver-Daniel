@@ -8,6 +8,7 @@ import storage.ListStorage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -45,7 +46,9 @@ public class App {
         Grain g2 = Controller.createGrain("Hvede", gs1, "Korn lavet i initStorage", f1);
 
         Maltbatch m1 = Controller.createMaltbatch("nvm4949", "jeg er hoar", g1);
-
+        Maltbatch m2 = Controller.createMaltbatch("MB2018", "En stærk rygning", g1);
+        List<Maltbatch> mList1 = new ArrayList<>();
+        mList1.add(m1);
 
         Warehouse w1 = Controller.createWarehouse("Lager1");
         Warehouse w2 = Controller.createWarehouse("Lager2");
@@ -70,7 +73,7 @@ public class App {
 
         Cask mainCask = Controller.createCask("Frankrig", 50, "Bourbon", p1, cs1);
 
-        Distillate testD = Controller.createDistillate("Idk", 20, 50, 50, "Hans", Controller.getMaltbatches(), "Destilleret 2 gange");
+        Distillate testD = Controller.createDistillate("Idk", 20, 50, 50, "Hans", mList1, "Destilleret 2 gange");
         Distillate testD2 = Controller.createDistillate("Test2", 20, 50, 50, "Hans", Controller.getMaltbatches(), "Destilleret 2 gange");
 
 
@@ -82,6 +85,7 @@ public class App {
 
 
         Cask mainCask2 = Controller.createCask("Italien", 70, "Bourbon", p2, cs1);
+
 
 
 

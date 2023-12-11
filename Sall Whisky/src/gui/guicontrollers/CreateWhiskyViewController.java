@@ -167,24 +167,10 @@ public class CreateWhiskyViewController implements Initializable {
         btnCreateWhisky.setDisable(true);
 
 
+        lblTypeOfWhisky.setText(Controller.getWhiskyType(whiskyFills));
 
-        if (whiskyFills.size() > 1 && haveDuplicate(whiskyFills)) {
-            lblTypeOfWhisky.setText("Blended");
-        } else {
-            lblTypeOfWhisky.setText("Single malt");
-        }
+
         clearErrorMarkings();
-    }
-
-    public static boolean haveDuplicate(List<WhiskyFill> whiskyFills) {
-        for (int i = 0; i < whiskyFills.size() - 1; i++) {
-            WhiskyFill current = whiskyFills.get(i);
-            WhiskyFill next = whiskyFills.get(i + 1);
-            if (!current.getCask().equals(next.getCask())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void showErrorWindow(String header, String content) {

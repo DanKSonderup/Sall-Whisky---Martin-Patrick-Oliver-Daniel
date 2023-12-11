@@ -456,6 +456,46 @@ public abstract class Controller {
         return storage.getCaskSuppliers();
     }
 
+
+    /**
+     * Takes a list of WhiskyFills and finds occurences of unique casks and maltbatches
+     * @param whiskyFills that you want a whiskytype from
+     * @return A String with the type of whisky based on unique occurences of casks and maltbatches
+     * The Following returns are possible: "Single malt" (Only 1 unique maltbatch),
+     * "Single Cask" (Multiple maltbatches in 1 cask), "Blended" (Multiple casks with different maltbatches)
+     */
+    public static String getWhiskyType(List<WhiskyFill> whiskyFills) {
+        ArrayList<Cask> casks = new ArrayList<>();
+        ArrayList<Maltbatch> maltbatches = new ArrayList<>();
+
+        for (WhiskyFill whiskyFill: whiskyFills) {
+            for (TapFromDistillate tapFromDistillate: whiskyFill.getTapFromDestillates()) {
+                for (FillOnCask fillOnCask: tapFromDistillate.getFillOnCasks()) {
+                    if (!casks.contains(fillOnCask.getCask())) {
+                        casks.add(fillOnCask.getCask());
+                    }
+                }
+                for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
+                    for (Maltbatch maltbatch: distillateFill.getDistillate().getMaltbatches()) {
+                        if (!maltbatches.contains(maltbatch)) {
+                            maltbatches.add(maltbatch);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (maltbatches.size() == 1) {
+            return "Single Malt";
+        }
+
+        if (casks.size() == 1) {
+            return "Single Cask";
+        }
+
+        return "Blended";
+     }
+
     /**
      * Return a String containing the entire Story and process of a Whisky
      */
@@ -469,7 +509,7 @@ public abstract class Controller {
                 + whisky.getWaterInLiters() +
                 " liter vand \nBeskrivelse: "
                 + whisky.getDescription()
-                + "Alc %: " + whisky.calculateAlcoholPercentage();
+                + "\nAlc %: " + whisky.calculateAlcoholPercentage();
 
         infoStrings.add(whiskyInfo);
 
@@ -512,56 +552,17 @@ public abstract class Controller {
             sb.append("\n\n [Destillater fra dette fad]");
             sb.append("\n------------------------------------------");
             sb.append(generateDistillateStory(whiskyFill));
-
-            /*
-            for (TapFromDistillate tapFromDistillate: whiskyFill.getTapFromDestillates()) {
-                for (DistillateFill distillateFill: tapFromDistillate.getDistillateFills()) {
-                        Distillate distillate = distillateFill.getDistillate();
-                        if (tapFromDistillate.getFillOnCasks().size() == 1) {
-                            sb.append("\nDestillat: " + distillate.getNewMakeNr());
-                            sb.append("\nProcentdel af dette fad: " + tapFromDistillate.distillateShare().get(distillateFill));
-                            sb.append("\nPåfyldt: " + tapFromDistillate.getFirstTimeOfFill());
-                        } else {
-                                sb.append("\nDestillat: " + distillate.getNewMakeNr());
-                                sb.append("\n\n[Tidligere lagt på disse fade]");
-                                for (int i = 0; i < tapFromDistillate.getFillOnCasks().size()-1; i++) {
-                                    FillOnCask currentFillOnCask = tapFromDistillate.getFillOnCasks().get(i);
-                                    FillOnCask nextFillOnCask = tapFromDistillate.getFillOnCasks().get(i+1);
-                                    sb.append("\nFadID: " + currentFillOnCask.getCask().getCaskId());
-                                    sb.append("\nPåfyldt: " + currentFillOnCask.getTimeFill());
-                                    sb.append("\nOmhældt: " + nextFillOnCask.getTimeFill());
-                                }
-                                FillOnCask lastFill = tapFromDistillate.getFillOnCasks().get(tapFromDistillate.getFillOnCasks().size()-1);
-                                sb.append("\n\n[Lagt på dette fad]");
-                                sb.append("\nPåfyldt: " + lastFill.getTimeFill());
-                                sb.append("\nTil: " + LocalDate.now());
-                        }
-                        sb.append("\nMedarbejder: " + distillate.getEmployee());
-                        sb.append("\nDestilleringstid: " + distillate.getDistillationTimeInHours());
-                        sb.append("\nAlcoholprocent: " + distillate.getAlcoholPercentage());
-                        sb.append("\nBeskrivelse: " + distillate.getDescription());
-                        sb.append("\n\n     [Består af følgende maltbatches]");
-                        sb.append("\n       ------------------------------------------");
-                        for (Maltbatch maltbatch : distillate.getMaltbatches()) {
-                            Grain grain = maltbatch.getGrain();
-                            sb.append("\n       Maltbatch: " + maltbatch.getName());
-                            sb.append("\n       Beskrivelse:" + maltbatch.getDescription());
-                            sb.append("\n       [Korn Information]");
-                            sb.append("\n       Korntype: " + grain.getGrainType());
-                            sb.append("\n       Landmand: " + grain.getGrainSupplier().getName());
-                            sb.append("\n       Mark: " + grain.getField());
-                            sb.append("\n       Dyrkelsesmetode: " + grain.getCultivationDescription());
-                        }
-                    sb.append("\n-------------------------------------------------");
-                    }
-            }
-
-             */
             }
 
         return sb.toString();
     }
 
+    /**
+     * Helper method for getCasksStoryForWhisky()
+     * Generates an info string based on a whiskyfill and classes connected to it
+     * @param whiskyFill you want info about
+     * @return A string with info about a Whiskyfills: Distillates, DistillateFill
+     */
     private static String generateDistillateStory(WhiskyFill whiskyFill) {
         StringBuilder sb = new StringBuilder();
         for (TapFromDistillate tapFromDistillate: whiskyFill.getTapFromDestillates()) {
