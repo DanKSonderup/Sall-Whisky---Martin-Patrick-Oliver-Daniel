@@ -60,6 +60,7 @@ public class CRUDCaskViewController implements Initializable {
     private Stage stage;
     private Scene scene;
 
+    /** Updates and initializes the tableview with all the casks */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         columnID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
@@ -76,6 +77,7 @@ public class CRUDCaskViewController implements Initializable {
 
     }
 
+    /** Initializes the stage and scene for the createCaskView */
     @FXML
     void btnCreateCaskOnAction(ActionEvent event) throws IOException {
         URL url = new File("Sall Whisky/src/gui/views/CreateCaskView.fxml").toURI().toURL();
@@ -123,7 +125,7 @@ public class CRUDCaskViewController implements Initializable {
     }
 
 
-
+    /** Initializes the stage and scene for the createTransferenceView */
     @FXML
     void btnTransferenceOnAction(ActionEvent event) throws IOException {
         URL url = new File("Sall Whisky/src/gui/views/CreateTransferenceView.fxml").toURI().toURL();
@@ -136,9 +138,7 @@ public class CRUDCaskViewController implements Initializable {
         updateTvwCasks();
     }
 
-    /**
-     * Updates the tableview with all the casks
-     */
+    /** Updates the tableview with all the casks */
     private void updateTvwCasks() {
         tvwCasks.getItems().setAll(Controller.getCasks());
     }

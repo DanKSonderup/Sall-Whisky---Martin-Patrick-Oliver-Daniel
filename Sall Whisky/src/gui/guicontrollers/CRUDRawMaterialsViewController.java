@@ -74,6 +74,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
     private TextField txfMaltbatchName;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lvwFields.getItems().setAll(Controller.getFields());
@@ -361,9 +362,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
     }
 
 
-    /**
-     * Updates the listView with all the fields from storage
-     */
+    /** Updates the listView with all the fields from storage */
     private void updateLvwFields() {
         lvwFields.getItems().setAll(Controller.getFields());
     }
@@ -385,9 +384,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         }
     }
 
-    /**
-     * Updates the listView with all the maltbatches from storage
-     */
+    /** Updates the listView with all the maltbatches from storage */
     private void updateLvwMaltbatches() {
         if (lvwGrains.getSelectionModel().isEmpty())
             lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
@@ -401,6 +398,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         }
     }
 
+    /** Shows a confirmation dialog for deletion of an object */
     private ButtonType showDeleteConfirmationDialog(Object o) {
         String typeOfObjectToDelete = "";
         if (o instanceof Field) typeOfObjectToDelete = "denne mark";
@@ -416,6 +414,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         return alert.showAndWait().orElse(ButtonType.CANCEL);
     }
 
+    /** Checks if a field is connected to any grain-objects */
     private boolean isConnectedToGrain(Field field) {
         boolean ConnectionFound = false;
         int i = 0;
@@ -429,6 +428,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         return ConnectionFound;
     }
 
+    /** Checks if a grain is connected to any maltbatch-objects */
     private boolean isConnectedToMaltbatch(Grain grain) {
         boolean ConnectionFound = false;
         int i = 0;
@@ -442,6 +442,7 @@ public class CRUDRawMaterialsViewController implements Initializable {
         return ConnectionFound;
     }
 
+    /** Checks if a maltbatch is connected to any distillate-objects */
     private boolean isConnectedToDistillate(Maltbatch maltbatch) {
         boolean ConnectionFound = false;
         int i = 0;

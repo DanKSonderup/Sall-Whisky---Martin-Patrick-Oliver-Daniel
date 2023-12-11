@@ -85,6 +85,7 @@ public class MainViewController implements Initializable {
         SwitchSceneController.btnRawMaterial(stage, scene, event);
     }
 
+    /** Initializes the stage and scene for the createCaskView */
     @FXML
     void btnCreateWhiskyOnAction(ActionEvent event) throws IOException {
         URL url = new File("Sall Whisky/src/gui/views/CreateWhiskyView.fxml").toURI().toURL();
@@ -101,6 +102,8 @@ public class MainViewController implements Initializable {
     void btnStartSideOnAction(ActionEvent event) {
 
     }
+
+    /** Updates and initializes the tableview with all the casks */
     @FXML
     void btnGetWhiskyStoryOnAction(ActionEvent event) {
         whisky = lvwWhisky.getSelectionModel().getSelectedItem();

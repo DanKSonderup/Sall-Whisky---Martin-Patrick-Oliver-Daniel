@@ -89,7 +89,10 @@ public class CRUDWarehouseViewController implements Initializable {
 
         }
 
-        /** Pre: Racks, Shelves and Positions amount < 10 */
+        /** Pre: Racks, Shelves and Positions amount < 10
+         * Creates a warehouse with the given address and the given amount of racks, shelves and positions
+         * Updates the listview with all the warehouses
+         * */
     @FXML
     void btnCreateWarehouseOnAction(ActionEvent event) {
         boolean missingInfo = canParseToInteger(txfRackAmount);
@@ -140,6 +143,9 @@ public class CRUDWarehouseViewController implements Initializable {
     }
 
 
+    /** Changes the listviews to show the racks, shelves and positions of the selected warehouse
+     * if the selected warehouse is not null
+     * */
     public void selectedStorageItemChanged() {
         Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();
         Rack selectedRack = lvwRack.getSelectionModel().getSelectedItem();
@@ -170,6 +176,8 @@ public class CRUDWarehouseViewController implements Initializable {
             }
         }
     }
+
+    /** Checks if the input can be parsed to an integer */
     private boolean canParseToInteger(TextField txf) {
         boolean cannotParse = false;
         try {

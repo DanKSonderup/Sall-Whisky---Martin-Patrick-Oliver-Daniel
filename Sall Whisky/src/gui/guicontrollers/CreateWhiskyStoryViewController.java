@@ -17,28 +17,28 @@ import java.util.ResourceBundle;
 
 public class CreateWhiskyStoryViewController implements Initializable {
 
-        private MainViewController mainViewController;
-        @FXML
-        private Button btnCopyStory;
+    private MainViewController mainViewController;
+    @FXML
+    private Button btnCopyStory;
 
-        @FXML
-        private Label whiskyStorylbl;
+    @FXML
+    private Label whiskyStorylbl;
 
-        @FXML
-        private TextArea whiskyStorytxa;
+    @FXML
+    private TextArea whiskyStorytxa;
 
+    /** Copies the story to the clipboard */
+    @FXML
+    void btnCopyStory(ActionEvent event) {
+        String ctc = whiskyStorytxa.getText().toString();
+        StringSelection stringSelection = new StringSelection(ctc);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
+    }
 
-        @FXML
-            void btnCopyStory(ActionEvent event) {
-                String ctc = whiskyStorytxa.getText().toString();
-                StringSelection stringSelection = new StringSelection(ctc);
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard.setContents(stringSelection, null);
-            }
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        whiskyStorytxa.setText(Controller.generateStoryForWhisky(mainViewController.getWhisky()));
+    }
 
-            public void initialize(URL url, ResourceBundle resourceBundle) {
-            whiskyStorytxa.setText(Controller.generateStoryForWhisky(mainViewController.getWhisky()));
-            }
-
-        }
+}
 

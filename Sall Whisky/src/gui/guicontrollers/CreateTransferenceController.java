@@ -53,6 +53,7 @@ public class CreateTransferenceController implements Initializable {
     @FXML
     private TableView<Cask> tvwCasksWithDestillate;
 
+    /** Shows all casks with room for transference */
     @FXML
     void btnShowAvailableCasksForTransferenceOnAction(ActionEvent event) {
         Cask selectedCask = tvwCasksWithDestillate.getSelectionModel().getSelectedItem();
@@ -66,6 +67,7 @@ public class CreateTransferenceController implements Initializable {
         tvwAvailableCasksForTransference.getItems().setAll(availableCasksForTransference);
     }
 
+    /** Creates a new PutOnCask object and updates the controls */
     @FXML
     void btnTransferenceOnAction(ActionEvent event) {
         Cask oldCask = tvwCasksWithDestillate.getSelectionModel().getSelectedItem();
@@ -74,6 +76,8 @@ public class CreateTransferenceController implements Initializable {
         Controller.createPutOnCask(oldCask, newCask);
         updateControls();
     }
+
+    /** Initializes the controls */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
@@ -88,6 +92,7 @@ public class CreateTransferenceController implements Initializable {
         tvwCasksWithDestillate.getItems().setAll(Controller.getCasksWithDistillateOn());
     }
 
+    /** Updates the controls */
     public void updateControls() {
         tvwCasksWithDestillate.getItems().setAll(Controller.getCasksWithDistillateOn());
         tvwAvailableCasksForTransference.getItems().clear();
