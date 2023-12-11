@@ -19,39 +19,48 @@ public class CreateTransferenceController implements Initializable {
 
     @FXML
     private Button btnShowAvailableCasksForTransference;
-
     @FXML
     private Button btnTransference;
-
     @FXML
     private TableColumn<Cask, TapFromDistillate> tbcAge;
-
     @FXML
     private TableColumn<Cask, TapFromDistillate> tbcAge1;
-
     @FXML
     private TableColumn<Cask, Double> tbcAlcoholPercentage;
-
     @FXML
     private TableColumn<Cask, Double> tbcAlcoholPercentage1;
-
     @FXML
     private TableColumn<Cask, Integer> tbcCaskID;
-
     @FXML
     private TableColumn<Cask, Integer> tbcCaskID1;
-
     @FXML
     private TableColumn<Cask, Double> tbcTotalLitersOfFills;
-
     @FXML
     private TableColumn<Cask, Double> tbcTotalLitersOfFills1;
-
     @FXML
     private TableView<Cask> tvwAvailableCasksForTransference;
-
     @FXML
     private TableView<Cask> tvwCasksWithDestillate;
+
+    // ---------------------------------------------------------------------
+    /** Initialize */
+    // ---------------------------------------------------------------------
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
+        tbcCaskID1.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
+        tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
+        tbcAlcoholPercentage1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
+        tbcAge1.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
+        tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
+        tbcTotalLitersOfFills1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("LitersAvailable"));
+        tvwCasksWithDestillate.getItems().setAll(Controller.getCasksWithDistillateOn());
+    }
+
+    // ---------------------------------------------------------------------
+    /** ButtonOnAction */
+    // ---------------------------------------------------------------------
 
     /** Shows all casks with room for transference */
     @FXML
@@ -69,28 +78,25 @@ public class CreateTransferenceController implements Initializable {
 
     /** Creates a new PutOnCask object and updates the controls */
     @FXML
-    void btnTransferenceOnAction(ActionEvent event) {
+    void btnTransferenceOnAction() {
         Cask oldCask = tvwCasksWithDestillate.getSelectionModel().getSelectedItem();
         Cask newCask = tvwAvailableCasksForTransference.getSelectionModel().getSelectedItem();
+        if (oldCask == null) {
+            tvwCasksWithDestillate.setStyle("-fx-border-color: red;");
+            return;
+        }
+        if (newCask == null) {
+            tvwAvailableCasksForTransference.setStyle("-fx-border-color: red;");
+            return;
+        }
 
         Controller.createTransference(oldCask, newCask);
         updateControls();
     }
 
-    /** Initializes the controls */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
-        tbcCaskID1.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
-        tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
-        tbcAlcoholPercentage1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
-        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
-        tbcAge1.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
-        tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
-        tbcTotalLitersOfFills1.setCellValueFactory(new PropertyValueFactory<Cask, Double>("LitersAvailable"));
-
-        tvwCasksWithDestillate.getItems().setAll(Controller.getCasksWithDistillateOn());
-    }
+    // ---------------------------------------------------------------------
+    /** Helper methods */
+    // ---------------------------------------------------------------------
 
     /** Updates the controls */
     public void updateControls() {

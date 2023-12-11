@@ -14,6 +14,10 @@ class TapFromDistillateTestGetTotalLitersForFills {
     private DistillateFill df1;
     private DistillateFill df2;
 
+    // ---------------------------------------------------------------------
+    /** setUp */
+    // ---------------------------------------------------------------------
+
     @BeforeEach
     void setup() {
         tapFromDistillate = new TapFromDistillate(LocalDate.now(), null);
@@ -22,6 +26,10 @@ class TapFromDistillateTestGetTotalLitersForFills {
         df1 = new DistillateFill(20, distillate1);
         df2 = new DistillateFill(13.6, distillate2);
     }
+
+    // ---------------------------------------------------------------------
+    /** Testcases */
+    // ---------------------------------------------------------------------
 
     /** TC1: Without DistillateFill */
     @Test

@@ -59,30 +59,29 @@ public class CRUDDistilleryAndFillController implements Initializable {
     @FXML
     private TextArea txaDescription;
 
-    @FXML
-    void btnCrudCaskOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnCrudCask(stage, scene, event);
+    // ---------------------------------------------------------------------
+    /** Initialize */
+    // ---------------------------------------------------------------------
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        lvwMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        lvwDistillates.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
+        lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
+        lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
+
+        txfNewMakeNo.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfEmployee.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfAlcoholpercentage.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfAmountOfDistillateInLiters.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfSmokingMaterial.setOnMouseClicked(e -> { clearErrorMarkings();});
+        txfDistillationTime.setOnMouseClicked(e -> { clearErrorMarkings();});
     }
 
-    @FXML
-    void btnCrudStorageOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnCrudStorage(stage, scene, event);
-    }
-
-    @FXML
-    void btnRawMaterialOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnRawMaterial(stage, scene, event);
-    }
-
-    @FXML
-    void btnStartSideOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnStartView(stage, scene, event);
-    }
-
-    @FXML
-    void btnSupplierOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
-    }
+    // ---------------------------------------------------------------------
+    /** ButtonOnAction */
+    // ---------------------------------------------------------------------
 
     /** Creates a distillate with the given information
      * If the information is invalid, the textfields will be marked red
@@ -128,7 +127,7 @@ public class CRUDDistilleryAndFillController implements Initializable {
         clearErrorMarkings();
         clearCreateDistillateFields();
         updateControls();
-        }
+    }
 
     /** Fills the selected cask with the selected distillate
      * If the user has not selected a distillate prompt the user to select one
@@ -148,7 +147,6 @@ public class CRUDDistilleryAndFillController implements Initializable {
         if (amountInLiters < 0) {
             return;
         }
-
         if (distillate == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fejl");
@@ -159,26 +157,54 @@ public class CRUDDistilleryAndFillController implements Initializable {
         }
         ArrayList<DistillateFill> distillateFills = new ArrayList<>();
         distillateFills.add(new DistillateFill(amountInLiters, distillate));
-            try {
-                Controller.createTapFromDistillate(LocalDate.now(), cask, distillateFills);
-            } catch (IllegalArgumentException e) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Fejl");
-                alert.setHeaderText("Fejl");
-                alert.setContentText(e.getMessage());
-                alert.show();
-                return;
-            }
-
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Påfyldning");
-            alert.setHeaderText("Påfyldning oprettet");
-            alert.setContentText("En påfyldning af " + amountInLiters + " liter er blevet påfyldt på fadID: " + cask.getCaskId());
+        try {
+            Controller.createTapFromDistillate(LocalDate.now(), cask, distillateFills);
+        } catch (IllegalArgumentException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fejl");
+            alert.setHeaderText("Fejl");
+            alert.setContentText(e.getMessage());
             alert.show();
-            clearErrorMarkings();
-            updateControls();
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Påfyldning");
+        alert.setHeaderText("Påfyldning oprettet");
+        alert.setContentText("En påfyldning af " + amountInLiters + " liter er blevet påfyldt på fadID: " + cask.getCaskId());
+        alert.show();
+        clearErrorMarkings();
+        updateControls();
     }
+
+    // ---------------------------------------------------------------------
+    /** Scene switch buttons */
+    // ---------------------------------------------------------------------
+
+    @FXML
+    void btnCrudCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCrudCask(stage, scene, event);
+    }
+    @FXML
+    void btnCrudStorageOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCrudStorage(stage, scene, event);
+    }
+    @FXML
+    void btnRawMaterialOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnRawMaterial(stage, scene, event);
+    }
+    @FXML
+    void btnStartSideOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnStartView(stage, scene, event);
+    }
+    @FXML
+    void btnSupplierOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
+    }
+
+    // ---------------------------------------------------------------------
+    /** Helper methods */
+    // ---------------------------------------------------------------------
 
     /** Parses the textfield to a double */
     private double txfParseDouble(TextField txf) {
@@ -215,22 +241,5 @@ public class CRUDDistilleryAndFillController implements Initializable {
         txfSmokingMaterial.clear();
         txfNewMakeNo.clear();
         txfAmountOfDistillateInLiters.clear();
-    }
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        lvwMaltbatches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        lvwDistillates.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        lvwAvailableCasks.getItems().setAll(Controller.getAvailableCasks());
-        lvwMaltbatches.getItems().setAll(Controller.getMaltbatches());
-        lvwDistillates.getItems().setAll(Controller.getAvailableDistillates());
-
-        txfNewMakeNo.setOnMouseClicked(e -> { clearErrorMarkings();});
-        txfEmployee.setOnMouseClicked(e -> { clearErrorMarkings();});
-        txfAlcoholpercentage.setOnMouseClicked(e -> { clearErrorMarkings();});
-        txfAmountOfDistillateInLiters.setOnMouseClicked(e -> { clearErrorMarkings();});
-        txfSmokingMaterial.setOnMouseClicked(e -> { clearErrorMarkings();});
-        txfDistillationTime.setOnMouseClicked(e -> { clearErrorMarkings();});
     }
 }

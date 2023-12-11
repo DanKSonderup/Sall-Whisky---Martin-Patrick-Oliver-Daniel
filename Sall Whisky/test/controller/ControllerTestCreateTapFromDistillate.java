@@ -18,12 +18,20 @@ class ControllerTestCreateTapFromDistillate {
     private DistillateFill distillateFill;
     private ArrayList<DistillateFill> distillateFills = new ArrayList<>();
 
+    // ---------------------------------------------------------------------
+    /** setUp */
+    // ---------------------------------------------------------------------
+
     @BeforeEach
     void setup() {
         cask = new Cask("Frankrig", 50, "Whisky");
         distillate = new Distillate("nmn23", 8, 40, 150, null, null, "");
         distillateFills = new ArrayList<>();
     }
+
+    // ---------------------------------------------------------------------
+    /** Testcases */
+    // ---------------------------------------------------------------------
 
     /** TC1: TimeOfFill 01-12-2023, fill: 49 liters (max caskSize 50 liters) */
     @Test

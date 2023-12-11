@@ -12,6 +12,10 @@ public class WhiskyFill implements Serializable {
     private double alcoholPercentage;
     private Cask cask;
 
+    // ---------------------------------------------------------------------
+    /** Constructors */
+    // ---------------------------------------------------------------------
+
     public WhiskyFill(double amountofDistilateFillInLiters, List<TapFromDistillate> tapFromDistillates, LocalDate timeOfFill, double alcoholPercentage, Cask cask) {
         this.amountofDistilateFillInLiters = amountofDistilateFillInLiters;
         this.tapFromDistillates = tapFromDistillates;
@@ -20,26 +24,25 @@ public class WhiskyFill implements Serializable {
         this.cask = cask;
     }
 
+    // ---------------------------------------------------------------------
+    /** Getters & setters */
+    // ---------------------------------------------------------------------
+
     public double getAmountofDistilateFillInLiters() {
         return amountofDistilateFillInLiters;
     }
-
     public List<TapFromDistillate> getTapFromDestillates() {
         return tapFromDistillates;
     }
-
     public double getAlcoholPercentage() {
         return alcoholPercentage;
     }
-
     public LocalDate getTimeOfFill() {
         return timeOfFill;
     }
-
     public Cask getCask() {
         return cask;
     }
-
     public void setAlcoholPercentage(double alcoholPercentage) {
         this.alcoholPercentage = alcoholPercentage;
     }

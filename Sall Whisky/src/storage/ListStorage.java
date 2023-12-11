@@ -20,16 +20,17 @@ public class ListStorage implements Storage, Serializable {
     private final List<WhiskyBottle> whiskyBottles = new ArrayList<>();
     private final List<Whisky> whiskies = new ArrayList<>();
     private StorageCounter storageCounter = new StorageCounter();
-    //----------------------------------------------------------------------
-    /** CaskSupplier */
+
+    // ---------------------------------------------------------------------
+    /** Suppliers */
+    // ---------------------------------------------------------------------
+
     public List<CaskSupplier> getCaskSuppliers() {
         return new ArrayList<>(caskSuppliers);
     }
     public void storeCaskSupplier(CaskSupplier caskSupplier) {
         caskSuppliers.add(caskSupplier);
     }
-    //----------------------------------------------------------------------
-    /** GrainSupplier */
     @Override
     public List<GrainSupplier> getGrainSuppliers() {
         return new ArrayList<>(grainSuppliers);
@@ -37,8 +38,11 @@ public class ListStorage implements Storage, Serializable {
     public void storeGrainSupplier(GrainSupplier grainSupplier) {
         grainSuppliers.add(grainSupplier);
     }
-    //----------------------------------------------------------------------
+
+    // ---------------------------------------------------------------------
     /** Casks */
+    // ---------------------------------------------------------------------
+
     public List<Cask> getCasks() {
         return new ArrayList<>(casks);
     }
@@ -48,8 +52,11 @@ public class ListStorage implements Storage, Serializable {
     public void deleteCask(Cask cask) {
         casks.remove(cask);
     }
-    //----------------------------------------------------------------------
+
+    // ---------------------------------------------------------------------
     /** Warehouses */
+    // ---------------------------------------------------------------------
+
     public List<Warehouse> getWarehouses() {
         return new ArrayList<>(warehouses);
     }
@@ -57,13 +64,18 @@ public class ListStorage implements Storage, Serializable {
         warehouses.add(warehouse);
     }
 
-    //----------------------------------------------------------------------
-    /** StorageCounter */
+    // ---------------------------------------------------------------------
+    /** Storagecounter */
+    // ---------------------------------------------------------------------
+
     public StorageCounter getStorageCounter() {
         return storageCounter;
     }
-    //----------------------------------------------------------------------
-    /** Maltbatch */
+
+    // ---------------------------------------------------------------------
+    /** Maltbatches */
+    // ---------------------------------------------------------------------
+
     public List<Maltbatch> getMaltbatches() {
         return new ArrayList<>(maltbatches);
     }
@@ -74,8 +86,10 @@ public class ListStorage implements Storage, Serializable {
         maltbatches.remove(maltBatch);
     }
 
-    //----------------------------------------------------------------------
-    /** Distillate */
+    // ---------------------------------------------------------------------
+    /** Distillates */
+    // ---------------------------------------------------------------------
+
     @Override
     public List<Distillate> getDistillates() {
         return new ArrayList<>(distillates);
@@ -84,8 +98,10 @@ public class ListStorage implements Storage, Serializable {
         distillates.add(distillate);
     }
 
-    //----------------------------------------------------------------------
-    /** Grain */
+    // ---------------------------------------------------------------------
+    /** Grains */
+    // ---------------------------------------------------------------------
+
     @Override
     public List<Grain> getGrains() {
         return new ArrayList<>(grains);
@@ -98,8 +114,11 @@ public class ListStorage implements Storage, Serializable {
     public void deleteGrain(Grain grain) {
         grains.remove(grain);
     }
-    //----------------------------------------------------------------------
-    /** Field */
+
+    // ---------------------------------------------------------------------
+    /** Fields */
+    // ---------------------------------------------------------------------
+
     @Override
     public List<Field> getFields() {
         return new ArrayList<>(fields);
@@ -112,8 +131,11 @@ public class ListStorage implements Storage, Serializable {
     public void deleteField(Field field) {
         fields.remove(field);
     }
-    //----------------------------------------------------------------------
-    /** WhiskyBottle */
+
+    // ---------------------------------------------------------------------
+    /** WhiskyBottles */
+    // ---------------------------------------------------------------------
+
     @Override
     public List<WhiskyBottle> getWhiskyBottles() {
         return new ArrayList<>(whiskyBottles);
@@ -123,8 +145,10 @@ public class ListStorage implements Storage, Serializable {
         whiskyBottles.add(whiskyBottle);
     }
 
-    //----------------------------------------------------------------------
+    // ---------------------------------------------------------------------
     /** Whisky */
+    // ---------------------------------------------------------------------
+
     @Override
     public List<Whisky> getWhiskies() {
         return new ArrayList<>(whiskies);
@@ -134,8 +158,9 @@ public class ListStorage implements Storage, Serializable {
         whiskies.add(whisky);
     }
 
-    //----------------------------------------------------------------------
+    // ---------------------------------------------------------------------
     /** Serializable */
+    // ---------------------------------------------------------------------
 
     public static ListStorage loadStorage() {
         String fileName = "Sall Whisky/src/storageData.ser";
@@ -165,5 +190,4 @@ public class ListStorage implements Storage, Serializable {
             throw new RuntimeException();
         }
     }
-
 }

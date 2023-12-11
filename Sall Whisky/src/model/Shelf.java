@@ -12,21 +12,19 @@ public class Shelf implements Observer, Serializable {
     private List<Position> positions = new ArrayList<>();
     private Rack rack;
 
+    // ---------------------------------------------------------------------
+    /** Constructors */
+    // ---------------------------------------------------------------------
+
     public Shelf(int shelfId, Rack rack) {
         this.shelfId = shelfId;
         this.rack = rack;
 
     }
 
-    /** Return a list of all the positions on the shelf that are not fully filled. */
-    public List<Position> getAvailablePositions() {
-        List<Position> availablePositions = new ArrayList<>();
-        for (Position position : positions) {
-            if (!position.isFilled())
-                availablePositions.add(position);
-        }
-        return availablePositions;
-    }
+    // ---------------------------------------------------------------------
+    /** Methods */
+    // ---------------------------------------------------------------------
 
     /** Checks if all the positions on the shelf are full, if so, set isFilled to true. */
     @Override
@@ -38,24 +36,36 @@ public class Shelf implements Observer, Serializable {
         }
     }
 
-    /** Getters */
+    // ---------------------------------------------------------------------
+    /** Getters & setters */
+    // ---------------------------------------------------------------------
+
+    /** Return a list of all the positions on the shelf that are not fully filled. */
+    public List<Position> getAvailablePositions() {
+        List<Position> availablePositions = new ArrayList<>();
+        for (Position position : positions) {
+            if (!position.isFilled())
+                availablePositions.add(position);
+        }
+        return availablePositions;
+    }
     public int getShelfId() {
         return shelfId;
     }
-
     public Rack getRack() {
         return rack;
     }
-
     public boolean isFilled() {
         return isFilled;
     }
-
     public List<Position> getPositions() {
         return positions;
     }
 
-    /** Add & remove position */
+    // ---------------------------------------------------------------------
+    /** Adds & removes */
+    // ---------------------------------------------------------------------
+
     public void addPosition(Position position) {
         positions.add(position);
     }

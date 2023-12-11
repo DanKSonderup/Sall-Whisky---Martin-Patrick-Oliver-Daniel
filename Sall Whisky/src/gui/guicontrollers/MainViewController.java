@@ -25,38 +25,28 @@ public class MainViewController implements Initializable {
 
     private Stage stage;
     private Scene scene;
-
     @FXML
     private Button btnCRUDCask;
-
     @FXML
     private Button btnCRUDRawMaterial;
-
     @FXML
     private Button btnCRUDStorage;
-
     @FXML
     private Button btnCRUDSupplier;
-
     @FXML
     private Button btnDestillateAndFillOnCask;
-
     @FXML
     private Button btnStartside;
     @FXML
     private Button btnCreateWhisky;
     @FXML
     private TableColumn<Cask, TapFromDistillate> tbcAge;
-
     @FXML
     private TableColumn<Cask, Double> tbcAlcoholPercentage;
-
     @FXML
     private TableColumn<Cask, Integer> tbcCaskID;
-
     @FXML
     private TableColumn<Cask, Double> tbcTotalLitersOfFills;
-
     @FXML
     private TableView<Cask> tvwRipeCasks;
     @FXML
@@ -65,25 +55,27 @@ public class MainViewController implements Initializable {
     private ListView<Whisky> lvwWhisky;
     private Whisky whisky;
 
-    @FXML
-    void btnCrudCaskOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnCrudCask(stage, scene, event);
+    // ---------------------------------------------------------------------
+    /** Initialize */
+    // ---------------------------------------------------------------------
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
+        tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestTapFromDistillate"));
+        tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
+        tvwRipeCasks.getItems().setAll(Controller.getRipeCasks());
+        lvwWhisky.getItems().setAll(Controller.getWhiskies());
+
+        for (Whisky whisky: Controller.getStorage().getWhiskies()) {
+            System.out.println(Controller.generateStoryForWhisky(whisky));
+        }
     }
 
-    @FXML
-    void btnCrudStorageOnAction(ActionEvent event) throws IOException{
-        SwitchSceneController.btnCrudStorage(stage, scene, event);
-    }
-
-    @FXML
-    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
-    }
-
-    @FXML
-    void btnRawMaterialOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnRawMaterial(stage, scene, event);
-    }
+    // ---------------------------------------------------------------------
+    /** ButtonOnAction */
+    // ---------------------------------------------------------------------
 
     /** Initializes the stage and scene for the createCaskView */
     @FXML
@@ -96,11 +88,6 @@ public class MainViewController implements Initializable {
         stage.setScene(new Scene(root1));
         stage.showAndWait();
         updateViews();
-    }
-
-    @FXML
-    void btnStartSideOnAction(ActionEvent event) {
-
     }
 
     /** Updates and initializes the tableview with all the casks */
@@ -119,30 +106,39 @@ public class MainViewController implements Initializable {
         }
     }
 
+    // ---------------------------------------------------------------------
+    /** Scene switch buttons */
+    // ---------------------------------------------------------------------
+
+    @FXML
+    void btnCrudCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnCrudCask(stage, scene, event);
+    }
+    @FXML
+    void btnCrudStorageOnAction(ActionEvent event) throws IOException{
+        SwitchSceneController.btnCrudStorage(stage, scene, event);
+    }
+    @FXML
+    void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
+    }
+    @FXML
+    void btnRawMaterialOnAction(ActionEvent event) throws IOException {
+        SwitchSceneController.btnRawMaterial(stage, scene, event);
+    }
     @FXML
     void btnSupplierOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
-        tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
-        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestTapFromDistillate"));
-        tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
-        tvwRipeCasks.getItems().setAll(Controller.getRipeCasks());
-        lvwWhisky.getItems().setAll(Controller.getWhiskies());
-
-        for (Whisky whisky: Controller.getStorage().getWhiskies()) {
-            System.out.println(Controller.generateStoryForWhisky(whisky));
-        }
-    }
+    // ---------------------------------------------------------------------
+    /** Helper methods */
+    // ---------------------------------------------------------------------
 
     private void updateViews() {
         tvwRipeCasks.getItems().setAll(Controller.getRipeCasks());
         lvwWhisky.getItems().setAll(Controller.getWhiskies());
     }
-
     public Whisky getWhisky() {
         return whisky;
     }

@@ -16,6 +16,10 @@ class WhiskyTestCalculateAlcoholpercentage {
     private WhiskyFill whiskyFill1;
     private WhiskyFill whiskyFill2;
 
+    // ---------------------------------------------------------------------
+    /** setUp */
+    // ---------------------------------------------------------------------
+
     @BeforeEach
     void setUp() {
         cask1 = new Cask("Frankrig", 50, "Whisky");
@@ -24,6 +28,10 @@ class WhiskyTestCalculateAlcoholpercentage {
         whiskyFill2 = new WhiskyFill(70, null, LocalDate.now(), 50, cask2);
         whisky = new Whisky("Name", 0, new ArrayList<>(), "");
     }
+
+    // ---------------------------------------------------------------------
+    /** Testcases */
+    // ---------------------------------------------------------------------
 
     /** TC1: 1 whiskyFill, no water */
     @Test
@@ -34,7 +42,6 @@ class WhiskyTestCalculateAlcoholpercentage {
 
         // Act
         double actualResult = whisky.calculateAlcoholPercentage();
-        
 
         // Assert
         assertEquals(52.5, actualResult);
@@ -54,7 +61,6 @@ class WhiskyTestCalculateAlcoholpercentage {
 
         // Assert
         assertEquals(42.33, actualResult, 0.01);
-
     }
 
     /** TC3: 2 whiskyFills, no water */
@@ -69,10 +75,8 @@ class WhiskyTestCalculateAlcoholpercentage {
         // Act
         double actualResult = whisky.calculateAlcoholPercentage();
 
-
         // Assert
         assertEquals(62.94, actualResult, 0.01);
-
     }
 
     /** TC4: 2 whiskyFills, limit values, with water */
@@ -87,7 +91,6 @@ class WhiskyTestCalculateAlcoholpercentage {
 
         // Act
         double actualResult = whisky.calculateAlcoholPercentage();
-
 
         // Assert
         assertEquals(48.27, actualResult, 0.01);

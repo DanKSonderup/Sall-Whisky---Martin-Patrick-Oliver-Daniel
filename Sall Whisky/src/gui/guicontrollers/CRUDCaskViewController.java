@@ -56,9 +56,12 @@ public class CRUDCaskViewController implements Initializable {
     private TableColumn<Cask, Integer> columnWarehouse;
     @FXML
     private TableView<Cask> tvwCasks;
-
     private Stage stage;
     private Scene scene;
+
+    // ---------------------------------------------------------------------
+    /** Initialize */
+    // ---------------------------------------------------------------------
 
     /** Updates and initializes the tableview with all the casks */
     @Override
@@ -77,6 +80,10 @@ public class CRUDCaskViewController implements Initializable {
 
     }
 
+    // ---------------------------------------------------------------------
+    /** ButtonOnAction */
+    // ---------------------------------------------------------------------
+
     /** Initializes the stage and scene for the createCaskView */
     @FXML
     void btnCreateCaskOnAction() throws IOException {
@@ -89,7 +96,6 @@ public class CRUDCaskViewController implements Initializable {
         stage.showAndWait();
         updateTvwCasks();
     }
-
 
     /**
      * Deletes the selected Cask
@@ -124,7 +130,6 @@ public class CRUDCaskViewController implements Initializable {
         }
     }
 
-
     /** Initializes the stage and scene for the createTransferenceView */
     @FXML
     void btnTransferenceOnAction() throws IOException {
@@ -138,34 +143,37 @@ public class CRUDCaskViewController implements Initializable {
         updateTvwCasks();
     }
 
+    // ---------------------------------------------------------------------
+    /** Helper methods */
+    // ---------------------------------------------------------------------
+
     /** Updates the tableview with all the casks */
     private void updateTvwCasks() {
         tvwCasks.getItems().setAll(Controller.getCasks());
     }
 
+    // ---------------------------------------------------------------------
+    /** Scene switch buttons */
+    // ---------------------------------------------------------------------
+
     @FXML
     void btnCrudStorageOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCrudStorage(stage, scene, event);
     }
-
     @FXML
     void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnDestillateAndFillOnCaskOnAction(stage, scene, event);
     }
-
     @FXML
     void btnRawMaterialOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnRawMaterial(stage, scene, event);
     }
-
     @FXML
     void btnStartSideOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnStartView(stage, scene, event);
     }
-
     @FXML
     void btnSupplierOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnCRUDSupplier(stage, scene, event);
     }
-
 }

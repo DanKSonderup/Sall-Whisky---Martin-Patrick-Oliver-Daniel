@@ -20,6 +20,10 @@ class ControllerTestCreateCask {
     private CaskSupplier supplier;
     private Storage storage;
 
+    // ---------------------------------------------------------------------
+    /** setUp */
+    // ---------------------------------------------------------------------
+
     @BeforeEach
     void setUp() {
         storage = new ListStorage();
@@ -31,6 +35,10 @@ class ControllerTestCreateCask {
         position = new Position(15,50, shelf);
         supplier = new CaskSupplier("Cask123", "ABC123", "Frankrig", "2");
     }
+
+    // ---------------------------------------------------------------------
+    /** Testcases */
+    // ---------------------------------------------------------------------
 
     /** TC1: SizeInLiters 50, prevC Whisky */
     @Test
@@ -74,5 +82,18 @@ class ControllerTestCreateCask {
         assertThrows(IllegalArgumentException.class, () -> {
             Controller.createCask(countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         });
+    }
+
+    @Test
+    void testCase4() {
+        Warehouse wh1 = Controller.createWarehouse("idk");
+        Rack r1 = Controller.createRack(wh1);
+        Shelf sh1 = Controller.createShelf(r1);
+        Position p1 = Controller.createPosition(sh1, 50);
+        Position p2 = Controller.createPosition(sh1, 100);
+
+        Cask cask = new Cask("Idk", 40, "");
+
+        System.out.println(Controller.getAvailableWarehouses(cask));
     }
 }

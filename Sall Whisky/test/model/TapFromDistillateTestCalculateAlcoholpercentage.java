@@ -15,6 +15,9 @@ class TapFromDistillateTestCalculateAlcoholpercentage {
     private DistillateFill df1;
     private DistillateFill df2;
 
+    // ---------------------------------------------------------------------
+    /** setUp */
+    // ---------------------------------------------------------------------
     @BeforeEach
     void setup() {
         tapFromDistillate = new TapFromDistillate(LocalDate.now(), null);
@@ -25,6 +28,10 @@ class TapFromDistillateTestCalculateAlcoholpercentage {
         df1 = new DistillateFill(75, distillate1);
         df2 = new DistillateFill(60, distillate2);
     }
+
+    // ---------------------------------------------------------------------
+    /** Testcases */
+    // ---------------------------------------------------------------------
 
     /** TC1: 1 fill */
     @Test
