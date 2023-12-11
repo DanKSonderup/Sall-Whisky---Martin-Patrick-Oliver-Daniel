@@ -73,6 +73,6 @@ public class Position implements Observer, Serializable {
 
     @Override
     public String toString() {
-        return "" + positionId;
+        return "" + positionId + " [" + literCapacity + "(L)]";
     }
 }

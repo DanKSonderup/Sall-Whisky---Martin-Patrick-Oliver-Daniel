@@ -192,7 +192,6 @@ public class CreateCaskViewController implements Initializable {
     public void selectedShelfChanged() {
         Shelf selectedShelf = lvwShelf.getSelectionModel().getSelectedItem();
         if (selectedShelf != null) {
-            System.out.println(selectedShelf);
             lvwPosition.getItems().setAll(Controller.getAvailablePositions(selectedShelf, cask));
         }
     }

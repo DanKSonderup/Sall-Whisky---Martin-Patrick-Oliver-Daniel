@@ -27,9 +27,11 @@ public class Warehouse implements Observer, Serializable {
 
     /** Checks if all the racks in the warehouse are full, if so, set isFilled to true. */
     public void update() {
-        if (getAvailableRacks().isEmpty())
+        if (getAvailableRacks().isEmpty()) {
             isFilled = true;
-        else isFilled = false;
+        } else {
+            isFilled = false;
+        }
     }
     public boolean isFilled() {
         return isFilled;

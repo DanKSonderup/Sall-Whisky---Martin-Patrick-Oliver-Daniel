@@ -83,4 +83,17 @@ class ControllerTestCreateCask {
             Controller.createCask(countryOfOrigin, sizeInLiters, previousContent, position, supplier);
         });
     }
+
+    @Test
+    void testCase4() {
+        Warehouse wh1 = Controller.createWarehouse("idk");
+        Rack r1 = Controller.createRack(wh1);
+        Shelf sh1 = Controller.createShelf(r1);
+        Position p1 = Controller.createPosition(sh1, 50);
+        Position p2 = Controller.createPosition(sh1, 100);
+
+        Cask cask = new Cask("Idk", 40, "");
+
+        System.out.println(Controller.getAvailableWarehouses(cask));
+    }
 }

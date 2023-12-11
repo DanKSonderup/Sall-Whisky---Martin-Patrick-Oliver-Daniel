@@ -192,11 +192,6 @@ public class CreateSupplierViewController implements Initializable {
     void btnStartSideOnAction(ActionEvent event) throws IOException {
         SwitchSceneController.btnStartView(stage, scene, event);
     }
-    /** Switches to the CRUDSupplier view */
-    @FXML
-    void btnSupplierOnAction(ActionEvent event) throws IOException {
-        SwitchSceneController.btnCRUDSupplier(stage, scene, event);
-    }
     /** Switches to the DestillateAndFillOnCask view */
     @FXML
     void btnDestillateAndFillOnCaskOnAction(ActionEvent event) throws IOException {

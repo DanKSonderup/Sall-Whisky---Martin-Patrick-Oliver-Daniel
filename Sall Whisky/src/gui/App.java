@@ -24,7 +24,7 @@ public class App {
             System.out.println("Storage initialized");
         }
 
-        Application.launch(Gui.class);
+        // Application.launch(Gui.class);
 
         // ListStorage.saveStorage(storage);
     }
@@ -86,6 +86,5 @@ public class App {
 
         Controller.createTapFromDistillate(LocalDate.of(2015, 10, 2), mainCask, distillateFills);
         Controller.createTapFromDistillate(LocalDate.of(2015, 10, 2), mainCask2, distillateFills3);
-
     }
 }

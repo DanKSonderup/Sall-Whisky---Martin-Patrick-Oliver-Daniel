@@ -76,17 +76,14 @@ public class CRUDWarehouseViewController implements Initializable {
     // ---------------------------------------------------------------------
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ChangeListener<Warehouse> warehouseChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        ChangeListener<Warehouse> warehouseChangeListener = (ov, o, n) -> this.selectedWarehouseChanged();
         lvwWarehouse.getSelectionModel().selectedItemProperty().addListener(warehouseChangeListener);
 
-        ChangeListener<Rack> rackChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        ChangeListener<Rack> rackChangeListener = (ov, o, n) -> this.selectedRackChanged();
         lvwRack.getSelectionModel().selectedItemProperty().addListener(rackChangeListener);
 
-        ChangeListener<Shelf> shelfChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
+        ChangeListener<Shelf> shelfChangeListener = (ov, o, n) -> this.selectedShelfChanged();
         lvwShelf.getSelectionModel().selectedItemProperty().addListener(shelfChangeListener);
-
-        ChangeListener<Position> positionChangeListener = (ov, o, n) -> this.selectedStorageItemChanged();
-        lvwPosition.getSelectionModel().selectedItemProperty().addListener(positionChangeListener);
 
         lvwWarehouse.getItems().setAll(Controller.getStorage().getWarehouses());
     }
@@ -152,37 +149,33 @@ public class CRUDWarehouseViewController implements Initializable {
     /** Helper methods */
     // ---------------------------------------------------------------------
 
-    /** Changes the listviews to show the racks, shelves and positions of the selected warehouse
-     * if the selected warehouse is not null
-     * */
-    public void selectedStorageItemChanged() {
+    /** Handles change in the selected warehouse in the UI
+     * Updates listviews based on selection */
+    public void selectedWarehouseChanged() {
         Warehouse selectedWarehouse = lvwWarehouse.getSelectionModel().getSelectedItem();
-        Rack selectedRack = lvwRack.getSelectionModel().getSelectedItem();
-        Shelf selectedShelf = lvwShelf.getSelectionModel().getSelectedItem();
+        if (selectedWarehouse != null) {
+            lvwRack.getItems().setAll(selectedWarehouse.getRacks());
+            lvwShelf.getItems().clear();
+            lvwPosition.getItems().clear();
+        }
+    }
 
-        if (selectedWarehouse == null) return;
-        if (selectedWarehouse != currentlySelectedWarehouse) {
-            currentlySelectedWarehouse = selectedWarehouse;
-            lvwRack.getItems().setAll(currentlySelectedWarehouse.getRacks());
-            lvwShelf.getItems().clear();
+    /** Handles change in the selected rack in the UI
+     * Updates listviews based on selection */
+    public void selectedRackChanged() {
+        Rack selectedRack = lvwRack.getSelectionModel().getSelectedItem();
+        if (selectedRack != null) {
+            lvwShelf.getItems().setAll(selectedRack.getShelves());
             lvwPosition.getItems().clear();
-            return;
         }
-        if (selectedRack != currentlySelectedRack) {
-            currentlySelectedRack = selectedRack;
-            lvwShelf.getItems().clear();
-            lvwPosition.getItems().clear();
-            if (selectedRack != null) {
-                lvwShelf.getItems().setAll(currentlySelectedRack.getShelves());
-            }
-            return;
-        }
-        if (selectedShelf != currentlySelectedShelf) {
-            lvwPosition.getItems().removeAll();
-            if (selectedShelf != null) {
-                currentlySelectedShelf = selectedShelf;
-                lvwPosition.getItems().setAll(currentlySelectedShelf.getPositions());
-            }
+    }
+
+    /** Handles change in the selected Shelf in the UI
+     * Updates listviews based on selection */
+    public void selectedShelfChanged() {
+        Shelf selectedShelf = lvwShelf.getSelectionModel().getSelectedItem();
+        if (selectedShelf != null) {
+            lvwPosition.getItems().setAll(selectedShelf.getPositions());
         }
     }
 

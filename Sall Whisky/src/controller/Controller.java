@@ -29,6 +29,10 @@ public abstract class Controller {
         return ripeCasks;
     }
 
+    public static List<Observer> getObservers() {
+        return observers;
+    }
+
     /** Get all casks with Distillatefills */
     public static List<Cask> getCasksWithDistillateOn() {
         ArrayList<Cask> casksWithDestillate = new ArrayList<>();
@@ -223,6 +227,7 @@ public abstract class Controller {
         storage.storeWarehouse(warehouse);
         storage.getStorageCounter().incrementWarehouseCount();
         addObserver(warehouse);
+        notifyObserver();
         return warehouse;
     }
 
@@ -238,6 +243,7 @@ public abstract class Controller {
         warehouse.addRack(rack);
         storage.getStorageCounter().incrementRackCount();
         addObserver(rack);
+        notifyObserver();
         return rack;
     }
 
@@ -253,6 +259,7 @@ public abstract class Controller {
         rack.addShelf(shelf);
         storage.getStorageCounter().incrementShelfCount();
         addObserver(shelf);
+        notifyObserver();
         return shelf;
     }
 
@@ -268,6 +275,7 @@ public abstract class Controller {
         Position position = new Position(id, literCapacity, shelf);
         shelf.addPosition(position);
         storage.getStorageCounter().incrementPositionCount();
+        addObserver(position);
         notifyObserver();
 
         return position;
@@ -527,10 +535,6 @@ public abstract class Controller {
         StringBuilder sb = new StringBuilder();
 
         for (WhiskyFill whiskyFill: whisky.getWhiskyFills()) {
-            System.out.println(whiskyFill.getCask().getCaskId());
-        }
-
-        for (WhiskyFill whiskyFill: whisky.getWhiskyFills()) {
             Cask cask = whiskyFill.getCask();
             sb.append("------------------------------------------");
             sb.append("\n[FadID: " + cask.getCaskId() + " ]");
@@ -622,9 +626,9 @@ public abstract class Controller {
 
     /** Observer methods */
     public static void notifyObserver() {
-            for (Observer observer : observers) {
-                observer.update();
-            }
+        for (int i = observers.size()-1; i >= 0; i--) {
+            observers.get(i).update();
+        }
     }
 
     public static void addObserver(Observer observer) {

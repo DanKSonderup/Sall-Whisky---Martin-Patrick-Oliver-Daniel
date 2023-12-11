@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.MainViewController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="root" stylesheets="@../CRUDRawMaterialsCSS.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.guicontrollers.MainViewController">
    <children>
       <Label layoutX="177.0" layoutY="97.0" text="Fade modnet over 3 år">
          <font>
@@ -41,7 +41,7 @@
          <font>
             <Font name="Century Gothic Bold" size="11.0" />
          </font></Button>
-      <Button fx:id="btnStartside" disable="true" mnemonicParsing="false" onAction="#btnStartSideOnAction" prefHeight="34.0" prefWidth="167.0" text="Startside">
+      <Button fx:id="btnStartside" disable="true" mnemonicParsing="false" prefHeight="34.0" prefWidth="167.0" text="Startside">
          <font>
             <Font name="Century Gothic Bold" size="11.0" />
          </font></Button>
