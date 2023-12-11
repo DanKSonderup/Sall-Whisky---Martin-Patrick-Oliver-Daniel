@@ -170,7 +170,7 @@ public abstract class Controller {
         storage.deleteCask(cask);
     }
 
-    /** Get all available casks */
+    /** Returns all casks not fully filled */
     public static ArrayList<Cask> getAvailableCasks() {
         ArrayList<Cask> availableCasks = new ArrayList<>();
         for (Cask cask: Controller.getCasks()) {
@@ -242,13 +242,17 @@ public abstract class Controller {
     }
 
     /**
-     * Create and return FillOnCask object
+     * Creates and returns a TapFromDistillate object
+     * Creates a fillOnCask object and connects it to the TapFromDistillate and cask
      * Connection is added to cask
      * Connection is added to DistillateFill
-     * If distillateFill is > sizeInLiters (Cask) throw an illegalArgumentException
+     * If sum of distillateFills amount in liters > sizeInLiters (Cask) throw an illegalArgumentException
      * If timeOfFill is after LocalDate.now() throw an illegalArgumentException
+     * If total amount of distillateFills getAmountOfDistillateInLiters is above the Distillates amount
+     * throw IllegalArgumentException
      */
-    public static TapFromDistillate createTapFromDistillate(LocalDate timeOfFill, Cask cask, ArrayList<DistillateFill> distillateFills) throws IllegalArgumentException {
+    public static TapFromDistillate createTapFromDistillate(LocalDate timeOfFill, Cask cask,
+                                                            ArrayList<DistillateFill> distillateFills) throws IllegalArgumentException {
         TapFromDistillate tapFromDistillate = new TapFromDistillate(timeOfFill, cask);
 
         double sum = 0;
@@ -264,7 +268,7 @@ public abstract class Controller {
         for (DistillateFill distillateFill: distillateFills) {
             Distillate distillate = distillateFill.getDistillate();
             if (distillate.getAmountInLiters() - distillateFill.getAmountOfDistillateInLiters() < 0) {
-                throw new IllegalArgumentException("Du prøver at påfylde mere distillat end tilgængeligt");
+                throw new IllegalArgumentException("Du prøver at påfylde mere destillat end tilgængeligt");
             }
             distillate.setAmountInLiters(distillate.getAmountInLiters() - distillateFill.getAmountOfDistillateInLiters());
         }

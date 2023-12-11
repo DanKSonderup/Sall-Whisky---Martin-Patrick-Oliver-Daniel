@@ -248,7 +248,7 @@ public class CreateWhiskyViewController implements Initializable {
 
         tbcCaskID.setCellValueFactory(new PropertyValueFactory<Cask, Integer>("caskId"));
         tbcAlcoholPercentage.setCellValueFactory(new PropertyValueFactory<Cask, Double>("TotalAlcoholPercentage"));
-        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestFillOnCask"));
+        tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestTapFromDistillate"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         updateRipeCasks();
     }
