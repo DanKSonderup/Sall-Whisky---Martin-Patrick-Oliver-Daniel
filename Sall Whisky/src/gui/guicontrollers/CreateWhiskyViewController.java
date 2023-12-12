@@ -67,6 +67,7 @@ public class CreateWhiskyViewController implements Initializable {
         tbcAge.setCellValueFactory(new PropertyValueFactory<Cask, TapFromDistillate>("YoungestTapFromDistillate"));
         tbcTotalLitersOfFills.setCellValueFactory(new PropertyValueFactory<Cask, Double>("CurrentContentInLiters"));
         lvwWhiskybatch.getItems().setAll(Controller.getWhiskyFills());
+        lblTypeOfWhisky.setText(Controller.getWhiskyType(lvwWhiskybatch.getItems()));
         updateRipeCasks();
     }
 
@@ -113,10 +114,12 @@ public class CreateWhiskyViewController implements Initializable {
             return;
         }
         String name = txfWhiskyName.getText().trim();
+
         if (name.isEmpty()) {
             txfWhiskyName.setStyle("-fx-border-color: red;");
             return;
         }
+
         String description = txaDescriptionOfWhisky.getText().trim();
         whisky = Controller.createWhisky(name, waterInLiters, new ArrayList<>(lvwWhiskybatch.getItems()), description);
 
