@@ -221,7 +221,7 @@ public abstract class Controller {
         storage.storeCask(cask);
         position.addCask(cask);
         notifyObserver();
-        // ListStorage.saveStorage(storage);
+        ListStorage.saveStorage(storage);
         return cask;
     }
 
@@ -322,7 +322,7 @@ public abstract class Controller {
         }
         FillOnCask fillOnCask = new FillOnCask(timeOfFill, tapFromDistillate, cask);
         cask.addCurrentFillOnCask(fillOnCask);
-
+        ListStorage.saveStorage(storage);
         return tapFromDistillate;
     }
 
@@ -356,6 +356,7 @@ public abstract class Controller {
         Distillate distillate = new Distillate(newMakenr, distillationTimeInHours, alcoholPercentage, amountInLiters,
                 employee, maltbatches, description);
         storage.storeDistillate(distillate);
+        ListStorage.saveStorage(storage);
         return distillate;
     }
 
@@ -367,6 +368,7 @@ public abstract class Controller {
     public static Maltbatch createMaltbatch (String name, String description, Grain grain) {
         Maltbatch maltbatch = new Maltbatch(name, description, grain);
         storage.storeMaltbatch(maltbatch);
+        ListStorage.saveStorage(storage);
         return maltbatch;
     }
 
@@ -378,6 +380,7 @@ public abstract class Controller {
     public static Grain createGrain (String grainType, GrainSupplier grainSupplier, String cultivationDescription, Field field) {
         Grain grain = new Grain(grainType, grainSupplier, cultivationDescription, field);
         storage.storeGrain(grain);
+        ListStorage.saveStorage(storage);
         return grain;
     }
 
@@ -385,6 +388,7 @@ public abstract class Controller {
     public static Field createField (String name, String description) {
         Field field = new Field(name, description);
         storage.storeField(field);
+        ListStorage.saveStorage(storage);
         return field;
     }
 
@@ -392,6 +396,7 @@ public abstract class Controller {
     public static GrainSupplier createGrainSupplier (String name, String address, String country, String vatId) {
         GrainSupplier grainSupplier = new GrainSupplier(name, address, country, vatId);
         storage.storeGrainSupplier(grainSupplier);
+        ListStorage.saveStorage (storage);
         return grainSupplier;
     }
 
@@ -400,6 +405,7 @@ public abstract class Controller {
     public static CaskSupplier createCaskSupplier (String name, String address, String country, String vatId) {
         CaskSupplier caskSupplier = new CaskSupplier(name, address, country, vatId);
         storage.storeCaskSupplier(caskSupplier);
+        ListStorage.saveStorage(storage);
         return caskSupplier;
     }
 
@@ -410,7 +416,10 @@ public abstract class Controller {
     public static Whisky createWhisky(String name, double waterInLiters, List<WhiskyFill> whiskyFills, String description) {
         Whisky whisky = new Whisky(name,waterInLiters, whiskyFills, description);
         storage.storeWhisky(whisky);
-
+        for (WhiskyFill whiskyFill: whiskyFills) {
+            storage.removeWhiskyFill(whiskyFill);
+        }
+        ListStorage.saveStorage(storage);
         return whisky;
     }
 

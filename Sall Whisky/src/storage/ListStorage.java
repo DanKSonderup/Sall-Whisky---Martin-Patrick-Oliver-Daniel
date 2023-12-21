@@ -154,6 +154,11 @@ public class ListStorage implements Storage, Serializable {
         whiskyFills.add(whiskyFill);
     }
 
+    @Override
+    public void removeWhiskyFill(WhiskyFill whiskyFill) {
+        whiskyFills.remove(whiskyFill);
+    }
+
     // ---------------------------------------------------------------------
     /** Whisky */
     // ---------------------------------------------------------------------
