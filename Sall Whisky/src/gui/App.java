@@ -21,11 +21,12 @@ public class App {
         Controller.setStorage(storage);
 
 
+        // Only used the first time program is run for base data
         // initStorage();
 
         Application.launch(Gui.class);
 
-        // ListStorage.saveStorage(storage);
+        ListStorage.saveStorage(storage);
     }
 
     public static void initStorage() {

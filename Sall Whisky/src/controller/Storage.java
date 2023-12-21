@@ -85,6 +85,7 @@ public interface Storage {
     // ---------------------------------------------------------------------
     List<WhiskyFill> getWhiskyFills();
     void storeWhiskyFill(WhiskyFill whiskyFill);
+    void removeWhiskyFill(WhiskyFill whiskyFill);
 
     // ---------------------------------------------------------------------
     /** Whisky */
